@@ -1,6 +1,8 @@
-version: '3'
-    services:
-        laravel:
-            build: laravel
-        nginx:
-            build: nginx
+version: '3.7'
+services:
+    laravel:
+        build: ./laravel
+        
+    nginx:
+        build: ./nginx
+       
