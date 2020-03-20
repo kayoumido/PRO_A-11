@@ -3,11 +3,6 @@ services:
     laravel:
         build: ./laravel
         volumes:
-            - ../src/www:/var/www
-
-    nginx:
-        build: ./nginx
+            - ../src/:/var/www/
         ports:
-            - 8000:80
-        volumes :
-            - ../src/www:/var/www
+            - 42090:9000

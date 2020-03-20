@@ -51,5 +51,8 @@ RUN chown -R www-data:www-data /var/www
 
 # become www-data and expose app
 USER www-data
-EXPOSE 8080
+
+# let other dockers access FPM via port 80
+#EXPOSE 9000
+
 CMD ["php-fpm"]
