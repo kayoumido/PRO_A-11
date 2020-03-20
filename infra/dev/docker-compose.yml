@@ -16,5 +16,6 @@ services:
         container_name: dev_laravel
         volumes:
             - ../src/:/var/www/
+            - ./laravel/php-fpm.conf:/usr/local/etc/php-fpm.d/zz-docker.conf
         ports:
             - 42090:9000
