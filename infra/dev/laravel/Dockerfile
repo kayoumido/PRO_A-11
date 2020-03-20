@@ -40,13 +40,18 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 # install Laravel from Composer
 RUN /usr/local/bin/composer global require laravel/installer
 
+# node.js installation
+RUN curl -sL https://deb.nodesource.com/setup_12.x | bash - && apt-get install -y nodejs
+
+WORKDIR /var/www/
+
+RUN npm init -y && npm install vue --save
+
 # copy app to www
 # needed ?
-COPY . /var/www
+# COPY . /var/www
 
 # create user and own www
-# RUN groupadd -g 1000 www-data
-# RUN useradd -u 1000 -ms /bin/bash -g www-data www-data
 RUN chown -R www-data:www-data /var/www
 
 # become www-data and expose app
