@@ -1,5 +1,16 @@
 version: '3.7'
 services:
+    nginx:
+#        build: ./nginx
+        image: nginx:latest
+        container_name: dev_nginx
+        ports:
+            - 42080:80
+        volumes :
+            - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+            - ./nginx/www:/var/www
+        depends_on:
+            - laravel
     laravel:
         build: ./laravel
         container_name: dev_laravel
