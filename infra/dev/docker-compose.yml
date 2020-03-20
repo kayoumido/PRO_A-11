@@ -25,8 +25,10 @@ services:
             - paul_net
 
     db:
-        build: ./postgres
+        image: postgres:12.2
         restart: always
+        ports: 
+            - 5432:5432
         volumes: 
             - ./initScript:/docker-entrypoint-initdb.d
         environment: 
