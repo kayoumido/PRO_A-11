@@ -2,7 +2,7 @@ version: '3.7'
 services:
     nginx:
 #        build: ./nginx
-        image: nginx:latest
+        image: nginx:1.17.9
         container_name: dev_nginx
         ports:
             - 42080:80
@@ -11,6 +11,9 @@ services:
             - ./nginx/www:/var/www
         depends_on:
             - laravel
+        networks: 
+            - paul_net
+
     laravel:
         build: ./laravel
         container_name: dev_laravel
@@ -19,3 +22,25 @@ services:
             - ./laravel/php-fpm.conf:/usr/local/etc/php-fpm.d/zz-docker.conf
         ports:
             - 42090:9000
+        networks: 
+            - paul_net
+
+    db:
+        build: ./postgres
+        restart: always
+        volumes: 
+            - ./initScript:/docker-entrypoint-initdb.d
+        environment: 
+            POSTGRES_USER: laravel
+            POSTGRES_PASSWORD: passPRO
+    adminer:
+        image: adminer
+        restart: always
+        depends_on: 
+            - db
+
+    # Docker network
+    # here we define a small bridge network for all of our containers
+networks: 
+    paul_net:
+        driver: bridge
