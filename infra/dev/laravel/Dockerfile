@@ -21,7 +21,8 @@ RUN apt-get update && apt-get install -y \
     vim \
     unzip \
     curl \
-    libzip-dev
+    libzip-dev \
+    htop
 
 
 # install own dependencies
