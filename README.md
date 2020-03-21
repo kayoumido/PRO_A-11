@@ -49,15 +49,46 @@ docker-compose build
 
 ## Run
 
-1. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-   nisi ut aliquip ex ea commodo consequat.
+1. To start the containers in the start (always in the same folder as docker-compose.yml)
+   
+```
+docker-compose up # to start the stack
+docker-compose up -d # to start the stack and detach the terminal
+```
+   
+2. go to http://localhost check
 
-2. Duis aute irure dolor in reprehenderit in voluptate velit esse
-   cillum dolore eu fugiat nulla pariatur.
+## VueJs setup (TEMP)
 
-3. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
-   officia deserunt mollit anim id est laborum.
+1. Inside the container __laravel__
+2. go to the project folder
+3. set up dependencies
+```
+composer require laravel/ui
+```
+4. Setup VueJs
+```
+php artisan ui vue
+npm install && npm run dev
+```
 
+## Usefule command
+1. Stop all container in the stack (always in the same folder as docker-compose.yml)
+```
+docker-compose stop
+```
+2. Stop and delete all containers in the stack
+```
+docker-compose down
+```
+3. Start a shell inside a running container
+```
+docker exec -it --user=foo container_name bash # if --user is not specifie it is the last user set in the dockerfile
+```
+4. List running container
+```
+docker ps
+```
 ## Documentation
 
 User manual: see file xxxxx.
