@@ -37,25 +37,33 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 
 # install Laravel from Composer
 RUN /usr/local/bin/composer global require laravel/installer
+# get Vue JS from composer
+RUN composer global require laravel/ui
+
 
 # node.js installation
 RUN curl -sL https://deb.nodesource.com/setup_12.x | bash - && apt-get install -y nodejs
 
 WORKDIR /var/www/
 
-RUN npm init -y && npm install vue --save
-
 # copy app to www
 # needed ?
 # COPY . /var/www
 
-# create user and own www
+# www-data own www
 RUN chown -R www-data:www-data /var/www
+
+# Add user for laravel application
+RUN groupadd -g 1000 laravel
+RUN useradd -u 1000 -ms /bin/bash -g laravel laravel
+
+# Copy existing application directory permissions
+COPY --chown=laravel:laravel . /var/www
 
 # become www-data and expose app
 USER www-data
 
 # let other dockers access FPM via port 80
-#EXPOSE 9000
+# EXPOSE 9000
 
 CMD ["php-fpm"]
