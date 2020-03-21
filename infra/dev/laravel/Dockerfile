@@ -21,13 +21,11 @@ RUN apt-get update && apt-get install -y \
     vim \
     unzip \
     curl \
-    libzip-dev \
-    htop
-
+    libzip-dev
 
 # install own dependencies
 # needed ?
-RUN apt-get install -y git php-zip
+RUN apt-get install -y git php-zip htop net-tools
 
 # apt cleanup
 RUN apt-get autoremove -y
