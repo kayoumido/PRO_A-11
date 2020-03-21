@@ -27,6 +27,7 @@ services:
 
     db:
         image: postgres:12.2
+        container_name: dev_postgres
         restart: always
         ports: 
             - 5432:5432
@@ -40,6 +41,8 @@ services:
         restart: always
         depends_on: 
             - db
+        ports:
+            - 8080:8080
 
     # Docker network
     # here we define a small bridge network for all of our containers
