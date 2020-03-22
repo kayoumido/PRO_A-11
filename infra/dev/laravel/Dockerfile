@@ -1,9 +1,6 @@
 # use Debian Buster (10) with FPM
 FROM php:7.4.3-fpm-buster
 
-# work directly from www directory
-WORKDIR /var/www
-
 # unlock php deb package
 RUN rm /etc/apt/preferences.d/no-debian-php
 
@@ -24,11 +21,7 @@ RUN apt-get update && apt-get install -y \
     libzip-dev
 
 # install own dependencies
-# needed ?
 RUN apt-get install -y git php-zip htop net-tools
-
-# apt cleanup
-RUN apt-get autoremove -y
 
 RUN docker-php-ext-install pdo zip
 
@@ -41,24 +34,21 @@ RUN /usr/local/bin/composer global require laravel/installer
 # node.js installation
 RUN curl -sL https://deb.nodesource.com/setup_12.x | bash - && apt-get install -y nodejs
 
-WORKDIR /var/www/
+# clone repo and install it at /var/www
+WORKDIR /tmp
+RUN git clone https://github.com/kayoumido/HEIGVD-PRO-A-11.git \
+    && cd HEIGVD-PRO-A-11 \
+    && git checkout 5-Docker \
+    && cp -r src/* /var/www/
 
-# copy app to www
-# needed ?
-# COPY . /var/www
+# make www-data own /var/www
+USER root
+RUN chown -R www-data:www-data /var/www
 
+# update dependencies with composer
+USER www-data
+WORKDIR /var/www
+RUN composer install && composer update
 
-# Add user for laravel application
-RUN useradd -u 1000 -s /bin/bash -g www-data laravel
-
-# www-data own www
-RUN chown -R laravel:www-data /var/www
-
-# become laravel and expose app
-USER laravel
-# USER www-data 
-
-# let other dockers access FPM via port 80
-# EXPOSE 9000
-
+# start PHP-FPM
 CMD ["php-fpm"]
