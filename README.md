@@ -20,6 +20,14 @@ Development team:
 
 Below you will find all information related on how to get the development environment up and running.
 
+### Steps
+
+1. [Install dependencies](#dependencies)
+2. [Build Docker containers](#build-docker-containers)
+3. [Copy secrets](#copy-secrets)
+4. [Run Docker stack](#run-docker-stack)
+
+
 ### Dependencies
 
 This project requires:
@@ -48,18 +56,29 @@ cd infra/dev
 ```
 docker-compose build
 ```
-4. The build will take some times so go get a coffee
+4. The build will take some times so go get a coffee.
 
-### Run Docker containers
+### Copy secrets
 
-1. To start the containers, run the following (still in the same folder as the `docker-compose.yml`)
+App secrets are obviously not stored in the repo.
+
+For Laravel, place your `.env` in `infra/dev/laravel/`.
+
+### Run Docker stack
+
+To start the containers, run the following (still in the same folder as the `docker-compose.yml`)
 
 ```
 docker-compose up # to start the stack
 docker-compose up -d # to start the stack and detach the terminal
 ```
 
-2. Go to http://localhost and check everything works as intended
+Check on which IP belongs to the Web server (look for `IPAddress`)
+```
+docker inspect dev_nginx
+```
+
+Finally, go to http://ipaddr and check everything works nominally.
 
 ### VueJs setup (TEMP)
 
@@ -89,7 +108,8 @@ docker-compose down
 ```
 3. Start a shell inside a running container
 ```
-docker exec -it --user=foo container_name bash # if --user is not specified, the last user set in the corresponding Dockerfile in used
+docker exec -it --user=foo container_name bash
+# if --user is not specified, the last user set in the corresponding Dockerfile in used
 ```
 4. List running containers
 ```
