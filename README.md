@@ -80,6 +80,8 @@ docker inspect dev_nginx
 
 Finally, go to http://ipaddr and check everything works nominally.
 
+**Note: nginx serves files from the `src/public` directory.**
+
 ### VueJs setup (TEMP)
 
 1. Inside the container __laravel__
