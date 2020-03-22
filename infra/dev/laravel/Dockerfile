@@ -38,7 +38,7 @@ RUN curl -sL https://deb.nodesource.com/setup_12.x | bash - && apt-get install -
 WORKDIR /tmp
 RUN git clone https://github.com/kayoumido/HEIGVD-PRO-A-11.git \
     && cd HEIGVD-PRO-A-11 \
-    && git checkout 5-Docker \
+    && git checkout develop \
     && cp -r src/* /var/www/
 
 # make www-data own /var/www
