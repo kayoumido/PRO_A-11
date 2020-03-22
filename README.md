@@ -16,9 +16,13 @@ Development team:
 | Rui Lopes Gouveia                            | rui.lopesgouveia@heig-vd.ch     | Lindwing   |
 | Alban Favre                                  | alban.favre@heig-vd.ch          | alfavre    |
 
+## **Development**
+
+Below you will find all information related on how to get the development environment up and running.
+
 ## Dependencies
 
-This project require the followings :
+This project requires:
 
 - git
   - https://git-scm.com/downloads
@@ -27,36 +31,35 @@ This project require the followings :
 - Docker-compose
   - https://docs.docker.com/compose/install/
 
-The containers will embedded the other dependencies
+The containers will embed the other dependencies.
 
-
-## Build and install
+## Build Docker containers
 
 1. Clone this repository
 ```
 git clone git@github.com:kayoumido/HEIGVD-PRO-A-11.git
 ```
 
-2. Go to the ``dev`` folder
+2. Go to the appropriate environment folder (ex. ``dev``)
 ```
 cd infra/dev
 ```
-3. Run docker compose to build all of the container, be sur to be in the dev folder
+3. Run docker-compose to build all the container images
 ```
 docker-compose build
 ```
-4. the build will take some times (go get a coffee)
+4. The build will take some times so go get a coffee
 
-## Run
+## Run Docker containers
 
-1. To start the containers in the start (always in the same folder as docker-compose.yml)
-   
+1. To start the containers, run the following (still in the same folder as the `docker-compose.yml`)
+
 ```
 docker-compose up # to start the stack
 docker-compose up -d # to start the stack and detach the terminal
 ```
-   
-2. go to http://localhost check
+
+2. Go to http://localhost and check everything works as intended
 
 ## VueJs setup (TEMP)
 
@@ -72,8 +75,11 @@ php artisan ui vue
 npm install && npm run dev
 ```
 
-## Usefule command
-1. Stop all container in the stack (always in the same folder as docker-compose.yml)
+## Useful commands
+
+Below are some shell commands useful when working with the Docker stack.
+
+1. Stop all container in the stack (still in the same folder as `docker-compose.yml`)
 ```
 docker-compose stop
 ```
@@ -83,12 +89,13 @@ docker-compose down
 ```
 3. Start a shell inside a running container
 ```
-docker exec -it --user=foo container_name bash # if --user is not specifie it is the last user set in the dockerfile
+docker exec -it --user=foo container_name bash # if --user is not specified, the last user set in the corresponding Dockerfile in used
 ```
-4. List running container
+4. List running containers
 ```
 docker ps
 ```
+
 ## Documentation
 
 User manual: see file xxxxx.
