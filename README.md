@@ -82,20 +82,6 @@ Finally, go to http://ipaddr and check everything works nominally.
 
 **Note: nginx serves files from the `src/public` directory.**
 
-### VueJs setup (TEMP)
-
-1. Inside the container __laravel__
-2. go to the project folder
-3. set up dependencies
-```
-composer require laravel/ui
-```
-4. Setup VueJs
-```
-php artisan ui vue
-npm install && npm run dev
-```
-
 ### Useful commands
 
 Below are some shell commands useful when working with the Docker stack.
