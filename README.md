@@ -20,7 +20,7 @@ Development team:
 
 Below you will find all information related on how to get the development environment up and running.
 
-## Dependencies
+### Dependencies
 
 This project requires:
 
@@ -33,7 +33,7 @@ This project requires:
 
 The containers will embed the other dependencies.
 
-## Build Docker containers
+### Build Docker containers
 
 1. Clone this repository
 ```
@@ -50,7 +50,7 @@ docker-compose build
 ```
 4. The build will take some times so go get a coffee
 
-## Run Docker containers
+### Run Docker containers
 
 1. To start the containers, run the following (still in the same folder as the `docker-compose.yml`)
 
@@ -61,7 +61,7 @@ docker-compose up -d # to start the stack and detach the terminal
 
 2. Go to http://localhost and check everything works as intended
 
-## VueJs setup (TEMP)
+### VueJs setup (TEMP)
 
 1. Inside the container __laravel__
 2. go to the project folder
@@ -75,7 +75,7 @@ php artisan ui vue
 npm install && npm run dev
 ```
 
-## Useful commands
+### Useful commands
 
 Below are some shell commands useful when working with the Docker stack.
 
@@ -96,7 +96,7 @@ docker exec -it --user=foo container_name bash # if --user is not specified, the
 docker ps
 ```
 
-## Documentation
+### Documentation
 
 User manual: see file xxxxx.
 
