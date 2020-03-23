@@ -64,6 +64,8 @@ App secrets are obviously not stored in the repo.
 
 For Laravel, place your `.env` in `infra/dev/laravel/`. **You must ask a team member to provide you with this file or find it in the Telegram group.**
 
+**Note:** Source code is cloned from the `develop` branch. If you need to use another branch, change that in `infra/dev/laravel/Dockerfile` near the `git checkout` command.
+
 ### Run Docker stack
 
 To start the containers, run the following (still in the same folder as the `docker-compose.yml`)
