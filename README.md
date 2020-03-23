@@ -62,7 +62,7 @@ docker-compose build
 
 App secrets are obviously not stored in the repo.
 
-For Laravel, place your `.env` in `infra/dev/laravel/`.
+For Laravel, place your `.env` in `infra/dev/laravel/`. **You must ask a team member to provide you with this file or find it in the Telegram group.**
 
 ### Run Docker stack
 
