@@ -16,32 +16,97 @@ Development team:
 | Rui Lopes Gouveia                            | rui.lopesgouveia@heig-vd.ch     | Lindwing   |
 | Alban Favre                                  | alban.favre@heig-vd.ch          | alfavre    |
 
-## Dependencies
+## **Development**
+
+Below you will find all information related on how to get the development environment up and running.
+
+### Steps
+
+1. [Install dependencies](#dependencies)
+2. [Build Docker containers](#build-docker-containers)
+3. [Copy secrets](#copy-secrets)
+4. [Run Docker stack](#run-docker-stack)
 
 
-## Build and install
+### Dependencies
 
-1. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-   nisi ut aliquip ex ea commodo consequat.
+This project requires:
 
-2. Duis aute irure dolor in reprehenderit in voluptate velit esse
-   cillum dolore eu fugiat nulla pariatur.
+- git
+  - https://git-scm.com/downloads
+- Docker (up-to-date version)
+  - https://docs.docker.com/install/
+- Docker-compose
+  - https://docs.docker.com/compose/install/
 
-3. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
-   officia deserunt mollit anim id est laborum.
+The containers will embed the other dependencies.
 
-## Run
+### Build Docker containers
 
-1. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-   nisi ut aliquip ex ea commodo consequat.
+1. Clone this repository
+```
+git clone git@github.com:kayoumido/HEIGVD-PRO-A-11.git
+```
 
-2. Duis aute irure dolor in reprehenderit in voluptate velit esse
-   cillum dolore eu fugiat nulla pariatur.
+2. Go to the appropriate environment folder (ex. ``dev``)
+```
+cd infra/dev
+```
+3. Run docker-compose to build all the container images
+```
+docker-compose build
+```
+4. The build will take some times so go get a coffee.
 
-3. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
-   officia deserunt mollit anim id est laborum.
+### Copy secrets
 
-## Documentation
+App secrets are obviously not stored in the repo.
+
+For Laravel, place your `.env` in `infra/dev/laravel/`. **You must ask a team member to provide you with this file or find it in the Telegram group.**
+
+**Note:** Source code is cloned from the `develop` branch. If you need to use another branch, change that in `infra/dev/laravel/Dockerfile` near the `git checkout` command.
+
+### Run Docker stack
+
+To start the containers, run the following (still in the same folder as the `docker-compose.yml`)
+
+```
+docker-compose up # to start the stack
+docker-compose up -d # to start the stack and detach the terminal
+```
+
+Check on which IP belongs to the Web server (look for `IPAddress`)
+```
+docker inspect dev_nginx
+```
+
+Finally, go to http://ipaddr and check everything works nominally.
+
+**Note: nginx serves files from the `src/public` directory.**
+
+### Useful commands
+
+Below are some shell commands useful when working with the Docker stack.
+
+1. Stop all container in the stack (still in the same folder as `docker-compose.yml`)
+```
+docker-compose stop
+```
+2. Stop and delete all containers in the stack
+```
+docker-compose down
+```
+3. Start a shell inside a running container
+```
+docker exec -it --user=foo container_name bash
+# if --user is not specified, the last user set in the corresponding Dockerfile in used
+```
+4. List running containers
+```
+docker ps
+```
+
+### Documentation
 
 User manual: see file xxxxx.
 
