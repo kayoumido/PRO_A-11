@@ -29,8 +29,6 @@ services:
     volumes:
       - ../../src:/var/www
     command: npm install
-    depends_on:
-      - composer
 
   laravel:
     build:

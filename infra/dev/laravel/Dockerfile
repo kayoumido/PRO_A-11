@@ -14,9 +14,6 @@ RUN apt-get update && apt-get install -y libpq5 libpq-dev
 
 RUN docker-php-ext-install pdo_pgsql
 
-# install Composer directly
-# RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-
 USER user
 WORKDIR /var/www
 CMD ["php-fpm"]
