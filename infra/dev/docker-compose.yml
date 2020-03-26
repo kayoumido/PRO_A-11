@@ -20,8 +20,8 @@ services:
     volumes:
       - ../../src:/var/www
     command: composer install
-  
-  #NodeJs container will simply compile the package.json 
+
+  #NodeJs container will simply compile the package.json
   nodejs:
     image: node:lts
     user: ${USER_ID}:${GROUP_ID}
