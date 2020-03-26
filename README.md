@@ -22,10 +22,14 @@ Below you will find all information related on how to get the development enviro
 
 ### Steps
 
-1. [Install dependencies](#dependencies)
-2. [Build Docker containers](#build-docker-containers)
-3. [Copy secrets](#copy-secrets)
-4. [Run Docker stack](#run-docker-stack)
+- [Paul](#paul)
+  - [**Development**](#development)
+    - [Steps](#steps)
+    - [Dependencies](#dependencies)
+    - [Build Docker containers](#build-docker-containers)
+    - [Run Docker stack](#run-docker-stack)
+    - [Useful commands](#useful-commands)
+    - [Documentation](#documentation)
 
 
 ### Dependencies
@@ -52,27 +56,26 @@ git clone git@github.com:kayoumido/HEIGVD-PRO-A-11.git
 ```
 cd infra/dev
 ```
-3. Run docker-compose to build all the container images
+3. to setup the environment the first time execute (this will start also startup the containers)
+
+```bash
+./setup-env.sh
+# NB: this script simply run this comment
+USER_ID=$(id -u) GROUP_ID=$(id -g)  docker-compose up --build
 ```
-docker-compose build
-```
+
 4. The build will take some times so go get a coffee.
 
-### Copy secrets
-
-App secrets are obviously not stored in the repo.
-
-For Laravel, place your `.env` in `infra/dev/laravel/`. **You must ask a team member to provide you with this file or find it in the Telegram group.**
-
-**Note:** Source code is cloned from the `develop` branch. If you need to use another branch, change that in `infra/dev/laravel/Dockerfile` near the `git checkout` command.
 
 ### Run Docker stack
 
 To start the containers, run the following (still in the same folder as the `docker-compose.yml`)
 
-```
-docker-compose up # to start the stack
-docker-compose up -d # to start the stack and detach the terminal
+5. Afterward to start up the container just run (avoid re-build)
+```bash
+./start-env.sh
+# NB: this script simply run this comment
+USER_ID=$(id -u) GROUP_ID=$(id -g) docker-compose up laravel nginx db adminer
 ```
 
 Check on which IP belongs to the Web server (look for `IPAddress`)
@@ -93,11 +96,11 @@ Below are some shell commands useful when working with the Docker stack.
 docker-compose stop
 ```
 2. Stop and delete all containers in the stack
-```
+```bash
 docker-compose down
 ```
 3. Start a shell inside a running container
-```
+```bash
 docker exec -it --user=foo container_name bash
 # if --user is not specified, the last user set in the corresponding Dockerfile in used
 ```
