@@ -1,7 +1,6 @@
 version: '3.7'
 services:
     nginx:
-#        build: ./nginx
         image: nginx:stable
         container_name: dev_nginx
         ports:
@@ -50,7 +49,7 @@ services:
         ports:
             - 5432:5432
         volumes:
-            - ./podtgres/initScript:/docker-entrypoint-initdb.d
+            - ./postgres/initScript:/docker-entrypoint-initdb.d
         environment:
             POSTGRES_USER: laravel
             POSTGRES_PASSWORD: passPRO
