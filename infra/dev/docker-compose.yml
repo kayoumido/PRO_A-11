@@ -2,28 +2,46 @@ version: '3.7'
 services:
     nginx:
 #        build: ./nginx
-        image: nginx:1.17.9
+        image: nginx:stable
         container_name: dev_nginx
         ports:
-            - 42080:80
+            - 80:80
         volumes :
             - ./nginx/nginx.conf:/etc/nginx/nginx.conf
-            - ./nginx/www:/var/www
         depends_on:
             - laravel
         networks:
             - paul_net
+  
+  # Here we delegate the dependency installation to composer container
+    composer:
+      image: composer:latest
+      user: ${USER_ID}:${GROUP_ID}
+      working_dir: /var/www
+      volumes:
+        - ../../src:/var/www
+      command: composer install
 
     laravel:
-        build: ./laravel
-        container_name: dev_laravel
-        volumes:
-            - ./laravel/.env:/var/www/.env
-            - ./laravel/php-fpm.conf:/usr/local/etc/php-fpm.d/zz-docker.conf
-        ports:
-            - 42090:9000
-        networks:
-            - paul_net
+      build:
+        context: ./laravel
+        args:
+          USER_ID: ${USER_ID}
+          GROUP_ID: ${GROUP_ID}
+      container_name: dev_laravel
+      volumes:
+        - ../../src:/var/www
+        - ./laravel/php-fpm.conf:/usr/local/etc/php-fpm.d/zz-docker.conf
+  
+      ports:
+        - 42090:9000
+  
+      networks:
+        - paul_net
+  
+      depends_on:
+        - composer
+        - db
 
     db:
         image: postgres:12.2
@@ -32,7 +50,7 @@ services:
         ports:
             - 5432:5432
         volumes:
-            - ./initScript:/docker-entrypoint-initdb.d
+            - ./podtgres/initScript:/docker-entrypoint-initdb.d
         environment:
             POSTGRES_USER: laravel
             POSTGRES_PASSWORD: passPRO
