@@ -1,9 +1,8 @@
+name: Laravel
 # in this file we describe the action to execute for the CI in the dev pipeline
 
 # based on default laravel workflow
 # https://github.com/actions/starter-workflows/blob/master/ci/laravel.yml
-name: Laravel
-
 on:
   push:
     branches: 
@@ -20,10 +19,8 @@ jobs:
     
     steps:
     - uses: actions/checkout@v2
-    # we need to go in our source folder
     - name: move in source
     - run: cd ./src
-    # default configuration
     - name: Copy .env
       run: php -r "file_exists('.env') || copy('.env.example', '.env');"
     - name: Install Dependencies
