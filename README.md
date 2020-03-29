@@ -82,7 +82,7 @@ USER_ID=$(id -u) GROUP_ID=$(id -g) docker-compose up laravel nginx db adminer
 **Note: nginx serves files from the `src/public` directory.**
 
 ### Start development
-Before accessing the app in your browser, you need to setup the `.env` file.
+Before accessing the app in your browser, you need to setup the `.env` within the laravel source code.
 
 First, you need to copy it from the example file.
 
