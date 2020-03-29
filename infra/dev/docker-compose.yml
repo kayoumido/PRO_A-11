@@ -12,30 +12,9 @@ services:
     networks:
       - paul_net
 
-  # Here we delegate the dependency installation to composer container
-  composer:
-    image: composer:latest
-    user: ${USER_ID}:${GROUP_ID}
-    working_dir: /var/www
-    volumes:
-      - ../../src:/var/www
-    command: composer install
-
-  #NodeJs container will simply compile the package.json
-  nodejs:
-    image: node:lts
-    user: ${USER_ID}:${GROUP_ID}
-    working_dir: /var/www
-    volumes:
-      - ../../src:/var/www
-    command: npm install
-
   laravel:
     build:
       context: ./laravel
-      args:
-        USER_ID: ${USER_ID}
-        GROUP_ID: ${GROUP_ID}
     container_name: dev_laravel
     volumes:
       - ../../src:/var/www
@@ -43,9 +22,8 @@ services:
     ports:
       - 42090:9000
     networks:
-      - paul_net
+      - paul_net  
     depends_on:
-      - composer
       - db
 
   db:
