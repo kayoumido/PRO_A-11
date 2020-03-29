@@ -22,7 +22,7 @@ services:
     ports:
       - 42090:9000
     networks:
-      - paul_net  
+      - paul_net
     depends_on:
       - db
 
