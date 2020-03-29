@@ -90,7 +90,7 @@ First, you need to copy it from the example file.
 cp .env.example .env
 ```
 
-You then need ot edit the database info. Here is the config used by the Docker enverionment you just setup:
+You then need to edit the database info. Here is the config used by the Docker environment you just setup:
 ```
 DB_CONNECTION=pgsql
 DB_HOST=db
