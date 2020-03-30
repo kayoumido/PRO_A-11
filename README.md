@@ -39,9 +39,9 @@ This project requires:
 
 - git
   - https://git-scm.com/downloads
-- Docker (up-to-date version)
+- Docker (v19.03.8-cd)
   - https://docs.docker.com/install/
-- Docker-compose
+- Docker-compose (v1.25.4)
   - https://docs.docker.com/compose/install/
 
 The containers will embed the other dependencies.
