@@ -53,56 +53,21 @@ The containers will embed the other dependencies.
 git clone git@github.com:kayoumido/HEIGVD-PRO-A-11.git
 ```
 
-2. Go to the appropriate environment folder (ex. ``dev``)
+1. Copy the file `src/.env.example` into `src/.env` and fill it with the environnement details
+
+1. Go to the appropriate environment folder (ex. ``dev``)
 ```
 cd infra/dev
 ```
-3. to setup the environment the first time execute (this will start also startup the containers)
-
-```bash
-./setup-env.sh
-# NB: this script simply run this comment
-USER_ID=$(id -u) GROUP_ID=$(id -g)  docker-compose up --build
-```
-
-4. The build will take some times so go get a coffee.
-
-
-### Run Docker stack
-
-To start the containers, run the following (still in the same folder as the `docker-compose.yml`)
-
-5. Afterward to start up the container just run (avoid re-build)
-```bash
-./start-env.sh
-# NB: this script simply run this comment
-USER_ID=$(id -u) GROUP_ID=$(id -g) docker-compose up laravel nginx db adminer
-```
-
-**Note: nginx serves files from the `src/public` directory.**
-
-### Start development
-Before accessing the app in your browser, you need to setup the `.env` within the laravel source code.
-
-First, you need to copy it from the example file.
-
-```
-cp .env.example .env
-```
-
-You then need to edit the database info. Here is the config used by the Docker environment you just setup:
-```
-DB_CONNECTION=pgsql
-DB_HOST=db
-DB_PORT=5432
-DB_DATABASE=laravel
-DB_USERNAME=laravel
-DB_PASSWORD=passPRO
-```
-
-And now, you can now go to `http://localhost:80` and check that everything is working.
-
-**Note: 80 is the port configured for the nginx server in the `docker-compose.yml`**
+1. Build your docker environment `sudo docker-compose build`
+1. Start your docker environment `sudo docker-compose up -d`
+1. Install composer dependencies following your environment (eg for dev: `sudo docker exec dev_laravel composer install`)
+1. Install node dependencies following your environment (eg for dev: `sudo docker exec dev_laravel npm install`)
+1. Compile node vues following your environment (eg for dev: `sudo docker exec dev_laravel npm run dev`)
+1. Generate your app key `sudo docker exec dev_laravel php artisan key:generate`
+1. Migrate the database `sudo docker exec dev_laravel php artisan migrate`
+1. Fill the database `sudo docker exec dev_laravel php artisan db:seed`
+1. The website should now be available with the following url: http://localhost
 
 ### Useful commands
 
