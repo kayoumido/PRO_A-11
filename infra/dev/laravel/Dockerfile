@@ -18,7 +18,7 @@ RUN chown -R $USER_ID:$GROUP_ID /var/www
 
 
 # install Laravel's PHP dependencies
-RUN apt-get update && apt-get install -y libpq5 libpq-dev
+RUN apt-get update && apt-get install -y libpq5 libpq-dev zip unzip git libzip-dev
 
 # install node + npm
 
@@ -28,7 +28,7 @@ RUN apt-get install -y nodejs
 # install composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-RUN docker-php-ext-install pdo_pgsql
+RUN docker-php-ext-install pdo_pgsql zip
 
 USER user
 
