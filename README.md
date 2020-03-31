@@ -1,11 +1,25 @@
 # Paul
 
+- [Paul](#paul)
+  - [About](#about)
+  - [Contributers](#contributers)
+  - [Getting started](#getting-started)
+    - [Dependencies](#dependencies)
+    - [Configure environnment](#configure-environnment)
+    - [Build Docker containers](#build-docker-containers)
+    - [Install dependencies](#install-dependencies)
+    - [Setup Laravel](#setup-Laravel)
+    - [Working with Vue.js](#working-with-vuejs)
+    - [Start hacking :trollface:](#start-hacking-trollface)
+    - [Useful commands](#useful-commands)
+
+## About
 <PROJECT_DESCRIPTION>
 
 This software was developed as semester project (PRO) at HEIG-VD,
 academic year 2019/20.
 
-Development team:
+## Contributers
 
 | Name                                         | Email                           | Github     |
 |----------------------------------------------|---------------------------------|------------|
@@ -16,81 +30,35 @@ Development team:
 | Rui Lopes Gouveia                            | rui.lopesgouveia@heig-vd.ch     | Lindwing   |
 | Alban Favre                                  | alban.favre@heig-vd.ch          | alfavre    |
 
-## **Development**
+## Getting started
 
 Below you will find all information related on how to get the development environment up and running.
-
-### Steps
-
-- [Paul](#paul)
-  - [**Development**](#development)
-    - [Steps](#steps)
-    - [Dependencies](#dependencies)
-    - [Build Docker containers](#build-docker-containers)
-    - [Run Docker stack](#run-docker-stack)
-    - [Start development](#start-development)
-    - [Useful commands](#useful-commands)
-    - [Documentation](#documentation)
-
 
 ### Dependencies
 
 This project requires:
 
-- git
-  - https://git-scm.com/downloads
-- Docker (v19.03.8-cd)
-  - https://docs.docker.com/install/
-- Docker-compose (v1.25.4)
-  - https://docs.docker.com/compose/install/
+- [git](https://git-scm.com/downloads)
+  - v2.26.0
+- [Docker](https://docs.docker.com/install/)
+  - v19.03.8-cd
+- [Docker-compose](https://docs.docker.com/compose/install/)
+  - v1.25.4
 
 The containers will embed the other dependencies.
 
-### Build Docker containers
 
+### Configure environnment
 1. Clone this repository
 ```
 git clone git@github.com:kayoumido/HEIGVD-PRO-A-11.git
 ```
 
-2. Go to the appropriate environment folder (ex. ``dev``)
-```
-cd infra/dev
-```
-3. to setup the environment the first time execute (this will start also startup the containers)
+2. Copy the file `src/.env.example` into `src/.env` and fill it with the environnement details
 
-```bash
-./setup-env.sh
-# NB: this script simply run this comment
-USER_ID=$(id -u) GROUP_ID=$(id -g)  docker-compose up --build
-```
+here's the details for the database used for dev
 
-4. The build will take some times so go get a coffee.
-
-
-### Run Docker stack
-
-To start the containers, run the following (still in the same folder as the `docker-compose.yml`)
-
-5. Afterward to start up the container just run (avoid re-build)
-```bash
-./start-env.sh
-# NB: this script simply run this comment
-USER_ID=$(id -u) GROUP_ID=$(id -g) docker-compose up laravel nginx db adminer
-```
-
-**Note: nginx serves files from the `src/public` directory.**
-
-### Start development
-Before accessing the app in your browser, you need to setup the `.env` within the laravel source code.
-
-First, you need to copy it from the example file.
-
-```
-cp .env.example .env
-```
-
-You then need to edit the database info. Here is the config used by the Docker environment you just setup:
+*Note: If you changed something within de Docker config to match you needs, this config might not work.*
 ```
 DB_CONNECTION=pgsql
 DB_HOST=db
@@ -100,30 +68,92 @@ DB_USERNAME=laravel
 DB_PASSWORD=passPRO
 ```
 
-And now, you can now go to `http://localhost:80` and check that everything is working.
+### Build Docker containers
+1. Go to the appropriate environment folder (ex. ``dev``)
+```
+$ cd infra/dev
+```
 
-**Note: 80 is the port configured for the nginx server in the `docker-compose.yml`**
+2. Build your docker environment:
+```shell
+$ docker-compose build
+```
+
+3. Start your docker environment:
+```shell
+$ docker-compose up -d
+```
+*Note: `-d` will "detach" the container. i.e. they will run in the background*
+
+
+### Install dependencies
+1. Install composer dependencies following your environment:
+```shell
+$ docker exec <env>_laravel composer install
+
+# for dev
+$ docker exec dev_laravel composer install
+```
+
+2. Install node dependencies following your environment:
+```shell
+$ docker exec <env>_laravel npm i
+
+# for dev
+$ docker exec dev_laravel npm i
+```
+
+### Setup Laravel
+1. Generate your app key:
+```shell
+$ docker exec dev_laravel php artisan key:generate
+```
+
+2. Migrate the database:
+```shell
+$ docker exec dev_laravel php artisan migrate
+```
+
+3. Fill the database:
+```shell
+$ docker exec dev_laravel php artisan db:seed
+```
+
+### Working with Vue.js
+1. Compile node vues following your environment:
+```shell
+$ docker exec <env>_laravel npm run dev
+
+# for dev
+$ docker exec dev_laravel npm run dev
+```
+
+### Start hacking :trollface:
+Now you have the environment up and running, the website should now be available with the following url: http://localhost:<port>
+The port will change depending on what is configured in `infra/dev/docker-compose.yml`. We've decided to use `80`
+so the url will be `http://localhost/.
 
 ### Useful commands
-
 Below are some shell commands useful when working with the Docker stack.
 
 1. Stop all container in the stack (still in the same folder as `docker-compose.yml`)
-```
-docker-compose stop
+```shell
+$ docker-compose stop
 ```
 2. Stop and delete all containers in the stack
-```bash
-docker-compose down
+```shell
+$ docker-compose down
 ```
+
 3. Start a shell inside a running container
-```bash
-docker exec -it --user=foo container_name bash
-# if --user is not specified, the last user set in the corresponding Dockerfile in used
+```shell
+$ docker exec -it <container_name> bash
 ```
+*Note: you can specify the user you want to use with the `--user=<username>` flag.
+
 4. List running containers
-```
-docker ps
+```shell
+$ docker ps
 ```
 
 ### Documentation
