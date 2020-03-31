@@ -54,7 +54,7 @@ The containers will embed the other dependencies.
 git clone git@github.com:kayoumido/HEIGVD-PRO-A-11.git
 ```
 
-1. Copy the file `src/.env.example` into `src/.env` and fill it with the environnement details
+2. Copy the file `src/.env.example` into `src/.env` and fill it with the environnement details
 
 here's the details for the database used for dev
 
