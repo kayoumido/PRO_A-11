@@ -9,8 +9,8 @@
     - [Build Docker containers](#build-docker-containers)
     - [Install dependencies](#install-dependencies)
     - [Setup Laravel](#setup-Laravel)
-    - [Working with Vue.js](#working-with-Vue.js)
-    - [Start hacking :trollface:](#start-hacking-:trollface:)
+    - [Working with Vue.js](#working-with-vuejs)
+    - [Start hacking :trollface:](#start-hacking-trollface)
     - [Useful commands](#useful-commands)
 
 ## About
