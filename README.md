@@ -55,40 +55,104 @@ git clone git@github.com:kayoumido/HEIGVD-PRO-A-11.git
 
 1. Copy the file `src/.env.example` into `src/.env` and fill it with the environnement details
 
+here's the details for the database used for dev
+
+*Note: If you changed something within de Docker config to match you needs, this config might not work.*
+
+```
+DB_CONNECTION=pgsql
+DB_HOST=db
+DB_PORT=5432
+DB_DATABASE=laravel
+DB_USERNAME=laravel
+DB_PASSWORD=passPRO
+```
+
 1. Go to the appropriate environment folder (ex. ``dev``)
+
 ```
-cd infra/dev
+$ cd infra/dev
 ```
-1. Build your docker environment `sudo docker-compose build`
-1. Start your docker environment `sudo docker-compose up -d`
-1. Install composer dependencies following your environment (eg for dev: `sudo docker exec dev_laravel composer install`)
-1. Install node dependencies following your environment (eg for dev: `sudo docker exec dev_laravel npm install`)
-1. Compile node vues following your environment (eg for dev: `sudo docker exec dev_laravel npm run dev`)
-1. Generate your app key `sudo docker exec dev_laravel php artisan key:generate`
-1. Migrate the database `sudo docker exec dev_laravel php artisan migrate`
-1. Fill the database `sudo docker exec dev_laravel php artisan db:seed`
-1. The website should now be available with the following url: http://localhost
+
+2. Build your docker environment:
+```shell
+$ docker-compose build
+```
+
+3. Start your docker environment:
+```shell
+$ docker-compose up -d
+```
+*Note: `-d` will "detach" the container. i.e. they will run in the background*
+
+4. Install composer dependencies following your environment:
+
+```shell
+$ docker exec <env>_laravel composer install
+
+# for dev
+$ docker exec dev_laravel composer install
+```
+
+5. Install node dependencies following your environment:
+```shell
+$ docker exec <env>_laravel npm i
+
+# for dev
+$ docker exec dev_laravel npm i
+```
+
+6. Compile node vues following your environment:
+```shell
+$ docker exec <env>_laravel npm run dev
+
+# for dev
+$ docker exec dev_laravel npm run dev
+```
+7. Generate your app key:
+```shell
+$ docker exec dev_laravel php artisan key:generate
+```
+
+8. Migrate the database:
+```shell
+$ docker exec dev_laravel php artisan migrate
+```
+
+9. Fill the database:
+```shell
+$ docker exec dev_laravel php artisan db:seed
+```
+
+10. The website should now be available with the following url: http://localhost:<port>
+The port will change depending on what is configured in `infra/dev/docker-compose.yml`. We've decided to use `80`
+so the url will be `http://localhost/.
+
+11. Start hacking :trollface:
+Now you have the environment up and running :kissing_heart:.
 
 ### Useful commands
 
 Below are some shell commands useful when working with the Docker stack.
 
 1. Stop all container in the stack (still in the same folder as `docker-compose.yml`)
-```
-docker-compose stop
+```shell
+$ docker-compose stop
 ```
 2. Stop and delete all containers in the stack
-```bash
-docker-compose down
+```shell
+$ docker-compose down
 ```
+
 3. Start a shell inside a running container
-```bash
-docker exec -it --user=foo container_name bash
-# if --user is not specified, the last user set in the corresponding Dockerfile in used
+```shell
+$ docker exec -it <container_name> bash
 ```
+*Note: you can specify the user you want to use with the `--user=<username>` flag.
+
 4. List running containers
-```
-docker ps
+```shell
+$ docker ps
 ```
 
 ### Documentation
