@@ -1,0 +1,58 @@
+name: Production
+
+on:
+  push:
+    branches:
+      - prod
+
+jobs:
+  laravel-tests:
+    runs-on: self-hosted
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Copy .env
+      run: php -r "file_exists('.env') || copy('.env.example', '.env');"
+      working-directory: ./src
+    - name: Install Dependencies
+      run: composer install -q --no-ansi --no-interaction --no-scripts --no-suggest --no-progress --prefer-dist
+      working-directory: ./src
+    - name: Generate key
+      run: php artisan key:generate
+      working-directory: ./src
+    - name: Directory Permissions
+      run: chmod -R 777 storage bootstrap/cache
+      working-directory: ./src
+    - name: Create Database
+      run: |
+        mkdir -p database
+        touch database/database.sqlite
+      working-directory: ./src
+    - name: Execute tests (Unit and Feature tests) via PHPUnit
+      env:
+        DB_CONNECTION: sqlite
+        DB_DATABASE: database/database.sqlite
+      run: vendor/bin/phpunit
+      working-directory: ./src
+
+  prod-deploy:
+    runs-on: self-hosted
+    needs: laravel-tests
+
+    steps:
+      - name: Ensure repository presence
+        run: test -e HEIGVD-PRO-A-11 || (git clone https://github.com/kayoumido/HEIGVD-PRO-A-11/
+      - name: Reset repository
+        run: cd HEIGVD-PRO-A-11 && git checkout prod && git reset --hard && git pull
+      - name: Down docker stack
+        run: docker-compose down
+        working-directory: ./HEIGVD-PRO-A-11/infra/prod
+      # - name: Run DB migrations
+      #   run: asd
+      #   working-directory: ./src
+      - name: Build docker images
+        run: docker-compose build
+        working-directory: ./HEIGVD-PRO-A-11/infra/prod
+      - name: Up docker stack
+        run: docker-compose up -d
+        working-directory: ./HEIGVD-PRO-A-11/infra/prod
