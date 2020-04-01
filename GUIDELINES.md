@@ -21,6 +21,9 @@ blank line. Wrap the lines in this and the following paragraphs after
 72 characters.
 ```
 
+### Pull requests
+When opening a new PR, don't forget to link the PR to the issue it solves and assign the `Quality Agent` and the `Dev reviwers`.
+
 ## PHP
 ### Coding style
 We will be following the [PSR-12 coding style](https://www.php-fig.org/psr/psr-12/).
