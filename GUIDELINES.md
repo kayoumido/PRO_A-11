@@ -8,7 +8,7 @@ The naming convention for branches is as follows :
 <version>/#<issue_nb>-<description>
 
 e.g.
-v1/#42-foobar
+v1/42-foobar
 ```
 
 ### Commit messages
