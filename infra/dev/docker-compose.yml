@@ -6,6 +6,7 @@ services:
     ports:
       - 80:80
     volumes:
+      - ../../src:/var/www
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf
     depends_on:
       - laravel
