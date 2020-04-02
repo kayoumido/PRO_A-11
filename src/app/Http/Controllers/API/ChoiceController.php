@@ -2,62 +2,66 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Choice;
 use App\Http\Controllers\Controller;
+use App\Poll;
 use Illuminate\Http\Request;
 
+/**
+ * Class ChoiceController
+ * @package App\Http\Controllers\API
+ * @group Choices management
+ */
 class ChoiceController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * List poll choices
      *
-     * @return \Illuminate\Http\Response
+     * @urlParam    poll required id of the poll
+     *
+     * @param Poll $poll
      */
-    public function index()
+    public function index(Poll $poll)
     {
         //
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Create a poll choice
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @urlParam    poll required id of the linked poll
+     * @bodyParam   message string required message corresponding to the choice
+     *
+     * @param Request $request
+     * @param  Poll $poll
      */
-    public function store(Request $request)
+    public function store(Request $request, Poll $poll)
     {
         //
     }
 
     /**
-     * Display the specified resource.
+     * Update a poll choice
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @urlParam choice required Id of the choice to update
+     * @bodyParam message string required message corresponding to the choice
+     *
+     * @param Request $request
+     * @param Choice $choice
      */
-    public function show($id)
+    public function update(Request $request, Choice $choice)
     {
         //
     }
 
     /**
-     * Update the specified resource in storage.
+     * Delete a poll choice
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
+     * @urlParam choice required Id of the choice to delete
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Choice $choice
      */
-    public function destroy($id)
+    public function destroy(Choice $choice)
     {
         //
     }

@@ -3,61 +3,91 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Presentation;
+use App\User;
 use Illuminate\Http\Request;
 
+/**
+ * Class PresentationController
+ * @package App\Http\Controllers\API
+ * @group Presentations management
+ */
 class PresentationController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * List all presentations related to a user
      *
-     * @return \Illuminate\Http\Response
+     * @urlParam user required User id
+     *
+     * @param User $user
      */
-    public function index()
+    public function index(User $user)
     {
         //
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Create a presentation
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @urlParam user required User id
+     * @bodyParam title string required Title of the presentation
+     * @bodyParam date datetime required Starting datetime for the presentation
+     *
+     * @param Request $request
+     * @param User $user
      */
-    public function store(Request $request)
+    public function store(Request $request, User $user)
     {
         //
     }
 
     /**
-     * Display the specified resource.
+     * Show a presentation
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @urlParam presentation required Presentation id
+     *
+     * @param Presentation $presentation
      */
-    public function show($id)
+    public function show(Presentation $presentation)
     {
         //
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update a presentation
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @urlParam presentation required Presentation id
+     * @bodyParam title string optional Title of the presentation
+     * @bodyParam date datetime optional Starting datetime for the presentation
+     *
+     * @param Request $request
+     * @param Presentation $presentation
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Presentation $presentation)
     {
         //
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Delete a presentation
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @urlParam presentation required Presentation id
+     *
+     * @param Presentation $presentation
      */
-    public function destroy($id)
+    public function destroy(Presentation $presentation)
+    {
+        //
+    }
+
+    /**
+     * Search for a presentation
+     *
+     * @queryParam keywords required Keywords to search
+     *
+     * @param Request $request
+     */
+    public function search(Request $request)
     {
         //
     }

@@ -4,66 +4,119 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Poll;
+use App\Presentation;
 use App\User;
 use Illuminate\Http\Request;
 
+/**
+ * Class PollController
+ * @package App\Http\Controllers\API
+ * @group Polls manaquement
+ */
 class PollController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * List all polls related to the presentation.
      *
-     * @return \Illuminate\Http\Response
+     * @urlParam presentation required Id of the presentation
+     *
+     * @param Presentation $presentation
      */
-    public function index()
+    public function index(Presentation $presentation)
     {
         //
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Create a new poll
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @urlParam presentation required Id of the presentation
+     * @bodyParam subject string required Subject of the poll
+     *
+     * @param Request $request
+     * @param Presentation $presentation
      */
-    public function store(Request $request)
+    public function store(Request $request, Presentation $presentation)
     {
         //
     }
 
     /**
-     * Display the specified resource.
+     * Show a poll
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @urlParam poll required Poll id
+     *
+     * @param Poll $poll
      */
-    public function show($id)
+    public function show(Poll $poll)
     {
         //
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update a poll
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @urlParam poll required Poll id
+     * @bodyParam subject string required Subject of the poll
+     *
+     * @param Request $request
+     * @param Poll $poll
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Poll $poll)
     {
         //
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Delete a poll
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @urlParam poll required Poll id
+     *
+     * @param Poll $poll
      */
-    public function destroy($id)
+    public function destroy(Poll $poll)
     {
         //
     }
 
+
+    /**
+     * Change the status of a poll to published
+     *
+     * @ulrParam poll require Poll id
+     * @param Request $request
+     * @param Poll $poll
+     */
+    public function publish(Request $request, Poll $poll)
+    {
+
+    }
+
+    /**
+     * Show results of the poll
+     *
+     * @urlParam poll required Poll id
+     *
+     * @param Request $request
+     * @param Poll $poll
+     */
+    public function results(Request $request, Poll $poll)
+    {
+
+    }
+
+    /**
+     * Make a user vote on a poll
+     *
+     * @group Choices management
+     * @urlParam poll required Poll id for the vote
+     * @urlParam user required User id for the vote
+     * @bodyParam choice_id id required Choice id for the choosed choice
+     *
+     * @param Request $request
+     * @param Poll $poll
+     * @param User $user
+     */
     public function vote(Request $request, Poll $poll, User $user)
     {
 
