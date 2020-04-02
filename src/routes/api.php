@@ -14,8 +14,6 @@ use Illuminate\Http\Request;
 */
 
 Route::prefix('v1')->group(function () {
-    // Authenticated routes
-    Route::middleware('auth:api')->group(function () {
         // user management
         Route::apiResource('users', 'API\UserController')->only('update');
         // presentation management
@@ -30,7 +28,8 @@ Route::prefix('v1')->group(function () {
         Route::apiResource('presentations.polls', 'API\PollController')->shallow();
         Route::put('polls/{poll}/publish', 'API\PollController@publish')->name('polls.publish');
         Route::get('polls/{poll}/results', 'API\PollController@results')->name('polls.results');
+        // Choices management
+        Route::apiResource('polls.choices', 'API\ChoiceController')->except(['show'])->shallow();
         Route::post('polls/{poll}/users/{user}', 'API\PollController@vote')->name('polls.vote');
-    });
 
 });
