@@ -17,7 +17,7 @@ class CreatePresentationsTable extends Migration
             $table->bigIncrements('id');
             $table->string("title");
             $table->dateTime("date");
-            $table->unsignedBigInteger("conference_id");
+            $table->unsignedBigInteger("conference_id")->nullable();
 
             $table->foreign('conference_id')
                 ->references('id')

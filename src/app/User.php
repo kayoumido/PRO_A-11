@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'fname', 'lname', 'email', 'password',
     ];
 
     /**
@@ -36,4 +36,32 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * List all questions owned by the user
+     */
+    public function questions() {
+        return $this->hasMany('App\Question');
+    }
+
+    /**
+     * List all presentation subscribed by the user
+     */
+    public function presentations() {
+        return $this->belongsToMany('App\Presentation')->withPivot('role', 'banned_until');
+    }
+
+    /**
+     * List all conferences subscribed by the user
+     */
+    public function conferences() {
+        return $this->belongsToMany('App\Conference')->withPivot('role');
+    }
+
+    /**
+     * List all polls answered by the user
+     */
+    public function polls() {
+        return $this->belongsToMany('App\Poll')->withPivot('choice_id');
+    }
 }

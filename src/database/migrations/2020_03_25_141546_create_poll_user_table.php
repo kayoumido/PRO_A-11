@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePresentationUsersTable extends Migration
+class CreatePollUserTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,25 +13,29 @@ class CreatePresentationUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('presentation_users', function (Blueprint $table) {
-            $table->unsignedBigInteger('presentation_id');
+        Schema::create('poll_user', function (Blueprint $table) {
+            $table->unsignedBigInteger('poll_id');
             $table->unsignedBigInteger('user_id');
-            $table->string('role');
-            $table->dateTime('banned_until')->nullable();
+            $table->unsignedBigInteger('choice_id');
 
-            $table->index(['presentation_id', 'user_id']);
+            $table->index(['poll_id', 'user_id']);
 
-
-            $table->foreign('presentation_id')
+            $table->foreign('poll_id')
                 ->references('id')
-                ->on('presentations')
+                ->on('polls')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
-
 
             $table->foreign('user_id')
                 ->references('id')
                 ->on('users')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+
+
+            $table->foreign('choice_id')
+                ->references('id')
+                ->on('choices')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
         });
@@ -44,6 +48,6 @@ class CreatePresentationUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('presentation_users');
+        Schema::dropIfExists('poll_user');
     }
 }
