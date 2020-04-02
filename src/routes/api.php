@@ -31,16 +31,6 @@ Route::prefix('v1')->group(function () {
         Route::put('polls/{poll}/publish', 'API\PollController@publish')->name('polls.publish');
         Route::get('polls/{poll}/results', 'API\PollController@results')->name('polls.results');
         Route::post('polls/{poll}/users/{user}', 'API\PollController@vote')->name('polls.vote');
-        // question management
-        Route::apiResource('presentations.users.questions', 'API\QuestionController')->shallow();
-        Route::post('questions/{question}/users/{user}/upvote', 'API\QuestionController@upvote')->name('questions.upvote');
-        Route::put('questions/{question}/validate', 'API\QuestionController@answer')->name('questions.answer');
-        // question moderation
-        Route::post('questions/{question}/users/{user}/report', 'API\ModerateController@report')->name('questions.users.report');
-        Route::put('questions/{question}/hide', 'API\ModerateController@hide')->name('questions.hide');
-        Route::put('questions/{questions}/unhide', 'API\ModerateController@unhide')->name('questions.unhide');
-        Route::put('presentations/{presentation}/users/{user}/ban', 'API\ModerateController@ban')->name('presentations.users.ban');
-        Route::put('presentations/{presentation}/users/{user}/unban', 'API\ModerateController@unban')->name('presentations.users.unban');
     });
 
 });
