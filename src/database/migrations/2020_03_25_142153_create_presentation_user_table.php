@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateQuestionUsersTable extends Migration
+class CreatePresentationUserTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,18 @@ class CreateQuestionUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('question_users', function (Blueprint $table) {
-            $table->unsignedBigInteger('question_id');
+        Schema::create('presentation_user', function (Blueprint $table) {
+            $table->unsignedBigInteger('presentation_id');
             $table->unsignedBigInteger('user_id');
+            $table->string('role');
+            $table->dateTime('banned_until')->nullable();
 
-            $table->index(['question_id', 'user_id']);
+            $table->index(['presentation_id', 'user_id']);
 
 
-            $table->foreign('question_id')
+            $table->foreign('presentation_id')
                 ->references('id')
-                ->on('questions')
+                ->on('presentations')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
 
@@ -42,6 +44,6 @@ class CreateQuestionUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('question_users');
+        Schema::dropIfExists('presentation_user');
     }
 }
