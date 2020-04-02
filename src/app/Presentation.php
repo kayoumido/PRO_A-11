@@ -8,7 +8,7 @@ class Presentation extends Model
 {
     public $timestamps = false;
 
-    protected $fillable = ['title','date'];
+    protected $fillable = ['title', 'date', 'conference_id'];
 
     /**
      * The conference of this presentation
@@ -29,5 +29,12 @@ class Presentation extends Model
      */
     public function questions() {
         return $this->hasMany('App\Question');
+    }
+
+    /**
+     * List of polls linked to the presentation
+     */
+    public function polls() {
+        return $this->hasMany('App\Poll');
     }
 }

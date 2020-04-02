@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Question extends Model
 {
     public $timestamps = false;
-    protected $fillable = ['question', 'signaled'];
+    protected $fillable = ['user_id', 'presentation_id', 'question', 'signaled'];
 
     /**
      * Presentation where this question was asked

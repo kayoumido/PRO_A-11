@@ -8,7 +8,7 @@ class Conference extends Model
 {
     public $timestamps = false;
 
-    protected $fillable = [ 'name', 'date' ];
+    protected $fillable = ['name', 'date'];
 
     /**
      * List of users participating to this conference

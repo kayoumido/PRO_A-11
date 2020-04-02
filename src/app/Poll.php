@@ -8,7 +8,7 @@ class Poll extends Model
 {
     public $timestamps = false;
 
-    protected $fillable = ['subject', 'status'];
+    protected $fillable = ['subject', 'status', 'presentation_id'];
 
     /**
      * Available choices for this poll
@@ -22,5 +22,12 @@ class Poll extends Model
      */
     public function users() {
         return $this->belongsToMany('App\User')->withPivot('choice_id');
+    }
+
+    /**
+     * Linked presentation
+     */
+    public function presentation() {
+        return $this->belongsTo('App\Presentation');
     }
 }

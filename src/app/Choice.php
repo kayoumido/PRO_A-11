@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Choice extends Model
 {
-    protected $fillable = ['message'];
+    protected $fillable = ['message', 'poll_id'];
 
     public $timestamps = false;
 
