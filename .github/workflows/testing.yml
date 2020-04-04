@@ -20,7 +20,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Checkout to current branch
-      run: git checkout ${{ github.head_ref }}
+      run: git fetch && git checkout ${{ github.head_ref }}
     - name: Copy .env
       run: php -r "file_exists('.env') || copy('.env.example', '.env');"
       working-directory: ./src
