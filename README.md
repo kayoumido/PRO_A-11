@@ -160,4 +160,4 @@ $ docker ps
 
 User manual: see file xxxxx.
 
-API documentation: see file yyyyy.
+API documentation: see file `api.md`.
