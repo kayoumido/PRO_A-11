@@ -21,5 +21,5 @@
     </div>
 </div-->
 
-<Hello></Hello>
+<App></App>
 @endsection

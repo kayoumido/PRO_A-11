@@ -7,7 +7,12 @@
 import Vue from 'vue';
 import router from './routes'
 
+
+// Import VueJS Component
+import App from './App'
+import Authentication from './components/Authentication'
 import Hello from './components/Hello'
+
 
 require('./bootstrap');
 
@@ -38,6 +43,8 @@ if (process.env.NODE_ENV === "development") {
 const app = new Vue({
     el: '#app',
     components: {
+        App,
+        Authentication,
         Hello
     },
     router
