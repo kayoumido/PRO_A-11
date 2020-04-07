@@ -4,6 +4,11 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
+import Vue from 'vue';
+import router from './routes'
+
+import Hello from './components/Hello'
+
 require('./bootstrap');
 
 window.Vue = require('vue');
@@ -29,6 +34,11 @@ if (process.env.NODE_ENV === "development") {
 }
 
 
+
 const app = new Vue({
     el: '#app',
+    components: {
+        Hello
+    },
+    router
 });
