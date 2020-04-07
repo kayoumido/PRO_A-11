@@ -3,20 +3,12 @@
   
     <p class="title">PAUL</p>
 
-    <!-- make this a form -->
-    <div class="row">
-      <button :style="{background: lightBlue}">Nom utilisateur</button>
-    </div>
+    <input type="text" name="username" v-model="input.username" placeholder="Nom d'utilisateur" />
+    <input type="password" name="password" v-model="input.password" placeholder="Mot de passe" />
+    <button type="button" v-on:click="login()">Se connecter</button>
+    <p v-if="isBlank"> Pas de données</p>
+    <p v-if="isIncorect"> Nom ou mot de passe incorrect</p>
 
-
-    <!-- make this a form -->
-    <div class="row">
-      <button :style="{background: lightBlue}">Mot de passe</button>
-    </div>
-  
-    <div class="row">
-      <button @click="redirect" :style="{background: darkBlue}">Se connecter</button>
-    </div>
   </div>
 </template>
 
@@ -25,19 +17,63 @@
     name : 'Authentication',
     data () {
         return{
+          input: {
+              username: "",
+              password: ""
+          },
       darkBlue: '#5F74E8',
-      lightBlue: '#69A7FF'}
+      lightBlue: '#69A7FF',
+      isBlank: false,
+      isIncorect: false}
 
     },
     methods: {
-      redirect() {
-        //it should route to the correct place
+      login() {
+         if(this.input.username != "" && this.input.password != "") { //if not blank
+            //sends credentials to backend for verification
+         } else {
+           this.isBlank=true;
+         }
+
       },
-      
+
+      setIncorect() {
+        this.isIncorect = true;
+      },
+
     }
-    }
+  }
 </script>
 
-<style>
+<style scoped>
+
+.title{
+  margin: auto;
+  font-family: Roboto;
+  font-size: 64px;
+  line-height: 200px;
+  text-align: center;
+
+  color: #8575FF;
+}
+
+
+.button {
+  margin: auto;
+  border: none;
+  background-color: #000000;
+  color: white;
+  width: 409px;
+  height: 99px;
+  font-family: Roboto;
+  font-size: 36px;
+  border-radius: 5px;
+}
+
+.row {
+  padding: 10px;
+  display: flex;
+  width: 100%;
+}
 
 </style>
