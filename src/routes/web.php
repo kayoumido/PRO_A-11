@@ -14,4 +14,7 @@
 
 Auth::routes();
 
+// delegate all route to homeController
+// TODO find better name for home controller 
 Route::get('/', 'HomeController@index')->where('any','.*');
+

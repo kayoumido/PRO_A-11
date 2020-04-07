@@ -12,8 +12,10 @@ class HomeController extends Controller
      * @return void
      */
     public function __construct()
-    {
-        $this->middleware('auth');
+    {   
+        // comment this line allow to bypass auto-redirection to login
+        // and direct access to Home.blade (for testing purpose)
+        //$this->middleware('auth');
     }
 
     /**
