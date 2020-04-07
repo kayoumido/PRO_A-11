@@ -14,7 +14,5 @@
 </template>
 
 <script>
-    export default {
-        name: 'Application'
-    }
+    export default {}
 </script>

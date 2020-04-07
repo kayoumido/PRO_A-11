@@ -11,10 +11,10 @@
 |
 */
 
+Route::get('/', function () {
+    return view('app');
+});
 
-Auth::routes();
-
-// delegate all route to homeController
-// TODO find better name for home controller 
-Route::get('/', 'HomeController@index')->where('any','.*');
-
+Route::get('/{any}', function(){
+    return view('app');
+});

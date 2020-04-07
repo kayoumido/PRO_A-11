@@ -8,10 +8,5 @@
 </template>
 
 <script>
-    export default {
-        name : "Hello",
-        mounted() {
-            console.log('Component mounted.')
-        }
-    }
+    export default {}
 </script>
