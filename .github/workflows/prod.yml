@@ -15,7 +15,7 @@ jobs:
       run: php -r "file_exists('.env')
       working-directory: ./src
     - name: Install Dependencies
-      run: composer install -q --no-ansi --no-interaction --no-scripts --no-suggest --no-progress --prefer-dist
+      run: composer install -q --no-ansi --no-interaction --no-scripts --no-suggest --no-progress --prefer-dist --optimize-autoloader --no-dev
       working-directory: ./src
     - name: Generate key
       run: php artisan key:generate
