@@ -46,9 +46,6 @@ jobs:
       - name: Down docker stack
         run: docker-compose down
         working-directory: ./HEIGVD-PRO-A-11/infra/prod
-      # - name: Run DB migrations
-      #   run: asd
-      #   working-directory: ./src
       - name: Up docker stack
         run: docker-compose up -d
         working-directory: ./HEIGVD-PRO-A-11/infra/prod
