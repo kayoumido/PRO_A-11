@@ -22,9 +22,6 @@ jobs:
       working-directory: ./src
     - name: Enable Artisan in prod mode
       run: php artisan config:cache && php artisan route:cache
-    - name: Directory Permissions
-      run: chmod -R 777 storage bootstrap/cache
-      working-directory: ./src
     - name: Create Database
       run: |
         mkdir -p database
