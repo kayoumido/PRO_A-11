@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\PresentationResource;
 use App\Presentation;
 use App\User;
 use Illuminate\Http\Request;
@@ -38,7 +39,27 @@ class PresentationController extends Controller
      */
     public function store(Request $request, User $user)
     {
-        //
+        // check that the data is valid
+        $request->validate([
+            'title' => 'required',
+            'date' => 'required|date',
+        ]);
+
+        // data is valid
+        // create the new presentation
+        $presentation = Presentation::create($request->only([
+            'title',
+            'date'
+        ]));
+
+        // link the new presentation w/ it's presenter
+        // i.e the current user
+        $presentation->users()->attach($user, [
+            'role' => 'presenter'
+        ]);
+
+        // return the newly created resource
+        return new PresentationResource($presentation);
     }
 
     /**
