@@ -17,9 +17,6 @@ jobs:
     - name: Install Dependencies
       run: composer install -q --no-ansi --no-interaction --no-scripts --no-suggest --no-progress --prefer-dist --optimize-autoloader --no-dev
       working-directory: ./src
-    - name: Generate key
-      run: php artisan key:generate
-      working-directory: ./src
     - name: Enable Artisan in prod mode
       run: php artisan config:cache && php artisan route:cache
     - name: Execute tests (Unit and Feature tests) via PHPUnit
