@@ -45,18 +45,15 @@ class PresentationController extends Controller
             'date' => 'required|date',
         ]);
 
-        // data is valid
-        // create the new presentation
-        $presentation = Presentation::create($request->only([
-            'title',
-            'date'
-        ]));
-
-        // link the new presentation w/ it's presenter
-        // i.e the current user
-        $presentation->users()->attach($user, [
-            'role' => 'presenter'
-        ]);
+        // create the new presentation and set the current user the presenter
+        $presentation = $user->presentations()->create($request->only([
+                'title',
+                'date'
+            ]),
+            [
+                'role' => 'presenter'
+            ]
+        );
 
         // return the newly created resource
         return new PresentationResource($presentation);
