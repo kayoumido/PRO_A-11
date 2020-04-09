@@ -14,7 +14,7 @@ export const router = new VueRouter({
         component: Hello
     },
     {
-        path: '/NewAccount',
+        path: '/register',
         name: 'AccountCreation',
         component: AccountCreation
     }
