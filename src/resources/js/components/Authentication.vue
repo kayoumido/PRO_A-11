@@ -6,6 +6,7 @@
       <input type="text" name="username" v-model="input.username" placeholder="Nom d'utilisateur" />
       <input type="password" name="password" v-model="input.password" placeholder="Mot de passe" />
       <button type="button" v-on:click="login()">Se connecter</button>
+      <button type="button" v-on:click="loginMockup()">Mockup Account</button>
       
       <p v-if="isBlank"> Pas de données</p>
       <p v-if="isIncorect"> Nom ou mot de passe incorrect</p>
@@ -21,26 +22,30 @@
 
     export default {
     name : 'Authentication',
+    props:['data'],
     data () {
         return{
           input: {
               username: '',
               password: ''
           },
-      darkBlue: '#5F74E8',
-      lightBlue: '#69A7FF',
-      isBlank: false,
-      isIncorect: false}
+          darkBlue: '#5F74E8',
+          lightBlue: '#69A7FF',
+          isBlank: false,
+          isIncorect: false}
 
     },
     methods: {
       login() {
          if(this.input.username != "" && this.input.password != "") { //if not blank
             //sends credentials to backend for verification
-
+            
             axios.post(
-              '/login',
-              this.$input // to reformat if needed
+              '/login',{
+                  username: this.username,
+                  password: this.password
+              }
+              
             )
             .then(function (data){
               // this function is launched after the post request
@@ -52,49 +57,26 @@
               console.log(error);
             });
 
+            this.isBlank=false;
+
          } else {
            this.isBlank=true;
          }
 
       },
+      loginMockup(){
+        this.input.username = 'MockupAccount';
+        this.setCorrect();
+      },
 
       setIncorect() {
-        this.isIncorect = true;
+        this.isIncorect = true; //doesnt seem well designed
       },
+      setCorrect(){
+        this.$emit('login-successfull',this.input.username); // should we send the password, or should we already implement some security
+        this.$router.replace({name: 'Hello'}); // once logged in, go back to home (change this Hello with Home when the time is right)
+      }
 
     }
   }
 </script>
-
-<style scoped>
-
-.title{
-  margin: auto;
-  font-family: Roboto;
-  font-size: 64px;
-  line-height: 200px;
-  text-align: center;
-
-  color: #8575FF;
-}
-
-
-.button {
-  margin: auto;
-  border: none;
-  background-color: #000000;
-  color: white;
-  width: 409px;
-  height: 99px;
-  font-family: Roboto;
-  font-size: 36px;
-  border-radius: 5px;
-}
-
-.row {
-  padding: 10px;
-  display: flex;
-  width: 100%;
-}
-
-</style>
