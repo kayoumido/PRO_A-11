@@ -11,11 +11,6 @@
 |
 */
 
-Route::view('/{any?}', 'app');
+Route::view('/', 'app');
 
-Route::resource('/login', 'Auth\LoginController');
-Route::resource('/login/reset', 'Auth\ResetPasswordController');
-Route::resource('/login/forgot', 'Auth\ForgotPasswordController');
-Route::resource('/login/confirm', 'Auth\ConfirmPasswordController');
-Route::resource('/register', 'Auth\RegisterController');
-Route::resource('/verify', 'Auth\VerificationController');
+Auth::routes();

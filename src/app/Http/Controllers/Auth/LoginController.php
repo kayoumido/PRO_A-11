@@ -41,8 +41,4 @@ class LoginController extends Controller
     public function index() {
         return view('app');
     }
-
-    public function store(Request $req) {
-        return 'asd';
-    }
 }
