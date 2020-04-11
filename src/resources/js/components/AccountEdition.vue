@@ -1,10 +1,19 @@
 <template>
   <div class="container">
+    <h2>My Account</h2>
+    
+    <div v-if="isBlank" class="error">
+      <h3>you cannot submit empty change</h3>
+    </div>
+    
+    <div v-if="errorHttp" class="error">
+      <h3>error while sending data</h3>
+    </div>
 
     <form @submit.prevent="updateUsername()">
    
       <label for="updateUsername">
-        <input v-model="newUserName" type="text" placeholder="New username" />
+        <input v-model="newUserName" type="text" placeholder="New username" required />
       </label>
 
       <input type="submit" value="update username" />
@@ -13,7 +22,7 @@
     <form @submit.prevent="updateEmail()">
    
       <label for="updateEmail">
-        <input v-model="newEmail" type="new Email" placeholder="New E-mail" />
+        <input v-model="newEmail" type="email" placeholder="New E-mail" required />
       </label>
 
       <input type="submit" value="update email" />
@@ -22,7 +31,7 @@
     <form @submit.prevent="updatePassword()">
   
       <label for="updatePassword">
-        <input v-model="newPassword" type="new Password" placeholder="New Password" />
+        <input v-model="newPassword" type="password" placeholder="New Password" required />
       </label>
 
       <input type="submit" value="update password" />
@@ -40,50 +49,67 @@ export default {
   props: ['parent'],
   data() {
     return {
+      currentUsername : 'PaulHochon', // will use parent data when available
       newUserName: '',
       newPassword: '',
-      newEmail: ''
+      newEmail: '',
+      isBlank : false,
+      errorHttp : false
     };
   },
   methods: {
     submitChange(data){
-      // send http request and catch response or error 
-      axios.put("/user",data)
+      // send http request with axios and catch response or error 
+      axios.put("/v1/api/user",data)
         .then(response => {
-
             console.log(response);
-            // apply the changes to the parent data
-            this.$router.replace({name:'/'})
+
+            if (data.newUsername != null){
+              // if username has been update we adapte the CurrentUsername
+              this.currentUsername = data.newUsername; 
+            }
+
         })
         .catch(errorResponse => {
+            this.errorHttp = true;
             console.log(errorResponse);
         });
 
     },
+    // call the submit function according to the data that the user would change
+    // we will need a value from the parent (from props or other)
     updateUsername() {
-      // send PUT request to apply theses change with axios
-      this.submitChange({
-        name : this.$parent.username,
-        email : this.newUserName
-      });
+      if(this.newUserName != ''){
+        this.submitChange({
+          name : this.currentUsername,
+          newUsername : this.newUserName
+        });
+      }else{
+        isBlank = true;
+      }
         
     },
     updateEmail() {
-      this.submitChange({
-        name : this.$parent.username,
-        email : this.newEmail
-      });
+      if(this.newEmail != ''){
+        this.submitChange({
+          name : this.currentUsername,
+          newEmail : this.newEmail
+        });
+      }else{
+        isBlank = true;
+      }
     },
     updatePassword() {
-      this.submitChange({
-        name : this.$parent.username,
-        email : this.newPassword
-      });
+      if(this.newPassword != ''){
+        this.submitChange({
+          name : this.currentUsername,
+          newPassword : this.newPassword
+        });
+      }else{
+        isBlank = true;
+      }
     }
     
   }
 };
 </script>
-
-<style>
-</style>
