@@ -1,13 +1,13 @@
 <template>
-  <div id="app">
+  <div id="Authentication">
   
     <p class="title">PAUL</p>
     <form>
       <input type="text" name="username" v-model="input.username" placeholder="Nom d'utilisateur" />
       <input type="password" name="password" v-model="input.password" placeholder="Mot de passe" />
       <button type="button" v-on:click="login()">Se connecter</button>
-      <button type="button" v-on:click="loginMockup()">Mockup Account</button>
       
+      <p v-if="isWaiting"> Traitement en cours</p>
       <p v-if="isBlank"> Pas de données</p>
       <p v-if="isIncorect"> Nom ou mot de passe incorrect</p>
     </form>
@@ -29,10 +29,9 @@
               username: '',
               password: ''
           },
-          darkBlue: '#5F74E8',
-          lightBlue: '#69A7FF',
           isBlank: false,
-          isIncorect: false}
+          isIncorect: false,
+          isWaiting: false}
 
     },
     methods: {
@@ -40,6 +39,9 @@
          if(this.input.username != "" && this.input.password != "") { //if not blank
             //sends credentials to backend for verification
             
+            this.isBlank=false;
+            this.isWaiting=true;
+
             axios.post(
               '/login',{
                   username: this.username,
@@ -48,35 +50,22 @@
               
             )
             .then(function (data){
-              // this function is launched after the post request
+              // this function is launched after the post request (if I understood this is only when the POST is a success)
+              this.$router.replace({name: 'Hello'}); // this might have to be done in back-end
               console.log(data);
-
-              
             })
             .catch(function (error){
               console.log(error);
+              this.isIncorect = true;
             });
 
-            this.isBlank=false;
+            this.isWaiting=false;
 
          } else {
            this.isBlank=true;
          }
 
       },
-      loginMockup(){
-        this.input.username = 'MockupAccount';
-        this.setCorrect();
-      },
-
-      setIncorect() {
-        this.isIncorect = true; //doesnt seem well designed
-      },
-      setCorrect(){
-        this.$emit('login-successfull',this.input.username); // should we send the password, or should we already implement some security
-        this.$router.replace({name: 'Hello'}); // once logged in, go back to home (change this Hello with Home when the time is right)
-      }
-
     }
   }
 </script>
