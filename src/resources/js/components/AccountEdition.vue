@@ -61,7 +61,7 @@ export default {
     submitChange(data){
       // send http request with axios and catch response or error 
       axios.put("/v1/api/user",data)
-        .then(response => {
+        .then((response) => {
             console.log(response);
 
             if (data.newUsername != null){
@@ -70,16 +70,17 @@ export default {
             }
 
         })
-        .catch(errorResponse => {
+        .catch((errorResponse) => {
             this.errorHttp = true;
             console.log(errorResponse);
         });
 
     },
+    
     // call the submit function according to the data that the user would change
-    // we will need a value from the parent (from props or other)
+     
     updateUsername() {
-      if(this.newUserName != ''){
+      if(this.newUserName !== ''){
         this.submitChange({
           name : this.currentUsername,
           newUsername : this.newUserName
@@ -90,7 +91,7 @@ export default {
         
     },
     updateEmail() {
-      if(this.newEmail != ''){
+      if(this.newEmail !== ''){
         this.submitChange({
           name : this.currentUsername,
           newEmail : this.newEmail
@@ -100,7 +101,7 @@ export default {
       }
     },
     updatePassword() {
-      if(this.newPassword != ''){
+      if(this.newPassword !== ''){
         this.submitChange({
           name : this.currentUsername,
           newPassword : this.newPassword
