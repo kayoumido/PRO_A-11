@@ -3,6 +3,7 @@ import VueRouter from 'vue-router';
 
 import Hello from './components/Hello';
 import Authentication from './components/Authentication';
+import AccountEdition from './components/AccountEdition';
 
 Vue.use(VueRouter);
 
@@ -17,5 +18,13 @@ export const router = new VueRouter({
         path: '/authentication',
         name: 'Authentication',
         component: Authentication
-    }],
+    },
+    {
+        path: '/AccountEdition',
+        name: 'AccountEdition',
+        component: AccountEdition
+    }
+
+
+],
 });
