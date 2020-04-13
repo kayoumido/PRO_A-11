@@ -68,7 +68,7 @@ class PresentationController extends Controller
      */
     public function show(Presentation $presentation)
     {
-        //
+        return new PresentationResource($presentation);
     }
 
     /**
