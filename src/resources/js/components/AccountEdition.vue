@@ -45,20 +45,20 @@
 </template>
 
 <script>
-import axios from "axios";
-import router from "../routes";
+import axios from 'axios';
+import router from '../routes';
 
 export default {
-  name: "AccountEdition",
-  props: ["parent"],
+  name: 'AccountEdition',
+  props: ['parent'],
   data() {
     return {
       // will use parent data when available (eg. parent.data.user)
       User: {
         id: 3,
-        fname: "Jane",
-        lname: "Doe",
-        email: "jane@paul.lo"
+        fname: 'Jane',
+        lname: 'Doe',
+        email: 'jane@paul.lo'
       },
       newFirstName: '',
       newLastName: '',
@@ -70,7 +70,7 @@ export default {
   },
   methods: {
     submitChange(data) {
-      const apiUrl = "/api/user/" + this.User.id;
+      const apiUrl = '/api/user/' + this.User.id;
       // send http request with axios and catch response or error
       axios
         .put(apiUrl, data)
@@ -91,7 +91,7 @@ export default {
       //   this.emptySubmit = false;
       // }
 
-      this.emptySubmit = (textInput === "");
+      this.emptySubmit = (textInput === '');
 
       return this.emptySubmit;
       
@@ -105,7 +105,7 @@ export default {
         this.submitChange({
           fname: this.newFirstName
         });
-        this.newFirstName = "";
+        this.newFirstName = '';
       }
     },
     updateLastName() {
@@ -115,7 +115,7 @@ export default {
           lname: this.newLastName
         });
         // clean the form
-        this.newLastName = "";
+        this.newLastName = '';
       }
     },
 
@@ -127,7 +127,7 @@ export default {
         });
 
         // clean the form
-        this.newEmail = "";
+        this.newEmail = '';
       }
     },
     updatePassword() {
@@ -137,7 +137,7 @@ export default {
           password: this.newPassword
         });
         // clean the form
-        this.newPassword = "";
+        this.newPassword = '';
       }
     }
   }
