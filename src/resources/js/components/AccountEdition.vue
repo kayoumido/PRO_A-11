@@ -62,7 +62,7 @@ export default {
       const apiUrl = '/api/user/' + this.loggedUser.id;
 
       /**
-       * wrapped Object.prototype for futher use
+       * wrapped Object.prototype for futur use
        * https://eslint.org/docs/rules/no-prototype-builtins
        */ 
 
@@ -154,7 +154,7 @@ export default {
      * source : https://www.w3resource.com/javascript/form/email-validation.php
      **/ 
     ValidateEmail(inputMail) {
-      const mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+      const mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,})+$/;
 
       return (inputMail.match(mailformat))
       
