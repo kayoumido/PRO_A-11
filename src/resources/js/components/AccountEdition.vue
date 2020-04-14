@@ -39,11 +39,11 @@
     </form-->
 
     <form @submit.prevent="submitChange()">
-      <label for="updateUserInfoname">
+      <label for="UpdateFirstName">
         <input v-model="updateUserInfo.fname" type="text" :placeholder="this.loggedUser.fname" />
       </label>
     
-      <label for="updateUserInfoname">
+      <label for="UpdateLastName">
         <input v-model="updateUserInfo.lname" type="text" :placeholder="this.loggedUser.lname" />
       </label>
 
