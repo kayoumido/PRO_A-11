@@ -2,12 +2,8 @@
   <div class="container">
     <h2>My Account</h2>
 
-    <div v-if="emptySubmit" class="error">
-      <h3>you cannot submit empty change</h3>
-    </div>
-
-    <div v-if="errorHttp" class="error">
-      <h3>error while sending data</h3>
+    <div v-if="showMessage" class="error">
+      <h3>{{ message }}</h3>
     </div>
 
     <form @submit.prevent="updateFirstName()">
@@ -64,8 +60,8 @@ export default {
       newLastName: '',
       newPassword: '',
       newEmail: '',
-      emptySubmit: false,
-      errorHttp: false
+      message: '',
+      showMessage: false,
     };
   },
   methods: {
@@ -80,24 +76,26 @@ export default {
           this.User.fname = response.data.user.fname;
           this.User.lname = response.data.user.lname;
           this.User.email = response.data.user.email;
-          
+
+          this.showMessage = true;
+          this.message = 'update successfull';
+
         })
         .catch(errorResponse => {
-          this.errorHttp = true;
+          this.showMessage = true;
+          this.message = 'error while sending data';
           console.log(errorResponse);
         });
     },
 
     isEmpty(textInput) {
-      // if (textInput === "") {
-      //   this.emptySubmit = true;
-      // } else {
-      //   this.emptySubmit = false;
-      // }
-
-      this.emptySubmit = (textInput === '');
-
-      return this.emptySubmit;
+      if (textInput === ''){
+        this.showMessage = true;
+        this.message = 'you cannot submit empty change';
+        return true;
+      }
+      
+      return false;
       
     },
 
