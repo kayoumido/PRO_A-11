@@ -71,7 +71,6 @@ export default {
       axios
         .put(apiUrl, data)
         .then(response => {
-          console.log(response);
 
           this.User.fname = response.data.user.fname;
           this.User.lname = response.data.user.lname;
@@ -84,7 +83,6 @@ export default {
         .catch(errorResponse => {
           this.showMessage = true;
           this.message = 'error while sending data';
-          console.log(errorResponse);
         });
     },
 
