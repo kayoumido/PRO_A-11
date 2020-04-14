@@ -5,6 +5,7 @@
             clipped
             permanent
             expand-on-hover
+            class="info"
         >
             <SideBar></SideBar>
         </v-navigation-drawer>
@@ -12,6 +13,7 @@
         <v-app-bar app
                    elevate-on-scroll
                    clipped-left
+                   class="primary"
         >
             <v-toolbar-title>Paul</v-toolbar-title>
 
