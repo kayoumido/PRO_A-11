@@ -1,4 +1,5 @@
 module.exports = {
+  root: true,
   env: {
     browser: true,
     es6: true,
@@ -18,6 +19,17 @@ module.exports = {
   plugins: [
     'vue',
   ],
+  settings: {
+    'import/resolver': {
+      node: {
+        extensions: ['.js', '.vue']
+      }
+    },
+  },
   rules: {
+    // don't require .vue extension when importing
+    'import/extensions': ['error', 'ignorePackages', {
+      vue: 'never'
+    }],
   },
 };
