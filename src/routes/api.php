@@ -13,7 +13,7 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::prefix('v1')->group(function () {
+Route::group(['prefix' => 'v1',  'middleware' => 'auth'], function() {
         // user management
         Route::apiResource('users', 'API\UserController')->only('update');
         // presentation management
