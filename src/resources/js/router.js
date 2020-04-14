@@ -9,7 +9,7 @@ export const router = new VueRouter({
   mode: 'history',
   routes: [
       {
-          path: '/hello',
+          path: '/',
           name: 'Hello',
           icon: 'mdi-help-box',
           component: Hello,

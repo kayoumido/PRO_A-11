@@ -1,10 +1,11 @@
 <template>
-    <div class="container">
+    <v-container>
         <h3>Hello</h3>
-        <div class="text-center" style="margin: 20px 0px 20px 0px;">
-            <span class="text-secondary">Hello world</span>
+        <v-btn class="primary">test btn</v-btn>
+        <div class="text-center">
+            <span class="text--secondary">Hello world</span>
         </div>
-    </div>
+    </v-container>
 </template>
 
 <script>
