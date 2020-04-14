@@ -2,8 +2,8 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 
-import {router} from './routes'
-import App from './App';
+import {router} from './router'
+import App from './components/layout/App';
 import vuetify from './vuetify'
 
 
