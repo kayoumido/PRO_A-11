@@ -8,7 +8,7 @@
 
     <form @submit.prevent="updateFirstName()">
       <label for="updateUsername">
-        <input v-model="newFirstName" type="text" :placeholder="this.User.fname" />
+        <input v-model="updateUser.fname" type="text" :placeholder="this.User.fname" />
       </label>
 
       <input type="submit" value="update firstname" />
@@ -16,7 +16,7 @@
 
     <form @submit.prevent="updateLastName()">
       <label for="updateUsername">
-        <input v-model="newLastName" type="text" :placeholder="this.User.lname" />
+        <input v-model="updateUser.lname" type="text" :placeholder="this.User.lname" />
       </label>
 
       <input type="submit" value="update lastname" />
@@ -24,7 +24,7 @@
 
     <form @submit.prevent="updateEmail()">
       <label for="updateEmail">
-        <input v-model="newEmail" type="email" :placeholder="this.User.email" />
+        <input v-model="updateUser.email" type="email" :placeholder="this.User.email" />
       </label>
 
       <input type="submit" value="update email" />
@@ -32,7 +32,7 @@
 
     <form @submit.prevent="updatePassword()">
       <label for="updatePassword">
-        <input v-model="newPassword" type="password" placeholder="New Password" />
+        <input v-model="updateUser.password" type="password" placeholder="New Password" />
       </label>
 
       <input type="submit" value="update password" />
@@ -56,10 +56,12 @@ export default {
         lname: 'Doe',
         email: 'jane@paul.lo'
       },
-      newFirstName: '',
-      newLastName: '',
-      newPassword: '',
-      newEmail: '',
+      updateUser: {
+        fname: '',
+        lname: '',
+        email: '',  
+        password: ''
+      },
       message: '',
       showMessage: false,
     };
@@ -96,6 +98,23 @@ export default {
       return false;
       
     },
+    /**
+     * Return a boolean value if the input mail match the regex
+     * source : https://www.w3resource.com/javascript/form/email-validation.php
+     **/ 
+    ValidateEmail(inputMail) {
+      const mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+
+      if(inputMail.match(mailformat))
+      {
+        return true;
+      }
+
+      this.showMessage = true;
+      this.message = 'You have entered an invalid email address!'
+      
+      return false;
+    },
 
     // call the submit function according to the data that the user would change
 
@@ -120,7 +139,7 @@ export default {
     },
 
     updateEmail() {
-      if (!this.isEmpty(this.newEmail)) {
+      if (!this.isEmpty(this.newEmail) && this.ValidateEmail(this.updateUser.email)) {
 
         this.submitChange({
           email: this.newEmail
