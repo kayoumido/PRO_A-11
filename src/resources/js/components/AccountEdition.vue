@@ -6,38 +6,6 @@
       <h3>{{ message }}</h3>
     </div>
 
-    <!--form @submit.prevent="updateFirstName()">
-      <label for="updateUserInfoname">
-        <input v-model="updateUserInfo.fname" type="text" :placeholder="this.User.fname" />
-      </label>
-
-      <input type="submit" value="update firstname" />
-    </form>
-
-    <form @submit.prevent="updateLastName()">
-      <label for="updateUserInfoname">
-        <input v-model="updateUserInfo.lname" type="text" :placeholder="this.User.lname" />
-      </label>
-
-      <input type="submit" value="update lastname" />
-    </form>
-
-    <form @submit.prevent="updateEmail()">
-      <label for="updateEmail">
-        <input v-model="updateUserInfo.email" type="email" :placeholder="this.User.email" />
-      </label>
-
-      <input type="submit" value="update email" />
-    </form>
-
-    <form @submit.prevent="updatePassword()">
-      <label for="updatePassword">
-        <input v-model="updateUserInfo.password" type="password" placeholder="New Password" />
-      </label>
-
-      <input type="submit" value="update password" />
-    </form-->
-
     <form @submit.prevent="submitChange()">
       <label for="UpdateFirstName">
         <input v-model="updateUserInfo.fname" type="text" :placeholder="this.loggedUser.fname" />
