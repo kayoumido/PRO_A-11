@@ -11,6 +11,6 @@
 |
 */
 
-Route::view('/', 'app');
+Route::view('/{any?}', 'app');
 
 Auth::routes();
