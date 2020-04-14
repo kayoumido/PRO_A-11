@@ -102,7 +102,7 @@ export default {
 
       // prepare the data to send
 
-      let data = this.getDataToSend();
+      const data = this.getDataToSend();
 
       /**
        * Check if the object is Empty
