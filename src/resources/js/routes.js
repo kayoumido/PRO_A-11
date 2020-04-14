@@ -20,7 +20,7 @@ export const router = new VueRouter({
         component: Authentication
     },
     {
-        path: '/User/edit',
+        path: '/user/edit',
         name: 'AccountEdition',
         component: AccountEdition
     }

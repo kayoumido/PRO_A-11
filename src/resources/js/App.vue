@@ -5,7 +5,7 @@
                 <div class="navbar-nav">
                     <router-link to="/hello" class="nav-item nav-link">Home</router-link>
                     <router-link to="/authentication" class="nav-item nav-link">Authentication</router-link>
-                    <router-link to="/User/edit" class="nav-item nav-link">Modifier mon compte</router-link>
+                    <router-link to="/user/edit" class="nav-item nav-link">Modifier mon compte</router-link>
                 </div>
             </div>
         </nav>
