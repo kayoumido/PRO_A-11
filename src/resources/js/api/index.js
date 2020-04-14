@@ -13,18 +13,21 @@ export default function makeServer({ environment = 'development' } = {}) {
         fname: 'Shawn',
         lname: 'The Sheep',
         email: 'shaw@paul.lo',
+        password : 'pass1234'
       });
       srv.create('user', {
         id: 2,
         fname: 'John',
         lname: 'Doe',
         email: 'john@paul.lo',
+        password : 'pass1234'
       });
       srv.create('user', {
         id: 3,
         fname: 'Jane',
         lname: 'Doe',
         email: 'jane@paul.lo',
+        password : 'pass1234'
       });
     },
 

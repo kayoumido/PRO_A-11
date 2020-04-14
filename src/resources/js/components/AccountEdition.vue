@@ -76,7 +76,11 @@ export default {
         .put(apiUrl, data)
         .then(response => {
           console.log(response);
-          this.User = response.data.user;
+
+          this.User.fname = response.data.user.fname;
+          this.User.lname = response.data.user.lname;
+          this.User.email = response.data.user.email;
+          
         })
         .catch(errorResponse => {
           this.errorHttp = true;
