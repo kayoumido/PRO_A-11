@@ -8,19 +8,19 @@
 
     <form @submit.prevent="submitChange()">
       <label for="UpdateFirstName">
-        <input id="UpdateFirstName" v-model="updateUserInfo.fname" type="text" :placeholder="this.loggedUser.fname" />
+        <input id="UpdateFirstName" v-model="updateUserInfo.fname" type="text" placeholder="New firstname" />
       </label>
     
       <label for="UpdateLastName">
-        <input id="UpdateLastName" v-model="updateUserInfo.lname" type="text" :placeholder="this.loggedUser.lname" />
+        <input id="UpdateLastName" v-model="updateUserInfo.lname" type="text" placeholder="New lastname"/>
       </label>
 
       <label for="updateEmail">
-        <input  id="updateEmail" v-model="updateUserInfo.email" type="text" :placeholder="this.loggedUser.email" />
+        <input  id="updateEmail" v-model="updateUserInfo.email" type="text" placeholder="New email"/>
       </label>
 
       <label for="updatePassword">
-        <input id="updatePassword" v-model="updateUserInfo.password" type="password" placeholder="New Password" />
+        <input id="updatePassword" v-model="updateUserInfo.password" type="password" placeholder="New password" />
       </label>
 
       <input type="submit" value="update information" />
