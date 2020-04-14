@@ -14,7 +14,7 @@ export const router = new VueRouter({
         component: Hello
     },
     {
-        path: '/authentication',
+        path: '/authentification',
         name: 'Authentication',
         component: Authentication
   }],
