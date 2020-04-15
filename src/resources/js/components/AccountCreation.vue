@@ -2,7 +2,7 @@
   <div id="app">
   
     <p class="title">PAUL</p>
-    <form @submit="register" method="post">
+    <form @submit.prevent="register" method="post">
       <div class="form-group">
         <input type="text" class="input" name="username" v-model="input.username" placeholder="Nom d'utilisateur" />
       </div>
@@ -39,8 +39,6 @@
               password: '',
               passwordConfirm: ''
           },
-      darkBlue: '#5F74E8',
-      lightBlue: '#69A7FF',
       isBlank: false,
       isIncorect: false}
 
@@ -55,18 +53,11 @@
                     name: this.username,
                     email: this.email,
                     password: this.password
-                })
-                .then(function (data){
-                // this function is launched after the post request
-                console.log(data);
-                })
-                .catch(function (error){
-                console.log(error);
                 });
-
-                this.$router.replace({name: 'login'});
+                this.$router.replace({name: 'Hello'});
             } else {
                 this.isIncorect = true;
+                this.isBlank = false;
             }
          } else {
            this.isBlank=true;
@@ -83,42 +74,3 @@
     }
   }
 </script>
-
-<style scoped>
-
-.title{
-  margin: auto;
-  font-family: Roboto;
-  font-size: 64px;
-  line-height: 200px;
-  text-align: center;
-
-  color: #8575FF;
-}
-
-
-.button {
-  margin: auto;
-  border: none;
-  background-color: #5F74E8;
-  color: white;
-  width: 405px;
-  height: 100px;
-  font-family: Roboto;
-  font-size: 36px;
-  border-radius: 5px;
-}
-
-.form-group{
-    margin: auto;
-    width: 400px;
-    height: 100;
-}
-
-.input, textarea{
-    width: 400px;
-    height: 100;
-    background-color: #69A7FF;
-}
-
-</style>
