@@ -1,15 +1,24 @@
 <template>
-  <div id="Authentication">
+  <div class="Container">
   
-    <p class="title">PAUL</p>
-    <form>
-      <input type="text" name="email" v-model="input.email" placeholder="Adresse e-mail" />
-      <input type="password" name="password" v-model="input.password" placeholder="Mot de passe" />
-      <button type="button" v-on:click="login()">Se connecter</button>
+    <h2>Authentification</h2>
+
+    <div v-if="isMessage">
+      <h3>{{ message }}</h3>
+    </div>
+
+    <form @submit.prevent="login()">
+      <label for="EnterEMail">
+        <input id="EnterEMail" type="text" v-model="input.email" placeholder="Adresse e-mail" />
+      </label>
+
+      <label for="EnterPassword">
+        <input id="EnterPassword" type="password" v-model="input.password" placeholder="Mot de passe" />
+      </label>
+
+      <input type="submit" value="Se connecter"/>
       
-      <p v-if="isWaiting"> Traitement en cours</p>
-      <p v-if="isBlank"> Pas de données</p>
-      <p v-if="isIncorect"> Adresse e-mail ou mot de passe incorrect</p>
+
     </form>
     
 
@@ -22,28 +31,32 @@
 
   export default {
   name : 'Authentication',
-  props:['data'],
+  props:['parent'], //for future use (can't log in if already logged in, will reroute to home)
   data () {
     return{
       input: {
         email: '',
         password: ''
       },
-      isBlank: false,
-      isIncorect: false,
-      isWaiting: false}
+      isMessage: false,
+      message: ''
+    }
+
 
   },
   methods: {
     login() {
       if(this.input.email != "" && this.input.password != "") { //if not blank
         //sends credentials to backend for verification
-           
-        this.isBlank=false;
-        this.isWaiting=true;
+
+        if(!this.validateEmail(this.input.email)){
+          message='Addresse e-mail non valide';
+          this.isMessage=true;
+          return;
+        }
 
         axios.post(
-          '/api/login',{ // might change, depend of 
+          '/api/login',{ // might change, depend of back end route
             email: this.email,
             password: this.password
           }
@@ -59,13 +72,22 @@
           this.isIncorect = true;
         });
 
-        this.isWaiting=false;
 
-      } else {
-        this.isBlank=true;
+      } else { //is blank
+        this.message='Veuillez remplir tous les champs'
+        this.isMessage=true;
       }
 
     },
+    /**
+    * Return a boolean value if the input mail match the regex
+    * source : https://www.w3resource.com/javascript/form/email-validation.php
+    **/ 
+    validateEmail(inputMail) {
+      const mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,})+$/;
+      return (inputMail.match(mailformat))
+      
+    },
   }
-}
+};
 </script>
