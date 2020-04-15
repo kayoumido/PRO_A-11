@@ -15,5 +15,17 @@
 </template>
 
 <script>
-    export default {}
+export default {
+  data() {
+    return {
+      user: {},
+    };
+  },
+  created() {
+    axios.get('/api/user/1')
+      .then(response => {
+        this.user = response.data.user;
+      });
+  },
+}
 </script>

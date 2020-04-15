@@ -1,0 +1,57 @@
+name: Testing
+# in this file we describe the action to execute for the CI in the dev pipeline
+
+# based on default laravel workflow
+# https://github.com/actions/starter-workflows/blob/master/ci/laravel.yml
+on:
+  push:
+    branches:
+      - '*'
+      - '!master'
+  pull_request:
+    branches:
+      - develop
+
+jobs:
+  laravel-tests:
+
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres
+        env:
+          POSTGRES_PASSWORD: postgres
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Checkout to current branch
+      run: git fetch && git checkout ${{ github.head_ref }}
+    - name: Copy .env
+      run: php -r "file_exists('.env') || copy('.env.example', '.env');"
+      working-directory: ./src
+    - name: Install Dependencies
+      run: composer install -q --no-ansi --no-interaction --no-scripts --no-suggest --no-progress --prefer-dist
+      working-directory: ./src
+    - name: Generate key
+      run: php artisan key:generate
+      working-directory: ./src
+    - name: Execute tests (Unit and Feature tests) via PHPUnit
+      env:
+        DB_CONNECTION: pgsql
+        DB_HOST: postgres
+        DB_PORT: 5432
+        DB_DATABASE: laravel
+        DB_USERNAME: laravel
+        DB_PASSWORD: passPRO
+
+      run: vendor/bin/phpunit
+      working-directory: ./src
+
+      # create fake data
+      # use container for whole job
