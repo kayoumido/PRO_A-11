@@ -1,0 +1,40 @@
+name: Production
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  laravel-tests:
+    runs-on: self-hosted
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Copy .env
+      run: php -r "file_exists('.env')
+      working-directory: ./src
+    - name: Install Dependencies
+      run: composer install -q --no-ansi --no-interaction --no-scripts --no-suggest --no-progress --prefer-dist --optimize-autoloader --no-dev
+      working-directory: ./src
+    - name: Enable Artisan in prod mode
+      run: php artisan config:cache && php artisan route:cache
+    - name: Execute tests (Unit and Feature tests) via PHPUnit
+      run: vendor/bin/phpunit
+      working-directory: ./src
+
+  prod-deploy:
+    runs-on: self-hosted
+    needs: laravel-tests
+
+    steps:
+      - name: Ensure repository presence
+        run: test -e HEIGVD-PRO-A-11 || (git clone https://github.com/kayoumido/HEIGVD-PRO-A-11/)
+      - name: Reset repository
+        run: cd HEIGVD-PRO-A-11 && git checkout master && git reset --hard && git pull
+      - name: Down docker stack
+        run: docker-compose down
+        working-directory: ./HEIGVD-PRO-A-11/infra/prod
+      - name: Up docker stack
+        run: docker-compose up -d
+        working-directory: ./HEIGVD-PRO-A-11/infra/prod

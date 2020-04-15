@@ -156,8 +156,14 @@ $ docker exec -it <container_name> bash
 $ docker ps
 ```
 
-### Documentation
+## Workflow
+
+Whenever a commit is made on any branch but master, or a PR is made on `develop`, the (Testing)[.github/workflows/testing.yml] pipeline will run. It reports whether the new code passes unit tests.
+
+Whenever a commit is made on `master`, the (Production)[.github/workflows/prod.yml] pipeline will run. It updates the production stack with the latest code, migrating DB data, etc.
+
+## Documentation
 
 User manual: see file xxxxx.
 
-API documentation: see file yyyyy.
+API documentation: see file `api.md`.
