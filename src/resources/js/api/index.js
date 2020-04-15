@@ -41,10 +41,12 @@ export default function makeServer({ environment = 'development' } = {}) {
       });
 
       this.post('/login', (schema, request) => {
-        let json = JSON.parse(request.requestBody);
-        let response = schema.users.findBy({email: json.email});
-        if(json.password === response.password){//should be hashed
-          return this.serialize(response);
+        // let json = JSON.parse(request.requestBody);
+        const email = request.params.email;
+        const password = request.params.password;
+        const user = schema.users.find(email);
+        if(password === user.password){//should be hashed
+          return new Response(201);
         } else {
           return new Response(401);
         }

@@ -50,25 +50,25 @@
         //sends credentials to backend for verification
 
         if(!this.validateEmail(this.input.email)){
-          message='Addresse e-mail non valide';
+          this.message='Addresse e-mail non valide';
           this.isMessage=true;
           return;
         }
 
         axios.post(
           '/api/login',{ // might change, depend of back end route
-            email: this.email,
-            password: this.password
+            email: this.input.email,
+            password: this.input.password
           }
               
         )
         .then(function (data){
           // this function is launched after the post request (if I understood this is only when the POST is a success)
           this.$router.replace({name: 'Hello'}); // all routing is handled by vuejs
-          console.log(data);
+
         })
         .catch(function (error){
-          console.log(error);
+
           this.isIncorect = true;
         });
 
