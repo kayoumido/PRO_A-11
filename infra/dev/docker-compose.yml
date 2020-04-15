@@ -2,6 +2,7 @@ version: "3.7"
 
 volumes:
   node_modules:
+  vendor:
 
 services:
   nginx:
@@ -24,6 +25,7 @@ services:
     volumes:
       - ../../src:/var/www
       - node_modules:/var/www/node_modules
+      - vendor:/var/www/vendor
       - ./laravel/php-fpm.conf:/usr/local/etc/php-fpm.d/zz-docker.conf
     ports:
       - 42090:9000
