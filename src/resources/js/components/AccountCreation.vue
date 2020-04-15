@@ -1,6 +1,5 @@
 <template>
-  <div id="app">
-  
+  <div>
     <p class="title">PAUL</p>
     <form @submit.prevent="register" method="post">
       <div class="form-group">
@@ -49,7 +48,7 @@
             if (this.isPasswordConfirmMatchPassword()){ //if password is different of comfirm password
                 //sends credentials to backend 
                 axios.post(
-                '/register',{
+                '/api/register',{
                     name: this.username,
                     email: this.email,
                     password: this.password
