@@ -8,11 +8,7 @@ Vue.use(VueRouter);
 
 export const router = new VueRouter({
   mode: 'history',
-    routes: [{
-        path: '/hello',
-        name: 'Hello',
-        component: Hello
-    },
+    routes: [
     {
       path: '/presentation',
       name: 'presentation',
