@@ -3,7 +3,10 @@
     <p class="title">PAUL</p>
     <form @submit.prevent="register" method="post">
       <div class="form-group">
-        <input type="text" class="input" name="username" v-model="input.username" placeholder="Nom d'utilisateur" />
+        <input type="text" class="input" name="lname" v-model="input.lname" placeholder="Nom" />
+      </div>
+      <div class="form-group">
+        <input type="text" class="input" name="fname" v-model="input.fname" placeholder="Prénom" />
       </div>
       <div class="form-group">
         <input type="email" class="input" name="email" v-model="input.email" placeholder="email" />
@@ -33,7 +36,8 @@
     data () {
         return{
           input: {
-              username: '',
+              lname: '',
+              fname: '',
               email: '',
               password: '',
               passwordConfirm: ''
@@ -49,7 +53,8 @@
                 //sends credentials to backend 
                 axios.post(
                 '/api/register',{
-                    name: this.username,
+                    lname: this.lname,
+                    fname: this.fname,
                     email: this.email,
                     password: this.password
                 });
@@ -68,7 +73,7 @@
       },
       //check if an input is empty
       isFieldsEmpty(){
-        return (this.input.username != "" && this.input.email != "" && this.input.password != "" && this.input.passwordConfirm != "");
+        return (this.input.lname != "" && this.input.fname != "" && this.input.email != "" && this.input.password != "" && this.input.passwordConfirm != "");
       },
     }
   }
