@@ -59,6 +59,7 @@ export default {
           this.presentations = response.data.data;
           if (this.presentationsIsEmpty()) {
             this.showMessage = true;
+            this.message = 'you haven\'t subscribed to a presentation';
           }
         })
         .catch((error) => {
