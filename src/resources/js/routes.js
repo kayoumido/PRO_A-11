@@ -9,22 +9,12 @@ Vue.use(VueRouter);
 
 export const router = new VueRouter({
   mode: 'history',
-    routes: [{
-        path: '/hello',
-        name: 'Hello',
-        component: Hello
-    },
-    {
-        path: '/authentication',
-        name: 'Authentication',
-        component: Authentication
-    },
+    routes: [
     {
         path: '/user/edit',
         name: 'AccountEdition',
         component: AccountEdition
     }
-
 
 ],
 });
