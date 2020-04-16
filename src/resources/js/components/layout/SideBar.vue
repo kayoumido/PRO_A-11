@@ -24,7 +24,6 @@
     export default {
         name: "SideBar",
         data: () => ({
-            route: 0,
             routes: router.options.routes,
         })
     }
