@@ -24,7 +24,7 @@ class PresentationController extends Controller
      */
     public function index(User $user)
     {
-        //
+        return PresentationResource::collection($user->presentations);
     }
 
     /**
@@ -68,7 +68,7 @@ class PresentationController extends Controller
      */
     public function show(Presentation $presentation)
     {
-        //
+        return new PresentationResource($presentation);
     }
 
     /**
