@@ -1,12 +1,15 @@
 <template>
   <div class="container">
-    <div v-if="isError" class="error">
-      <h3>{{ message }}</h3>
-    </div>
+     <div v-if="isError" class="error">
+          <h3>{{ message }}</h3>
+     </div>
 
-    <h3>Presentation info</h3>
+     <h3>Presentation info</h3>
+     <div>
+          <h4>title : {{ presentation.title }} </h4>
+          <p>created on : {{ formatDate(presentation.date) }} </p>
+     </div>
 
-    <div v-for="(value, name) in presentation" :key="name">{{ name }} : {{ value }}</div>
   </div>
 </template>
 
@@ -21,17 +24,17 @@ export default {
       presentation: {},
       polls: [],
       isError: false,
-      message: ""
+      message: ''
     };
   },
   beforeMount() {
     this.getPresentationInfo();
   },
   methods: {
-    getPresentationInfo() {
+     getPresentationInfo() {
       //const id = idPresentation;
       const id = 1;
-      const apiUrl = "api/v1/presentations/aaa" + id;
+      const apiUrl = "api/v1/presentations/" + id;
 
       axios
         .get(apiUrl)
@@ -42,6 +45,15 @@ export default {
           this.isError = true;
           this.message = "an error has occured while sending the data";
         });
+    },
+    formatDate(dateString){
+         /**
+          * formatting date
+          * https://codehandbook.org/javascript-date-format/
+          */
+         let currentDate = new Date(dateString);
+         let formatted_date = currentDate.getFullYear() + "-" + (currentDate.getMonth() + 1) + "-" + currentDate.getDate();
+         return formatted_date;
     }
   }
 };
