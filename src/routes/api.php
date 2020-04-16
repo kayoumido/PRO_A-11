@@ -14,11 +14,23 @@ use Illuminate\Http\Request;
 */
 
 Route::prefix('v1')->group(function () {
+
+        Route::post('login', 'API\AuthController@login');
+        Route::post('register', 'API\AuthController@register');
+//        Route::post('password/confirm', 'Auth\ConfirmPasswordController@confirm');
+//        Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail');
+//        Route::post('password/reset', 'Auth\ResetPasswordController@reset');
+
+    Route::middleware(['auth:api'])->group(function (){
+        Route::get('/user', function (Request $request) {
+            return $request->user();
+        });
+        Route::post('/logout', 'API\AuthController@logout');
         // user management
         Route::apiResource('users', 'API\UserController')->only('update');
         // presentation management
         Route::apiResource('users.presentations', 'API\PresentationController')->shallow();
-        Route::get('prestations/search', 'API\PresentationController@search')->name('presentations.search');
+        Route::get('presentations/search', 'API\PresentationController@search')->name('presentations.search');
         // presentation inscriptions
         Route::post('presentations/{presentation}/users/{user}', 'API\PresentationUserController@subscribe')->name('presentations.users.subscribe');
         Route::delete('presentations/{presentation}/users/{user}', 'API\PresentationUserController@unsubscribe')->name('presentations.users.unsubscribe');
@@ -31,5 +43,6 @@ Route::prefix('v1')->group(function () {
         // Choices management
         Route::apiResource('polls.choices', 'API\ChoiceController')->except(['show'])->shallow();
         Route::post('polls/{poll}/users/{user}', 'API\PollController@vote')->name('polls.vote');
+    });
 
 });
