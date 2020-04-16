@@ -4,6 +4,7 @@
             <div class="collapse navbar-collapse">
                 <div class="navbar-nav">
                     <router-link to="/hello" class="nav-item nav-link">Home</router-link>
+                    <router-link to="/presentation" class="nav-item nav-link">presentation 1</router-link>
                 </div>
             </div>
         </nav>
