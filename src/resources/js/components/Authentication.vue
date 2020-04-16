@@ -39,14 +39,15 @@
         password: ''
       },
       isMessage: false,
-      message: ''
+      message: '',
+      token: 0
     }
 
 
   },
   methods: {
     login() {
-      if(this.input.email != "" && this.input.password != "") { //if not blank
+      if(this.input.email !== '' && this.input.password !== '') { //if not blank
         //sends credentials to backend for verification
 
         if(!this.validateEmail(this.input.email)){
@@ -55,26 +56,31 @@
           return;
         }
 
+        const data = this.input;
+
+
         axios.post(
-          '/api/login',{ // might change, depend of back end route
-            email: this.input.email,
-            password: this.input.password
-          }
-              
+          '/api/login',data
         )
-        .then(function (data){
-          // this function is launched after the post request (if I understood this is only when the POST is a success)
-          this.$router.replace({name: 'Hello'}); // all routing is handled by vuejs
+        .then(response => { //this seems incompatible with the #42 back end auth
+          
+          if(response.data.passed === true){
+            this.message='Authentifié'
+            this.isMessage=true;
+            //this.$router.replace({name: 'Hello'}); // all routing is handled by vuejs, should be changed for the final home route
+          } else {
+            this.mailPasswordError();
+          }
+          
 
         })
-        .catch(function (error){
-
-          this.isIncorect = true;
+        .catch(error => {
+          this.mailPasswordError();
         });
 
 
       } else { //is blank
-        this.message='Veuillez remplir tous les champs'
+        this.message='Veuillez remplir tous les champs';
         this.isMessage=true;
       }
 
@@ -85,8 +91,13 @@
     **/ 
     validateEmail(inputMail) {
       const mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,})+$/;
-      return (inputMail.match(mailformat))
+      return (inputMail.match(mailformat));
       
+    },
+
+    mailPasswordError(){
+      this.message='Mot de passe ou email incorrect';
+      this.isMessage=true;
     },
   }
 };
