@@ -16,7 +16,7 @@ toc_footers:
 # Info
 
 Welcome to the generated API reference.
-[Get Postman Collection](http://localhost/docs/collection.json)
+[Get Postman Collection](http://homestead.paul/docs/collection.json)
 
 <!-- END_INFO -->
 
@@ -30,14 +30,14 @@ Welcome to the generated API reference.
 
 ```bash
 curl -X GET \
-    -G "http://localhost/api/v1/polls/delectus/choices" \
+    -G "http://homestead.paul/api/v1/polls/est/choices" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"
 ```
 
 ```javascript
 const url = new URL(
-    "http://localhost/api/v1/polls/delectus/choices"
+    "http://homestead.paul/api/v1/polls/est/choices"
 );
 
 let headers = {
@@ -54,11 +54,11 @@ fetch(url, {
 ```
 
 
-> Example response (500):
+> Example response (401):
 
 ```json
 {
-    "message": "Server Error"
+    "message": "Unauthenticated."
 }
 ```
 
@@ -80,16 +80,16 @@ Parameter | Status | Description
 
 ```bash
 curl -X POST \
-    "http://localhost/api/v1/polls/iusto/choices" \
+    "http://homestead.paul/api/v1/polls/rerum/choices" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"message":"et"}'
+    -d '{"message":"molestiae"}'
 
 ```
 
 ```javascript
 const url = new URL(
-    "http://localhost/api/v1/polls/iusto/choices"
+    "http://homestead.paul/api/v1/polls/rerum/choices"
 );
 
 let headers = {
@@ -98,7 +98,7 @@ let headers = {
 };
 
 let body = {
-    "message": "et"
+    "message": "molestiae"
 }
 
 fetch(url, {
@@ -134,16 +134,16 @@ Parameter | Type | Status | Description
 
 ```bash
 curl -X PUT \
-    "http://localhost/api/v1/choices/molestiae" \
+    "http://homestead.paul/api/v1/choices/nesciunt" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"message":"ipsam"}'
+    -d '{"message":"tempora"}'
 
 ```
 
 ```javascript
 const url = new URL(
-    "http://localhost/api/v1/choices/molestiae"
+    "http://homestead.paul/api/v1/choices/nesciunt"
 );
 
 let headers = {
@@ -152,7 +152,7 @@ let headers = {
 };
 
 let body = {
-    "message": "ipsam"
+    "message": "tempora"
 }
 
 fetch(url, {
@@ -190,14 +190,14 @@ Parameter | Type | Status | Description
 
 ```bash
 curl -X DELETE \
-    "http://localhost/api/v1/choices/eum" \
+    "http://homestead.paul/api/v1/choices/et" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"
 ```
 
 ```javascript
 const url = new URL(
-    "http://localhost/api/v1/choices/eum"
+    "http://homestead.paul/api/v1/choices/et"
 );
 
 let headers = {
@@ -233,16 +233,16 @@ Parameter | Status | Description
 
 ```bash
 curl -X POST \
-    "http://localhost/api/v1/polls/quod/users/est" \
+    "http://homestead.paul/api/v1/polls/debitis/users/autem" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"choice_id":"tempore"}'
+    -d '{"choice_id":"nam"}'
 
 ```
 
 ```javascript
 const url = new URL(
-    "http://localhost/api/v1/polls/quod/users/est"
+    "http://homestead.paul/api/v1/polls/debitis/users/autem"
 );
 
 let headers = {
@@ -251,7 +251,7 @@ let headers = {
 };
 
 let body = {
-    "choice_id": "tempore"
+    "choice_id": "nam"
 }
 
 fetch(url, {
@@ -291,14 +291,14 @@ Parameter | Type | Status | Description
 
 ```bash
 curl -X POST \
-    "http://localhost/api/v1/presentations/quo/users/dolor" \
+    "http://homestead.paul/api/v1/presentations/dolore/users/enim" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"
 ```
 
 ```javascript
 const url = new URL(
-    "http://localhost/api/v1/presentations/quo/users/dolor"
+    "http://homestead.paul/api/v1/presentations/dolore/users/enim"
 );
 
 let headers = {
@@ -335,14 +335,14 @@ Parameter | Status | Description
 
 ```bash
 curl -X DELETE \
-    "http://localhost/api/v1/presentations/facere/users/vitae" \
+    "http://homestead.paul/api/v1/presentations/dignissimos/users/aliquam" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"
 ```
 
 ```javascript
 const url = new URL(
-    "http://localhost/api/v1/presentations/facere/users/vitae"
+    "http://homestead.paul/api/v1/presentations/dignissimos/users/aliquam"
 );
 
 let headers = {
@@ -382,16 +382,16 @@ Parameter | Status | Description
 
 ```bash
 curl -X PUT \
-    "http://localhost/api/v1/presentations/sequi/users/accusantium" \
+    "http://homestead.paul/api/v1/presentations/dolorem/users/consequatur" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"role":"magnam"}'
+    -d '{"role":"nihil"}'
 
 ```
 
 ```javascript
 const url = new URL(
-    "http://localhost/api/v1/presentations/sequi/users/accusantium"
+    "http://homestead.paul/api/v1/presentations/dolorem/users/consequatur"
 );
 
 let headers = {
@@ -400,7 +400,7 @@ let headers = {
 };
 
 let body = {
-    "role": "magnam"
+    "role": "nihil"
 }
 
 fetch(url, {
@@ -440,14 +440,14 @@ Parameter | Type | Status | Description
 
 ```bash
 curl -X GET \
-    -G "http://localhost/api/v1/presentations/provident/polls" \
+    -G "http://homestead.paul/api/v1/presentations/consequuntur/polls" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"
 ```
 
 ```javascript
 const url = new URL(
-    "http://localhost/api/v1/presentations/provident/polls"
+    "http://homestead.paul/api/v1/presentations/consequuntur/polls"
 );
 
 let headers = {
@@ -464,11 +464,11 @@ fetch(url, {
 ```
 
 
-> Example response (500):
+> Example response (401):
 
 ```json
 {
-    "message": "Server Error"
+    "message": "Unauthenticated."
 }
 ```
 
@@ -490,16 +490,16 @@ Parameter | Status | Description
 
 ```bash
 curl -X POST \
-    "http://localhost/api/v1/presentations/voluptate/polls" \
+    "http://homestead.paul/api/v1/presentations/amet/polls" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"subject":"nulla"}'
+    -d '{"subject":"vel"}'
 
 ```
 
 ```javascript
 const url = new URL(
-    "http://localhost/api/v1/presentations/voluptate/polls"
+    "http://homestead.paul/api/v1/presentations/amet/polls"
 );
 
 let headers = {
@@ -508,7 +508,7 @@ let headers = {
 };
 
 let body = {
-    "subject": "nulla"
+    "subject": "vel"
 }
 
 fetch(url, {
@@ -544,14 +544,14 @@ Parameter | Type | Status | Description
 
 ```bash
 curl -X GET \
-    -G "http://localhost/api/v1/polls/dolorem" \
+    -G "http://homestead.paul/api/v1/polls/nihil" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"
 ```
 
 ```javascript
 const url = new URL(
-    "http://localhost/api/v1/polls/dolorem"
+    "http://homestead.paul/api/v1/polls/nihil"
 );
 
 let headers = {
@@ -568,11 +568,11 @@ fetch(url, {
 ```
 
 
-> Example response (500):
+> Example response (401):
 
 ```json
 {
-    "message": "Server Error"
+    "message": "Unauthenticated."
 }
 ```
 
@@ -594,16 +594,16 @@ Parameter | Status | Description
 
 ```bash
 curl -X PUT \
-    "http://localhost/api/v1/polls/et" \
+    "http://homestead.paul/api/v1/polls/fugit" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"subject":"et"}'
+    -d '{"subject":"nisi"}'
 
 ```
 
 ```javascript
 const url = new URL(
-    "http://localhost/api/v1/polls/et"
+    "http://homestead.paul/api/v1/polls/fugit"
 );
 
 let headers = {
@@ -612,7 +612,7 @@ let headers = {
 };
 
 let body = {
-    "subject": "et"
+    "subject": "nisi"
 }
 
 fetch(url, {
@@ -650,14 +650,14 @@ Parameter | Type | Status | Description
 
 ```bash
 curl -X DELETE \
-    "http://localhost/api/v1/polls/enim" \
+    "http://homestead.paul/api/v1/polls/saepe" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"
 ```
 
 ```javascript
 const url = new URL(
-    "http://localhost/api/v1/polls/enim"
+    "http://homestead.paul/api/v1/polls/saepe"
 );
 
 let headers = {
@@ -693,14 +693,14 @@ Parameter | Status | Description
 
 ```bash
 curl -X PUT \
-    "http://localhost/api/v1/polls/1/publish" \
+    "http://homestead.paul/api/v1/polls/1/publish" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"
 ```
 
 ```javascript
 const url = new URL(
-    "http://localhost/api/v1/polls/1/publish"
+    "http://homestead.paul/api/v1/polls/1/publish"
 );
 
 let headers = {
@@ -731,14 +731,14 @@ fetch(url, {
 
 ```bash
 curl -X GET \
-    -G "http://localhost/api/v1/polls/et/results" \
+    -G "http://homestead.paul/api/v1/polls/doloremque/results" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"
 ```
 
 ```javascript
 const url = new URL(
-    "http://localhost/api/v1/polls/et/results"
+    "http://homestead.paul/api/v1/polls/doloremque/results"
 );
 
 let headers = {
@@ -755,11 +755,11 @@ fetch(url, {
 ```
 
 
-> Example response (500):
+> Example response (401):
 
 ```json
 {
-    "message": "Server Error"
+    "message": "Unauthenticated."
 }
 ```
 
@@ -784,14 +784,14 @@ Parameter | Status | Description
 
 ```bash
 curl -X GET \
-    -G "http://localhost/api/v1/users/rem/presentations" \
+    -G "http://homestead.paul/api/v1/users/fugit/presentations" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"
 ```
 
 ```javascript
 const url = new URL(
-    "http://localhost/api/v1/users/rem/presentations"
+    "http://homestead.paul/api/v1/users/fugit/presentations"
 );
 
 let headers = {
@@ -808,11 +808,11 @@ fetch(url, {
 ```
 
 
-> Example response (500):
+> Example response (401):
 
 ```json
 {
-    "message": "Server Error"
+    "message": "Unauthenticated."
 }
 ```
 
@@ -834,16 +834,16 @@ Parameter | Status | Description
 
 ```bash
 curl -X POST \
-    "http://localhost/api/v1/users/sed/presentations" \
+    "http://homestead.paul/api/v1/users/a/presentations" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"title":"nihil","date":"autem"}'
+    -d '{"title":"perferendis","date":"unde"}'
 
 ```
 
 ```javascript
 const url = new URL(
-    "http://localhost/api/v1/users/sed/presentations"
+    "http://homestead.paul/api/v1/users/a/presentations"
 );
 
 let headers = {
@@ -852,8 +852,8 @@ let headers = {
 };
 
 let body = {
-    "title": "nihil",
-    "date": "autem"
+    "title": "perferendis",
+    "date": "unde"
 }
 
 fetch(url, {
@@ -890,14 +890,14 @@ Parameter | Type | Status | Description
 
 ```bash
 curl -X GET \
-    -G "http://localhost/api/v1/presentations/facilis" \
+    -G "http://homestead.paul/api/v1/presentations/asperiores" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"
 ```
 
 ```javascript
 const url = new URL(
-    "http://localhost/api/v1/presentations/facilis"
+    "http://homestead.paul/api/v1/presentations/asperiores"
 );
 
 let headers = {
@@ -914,11 +914,11 @@ fetch(url, {
 ```
 
 
-> Example response (500):
+> Example response (401):
 
 ```json
 {
-    "message": "Server Error"
+    "message": "Unauthenticated."
 }
 ```
 
@@ -940,16 +940,16 @@ Parameter | Status | Description
 
 ```bash
 curl -X PUT \
-    "http://localhost/api/v1/presentations/est" \
+    "http://homestead.paul/api/v1/presentations/quam" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"title":"qui","date":"voluptas"}'
+    -d '{"title":"ut","date":"sapiente"}'
 
 ```
 
 ```javascript
 const url = new URL(
-    "http://localhost/api/v1/presentations/est"
+    "http://homestead.paul/api/v1/presentations/quam"
 );
 
 let headers = {
@@ -958,8 +958,8 @@ let headers = {
 };
 
 let body = {
-    "title": "qui",
-    "date": "voluptas"
+    "title": "ut",
+    "date": "sapiente"
 }
 
 fetch(url, {
@@ -998,14 +998,14 @@ Parameter | Type | Status | Description
 
 ```bash
 curl -X DELETE \
-    "http://localhost/api/v1/presentations/beatae" \
+    "http://homestead.paul/api/v1/presentations/consequuntur" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"
 ```
 
 ```javascript
 const url = new URL(
-    "http://localhost/api/v1/presentations/beatae"
+    "http://homestead.paul/api/v1/presentations/consequuntur"
 );
 
 let headers = {
@@ -1034,25 +1034,25 @@ Parameter | Status | Description
 
 <!-- END_d75bb5a606d83d55cff58d40d188d6f7 -->
 
-<!-- START_4603721d3613a0fa6a1aa7c492fca225 -->
+<!-- START_e96335a14a712c3589807d07a2b53adb -->
 ## Search for a presentation
 
 > Example request:
 
 ```bash
 curl -X GET \
-    -G "http://localhost/api/v1/prestations/search?keywords=temporibus" \
+    -G "http://homestead.paul/api/v1/presentations/search?keywords=repellendus" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"
 ```
 
 ```javascript
 const url = new URL(
-    "http://localhost/api/v1/prestations/search"
+    "http://homestead.paul/api/v1/presentations/search"
 );
 
 let params = {
-    "keywords": "temporibus",
+    "keywords": "repellendus",
 };
 Object.keys(params)
     .forEach(key => url.searchParams.append(key, params[key]));
@@ -1071,9 +1071,16 @@ fetch(url, {
 ```
 
 
+> Example response (401):
+
+```json
+{
+    "message": "Unauthenticated."
+}
+```
 
 ### HTTP Request
-`GET api/v1/prestations/search`
+`GET api/v1/presentations/search`
 
 #### Query Parameters
 
@@ -1081,7 +1088,7 @@ Parameter | Status | Description
 --------- | ------- | ------- | -----------
     `keywords` |  required  | Keywords to search
 
-<!-- END_4603721d3613a0fa6a1aa7c492fca225 -->
+<!-- END_e96335a14a712c3589807d07a2b53adb -->
 
 #User Management
 
@@ -1093,14 +1100,14 @@ Parameter | Status | Description
 
 ```bash
 curl -X PUT \
-    "http://localhost/api/v1/users/1" \
+    "http://homestead.paul/api/v1/users/1" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"
 ```
 
 ```javascript
 const url = new URL(
-    "http://localhost/api/v1/users/1"
+    "http://homestead.paul/api/v1/users/1"
 );
 
 let headers = {
@@ -1125,5 +1132,119 @@ fetch(url, {
 
 
 <!-- END_296fac4bf818c99f6dd42a4a0eb56b58 -->
+
+#general
+
+
+<!-- START_8c0e48cd8efa861b308fc45872ff0837 -->
+## api/v1/login
+> Example request:
+
+```bash
+curl -X POST \
+    "http://homestead.paul/api/v1/login" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json"
+```
+
+```javascript
+const url = new URL(
+    "http://homestead.paul/api/v1/login"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+})
+    .then(response => response.json())
+    .then(json => console.log(json));
+```
+
+
+
+### HTTP Request
+`POST api/v1/login`
+
+
+<!-- END_8c0e48cd8efa861b308fc45872ff0837 -->
+
+<!-- START_8ae5d428da27b2b014dc767c2f19a813 -->
+## api/v1/register
+> Example request:
+
+```bash
+curl -X POST \
+    "http://homestead.paul/api/v1/register" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json"
+```
+
+```javascript
+const url = new URL(
+    "http://homestead.paul/api/v1/register"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+})
+    .then(response => response.json())
+    .then(json => console.log(json));
+```
+
+
+
+### HTTP Request
+`POST api/v1/register`
+
+
+<!-- END_8ae5d428da27b2b014dc767c2f19a813 -->
+
+<!-- START_fb2ae43e2e99ff4e90f22ba03801a735 -->
+## api/v1/logout
+> Example request:
+
+```bash
+curl -X POST \
+    "http://homestead.paul/api/v1/logout" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json"
+```
+
+```javascript
+const url = new URL(
+    "http://homestead.paul/api/v1/logout"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+})
+    .then(response => response.json())
+    .then(json => console.log(json));
+```
+
+
+
+### HTTP Request
+`POST api/v1/logout`
+
+
+<!-- END_fb2ae43e2e99ff4e90f22ba03801a735 -->
 
 
