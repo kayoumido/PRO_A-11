@@ -5,11 +5,6 @@
     </div>
 
     <div v-for="presentation in presentations" :key="presentation.id">
-      <!--
-        passing props to a router link
-        source : https://dev.to/aligoren/passing-data-to-a-router-link-in-vuejs-2cb0
-                https://router.vuejs.org/guide/essentials/named-routes.html
-      -->
       <router-link
         :to="{ name : 'presentation', params : { idPresentation : presentation.id} }"
         >
@@ -42,10 +37,6 @@ export default {
       message: '',
     };
   },
-  /**
-   * beforeMount will be after the creation of the Vue
-   * source : https://vuejs.org/v2/api/#beforeMount
-   */
   beforeMount() {
     this.getPresentation();
   },
