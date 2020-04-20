@@ -4,7 +4,7 @@
       <h3>{{ message }}</h3>
     </div>
 
-    <div v-for="presentation in presentations" :key="presentation.id">
+    <div v-for="presentation in presentations.data" :key="presentation.id">
       <router-link
         :to="{ name : 'presentation', params : { idPresentation : presentation.id} }"
         >
@@ -25,25 +25,18 @@ export default {
   props: ['parent'],
   data() {
     return {
-      // we will use parent data when available
-      loggedUser: {
-        id: 1,
-        fname: 'Jane',
-        lname: 'Doe',
-        email: 'Jane@paul.io',
-      },
       presentations: [],
       showMessage: false,
       message: '',
     };
   },
   beforeMount() {
-    const apiUrl = `/api/v1/users/${this.loggedUser.id}/presentations`;
+    const apiUrl = `/api/v1/users/${this.parent.loggedUser.id}/presentations`;
 
     axios
       .get(apiUrl)
       .then((response) => {
-        this.presentations = response.data.data;
+        this.presentations = response.data;
         if (this.presentationsIsEmpty()) {
           this.showMessage = true;
           this.message = 'you haven\'t subscribed to a presentation';
