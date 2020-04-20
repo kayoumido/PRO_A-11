@@ -38,26 +38,23 @@ export default {
     };
   },
   beforeMount() {
-    this.getPresentation();
+    const apiUrl = `/api/v1/users/${this.loggedUser.id}/presentations`;
+
+    axios
+      .get(apiUrl)
+      .then((response) => {
+        this.presentations = response.data.data;
+        if (this.presentationsIsEmpty()) {
+          this.showMessage = true;
+          this.message = 'you haven\'t subscribed to a presentation';
+        }
+      })
+      .catch((error) => {
+        this.showMessage = true;
+        this.message = `error while sending data, code ${error.response.status}`;
+      });
   },
   methods: {
-    getPresentation() {
-      const apiUrl = `/api/v1/users/${this.loggedUser.id}/presentations`;
-
-      axios
-        .get(apiUrl)
-        .then((response) => {
-          this.presentations = response.data.data;
-          if (this.presentationsIsEmpty()) {
-            this.showMessage = true;
-            this.message = 'you haven\'t subscribed to a presentation';
-          }
-        })
-        .catch((error) => {
-          this.showMessage = true;
-          this.message = `error while sending data, code ${error.response.status}`;
-        });
-    },
     presentationsIsEmpty() {
       return (this.presentations.length === 0);
     },
