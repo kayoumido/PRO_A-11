@@ -28,24 +28,20 @@ export default {
     };
   },
   beforeMount() {
-    this.getPresentationInfo();
+
+    const apiUrl = `api/v1/presentations/${idPresentationd}`;
+
+    axios
+      .get(apiUrl)
+      .then((response) => {
+        this.presentation = response.data.data;
+      })
+      .catch((error) => {
+        this.isError = true;
+        this.message = "an error has occured while sending the data";
+      });
   },
   methods: {
-     getPresentationInfo() {
-      //const id = idPresentation;
-      const id = 1;
-      const apiUrl = "api/v1/presentations/" + id;
-
-      axios
-        .get(apiUrl)
-        .then(response => {
-          this.presentation = response.data.data;
-        })
-        .catch(error => {
-          this.isError = true;
-          this.message = "an error has occured while sending the data";
-        });
-    },
     formatDate(dateString){
          /**
           * formatting date
