@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <v-container>
      <div v-if="isError" class="error">
           <h3>{{ message }}</h3>
      </div>
@@ -10,7 +10,7 @@
           <p>created on : {{ formatDate(presentation.date) }} </p>
      </div>
 
-  </div>
+  <v-container>
 </template>
 
 <script>
