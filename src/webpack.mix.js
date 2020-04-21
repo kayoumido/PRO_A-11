@@ -12,23 +12,23 @@ const mix = require('laravel-mix');
  */
 
 mix.webpackConfig({
-    module: {
-      rules: [
-        {
-          enforce: 'pre',
-          exclude: {
-            test: [
-                /node_modules/,
-                /bootstrap\.js/
-            ]
-          },
-          loader: 'eslint-loader',
-          test: /\.(js|vue)?$/,
-          options: {
-            emitError: true,
-          },
+  module: {
+    rules: [
+      {
+        enforce: 'pre',
+        exclude: {
+          test: [
+            /node_modules/,
+            /bootstrap\.js/,
+          ]
         },
-      ]
-    }
-  }).js('resources/js/app.js', 'public/js')
-    .sass('resources/sass/app.scss', 'public/css');
+        loader: 'eslint-loader',
+        test: /\.(js|vue)?$/,
+        options: {
+          emitError: true,
+        },
+      },
+    ]
+  }
+}).js('resources/js/app.js', 'public/js')
+  .sass('resources/sass/app.scss', 'public/css');

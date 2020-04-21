@@ -5,11 +5,13 @@ import Hello from './components/Hello';
 
 Vue.use(VueRouter);
 
-export const router = new VueRouter({
+const router = new VueRouter({
   mode: 'history',
-    routes: [{
-        path: '/hello',
-        name: 'Hello',
-        component: Hello
-    }],
+  routes: [{
+    path: '/hello',
+    name: 'Hello',
+    component: Hello,
+  }],
 });
+
+export default router;

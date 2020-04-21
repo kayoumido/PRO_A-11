@@ -16,9 +16,9 @@ export default {
   },
   created() {
     axios.get('/api/user/1')
-      .then(response => {
+      .then((response) => {
         this.user = response.data.user;
       });
   },
-}
+};
 </script>
