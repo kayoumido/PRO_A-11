@@ -10,7 +10,7 @@
           <p>created on : {{ formatDate(presentation.data.date) }} </p>
      </div>
 
-  <v-container>
+  </v-container>
 </template>
 
 <script>
