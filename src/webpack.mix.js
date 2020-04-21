@@ -19,7 +19,6 @@ mix.webpackConfig({
         exclude: {
           test: [
             /node_modules/,
-            /bootstrap\.js/,
           ]
         },
         loader: 'eslint-loader',
