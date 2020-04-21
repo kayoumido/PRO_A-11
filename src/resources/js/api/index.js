@@ -1,7 +1,7 @@
 import { Server, Model } from 'miragejs';
 
 export default function makeServer({ environment = 'development' } = {}) {
-  const server = new Server({
+  return new Server({
     environment,
     models: {
       user: Model,
@@ -38,6 +38,4 @@ export default function makeServer({ environment = 'development' } = {}) {
       });
     },
   });
-
-  return server;
 }
