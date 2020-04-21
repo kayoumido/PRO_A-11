@@ -15,7 +15,7 @@ export default {
     };
   },
   created() {
-    axios.get('/api/user/1')
+    window.axios.get('/api/user/1')
       .then((response) => {
         this.user = response.data.user;
       });
