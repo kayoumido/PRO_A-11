@@ -6,8 +6,8 @@
 
      <h3>Presentation info</h3>
      <div>
-          <h4>title : {{ presentation.title }} </h4>
-          <p>created on : {{ formatDate(presentation.date) }} </p>
+          <h4>title : {{ presentation.data.title }} </h4>
+          <p>created on : {{ formatDate(presentation.data.date) }} </p>
      </div>
 
   <v-container>
@@ -34,7 +34,7 @@ export default {
     axios
       .get(apiUrl)
       .then((response) => {
-        this.presentation = response.data.data;
+        this.presentation.data = response.data;
       })
       .catch((error) => {
         this.isError = true;
