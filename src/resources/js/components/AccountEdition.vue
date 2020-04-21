@@ -63,7 +63,6 @@ export default {
 
       /**
        * wrapped Object.prototype for futur use
-       * https://eslint.org/docs/rules/no-prototype-builtins
        */ 
 
       const has = Object.prototype.hasOwnProperty;
@@ -74,7 +73,6 @@ export default {
 
       /**
        * Check if the object is Empty
-       * source : https://stackoverflow.com/questions/679915/how-do-i-test-for-an-empty-javascript-object
        */
       if(Object.keys(data).length === 0){
         this.showMessage = true;
@@ -82,9 +80,7 @@ export default {
         return;
       }
 
-      /* validate the email if there is 
-       * https://www.geeksforgeeks.org/how-to-check-a-key-exists-in-javascript-object/
-       *  
+      /* validate the email if there is        *  
        */ 
       
       if(has.call(data,'email')){
@@ -156,7 +152,7 @@ export default {
     ValidateEmail(inputMail) {
       const mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,})+$/;
 
-      return (inputMail.match(mailformat))
+      return (inputMail.match(mailformat));
       
     }
   }
