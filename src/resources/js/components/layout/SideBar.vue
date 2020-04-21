@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import { router } from '../../router';
+import router from '../../router';
 
 export default {
   name: 'SideBar',

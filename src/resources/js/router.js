@@ -5,7 +5,7 @@ import Hello from './components/Hello';
 
 Vue.use(VueRouter);
 
-export const router = new VueRouter({
+const router = new VueRouter({
   mode: 'history',
   routes: [
     {
@@ -21,3 +21,5 @@ export const router = new VueRouter({
       component: Hello,
     }],
 });
+
+export default router;

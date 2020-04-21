@@ -19,7 +19,7 @@ mix.webpackConfig({
         exclude: {
           test: [
             /node_modules/,
-          ]
+          ],
         },
         loader: 'eslint-loader',
         test: /\.(js|vue)?$/,
@@ -27,7 +27,7 @@ mix.webpackConfig({
           emitError: true,
         },
       },
-    ]
-  }
+    ],
+  },
 }).js('resources/js/app.js', 'public/js')
   .sass('resources/sass/app.scss', 'public/css');
