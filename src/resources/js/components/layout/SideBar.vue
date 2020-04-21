@@ -19,14 +19,14 @@
 </template>
 
 <script>
-    import {router} from "../../router";
+import { router } from '../../router';
 
-    export default {
-        name: "SideBar",
-        data: () => ({
-            routes: router.options.routes,
-        })
-    }
+export default {
+  name: 'SideBar',
+  data: () => ({
+    routes: router.options.routes,
+  }),
+};
 </script>
 
 <style scoped>

@@ -33,11 +33,11 @@
     </v-app>
 </template>
 <script>
-    import SideBar from "./SideBar";
-    import SearchBar from "./SearchBar";
-    import UserTooltip from "./UserTooltip";
+import SideBar from './SideBar';
+import SearchBar from './SearchBar';
+import UserTooltip from './UserTooltip';
 
-    export default {
-        components: {UserTooltip, SearchBar, SideBar},
-    }
+export default {
+  components: { UserTooltip, SearchBar, SideBar },
+};
 </script>

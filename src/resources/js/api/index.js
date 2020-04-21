@@ -1,7 +1,7 @@
 import { Server, Model } from 'miragejs';
 
 export default function makeServer({ environment = 'development' } = {}) {
-  const server = new Server({
+  return Server({
     environment,
     models: {
       user: Model,
@@ -32,12 +32,10 @@ export default function makeServer({ environment = 'development' } = {}) {
       this.namespace = 'api';
 
       this.get('/user/:id', (schema, request) => {
-        const id = request.params.id;
+        const { id } = request.params;
 
         return schema.users.find(id);
       });
     },
   });
-
-  return server;
 }

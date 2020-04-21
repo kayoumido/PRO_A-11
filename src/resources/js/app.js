@@ -1,14 +1,13 @@
-require('./bootstrap');
+import './bootstrap';
 
 import Vue from 'vue';
-
-import {router} from './router'
-import App from './components/layout/App';
-import vuetify from './vuetify'
-
 import makeServer from './api';
+import { router } from './router';
+import vuetify from './vuetify';
+import App from './components/layout/App';
 
-if (process.env.NODE_ENV === "development") {
+
+if (process.env.NODE_ENV === 'development') {
   makeServer();
 }
 
@@ -18,5 +17,5 @@ new Vue({
   router,
   vuetify,
   components: { App },
-  render: h => h(App),
+  render: (h) => h(App),
 });
