@@ -1,5 +1,6 @@
 <template>
-  <v-container>
+  <!--v-container-->
+  <div class="container">
      <div v-if="isError" class="error">
           <h3>{{ message }}</h3>
      </div>
@@ -7,10 +8,10 @@
      <h3>Presentation info</h3>
      <div>
           <h4>title : {{ presentation.data.title }} </h4>
-          <p>created on : {{ formatDate(presentation.data.date) }} </p>
+          <p>created on : {{ presentation.data.date }} </p>
      </div>
-
-  </v-container>
+  </div>
+  <!--/v-container-->
 </template>
 
 <script>
@@ -29,7 +30,8 @@ export default {
   },
   beforeMount() {
 
-    const apiUrl = `api/v1/presentations/${idPresentationd}`;
+    // const apiUrl = `api/v1/presentations/${idPresentation}`;
+    const apiUrl = 'api/v1/presentations/1';
 
     axios
       .get(apiUrl)
@@ -41,16 +43,6 @@ export default {
         this.message = "an error has occured while sending the data";
       });
   },
-  methods: {
-    formatDate(dateString){
-         /**
-          * formatting date
-          * https://codehandbook.org/javascript-date-format/
-          */
-         let currentDate = new Date(dateString);
-         let formatted_date = currentDate.getFullYear() + "-" + (currentDate.getMonth() + 1) + "-" + currentDate.getDate();
-         return formatted_date;
-    }
-  }
 };
+
 </script>
