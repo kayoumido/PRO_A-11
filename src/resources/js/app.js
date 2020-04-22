@@ -1,20 +1,20 @@
+import Vue from 'vue';
+import makeServer from './api';
+import router from './router';
+import vuetify from './vuetify';
+import App from './components/layout/App';
+
 require('./bootstrap');
 
-import Vue from 'vue';
 
-import {router} from './routes';
-import App from './App.vue';
-
-import makeServer from './api';
-
-if (process.env.NODE_ENV === "development") {
+if (process.env.NODE_ENV === 'development') {
   makeServer();
 }
 
-
-new Vue({
+export default new Vue({
   el: '#app',
   router,
+  vuetify,
   components: { App },
-  render: h => h(App),
+  render: (h) => h(App),
 });
