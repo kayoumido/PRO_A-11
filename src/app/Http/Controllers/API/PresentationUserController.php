@@ -25,7 +25,26 @@ class PresentationUserController extends Controller
      */
     public function subscribe(Presentation $presentation, User $user)
     {
-        //
+        // check that the user isn't already subscribed to the presentation
+        if ($presentation->users()->find($user)) {
+            return response()->json([
+                'success' => false,
+                'message' => "Already subscribed",
+            ], 409);
+        }
+
+        // all gucci, the user can subscribe
+
+        // subscribe the user to the presentation
+        $presentation->users()->attach($user, [
+            'role' => 'attendee'
+        ]);
+
+        // return success
+        return response()->json([
+            'success' => true,
+            'message' => "Successfully subscribed",
+        ], 200);
     }
 
     /**
