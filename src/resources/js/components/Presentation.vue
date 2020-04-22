@@ -34,7 +34,7 @@ export default {
     axios
       .get(apiUrl)
       .then((response) => {
-        this.presentation.data = response.data;
+        this.presentation = response.data;
       })
       .catch((error) => {
         this.isError = true;
