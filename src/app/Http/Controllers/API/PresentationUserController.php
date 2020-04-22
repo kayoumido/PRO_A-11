@@ -39,7 +39,24 @@ class PresentationUserController extends Controller
      */
     public function unsubscribe(Presentation $presentation, User $user)
     {
-        //
+        // check that the user isn't already unsubscribed to the presentation
+        if (!$presentation->users()->find($user)) {
+            return response()->json([
+                'success' => false,
+                'message' => "Already unsubscribed",
+            ], 409);
+        }
+
+        // all gucci, the user can unsubscribe
+
+        // unsubscribe the user to the presentation
+        $presentation->users()->detach($user);
+
+        // return success
+        return response()->json([
+            'success' => true,
+            'message' => "Successfully unsubscribed",
+        ], 200);
     }
 
     /**
