@@ -6,7 +6,12 @@
 
     <div v-for="presentation in presentations.data" :key="presentation.id">
       <router-link
-        :to="{ name : 'presentation', params : { idPresentation : presentation.id} }"
+        :to="{ name : 'presentation',
+              params : { idPresentation : presentation.id,
+                         // will help generate url like /presentation/name
+                         name : presentation.title,
+                       }
+              }"
         >
         {{ presentation.title }}
       </router-link>
@@ -18,6 +23,7 @@
 
 <script>
 
+// eslint-disable-next-line import/no-extraneous-dependencies
 import axios from 'axios';
 
 export default {
@@ -31,7 +37,9 @@ export default {
     };
   },
   beforeMount() {
-    const apiUrl = `/api/v1/users/${this.parent.loggedUser.id}/presentations`;
+    // const apiUrl = `/api/v1/users/${this.parent.loggedUser.id}/presentations`;
+    const apiUrl = '/api/v1/users/1/presentations';
+
 
     axios
       .get(apiUrl)
