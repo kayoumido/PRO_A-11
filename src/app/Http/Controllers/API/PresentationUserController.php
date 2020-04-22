@@ -39,12 +39,6 @@ class PresentationUserController extends Controller
         $presentation->users()->attach($user, [
             'role' => 'attendee'
         ]);
-
-        // return success
-        return response()->json([
-            'success' => true,
-            'message' => "Successfully subscribed",
-        ], 200);
     }
 
     /**
