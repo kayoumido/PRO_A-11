@@ -2,6 +2,7 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 
 import Hello from './components/Hello';
+import newPresentation from './components/CreatePresentation';
 
 Vue.use(VueRouter);
 
@@ -19,7 +20,14 @@ const router = new VueRouter({
       name: 'Test',
       icon: 'mdi-help-box',
       component: Hello,
-    }],
+    },
+    {
+      path: '/presentationCreation',
+      name: 'newPresentation',
+      icon: 'mdi-help-box',
+      component: newPresentation,
+    },
+  ],
 });
 
 export default router;
