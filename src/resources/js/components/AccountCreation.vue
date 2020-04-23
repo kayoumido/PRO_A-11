@@ -21,8 +21,9 @@
         <button type="button" class="button" v-on:click="register()">Créer compte</button>
       </div>
       
-      <p v-if="isBlank"> Manque des informations</p>
-      <p v-if="isIncorect"> mot de passe différent</p>
+      <div v-if="isError" class="error"> 
+        <h3>{{ message }}</h3>
+      </div>
     </form>
   </div>
 </template>
@@ -42,9 +43,8 @@
               password: '',
               passwordConfirm: ''
           },
-      isBlank: false,
-      isIncorect: false}
-
+      isError: false,
+      message: ''};
     },
     methods: {
       register() {
@@ -57,14 +57,25 @@
                     fname: this.fname,
                     email: this.email,
                     password: this.password
+                }).then(Response => {
+                  if(Response.data.passed === true){
+                    this.$router.replace({name: 'Hello'});
+                  }else{
+                    this.isError = true;
+                    this.message = 'Cette adresse mail est déjà utilisé';
+                  }
+                }).catch(error => {
+                  this.isError = true;
+                  this.message = 'Une erreur a eu lieu lors de la création du compte';
                 });
-                this.$router.replace({name: 'Hello'});
+                
             } else {
-                this.isIncorect = true;
-                this.isBlank = false;
+                this.isError = true;
+                this.message = 'Les mots de passe sont différents';
             }
          } else {
-           this.isBlank=true;
+           this.isError = true;
+           this.message = 'Ils y a des champs vides';
          }
       },
       //check if both password are the same
@@ -73,7 +84,7 @@
       },
       //check if an input is empty
       isFieldsEmpty(){
-        return (this.input.lname != "" && this.input.fname != "" && this.input.email != "" && this.input.password != "" && this.input.passwordConfirm != "");
+        return (this.input.lname !== '' && this.input.fname !== '' && this.input.email !== '' && this.input.password !== '' && this.input.passwordConfirm !== '');
       },
     }
   }
