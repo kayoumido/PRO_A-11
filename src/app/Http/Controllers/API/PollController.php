@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\PollResource;
 use App\Poll;
 use App\Presentation;
 use App\User;
@@ -24,7 +25,7 @@ class PollController extends Controller
      */
     public function index(Presentation $presentation)
     {
-        //
+        return PollResource::collection($presentation->polls());
     }
 
     /**
@@ -38,7 +39,17 @@ class PollController extends Controller
      */
     public function store(Request $request, Presentation $presentation)
     {
-        //
+        $request->validate([
+            'subject' => 'required',
+            'status' => 'required'
+        ]);
+
+        $poll = $presentation->polls()->create($request->only([
+            'subject',
+            'status'
+        ]));
+
+        return new PollResource($poll);
     }
 
     /**
@@ -50,7 +61,7 @@ class PollController extends Controller
      */
     public function show(Poll $poll)
     {
-        //
+        return new PollResource($poll);
     }
 
     /**
@@ -89,7 +100,11 @@ class PollController extends Controller
      */
     public function publish(Request $request, Poll $poll)
     {
+        $request->validate([
+            'subject' => 'required'
+        ]);
 
+        // how to set status ?
     }
 
     /**
@@ -102,7 +117,7 @@ class PollController extends Controller
      */
     public function results(Request $request, Poll $poll)
     {
-
+        return PollResource::collection($poll->users;
     }
 
     /**
