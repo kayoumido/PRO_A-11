@@ -26,8 +26,8 @@
 </template>
 
 <script>
-  import axios from 'axios'
-  import router from '../routes'
+  import axios from 'axios';
+  import router from '../routes';
 
   export default {
   name : 'Authentication',
@@ -67,7 +67,7 @@
           if(response.data.passed === true){
             this.message='Authentifié'
             this.isMessage=true;
-            //this.$router.replace({name: 'Hello'}); // all routing is handled by vuejs, should be changed for the final home route
+            this.$router.replace({name: 'Hello'}); // all routing is handled by vuejs, should be changed for the final home route
           } else {
             this.mailPasswordError();
           }
