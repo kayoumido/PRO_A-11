@@ -55,7 +55,7 @@ class AuthController extends Controller
     }
 
     /**
-     * Create e new user account
+     * Create a new user account
      *
      * @responseFile responses/login.get.json
      *
