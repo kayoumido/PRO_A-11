@@ -15,6 +15,13 @@ use Illuminate\Support\Str;
 
 class AuthController extends Controller
 {
+    /**
+     * Send an email to the user with the reset password link
+     *
+     * @bodyParam email email required email of the user who makes the request
+     *
+     * @param Request $request
+     */
     public function sendResetLinkEmail(Request $request)
     {
         $request->validate([
@@ -32,11 +39,21 @@ class AuthController extends Controller
         Mail::to($request->email)->send(new ResetPasswordMail($token));
     }
 
+    /**
+     * Change the password
+     *
+     * @bodyParam token string required token to validate the request
+     * @bodyParam email email required email of the user who wants to change is password
+     * @bodyParam password string required the new password for the user
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function reset(Request $request)
     {
         $request->validate([
             'token' => 'required',
-            'password' => 'string|min:6',
+            'password' => 'required|string|min:6',
             'email' => 'required|email'
         ]);
 
