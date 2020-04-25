@@ -1,45 +1,37 @@
-# use Debian Buster (10) with FPM
-FROM php:7.4.3-fpm-buster
+FROM php:7.4-fpm
 
-# work directly from www directory
-WORKDIR /var/www
+# unlock php deb package
+RUN rm /etc/apt/preferences.d/no-debian-php
+
+# Raw code till i haven't found a way to pass .env file values
+ENV USER_ID 1000
+ENV GROUP_ID 1000
+
+RUN groupadd -f $GROUP_ID
+RUN useradd -u $USER_ID -g $GROUP_ID user
+
+RUN mkdir /home/user
+
+RUN chown -R $USER_ID:$GROUP_ID /home/user
+
+RUN chown -R $USER_ID:$GROUP_ID /var/www
+
 
 # install Laravel's PHP dependencies
-# can also do with docker-php-ext-install / docker-php-ext-configure, to check
-RUN apt update && apt install -y \
-    php7.4-bcmath \
-    php7.4-ctype \
-    php7.4-fileinfo \
-    php7.4-json \
-    php7.4-mbstring \
-    php7.4-openssl \
-    php7.4-pdo \
-    php7.4-tokenizer \
-    php7.4-xml
+RUN apt-get update && apt-get install -y libpq5 libpq-dev zip unzip git libzip-dev
 
-# install own dependencies
-# needed ?
-RUN apt install -y git
+# install node + npm
 
-# apt cleanup
-RUN apt clean
+RUN curl -sL https://deb.nodesource.com/setup_12.x | bash -
+RUN apt-get install -y nodejs
 
-# install Composer directly
+# install composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-# install Laravel from Composer
-RUN /usr/local/bin/composer global require laravel/installer
+RUN docker-php-ext-install pdo_pgsql zip
 
-# copy app to www
-# needed ?
-COPY . /var/www
+USER user
 
-# create user and own www
-RUN groupadd -g 1000 www-data
-RUN useradd -u 1000 -ms /bin/bash -g www-data www-data
-RUN chown -R www-data:www-data /var/www
+WORKDIR /var/www
 
-# become www-data and expose app
-USER www-data
-EXPOSE 8080
 CMD ["php-fpm"]
