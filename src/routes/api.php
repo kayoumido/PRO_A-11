@@ -14,6 +14,10 @@ use Illuminate\Http\Request;
 */
 
 Route::prefix('v1')->group(function () {
+
+    Route::post('password/send-reset-email', 'API\AuthController@sendResetLinkEmail');
+    Route::post('password/reset', 'API\AuthController@reset');
+
         // user management
         Route::apiResource('users', 'API\UserController')->only('update');
         // presentation management
