@@ -2,7 +2,7 @@
   <v-container>
 
   <v-alert
-    v-if="message.show"
+    v-model="message.show"
     :class="message.type"
     dismissible
     >
@@ -10,30 +10,6 @@
     </v-alert>
 
   <h2>My Account</h2>
-
-  <!--form @submit.prevent="submitChange()">
-    <label for="UpdateFirstName">
-      <input id="UpdateFirstName" v-model="updateUserInfo.fname" type="text"
-      placeholder="New firstname" />
-    </label>
-
-    <label for="UpdateLastName">
-      <input id="UpdateLastName" v-model="updateUserInfo.lname" type="text"
-      placeholder="New lastname"/>
-    </label>
-
-    <label for="updateEmail">
-      <input  id="updateEmail" v-model="updateUserInfo.email" type="text"
-      placeholder="New email"/>
-    </label>
-
-    <label for="updatePassword">
-      <input id="updatePassword" v-model="updateUserInfo.password" type="password"
-      placeholder="New password" />
-    </label>
-
-    <input type="submit" value="update information" />
-  </form-->
 
   <v-form
     ref="form"
@@ -62,12 +38,12 @@
 
     <v-text-field
       v-model="updateUserInfo.password"
-      :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
-      :type="show ? 'text' : 'password'"
+      :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+      :type="showPassword ? 'text' : 'password'"
       label="password"
       value=""
       class="input-group--focused"
-      @click:append="show = !show"
+      @click:append="showPassword = !showPassword"
     ></v-text-field>
 
     <v-btn
@@ -93,23 +69,23 @@ export default {
   data() {
     return {
       // vuetify
-      show: false,
-      valid: true,
-      name: '',
+      valid: true, // if a rules is not fully satisfied this will disable submit button
       nameRules: [
-        (v) => (v === '' || v.length <= 10) || 'Name must be less than 10 characters',
+        (v) => v === '' || v.length <= 10 || 'Name must be less than 10 characters',
       ],
-      email: '',
       emailRules: [
         (v) => v === '' || /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,})+$/.test(v) || 'E-mail must be valid',
       ],
+      showPassword: false,
+      // object for message management
       message: {
-        show: false,
+        show: true,
         content: '',
         type: '',
       },
-      /** will use parent data when available (eg. parent.data.user)
-       * for now this is the current user logged
+      /*
+       * For now LoggedUser is the current user logged info
+       * this will serve as temporary test and debug value
        */
       loggedUser: {
         id: 3,
@@ -117,6 +93,7 @@ export default {
         lname: 'Doe',
         email: 'jane@paul.lo',
       },
+      // Object for form field binding
       updateUserInfo: {
         fname: '',
         lname: '',
@@ -128,6 +105,7 @@ export default {
   methods: {
     // old
     submitChange() {
+      // API Url use mirageJS for testing,
       const apiUrl = `/api/user/${this.loggedUser.id}`;
 
       // prepare the data to send
@@ -136,7 +114,7 @@ export default {
       // Check if the object is Empty
 
       if (Object.keys(data).length === 0) {
-        this.showMessage('sucerrorcess', 'you must fill at least one field');
+        this.showMessage('error', 'you must fill at least one field');
         return;
       }
 
@@ -155,6 +133,10 @@ export default {
           this.showMessage('error', `error while sending data ${errorResponse}`);
         });
     },
+    /**
+     * Prepare the data object for sending to the backend
+     * add a key only if the field is not empty
+     */
     getDataToSend() {
       const data = {};
       // we add the key and value if user has change the field
