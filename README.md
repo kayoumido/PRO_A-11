@@ -162,6 +162,12 @@ Whenever a commit is made on any branch but master, or a PR is made on `develop`
 
 Whenever a commit is made on `master`, the (Production)[.github/workflows/prod.yml] pipeline will run. It updates the production stack with the latest code, migrating DB data, etc.
 
+**Note:** the following variables must be properly set in the [Settings](https://github.com/kayoumido/HEIGVD-PRO-A11/settings/secrets) page
+- `PROD_DB_HOST`
+- `PROD_DB_PASSWORD`
+- `PROD_APP_URL`
+- `PROD_APP_KEY`
+
 ## Documentation
 
 User manual: see file xxxxx.
