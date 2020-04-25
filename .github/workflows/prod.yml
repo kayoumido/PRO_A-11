@@ -21,7 +21,7 @@ jobs:
         && sed -i 's|APP_KEY=|APP_KEY=${{ secrets.PROD_APP_KEY }}|g' .env
       working-directory: ./src
     - name: Install Dependencies
-      run: composer install -q --no-ansi --no-interaction --no-scripts --no-suggest --no-progress --prefer-dist --optimize-autoloader --no-dev
+      run: composer install -q --no-ansi --no-interaction --no-scripts --no-suggest --no-progress --prefer-dist --optimize-autoloader
       working-directory: ./src
     - name: Enable Artisan in prod mode
       run: php artisan config:cache && php artisan route:cache
