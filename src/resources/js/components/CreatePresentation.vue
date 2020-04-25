@@ -1,5 +1,13 @@
 <template>
   <v-container>
+    <v-alert
+    v-model="message.show"
+    :class="message.type"
+    dismissible
+    >
+      {{ message.content }}
+    </v-alert>
+
     <h2>Creation de presentation</h2>
     <v-form
       ref="form"
@@ -7,10 +15,10 @@
       lazy-validation
     >
       <v-text-field
-        v-model="name"
-        :counter="5"
-        :rules="nameRules"
-        label="Name"
+        v-model="dataForm.title"
+        :counter="20"
+        :rules="titleRules"
+        label="title"
         required
       ></v-text-field>
 
@@ -24,7 +32,7 @@
       >
         <template v-slot:activator="{ on }">
           <v-text-field
-            v-model="date"
+            v-model="dataForm.date"
             label="Choose a date"
             :rules="dateRules"
             required
@@ -32,53 +40,77 @@
             v-on="on"
           ></v-text-field>
         </template>
-        <v-date-picker v-model="date" @input="menu = false" ></v-date-picker>
+        <v-date-picker v-model="dataForm.date" @input="menu = false" ></v-date-picker>
       </v-menu>
 
       <v-btn
         :disabled="!valid"
         color="success"
         class="mr-4"
-        @click="validate"
+        @click="createPresentation()"
       >
-        Submit
+        Create
       </v-btn>
 
-      <v-btn
-        color="error"
-        class="mr-4"
-        @click="reset"
-      >
-        Reset Form
-      </v-btn>
     </v-form>
   </v-container>
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
   data: () => ({
     valid: true,
-    name: '',
-    nameRules: [
-      (v) => !!v || 'Name is required',
-      (v) => (v && v.length <= 10) || 'Name must be less than 10 characters',
+    titleRules: [
+      (v) => !!v || 'Title is required',
+      (v) => (v && v.length <= 20) || 'Name must be less than 10 characters',
     ],
-    date: new Date().toISOString().substr(0, 10),
     dateMenu: false,
     dateRules: [
       (v) => !!v || 'Must specify a date',
-      (v) => Date.parse(v) >= Date.now() || 'Must specify a valid date',
+      // (v) => Date.parse(v) >= Date.now() || 'Must specify a valid date',
     ],
+    dataForm: {
+      date: new Date().toISOString().substr(0, 10),
+      title: '',
+    },
+    // object for message management
+    message: {
+      show: false,
+      content: '',
+      type: '',
+    },
 
   }),
 
   methods: {
-    validate() {
-      this.$refs.form.validate();
+    createPresentation() {
+      /* -------------------------------------------------------
+      For testing purpose theses value are hardcoded here */
+      const userID = 1;
+      const apiUrl = `api/v1/users/${userID}/presentations`;
+      // -------------------------------------------------------
+
+      if (!this.$refs.form.validate()) {
+        return;
+      }
+
+      // send http request with axios and catch response or error
+      axios.post(apiUrl, this.dataForm)
+        .then((response) => {
+          const newdata = response.data;
+          this.showMessage('success', `you successfuly create the presentation : ${newdata.data.toISOString}`);
+          this.$refs.form.reset();
+        })
+        .catch((errorResponse) => {
+          this.showMessage('error', `error while sending data ${errorResponse}`);
+        });
     },
-    reset() {
-      this.$refs.form.reset();
+    showMessage(type, content) {
+      this.message.show = true;
+      this.message.content = content;
+      this.message.type = type;
     },
   },
 };
