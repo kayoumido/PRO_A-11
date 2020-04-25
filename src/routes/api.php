@@ -17,9 +17,6 @@ Route::prefix('v1')->group(function () {
 
         Route::post('login', 'API\AuthController@login');
         Route::post('register', 'API\AuthController@register');
-//        Route::post('password/confirm', 'Auth\ConfirmPasswordController@confirm');
-//        Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail');
-//        Route::post('password/reset', 'Auth\ResetPasswordController@reset');
 
     Route::middleware(['auth:api'])->group(function (){
         Route::get('/user', function (Request $request) {
