@@ -28,10 +28,6 @@ jobs:
     needs: laravel-tests
 
     steps:
-      - name: Ensure repository presence
-        run: test -e HEIGVD-PRO-A-11 || (git clone https://github.com/kayoumido/HEIGVD-PRO-A-11/)
-      - name: Reset repository
-        run: cd HEIGVD-PRO-A-11 && git checkout master && git reset --hard && git pull
       - name: Down docker stack
         run: docker-compose down
         working-directory: ./HEIGVD-PRO-A-11/infra/prod
