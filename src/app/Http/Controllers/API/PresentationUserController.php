@@ -16,6 +16,7 @@ class PresentationUserController extends Controller
 {
     /**
      * Subscribe the user to the presentation.
+     * @authenticated
      *
      * @urlParam presentation required Presentation id
      * @urlParam user required User id
@@ -30,6 +31,7 @@ class PresentationUserController extends Controller
 
     /**
      * Unsubscribe the user to the presentation.
+     * @authenticated
      *
      * @urlParam presentation required Presentation id
      * @urlParam user required User id
@@ -44,6 +46,7 @@ class PresentationUserController extends Controller
 
     /**
      * Change the user role related to the presentation.
+     * @authenticated
      *
      * @group Manage user rights on presentations
      *
