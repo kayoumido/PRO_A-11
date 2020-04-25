@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Http\Resources\UserResource;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -11,14 +12,18 @@ use Illuminate\Support\Facades\Hash;
  * Class AuthController
  * @package App\Http\Controllers\API
  * @group Authentication
- * All routes that need authentication should contain a bearer token in the headers using the following synthax `Authorization: Bearer <token>`
+ * All routes that need authentication should contain a bearer token in the headers
+ * using the following synthax:<br>
+ * `Authorization: Bearer <token>`
  */
 class AuthController extends Controller
 {
     /**
      * Log the user in
      *
-     * @bodyParam username email required email of the user to connect
+     * @responseFile responses/login.get.json
+     *
+     * @bodyParam email email required email of the user to connect
      * @bodyParam password string required the password related to the user
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
@@ -33,7 +38,7 @@ class AuthController extends Controller
                     'grant_type' => 'password',
                     'client_id' => config('services.passport.client_id'),
                     'client_secret' => config('services.passport.client_secret'),
-                    'username' => $request->username,
+                    'username' => $request->email,
                     'password' => $request->password,
                 ]
             ]);
@@ -52,6 +57,8 @@ class AuthController extends Controller
     /**
      * Create e new user account
      *
+     * @responseFile responses/login.get.json
+     *
      * @bodyParam fname string required User's firstname
      * @bodyParam lname string required User's lastname
      * @bodyParam email email required User's email
@@ -68,25 +75,35 @@ class AuthController extends Controller
             'password' => 'required|string|min:6',
         ]);
 
-        return User::create([
+        User::create([
             'fname' => $request->fname,
             'lname' => $request->lname,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
+
+        return $this->login($request);
     }
 
     /**
      * Sign out the user from everywere
+     * @authenticated
      *
-     * @return \Illuminate\Http\JsonResponse
      */
     public function logout()
     {
         auth()->user()->tokens->each(function ($token, $key) {
             $token->delete();
         });
+    }
 
-        return response()->json('Logged out successfully', 200);
+    /**
+     * Return the current authenticated information
+     * @authenticated
+     * @responseFile responses/user.get.json
+     */
+    public function user(Request $request)
+    {
+        return new UserResource($request->user());
     }
 }

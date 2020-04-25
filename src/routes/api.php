@@ -19,9 +19,8 @@ Route::prefix('v1')->group(function () {
         Route::post('register', 'API\AuthController@register');
 
     Route::middleware(['auth:api'])->group(function (){
-        Route::get('/user', function (Request $request) {
-            return $request->user();
-        });
+        Route::get('/me', 'API\AuthController@user');
+
         Route::post('/logout', 'API\AuthController@logout');
         // user management
         Route::apiResource('users', 'API\UserController')->only('update');
