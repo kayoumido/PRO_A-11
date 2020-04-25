@@ -2,11 +2,101 @@
     "variables": [],
     "info": {
         "name": "Paul API",
-        "_postman_id": "e3ccdcd2-d9cf-4c01-8dc9-b3ca4223543f",
+        "_postman_id": "045104a0-2fd2-4aa1-a893-0936cc7ce04c",
         "description": "",
         "schema": "https:\/\/schema.getpostman.com\/json\/collection\/v2.0.0\/collection.json"
     },
     "item": [
+        {
+            "name": "Authentication",
+            "description": "All routes that need authentication should contain a bearer token in the headers using the following synthax `Authorization: Bearer <token>`\nex: `Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI0IiwianRpIjoiYTgwNjc1OWQzMzhjNzQ4NTZlNWI0ZGI5ZWRmOGE1ZGZjNDk0MDk2ODE1ZTQyY2I1NTYxOWU5NWE5ZDllOTJkNjQzMWI1NTRkMGRjY2YxYjkiLCJpYXQiOjE1ODcwNDY4MzIsIm5iZiI6MTU4NzA0NjgzMiwiZXhwIjoxNjE4NTgyODMyLCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.0APExixmcY8WB6-YFcwX9v73eGmDWUOIIy-7x7iI56fAkyli8CjvNfg7rxveNLFHWNhAwshl1LW6F1UbXaV_HIZ0kv-8WDR6eO2_5g-bRkxr-WBru0vlEbmpZAxAKyIWoFm3FQdcOXjONpQ2CUkyGSlkoAC9XQSNrkNs1smV2Pj2h3fxuU3mfoqWVZjEbV3dgN0GU4uXWvz1ioauz4uZvyMU3fW0d3V_H6vW4TjeOFDW3XtXln5fAt2wzkYTDf1h_IpQ8PF1GcsJaOL7PReehAI3cumQV1B8EYyzBlTvp7y3RMnP4T_clTCGCjFvuavkQZai29jBw7hbippRJc09sZSv4NvR6Y5MTZElJvDo3xHBApfLdp-V8-n2eqj8524F2NVP7T146K9Yv36fGoa-qNF5NWL7NINd7wAd45UL2mrJP2qq2WlnMlgonTrAhJTYQf2kh9zVbbdIEKCa_RgYBXcdPrDQYaHv1VqVt97TEq5_QpW5EOOf3xdMJ_3rq3vhlXtLEsHnwLMpsmxOejHP5VgCu3FvGGxCKC5ELMHCc5vPtePn5R7jm0-bqXQTHS8wz6UCP2Pd6k24oLLK7AHjDXumaepeNEynBQGcgWT7k2KXijfOjV1fvtLYjUzRljNOvOB3ztwsFCIdBFt8jaSphgCQ9MIbByX3-DKVXAbHX5Y `",
+            "item": [
+                {
+                    "name": "Log the user in",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "localhost",
+                            "path": "api\/v1\/login",
+                            "query": []
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"username\": \"excepturi\",\n    \"password\": \"rerum\"\n}"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Create e new user account",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "localhost",
+                            "path": "api\/v1\/register",
+                            "query": []
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"fname\": \"pariatur\",\n    \"lname\": \"et\",\n    \"email\": \"est\",\n    \"password\": \"sunt\"\n}"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Sign out the user from everywere",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "localhost",
+                            "path": "api\/v1\/logout",
+                            "query": []
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                }
+            ]
+        },
         {
             "name": "Choices management",
             "description": "",
@@ -16,14 +106,14 @@
                     "request": {
                         "url": {
                             "protocol": "http",
-                            "host": "homestead.paul",
+                            "host": "localhost",
                             "path": "api\/v1\/polls\/:poll\/choices",
                             "query": [],
                             "variable": [
                                 {
                                     "id": "poll",
                                     "key": "poll",
-                                    "value": "est",
+                                    "value": "et",
                                     "description": "id of the poll"
                                 }
                             ]
@@ -52,14 +142,14 @@
                     "request": {
                         "url": {
                             "protocol": "http",
-                            "host": "homestead.paul",
+                            "host": "localhost",
                             "path": "api\/v1\/polls\/:poll\/choices",
                             "query": [],
                             "variable": [
                                 {
                                     "id": "poll",
                                     "key": "poll",
-                                    "value": "rerum",
+                                    "value": "molestiae",
                                     "description": "id of the linked poll"
                                 }
                             ]
@@ -77,7 +167,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"message\": \"molestiae\"\n}"
+                            "raw": "{\n    \"message\": \"esse\"\n}"
                         },
                         "description": "",
                         "response": []
@@ -88,14 +178,14 @@
                     "request": {
                         "url": {
                             "protocol": "http",
-                            "host": "homestead.paul",
+                            "host": "localhost",
                             "path": "api\/v1\/choices\/:choice",
                             "query": [],
                             "variable": [
                                 {
                                     "id": "choice",
                                     "key": "choice",
-                                    "value": "nesciunt",
+                                    "value": "voluptas",
                                     "description": "Id of the choice to update"
                                 }
                             ]
@@ -113,7 +203,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"message\": \"tempora\"\n}"
+                            "raw": "{\n    \"message\": \"animi\"\n}"
                         },
                         "description": "",
                         "response": []
@@ -124,14 +214,14 @@
                     "request": {
                         "url": {
                             "protocol": "http",
-                            "host": "homestead.paul",
+                            "host": "localhost",
                             "path": "api\/v1\/choices\/:choice",
                             "query": [],
                             "variable": [
                                 {
                                     "id": "choice",
                                     "key": "choice",
-                                    "value": "et",
+                                    "value": "earum",
                                     "description": "Id of the choice to delete"
                                 }
                             ]
@@ -160,20 +250,20 @@
                     "request": {
                         "url": {
                             "protocol": "http",
-                            "host": "homestead.paul",
+                            "host": "localhost",
                             "path": "api\/v1\/polls\/:poll\/users\/:user",
                             "query": [],
                             "variable": [
                                 {
                                     "id": "poll",
                                     "key": "poll",
-                                    "value": "debitis",
+                                    "value": "aperiam",
                                     "description": "Poll id for the vote"
                                 },
                                 {
                                     "id": "user",
                                     "key": "user",
-                                    "value": "autem",
+                                    "value": "et",
                                     "description": "User id for the vote"
                                 }
                             ]
@@ -191,7 +281,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"choice_id\": \"nam\"\n}"
+                            "raw": "{\n    \"choice_id\": \"odit\"\n}"
                         },
                         "description": "",
                         "response": []
@@ -208,20 +298,20 @@
                     "request": {
                         "url": {
                             "protocol": "http",
-                            "host": "homestead.paul",
+                            "host": "localhost",
                             "path": "api\/v1\/presentations\/:presentation\/users\/:user",
                             "query": [],
                             "variable": [
                                 {
                                     "id": "presentation",
                                     "key": "presentation",
-                                    "value": "dolore",
+                                    "value": "similique",
                                     "description": "Presentation id"
                                 },
                                 {
                                     "id": "user",
                                     "key": "user",
-                                    "value": "enim",
+                                    "value": "ullam",
                                     "description": "User id"
                                 }
                             ]
@@ -250,20 +340,20 @@
                     "request": {
                         "url": {
                             "protocol": "http",
-                            "host": "homestead.paul",
+                            "host": "localhost",
                             "path": "api\/v1\/presentations\/:presentation\/users\/:user",
                             "query": [],
                             "variable": [
                                 {
                                     "id": "presentation",
                                     "key": "presentation",
-                                    "value": "dignissimos",
+                                    "value": "reiciendis",
                                     "description": "Presentation id"
                                 },
                                 {
                                     "id": "user",
                                     "key": "user",
-                                    "value": "aliquam",
+                                    "value": "placeat",
                                     "description": "User id"
                                 }
                             ]
@@ -298,20 +388,20 @@
                     "request": {
                         "url": {
                             "protocol": "http",
-                            "host": "homestead.paul",
+                            "host": "localhost",
                             "path": "api\/v1\/presentations\/:presentation\/users\/:user",
                             "query": [],
                             "variable": [
                                 {
                                     "id": "presentation",
                                     "key": "presentation",
-                                    "value": "dolorem",
+                                    "value": "ut",
                                     "description": "Presentation id"
                                 },
                                 {
                                     "id": "user",
                                     "key": "user",
-                                    "value": "consequatur",
+                                    "value": "aut",
                                     "description": "User id"
                                 }
                             ]
@@ -329,7 +419,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"role\": \"nihil\"\n}"
+                            "raw": "{\n    \"role\": \"accusantium\"\n}"
                         },
                         "description": "",
                         "response": []
@@ -346,14 +436,14 @@
                     "request": {
                         "url": {
                             "protocol": "http",
-                            "host": "homestead.paul",
+                            "host": "localhost",
                             "path": "api\/v1\/presentations\/:presentation\/polls",
                             "query": [],
                             "variable": [
                                 {
                                     "id": "presentation",
                                     "key": "presentation",
-                                    "value": "consequuntur",
+                                    "value": "et",
                                     "description": "Id of the presentation"
                                 }
                             ]
@@ -382,14 +472,14 @@
                     "request": {
                         "url": {
                             "protocol": "http",
-                            "host": "homestead.paul",
+                            "host": "localhost",
                             "path": "api\/v1\/presentations\/:presentation\/polls",
                             "query": [],
                             "variable": [
                                 {
                                     "id": "presentation",
                                     "key": "presentation",
-                                    "value": "amet",
+                                    "value": "consequatur",
                                     "description": "Id of the presentation"
                                 }
                             ]
@@ -407,7 +497,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"subject\": \"vel\"\n}"
+                            "raw": "{\n    \"subject\": \"tenetur\"\n}"
                         },
                         "description": "",
                         "response": []
@@ -418,14 +508,14 @@
                     "request": {
                         "url": {
                             "protocol": "http",
-                            "host": "homestead.paul",
+                            "host": "localhost",
                             "path": "api\/v1\/polls\/:poll",
                             "query": [],
                             "variable": [
                                 {
                                     "id": "poll",
                                     "key": "poll",
-                                    "value": "nihil",
+                                    "value": "nam",
                                     "description": "Poll id"
                                 }
                             ]
@@ -454,14 +544,14 @@
                     "request": {
                         "url": {
                             "protocol": "http",
-                            "host": "homestead.paul",
+                            "host": "localhost",
                             "path": "api\/v1\/polls\/:poll",
                             "query": [],
                             "variable": [
                                 {
                                     "id": "poll",
                                     "key": "poll",
-                                    "value": "fugit",
+                                    "value": "ipsum",
                                     "description": "Poll id"
                                 }
                             ]
@@ -479,7 +569,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"subject\": \"nisi\"\n}"
+                            "raw": "{\n    \"subject\": \"et\"\n}"
                         },
                         "description": "",
                         "response": []
@@ -490,14 +580,14 @@
                     "request": {
                         "url": {
                             "protocol": "http",
-                            "host": "homestead.paul",
+                            "host": "localhost",
                             "path": "api\/v1\/polls\/:poll",
                             "query": [],
                             "variable": [
                                 {
                                     "id": "poll",
                                     "key": "poll",
-                                    "value": "saepe",
+                                    "value": "corrupti",
                                     "description": "Poll id"
                                 }
                             ]
@@ -526,7 +616,7 @@
                     "request": {
                         "url": {
                             "protocol": "http",
-                            "host": "homestead.paul",
+                            "host": "localhost",
                             "path": "api\/v1\/polls\/:poll\/publish",
                             "query": []
                         },
@@ -554,14 +644,14 @@
                     "request": {
                         "url": {
                             "protocol": "http",
-                            "host": "homestead.paul",
+                            "host": "localhost",
                             "path": "api\/v1\/polls\/:poll\/results",
                             "query": [],
                             "variable": [
                                 {
                                     "id": "poll",
                                     "key": "poll",
-                                    "value": "doloremque",
+                                    "value": "dolor",
                                     "description": "Poll id"
                                 }
                             ]
@@ -596,14 +686,14 @@
                     "request": {
                         "url": {
                             "protocol": "http",
-                            "host": "homestead.paul",
+                            "host": "localhost",
                             "path": "api\/v1\/users\/:user\/presentations",
                             "query": [],
                             "variable": [
                                 {
                                     "id": "user",
                                     "key": "user",
-                                    "value": "fugit",
+                                    "value": "quos",
                                     "description": "User id"
                                 }
                             ]
@@ -632,14 +722,14 @@
                     "request": {
                         "url": {
                             "protocol": "http",
-                            "host": "homestead.paul",
+                            "host": "localhost",
                             "path": "api\/v1\/users\/:user\/presentations",
                             "query": [],
                             "variable": [
                                 {
                                     "id": "user",
                                     "key": "user",
-                                    "value": "a",
+                                    "value": "alias",
                                     "description": "User id"
                                 }
                             ]
@@ -657,7 +747,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"title\": \"perferendis\",\n    \"date\": \"unde\"\n}"
+                            "raw": "{\n    \"title\": \"eaque\",\n    \"date\": \"eius\"\n}"
                         },
                         "description": "",
                         "response": []
@@ -668,14 +758,14 @@
                     "request": {
                         "url": {
                             "protocol": "http",
-                            "host": "homestead.paul",
+                            "host": "localhost",
                             "path": "api\/v1\/presentations\/:presentation",
                             "query": [],
                             "variable": [
                                 {
                                     "id": "presentation",
                                     "key": "presentation",
-                                    "value": "asperiores",
+                                    "value": "placeat",
                                     "description": "Presentation id"
                                 }
                             ]
@@ -704,14 +794,14 @@
                     "request": {
                         "url": {
                             "protocol": "http",
-                            "host": "homestead.paul",
+                            "host": "localhost",
                             "path": "api\/v1\/presentations\/:presentation",
                             "query": [],
                             "variable": [
                                 {
                                     "id": "presentation",
                                     "key": "presentation",
-                                    "value": "quam",
+                                    "value": "autem",
                                     "description": "Presentation id"
                                 }
                             ]
@@ -729,7 +819,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"title\": \"ut\",\n    \"date\": \"sapiente\"\n}"
+                            "raw": "{\n    \"title\": \"dolores\",\n    \"date\": \"et\"\n}"
                         },
                         "description": "",
                         "response": []
@@ -740,14 +830,14 @@
                     "request": {
                         "url": {
                             "protocol": "http",
-                            "host": "homestead.paul",
+                            "host": "localhost",
                             "path": "api\/v1\/presentations\/:presentation",
                             "query": [],
                             "variable": [
                                 {
                                     "id": "presentation",
                                     "key": "presentation",
-                                    "value": "consequuntur",
+                                    "value": "labore",
                                     "description": "Presentation id"
                                 }
                             ]
@@ -776,12 +866,12 @@
                     "request": {
                         "url": {
                             "protocol": "http",
-                            "host": "homestead.paul",
+                            "host": "localhost",
                             "path": "api\/v1\/presentations\/search",
                             "query": [
                                 {
                                     "key": "keywords",
-                                    "value": "repellendus",
+                                    "value": "nisi",
                                     "description": "Keywords to search",
                                     "disabled": false
                                 }
@@ -817,101 +907,11 @@
                     "request": {
                         "url": {
                             "protocol": "http",
-                            "host": "homestead.paul",
+                            "host": "localhost",
                             "path": "api\/v1\/users\/:user",
                             "query": []
                         },
                         "method": "PUT",
-                        "header": [
-                            {
-                                "key": "Content-Type",
-                                "value": "application\/json"
-                            },
-                            {
-                                "key": "Accept",
-                                "value": "application\/json"
-                            }
-                        ],
-                        "body": {
-                            "mode": "raw",
-                            "raw": "[]"
-                        },
-                        "description": "",
-                        "response": []
-                    }
-                }
-            ]
-        },
-        {
-            "name": "general",
-            "description": "",
-            "item": [
-                {
-                    "name": "api\/v1\/login",
-                    "request": {
-                        "url": {
-                            "protocol": "http",
-                            "host": "homestead.paul",
-                            "path": "api\/v1\/login",
-                            "query": []
-                        },
-                        "method": "POST",
-                        "header": [
-                            {
-                                "key": "Content-Type",
-                                "value": "application\/json"
-                            },
-                            {
-                                "key": "Accept",
-                                "value": "application\/json"
-                            }
-                        ],
-                        "body": {
-                            "mode": "raw",
-                            "raw": "[]"
-                        },
-                        "description": "",
-                        "response": []
-                    }
-                },
-                {
-                    "name": "api\/v1\/register",
-                    "request": {
-                        "url": {
-                            "protocol": "http",
-                            "host": "homestead.paul",
-                            "path": "api\/v1\/register",
-                            "query": []
-                        },
-                        "method": "POST",
-                        "header": [
-                            {
-                                "key": "Content-Type",
-                                "value": "application\/json"
-                            },
-                            {
-                                "key": "Accept",
-                                "value": "application\/json"
-                            }
-                        ],
-                        "body": {
-                            "mode": "raw",
-                            "raw": "[]"
-                        },
-                        "description": "",
-                        "response": []
-                    }
-                },
-                {
-                    "name": "api\/v1\/logout",
-                    "request": {
-                        "url": {
-                            "protocol": "http",
-                            "host": "homestead.paul",
-                            "path": "api\/v1\/logout",
-                            "query": []
-                        },
-                        "method": "POST",
                         "header": [
                             {
                                 "key": "Content-Type",

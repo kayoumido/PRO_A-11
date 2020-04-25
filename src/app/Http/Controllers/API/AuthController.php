@@ -7,8 +7,22 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 
+/**
+ * Class AuthController
+ * @package App\Http\Controllers\API
+ * @group Authentication
+ * All routes that need authentication should contain a bearer token in the headers using the following synthax `Authorization: Bearer <token>`
+ */
 class AuthController extends Controller
 {
+    /**
+     * Log the user in
+     *
+     * @bodyParam username email required email of the user to connect
+     * @bodyParam password string required the password related to the user
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function login(Request $request)
     {
         $http = new \GuzzleHttp\Client;
@@ -35,6 +49,16 @@ class AuthController extends Controller
         }
     }
 
+    /**
+     * Create e new user account
+     *
+     * @bodyParam fname string required User's firstname
+     * @bodyParam lname string required User's lastname
+     * @bodyParam email email required User's email
+     * @bodyParam password string required User's password
+     * @param Request $request
+     * @return mixed
+     */
     public function register(Request $request)
     {
         $request->validate([
@@ -52,6 +76,11 @@ class AuthController extends Controller
         ]);
     }
 
+    /**
+     * Sign out the user from everywere
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function logout()
     {
         auth()->user()->tokens->each(function ($token, $key) {
