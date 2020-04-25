@@ -18,8 +18,9 @@
 
       <input type="submit" value="Se connecter"/>
       
-
     </form>
+
+    <button @click="load()">loadToken</button>
     
 
   </div>
@@ -40,7 +41,7 @@
       },
       isMessage: false,
       message: '',
-      token: 0
+      token: ''
     }
 
 
@@ -57,17 +58,22 @@
         }
 
         const data = this.input;
+        
 
 
         axios.post(
-          '/api/login',data
+          '/api/v1/login',data
         )
-        .then(response => { //this seems incompatible with the #42 back end auth
+        .then(response => { 
           
-          if(response.data.passed === true){
+          if(response.data.token !== null){
+            const token = response.data.token
+            localStorage.setItem('Authorization-token', token) // store the token in localstorage
+            
             this.message='Authentifié'
             this.isMessage=true;
-            this.$router.replace({name: 'Hello'}); // all routing is handled by vuejs, should be changed for the final home route
+            //this.$router.replace({name: 'Hello'}); // all routing is handled by vuejs, should be changed for the final home route
+            //resolve(response)
           } else {
             this.mailPasswordError();
           }
@@ -99,6 +105,12 @@
       this.message='Mot de passe ou email incorrect';
       this.isMessage=true;
     },
+
+    load(){
+      console.log('load');
+      this.token='bearer ' + localStorage.getItem('Authorization-token');
+      console.log(this.token);
+    }
   }
 };
 </script>

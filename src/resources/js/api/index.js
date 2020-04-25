@@ -40,7 +40,7 @@ export default function makeServer({ environment = 'development' } = {}) {
         return schema.users.find(id);
       });
 
-      this.post('/login', (schema, request) => {
+      this.post('/v1/login', (schema, request) => {
         let json = JSON.parse(request.requestBody);
         const email = json.email;
         const password = json.password;
@@ -48,8 +48,7 @@ export default function makeServer({ environment = 'development' } = {}) {
         
          if(password === user.password){//should be hashed
           const response = {
-            passed: true,
-            token: 1
+            token: 'eyJ0eXAiOiJKV1QiLCJhbG',
           };
            return response;
          } else {
