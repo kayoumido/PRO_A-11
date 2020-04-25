@@ -36,6 +36,9 @@ export default function makeServer({ environment = 'development' } = {}) {
 
         return schema.users.find(id);
       });
+
+      // Allow unhandled requests on the current domain to pass through
+      this.passthrough()
     },
   });
 }
