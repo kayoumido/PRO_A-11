@@ -79,7 +79,7 @@ export default {
       showPassword: false,
       // object for message management
       message: {
-        show: true,
+        show: false,
         content: '',
         type: '',
       },
