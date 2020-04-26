@@ -2,6 +2,7 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 
 import Hello from './components/Hello';
+import Authentication from './components/Authentication';
 
 Vue.use(VueRouter);
 
@@ -19,6 +20,12 @@ const router = new VueRouter({
       name: 'Test',
       icon: 'mdi-help-box',
       component: Hello,
+    },
+    {
+      path: '/Authentification',
+      name: 'Authentication',
+      icon: 'mdi-help-box',
+      component: Authentication,
     }],
 });
 
