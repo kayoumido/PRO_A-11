@@ -21,6 +21,8 @@
     </form>
 
     <button @click="load()">loadToken</button>
+    <button @click="printt()">printt</button>
+    <button @click="destroy()">destroy</button>
     
 
   </div>
@@ -66,9 +68,9 @@
         )
         .then(response => { 
           
-          if(response.data.token !== null){
-            const token = response.data.token
-            localStorage.setItem('Authorization-token', token) // store the token in localstorage
+          if(response.data.token_type === 'Bearer'){
+            const token = response.data.access_token;
+            localStorage.setItem('Authorization-token', token); // store the token in localstorage
             
             this.message='Authentifié'
             this.isMessage=true;
@@ -108,9 +110,18 @@
 
     load(){
       console.log('load');
-      this.token='bearer ' + localStorage.getItem('Authorization-token');
+      this.token='Bearer ' + localStorage.getItem('Authorization-token');
       console.log(this.token);
-    }
+    },
+
+    printt(){
+      console.log(this.token);
+    },
+
+    destroy(){
+      console.log('destroy');
+      localStorage.removeItem('Authorization-token');
+    },
   }
 };
 </script>
