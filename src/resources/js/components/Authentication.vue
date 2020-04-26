@@ -19,10 +19,6 @@
       <input type="submit" value="Se connecter"/>
       
     </form>
-
-    <button @click="load()">loadToken</button>
-    <button @click="printt()">printt</button>
-    <button @click="destroy()">destroy</button>
     
 
   </div>
@@ -34,7 +30,6 @@
 
   export default {
   name : 'Authentication',
-  props:['parent'], //for future use (can't log in if already logged in, will reroute to home)
   data () {
     return{
       input: {
@@ -43,7 +38,6 @@
       },
       isMessage: false,
       message: '',
-      token: ''
     }
 
 
@@ -62,7 +56,6 @@
         const data = this.input;
         
 
-
         axios.post(
           '/api/v1/login',data
         )
@@ -74,8 +67,7 @@
             
             this.message='Authentifié'
             this.isMessage=true;
-            //this.$router.replace({name: 'Hello'}); // all routing is handled by vuejs, should be changed for the final home route
-            //resolve(response)
+            this.$router.replace({name: 'Hello'}); // all routing is handled by vuejs, should be changed for the final home route
           } else {
             this.mailPasswordError();
           }
@@ -106,21 +98,6 @@
     mailPasswordError(){
       this.message='Mot de passe ou email incorrect';
       this.isMessage=true;
-    },
-
-    load(){
-      console.log('load');
-      this.token='Bearer ' + localStorage.getItem('Authorization-token');
-      console.log(this.token);
-    },
-
-    printt(){
-      console.log(this.token);
-    },
-
-    destroy(){
-      console.log('destroy');
-      localStorage.removeItem('Authorization-token');
     },
   }
 };
