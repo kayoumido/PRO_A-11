@@ -74,10 +74,10 @@ export default {
       // vuetify
       valid: true, // if a rules is not fully satisfied this will disable submit button
       nameRules: [
-        (v) => v === '' || v.length <= 10 || 'Name must be less than 10 characters',
+        (v) => v === '' || v.length <= 10 || 'Le nom doit contenir moins de 10 caractères',
       ],
       emailRules: [
-        (v) => v === '' || /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,})+$/.test(v) || 'E-mail must be valid',
+        (v) => v === '' || /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,})+$/.test(v) || 'l\'E-mail doit être valide',
       ],
       showPassword: false,
       // object for message management
@@ -110,7 +110,7 @@ export default {
     axios
       .get('/api/v1/me')
       .then((response) => {
-        this.localStorage = response.data.data;
+        this.loggedUser = response.data.data;
       })
       .catch((error) => {
         this.showMessage('error', `La recupération des donnée utilisateur a échoué: ${error}`);
