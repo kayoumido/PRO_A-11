@@ -1,0 +1,16 @@
+{
+    "data": [
+        {
+            "choice_id": 1,
+            "votes": 13
+        },
+        {
+            "choice_id": 2,
+            "votes": 25
+        },
+        {
+            "choice_id": 3,
+            "votes": 2
+        }
+    ]
+}
