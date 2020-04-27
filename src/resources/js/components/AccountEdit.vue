@@ -63,6 +63,9 @@
 <script>
 import axios from 'axios';
 
+// set Bearer token in header of the future request
+axios.defaults.headers.common = { Authorization: `Bearer ${localStorage.getItem('Authorization-token')}` };
+
 export default {
   name: 'AccountEdition',
   props: ['parent'],
@@ -110,11 +113,6 @@ export default {
       // prepare the data to send
       const data = this.getDataToSend();
 
-      // prepare the header to send
-      const header = {
-        Authorization: `Bearer ${localStorage.getItem('Authorization-token')}`,
-      };
-
       // Check if the object is Empty
 
       if (Object.keys(data).length === 0) {
@@ -123,7 +121,7 @@ export default {
       }
 
       // send http request with axios and catch response or error
-      axios.put(apiUrl, data, header)
+      axios.put(apiUrl, data)
         .then((response) => {
           this.loggedUser.fname = response.data.user.fname;
           this.loggedUser.lname = response.data.user.lname;
