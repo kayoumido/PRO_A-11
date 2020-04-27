@@ -9,7 +9,7 @@
       {{ message.content }}
     </v-alert>
 
-  <h2>My Account</h2>
+  <h2>Mon Compte</h2>
 
   <v-form
     ref="form"
@@ -20,14 +20,14 @@
       v-model="updateUserInfo.fname"
       :counter="10"
       :rules="nameRules"
-      label="firstName"
+      label="Prenom"
     />
 
     <v-text-field
       v-model="updateUserInfo.lname"
       :counter="10"
       :rules="nameRules"
-      label="lastName"
+      label="Nom"
     />
 
     <v-text-field
@@ -40,7 +40,7 @@
       v-model="updateUserInfo.password"
       :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
       :type="showPassword ? 'text' : 'password'"
-      label="password"
+      label="Mot de passe"
       value=""
       class="input-group--focused"
       @click:append="showPassword = !showPassword"
@@ -52,7 +52,7 @@
       class="mr-4"
       @click="submitChange"
     >
-      Submit
+      Appliquer
     </v-btn>
 
   </v-form>
@@ -113,7 +113,7 @@ export default {
         this.localStorage = response.data.data;
       })
       .catch((error) => {
-        this.showMessage('error', `Error when retrieving user data: ${error}`);
+        this.showMessage('error', `La recupération des donnée utilisateur a échoué: ${error}`);
       });
   },
   methods: {
@@ -129,7 +129,7 @@ export default {
       // Check if the object is Empty
 
       if (Object.keys(data).length === 0) {
-        this.showMessage('error', 'you must fill at least one field');
+        this.showMessage('error', 'Vous devez remplir au moins un champs');
         return;
       }
 
@@ -140,12 +140,12 @@ export default {
           this.loggedUser.lname = response.data.user.lname;
           this.loggedUser.email = response.data.user.email;
 
-          this.showMessage('success', 'update successfull');
+          this.showMessage('success', 'Changement appliqué');
 
           this.cleanForm();
         })
         .catch((errorResponse) => {
-          this.showMessage('error', `error while sending data ${errorResponse}`);
+          this.showMessage('error', `Erreur lors de l'envoie des donnée ${errorResponse}`);
         });
     },
     /**
