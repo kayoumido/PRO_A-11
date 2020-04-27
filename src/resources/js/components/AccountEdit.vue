@@ -103,13 +103,17 @@ export default {
     };
   },
   methods: {
-    // old
     submitChange() {
       // API Url use mirageJS for testing,
       const apiUrl = `/api/user/${this.loggedUser.id}`;
 
       // prepare the data to send
       const data = this.getDataToSend();
+
+      // prepare the header to send
+      const header = {
+        Authorization: `Bearer ${localStorage.getItem('Authorization-token')}`,
+      };
 
       // Check if the object is Empty
 
@@ -119,7 +123,7 @@ export default {
       }
 
       // send http request with axios and catch response or error
-      axios.put(apiUrl, data)
+      axios.put(apiUrl, data, header)
         .then((response) => {
           this.loggedUser.fname = response.data.user.fname;
           this.loggedUser.lname = response.data.user.lname;
