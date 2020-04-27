@@ -59,6 +59,9 @@
 <script>
 import axios from 'axios';
 
+// set Bearer token in header of the future request
+axios.defaults.headers.common = { Authorization: `Bearer ${localStorage.getItem('Authorization-token')}` };
+
 export default {
   data: () => ({
     valid: true,
@@ -81,9 +84,20 @@ export default {
       content: '',
       type: '',
     },
+    loggedUserID: {},
 
   }),
-
+  beforeMount() {
+    // get logged user info
+    axios
+      .get('/api/v1/me')
+      .then((response) => {
+        this.loggedUserID = response.data.data;
+      })
+      .catch((error) => {
+        this.showMessage('error', `Error when retrieving user data: ${error}`);
+      });
+  },
   methods: {
     createPresentation() {
       /* -------------------------------------------------------
