@@ -21,20 +21,20 @@
       :counter="10"
       :rules="nameRules"
       label="firstName"
-    ></v-text-field>
+    />
 
     <v-text-field
       v-model="updateUserInfo.lname"
       :counter="10"
       :rules="nameRules"
       label="lastName"
-    ></v-text-field>
+    />
 
     <v-text-field
       v-model="updateUserInfo.email"
       :rules="emailRules"
       label="E-mail"
-    ></v-text-field>
+    />
 
     <v-text-field
       v-model="updateUserInfo.password"
@@ -44,7 +44,7 @@
       value=""
       class="input-group--focused"
       @click:append="showPassword = !showPassword"
-    ></v-text-field>
+    />
 
     <v-btn
       :disabled="!valid"
