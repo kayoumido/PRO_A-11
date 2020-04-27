@@ -98,7 +98,7 @@ export default {
               localStorage.setItem('Authorization-token', token); // store the token in localstorage
               this.showMessage('success', 'Authentifié');
             } else {
-              this.showMessage('error', 'Mauvais mot de passe'); // this is probably not good as it confirms that an email exists in our database
+              this.showMessage('error', 'Réponse du serveur inatendue');
             }
           })
           .catch((error) => {
