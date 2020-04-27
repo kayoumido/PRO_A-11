@@ -91,10 +91,10 @@ export default {
        * this will serve as temporary test and debug value
        */
       loggedUser: {
-        id: 3,
-        fname: 'Jane',
-        lname: 'Doe',
-        email: 'jane@paul.lo',
+        // id: 3,
+        // fname: 'Jane',
+        // lname: 'Doe',
+        // email: 'jane@paul.lo',
       },
       // Object for form field binding
       updateUserInfo: {
@@ -105,10 +105,23 @@ export default {
       },
     };
   },
+  beforeMount() {
+    // get logged user info
+    axios
+      .get('/api/v1/me')
+      .then((response) => {
+        this.localStorage = response.data.data;
+      })
+      .catch((error) => {
+        this.showMessage('error', `Error when retrieving user data: ${error}`);
+      });
+  },
   methods: {
     submitChange() {
       // API Url use mirageJS for testing,
       const apiUrl = `/api/user/${this.loggedUser.id}`;
+      // real backend
+      // const apiUrl = `/api/v1/users/${this.loggedUser.id}`;
 
       // prepare the data to send
       const data = this.getDataToSend();
