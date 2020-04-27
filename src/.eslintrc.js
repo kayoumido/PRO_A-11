@@ -29,7 +29,8 @@ module.exports = {
   rules: {
     // don't require .vue extension when importing
     'import/extensions': ['error', 'ignorePackages', {
-      vue: 'never'
+      vue: 'never',
+      js: 'never'
     }],
   },
 };
