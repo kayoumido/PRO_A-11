@@ -29,7 +29,7 @@ Route::prefix('v1')->group(function () {
         Route::get('presentations/search', 'API\PresentationController@search')->name('presentations.search');
         // presentation inscriptions
         Route::post('presentations/{presentation}/users/{user}', 'API\PresentationUserController@subscribe')->name('presentations.users.subscribe');
-        Route::delete('presentations/{presentation}/users/{user}', 'API\PresentationUserController@unsubscribe')->name('presentations.users.unsubscribe');
+        Route::delete('presentations/{presentation}/users/{user}', 'API\PresentationUserController@unsubscribe')->name('presentations.users.unsubscribe')->middleware('authisurl');
         // manage user rights on presentations
         Route::put('presentations/{presentation}/users/{user}', 'API\PresentationUserController@changeRole')->name('presentations.change_role');
         // poll management
