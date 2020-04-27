@@ -16,6 +16,9 @@ class UserController extends Controller
 
     /**
      * Update the specified resource in storage.
+     * @authenticated
+     *
+     * @responseFile responses/user.get.json
      *
      * @param Request $request
      * @param User $user
