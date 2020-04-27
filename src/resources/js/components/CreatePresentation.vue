@@ -18,9 +18,9 @@
         v-model="dataForm.title"
         :counter="20"
         :rules="titleRules"
-        label="title"
+        label="Titre"
         required
-      ></v-text-field>
+      />
 
       <v-menu
         v-model="dateMenu"
@@ -33,14 +33,14 @@
         <template v-slot:activator="{ on }">
           <v-text-field
             v-model="dataForm.date"
-            label="Choose a date"
+            label="Choisir une date"
             :rules="dateRules"
             required
             readonly
             v-on="on"
-          ></v-text-field>
+          />
         </template>
-        <v-date-picker v-model="dataForm.date" @input="menu = false" ></v-date-picker>
+        <v-date-picker v-model="dataForm.date" @input="menu = false" />
       </v-menu>
 
       <v-btn
@@ -49,7 +49,7 @@
         class="mr-4"
         @click="createPresentation()"
       >
-        Create
+        Créer la présentation
       </v-btn>
 
     </v-form>
@@ -66,12 +66,12 @@ export default {
   data: () => ({
     valid: true,
     titleRules: [
-      (v) => !!v || 'Title is required',
-      (v) => (v && v.length <= 20) || 'Name must be less than 10 characters',
+      (v) => !!v || 'Vous devez renseigner un titre',
+      (v) => (v && v.length <= 20) || 'Le Nom doit contenir moins de 20 caractères',
     ],
     dateMenu: false,
     dateRules: [
-      (v) => !!v || 'Must specify a date',
+      (v) => !!v || 'Vous devez renseigner une date',
       // (v) => Date.parse(v) >= Date.now() || 'Must specify a valid date',
     ],
     dataForm: {
@@ -92,10 +92,10 @@ export default {
     axios
       .get('/api/v1/me')
       .then((response) => {
-        this.loggedUserID = response.data.data;
+        this.loggedUser = response.data;
       })
       .catch((error) => {
-        this.showMessage('error', `Error when retrieving user data: ${error}`);
+        this.showMessage('error', `Erreur lors de la recuperation des info: ${error}`);
       });
   },
   methods: {
@@ -103,6 +103,7 @@ export default {
       /* -------------------------------------------------------
       For testing purpose theses value are hardcoded here */
       const userID = 1;
+      // const userID = this.loggedUser.data.id;
       const apiUrl = `api/v1/users/${userID}/presentations`;
       // -------------------------------------------------------
 
@@ -113,12 +114,12 @@ export default {
       // send http request with axios and catch response or error
       axios.post(apiUrl, this.dataForm)
         .then((response) => {
-          const newdata = response.data;
-          this.showMessage('success', `you successfuly create the presentation : ${newdata.data.toISOString}`);
+          const newData = response.data;
+          this.showMessage('success', `La presentation a été correctement crée : ${newData.data.toISOString}`);
           this.$refs.form.reset();
         })
         .catch((errorResponse) => {
-          this.showMessage('error', `error while sending data ${errorResponse}`);
+          this.showMessage('error', `erreur lors de l'envoie des données ${errorResponse}`);
         });
     },
     showMessage(type, content) {
