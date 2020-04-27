@@ -23,7 +23,7 @@ const router = new VueRouter({
     },
     {
       path: '/userEdit',
-      name: 'AccountEdition',
+      name: 'Edition de compte',
       icon: 'mdi-help-box',
       component: AccountEdition,
     },
