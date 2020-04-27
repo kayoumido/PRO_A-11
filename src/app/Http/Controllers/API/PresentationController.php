@@ -17,6 +17,9 @@ class PresentationController extends Controller
 {
     /**
      * List all presentations related to a user
+     * @authenticated
+     *
+     * @responseFile responses/presentations.get.json
      *
      * @urlParam user required User id
      *
@@ -29,6 +32,9 @@ class PresentationController extends Controller
 
     /**
      * Create a presentation
+     * @authenticated
+     *
+     * @responseFile responses/presentation.get.json
      *
      * @urlParam user required User id
      * @bodyParam title string required Title of the presentation
@@ -61,6 +67,9 @@ class PresentationController extends Controller
 
     /**
      * Show a presentation
+     * @authenticated
+     *
+     * @responseFile responses/presentation.get.json
      *
      * @urlParam presentation required Presentation id
      *
@@ -73,6 +82,9 @@ class PresentationController extends Controller
 
     /**
      * Update a presentation
+     * @authenticated
+     *
+     * @responseFile responses/presentation.get.json
      *
      * @urlParam presentation required Presentation id
      * @bodyParam title string optional Title of the presentation
@@ -88,6 +100,7 @@ class PresentationController extends Controller
 
     /**
      * Delete a presentation
+     * @authenticated
      *
      * @urlParam presentation required Presentation id
      *
@@ -100,6 +113,9 @@ class PresentationController extends Controller
 
     /**
      * Search for a presentation
+     * @authenticated
+     *
+     * @responseFile responses/presentations.get.json
      *
      * @queryParam keywords required Keywords to search
      *

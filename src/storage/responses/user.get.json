@@ -1,0 +1,8 @@
+{
+    "data": {
+        "id": 11,
+        "fname": "Fizz",
+        "lname": "Buzz",
+        "email": "fizz.buzz@example.com"
+    }
+}
