@@ -23,7 +23,10 @@ const router = new VueRouter({
     },
     {
       path: '/presentation',
-      // path: 'presentation/:idPresentation',
+      /**
+       * leading to 404 error when accessing directly with browser
+       * path: 'presentation/:idPresentation',
+       */
       name: 'presentation',
       icon: 'mdi-help-box',
       component: Presentation,

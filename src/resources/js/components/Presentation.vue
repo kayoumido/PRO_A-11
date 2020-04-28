@@ -30,15 +30,16 @@
 </template>
 
 <script>
+import axios from 'axios';
+
+axios.defaults.headers.common = { Authorization: `Bearer ${localStorage.getItem('Authorization-token')}` };
+
 export default {
   name: 'Presentation',
   data() {
     return {
       presentation: {
-        // data: {
-        //   title: 'test',
-        //   id: 1,
-        // },
+        data: {},
       },
       polls: [],
       // object for message management
@@ -50,11 +51,19 @@ export default {
     };
   },
   beforeMount() {
-    // const apiUrl = `api/v1/presentations/${idPresentation}`;
     // take the param in vu-route in presentation/{idPresentation}
-    const apiUrl = `api/v1/presentations/${this.$route.params.idPresentation}`;
 
-    window.axios
+    /** *************************************************************************
+     * there is an issue with the route here, it appears that route
+     * with the following pattern "aaaa/bbbb" lead to a 404 error
+     */
+    // const apiUrl = `api/v1/presentations/${this.$route.params.idPresentation}`;
+
+    // harcoded for testing purpose
+    const idPresentation = 1;
+    const apiUrl = `api/v1/presentations/${idPresentation}`;
+
+    axios
       .get(apiUrl)
       .then((response) => {
         this.presentation = response.data;
