@@ -15,8 +15,8 @@
       >
       <v-list-item three-line>
         <v-list-item-content>
-          <v-list-item-title class="headline mb-1">Titre</v-list-item-title>
-          <v-list-item-subtitle>Sous-titre</v-list-item-subtitle>
+          <v-list-item-title class="headline mb-1">Titre : {{ presentation.data.title }}</v-list-item-title>
+          <v-list-item-subtitle>identifiant: {{ presentation.data.id }}</v-list-item-subtitle>
         </v-list-item-content>
 
         <v-list-item-avatar
@@ -27,15 +27,9 @@
       </v-list-item>
 
       <v-card-actions>
-        <v-btn text>Button</v-btn>
-        <v-btn text>Button</v-btn>
+        <v-btn text>Bouton</v-btn>
       </v-card-actions>
     </v-card>
-
-    <!--div>
-        <h4>title : {{ presentation.data.title }} </h4>
-        <p>created on : {{ presentation.data.date }} </p>
-    </div-->
   </v-container>
 </template>
 
@@ -44,10 +38,15 @@ import axios from 'axios';
 
 export default {
   name: 'Presentation',
-  props: ['idPresentation'], // we will send the id of the presentation through props
+  props: ['idPresentation'], // we can send the id of the presentation through props
   data() {
     return {
-      presentation: {},
+      presentation: {
+        // data: {
+        //   title: 'test',
+        //   id: 1,
+        // },
+      },
       polls: [],
       // object for message management
       message: {
@@ -68,7 +67,7 @@ export default {
       })
       .catch((error) => {
         this.isError = true;
-        this.message = `an error has occured while sending the data ${error}`;
+        this.message = `erreur lors de l'envoie des donnée ${error}`;
       });
   },
 };
