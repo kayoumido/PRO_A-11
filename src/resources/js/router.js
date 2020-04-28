@@ -19,7 +19,14 @@ const router = new VueRouter({
       name: 'Test',
       icon: 'mdi-help-box',
       component: Hello,
-    }],
+    },
+    {
+      path: '/presentation',
+      name: 'presentation',
+      icon: 'mdi-help-box',
+      component: Presentation,
+    },
+  ],
 });
 
 export default router;
