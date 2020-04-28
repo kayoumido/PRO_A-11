@@ -1,18 +1,35 @@
 <template>
-  <div>
+  <v-container>
     <p class="title">PAUL</p>
-    <form @submit.prevent="reset" method="post">
-      <div class="form-group">
-        <input type="text" class="input" name="email" v-model="input.email" placeholder="email" />
-      </div>
-      <div class="form-group">
-        <button type="button" class="button" v-on:click="reset()">Récupérer Mot de passe</button>
-      </div>
-      <div v-if="isError" class="error">
-        <h3>{{ message }}</h3>
-      </div>
-    </form>
-  </div>
+    <v-form
+        ref="form"
+        v-model="valid"
+        lazy-validation
+    >
+      <v-text-field
+            v-model="input.email"
+            :rules="emailRules"
+            required
+            label="Adresse email"
+      />
+
+      <v-btn
+            :disabled="!valid"
+            color="success"
+            class="mr-4"
+            @click="login"
+            >
+            Se conecter
+      </v-btn>
+      <v-alert
+            v-model="message.show"
+            :class="message.type"
+            dismissible
+            >
+            {{ message.content }}
+      </v-alert>
+    </v-form>
+  </v-container>
 </template>
 
 <script>
@@ -22,42 +39,43 @@ export default {
   name: 'Reset',
   data() {
     return {
+      // vuetify
+      valid: true,
+      emailRules: [
+        (v) => (!!v && /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,})+$/.test(v)) || 'Adresse e-mail non valide',
+      ],
+      message: {
+        show: false,
+        content: '',
+        type: '',
+      },
       input: {
         email: '',
       },
-      isError: false,
-      message: '',
     };
   },
   methods: {
     reset() {
       if (this.input.email !== '') { // if not blank
-        if (this.isEmail(this.input.email)) {
-          axios.post(
-            '/api/reset', {
-              email: this.email,
-            },
-          ).then((Response) => {
-            if (Response.data.passed === true) {
-              this.$router.replace({ name: 'Hello' });
-            }
-          }).catch(() => {
-            this.isError = true;
-            this.message = 'Une erreur a eu lieu lors de la demande de changement de mot de passe';
-          });
-        } else {
-          this.isError = true;
-          this.message = 'Adresse e-mail non valide';
-        }
+        axios.post(
+          '/api/reset', {
+            email: this.email,
+          },
+        ).then((Response) => {
+          if (Response.data.passed === true) {
+            this.$router.replace({ name: 'Test' });
+          }
+        }).catch(() => {
+          this.showMessage('error', 'Une erreur a eu lieu lors de la demande de changement de mot de passe');
+        });
       } else {
-        this.isError = true;
-        this.message = 'Ils y a des champs vides';
+        this.showMessage('error', 'Ils y a des champs vides');
       }
     },
-    // check email syntax
-    isEmail(inputEmail) {
-      const mailFormat = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,})+$/;
-      return (inputEmail.match(mailFormat));
+    showMessage(type, content) {
+      this.message.show = true;
+      this.message.content = content;
+      this.message.type = type;
     },
   },
 };
