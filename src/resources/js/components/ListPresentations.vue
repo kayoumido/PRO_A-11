@@ -22,25 +22,18 @@
       </router-link>
     </div-->
 
-          <v-list-tile
-            v-for="presentation in presentations"
-            :key="presentation.title"
-            avatar
-          >
-            <v-list-tile-avatar>
-              <v-icon :class="[item.iconClass]">{{ item.icon }}</v-icon>
-            </v-list-tile-avatar>
 
-            <v-list-tile-content>
-              <v-list-tile-title>{{ presentation.title }}</v-list-tile-title>
-            </v-list-tile-content>
-
-            <v-list-tile-action>
-              <v-btn icon ripple>
-                <v-icon color="grey lighten-1">info</v-icon>
-              </v-btn>
-            </v-list-tile-action>
-          </v-list-tile>
+    <v-list two-line>
+      <template v-for="(presentation) in presentations">
+        <v-list-item
+          :key="presentation.id"
+        >
+          <v-list-item-content>
+            <v-list-item-title v-html="presentation.title"/>
+          </v-list-item-content>
+        </v-list-item>
+      </template>
+    </v-list>
 
     <router-view></router-view>
   </v-container>
@@ -58,7 +51,11 @@ export default {
   props: ['parent'],
   data() {
     return {
-      presentations: [],
+      presentations: [
+        { title: 'aaa', id: 1 },
+        { title: 'bbb', id: 2 },
+        { title: 'cccc', id: 3 },
+      ],
       message: {
         show: false,
         content: '',
