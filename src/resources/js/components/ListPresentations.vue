@@ -1,8 +1,13 @@
 <template>
   <div class="container">
-    <div v-if="showMessage">
-      <h3>{{ message }}</h3>
-    </div>
+      <v-alert
+      v-model="message.show"
+      :class="message.type"
+      dismissible
+      >
+        {{ message.content }}
+    </v-alert>
+
 
     <div v-for="presentation in presentations.data" :key="presentation.id">
       <router-link
@@ -23,8 +28,10 @@
 
 <script>
 
-// eslint-disable-next-line import/no-extraneous-dependencies
 import axios from 'axios';
+
+// set Bearer token in header of the future request
+axios.defaults.headers.common = { Authorization: `Bearer ${localStorage.getItem('Authorization-token')}` };
 
 export default {
   name: 'ListPresentations',
@@ -32,32 +39,54 @@ export default {
   data() {
     return {
       presentations: [],
-      showMessage: false,
-      message: '',
+      message: {
+        show: false,
+        content: '',
+        type: '',
+      },
+      loggedUser: {
+
+      },
     };
   },
   beforeMount() {
-    // const apiUrl = `/api/v1/users/${this.parent.loggedUser.id}/presentations`;
+    // const apiUrl = `/api/v1/users/${this.loggedUser.id}/presentations`;
     const apiUrl = '/api/v1/users/1/presentations';
 
+    // get logged user info
+    axios
+      .get('/api/v1/me')
+      .then((response) => {
+        this.loggedUser = response.data.data;
+      })
+      .catch((error) => {
+        this.showMessage('error', `La recupération des donnée utilisateur a échoué: ${error}`);
+      });
+
+    if (this.loggedUser === null) {
+      return;
+    }
 
     axios
       .get(apiUrl)
       .then((response) => {
         this.presentations = response.data;
         if (this.presentationsIsEmpty()) {
-          this.showMessage = true;
-          this.message = 'you haven\'t subscribed to a presentation';
+          this.showMessage('info', 'Vous ne vous êtes inscrit à aucune presentation');
         }
       })
       .catch((error) => {
-        this.showMessage = true;
-        this.message = `error while sending data, code ${error.response.status}`;
+        this.showMessage('error', `La recupération des presentations a échoué: ${error}`);
       });
   },
   methods: {
     presentationsIsEmpty() {
       return (this.presentations.length === 0);
+    },
+    showMessage(type, content) {
+      this.message.show = true;
+      this.message.content = content;
+      this.message.type = type;
     },
   },
 };
