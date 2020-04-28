@@ -8,21 +8,6 @@
       {{ message.content }}
     </v-alert>
 
-
-    <!-- div v-for="presentation in presentations.data" :key="presentation.id">
-      <router-link
-        :to="{ name : 'presentation',
-              params : { idPresentation : presentation.id,
-                         // will help generate url like /presentation/name
-                         name : presentation.title,
-                       }
-              }"
-        >
-        {{ presentation.title }}
-      </router-link>
-    </div-->
-
-
     <v-list two-line>
       <template v-for="(presentation) in presentations">
         <v-list-item
@@ -50,9 +35,9 @@ export default {
   data() {
     return {
       presentations: [
-        { title: 'aaa', id: 1 },
-        { title: 'bbb', id: 2 },
-        { title: 'cccc', id: 3 },
+        // { title: 'aaa', id: 1 },
+        // { title: 'bbb', id: 2 },
+        // { title: 'cccc', id: 3 },
       ],
       message: {
         show: false,
