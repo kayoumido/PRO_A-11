@@ -54,7 +54,6 @@
 
 <script>
 import axios from 'axios';
-// import router from '../routes';
 
 export default {
   name: 'Authentication',
