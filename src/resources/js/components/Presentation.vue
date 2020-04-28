@@ -15,30 +15,23 @@
       >
       <v-list-item three-line>
         <v-list-item-content>
-          <v-list-item-title class="headline mb-1">Titre : {{ presentation.data.title }}</v-list-item-title>
-          <v-list-item-subtitle>identifiant: {{ presentation.data.id }}</v-list-item-subtitle>
+          <v-list-item-title class="headline mb-1">
+            Titre : {{ presentation.data.title }}
+          </v-list-item-title>
+          <v-list-item-subtitle>
+            Identifiant: {{ presentation.data.id }}
+          </v-list-item-subtitle>
         </v-list-item-content>
 
-        <v-list-item-avatar
-          tile
-          size="80"
-          color="grey"
-        ></v-list-item-avatar>
       </v-list-item>
 
-      <v-card-actions>
-        <v-btn text>Bouton</v-btn>
-      </v-card-actions>
     </v-card>
   </v-container>
 </template>
 
 <script>
-import axios from 'axios';
-
 export default {
   name: 'Presentation',
-  props: ['idPresentation'], // we can send the id of the presentation through props
   data() {
     return {
       presentation: {
@@ -58,18 +51,26 @@ export default {
   },
   beforeMount() {
     // const apiUrl = `api/v1/presentations/${idPresentation}`;
-    const apiUrl = 'api/v1/presentations/1';
+    // take the param in vu-route in presentation/{idPresentation}
+    const apiUrl = `api/v1/presentations/${this.$route.params.idPresentation}`;
 
-    axios
+    window.axios
       .get(apiUrl)
       .then((response) => {
         this.presentation = response.data;
       })
       .catch((error) => {
-        this.isError = true;
-        this.message = `erreur lors de l'envoie des donnée ${error}`;
+        this.showMessage('error', `erreur lors de l'envoie des donnée ${error}`);
       });
   },
+  methods: {
+    showMessage(type, content) {
+      this.message.show = true;
+      this.message.content = content;
+      this.message.type = type;
+    },
+  },
+
 };
 
 </script>
