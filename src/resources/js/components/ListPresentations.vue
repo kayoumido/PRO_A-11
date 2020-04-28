@@ -34,8 +34,6 @@
         </v-list-item>
       </template>
     </v-list>
-
-    <router-view></router-view>
   </v-container>
 </template>
 
