@@ -24,10 +24,8 @@
 
 <script>
 
-import axios from 'axios';
-
 // set Bearer token in header of the future request
-axios.defaults.headers.common = { Authorization: `Bearer ${localStorage.getItem('Authorization-token')}` };
+window.axios.defaults.headers.common = { Authorization: `Bearer ${localStorage.getItem('Authorization-token')}` };
 
 export default {
   name: 'ListPresentations',
@@ -54,7 +52,7 @@ export default {
     const apiUrl = '/api/v1/users/1/presentations';
 
     // get logged user info
-    axios
+    window.axios
       .get('/api/v1/me')
       .then((response) => {
         this.loggedUser = response.data.data;
@@ -67,7 +65,7 @@ export default {
       return;
     }
 
-    axios
+    window.axios
       .get(apiUrl)
       .then((response) => {
         this.presentations = response.data;
