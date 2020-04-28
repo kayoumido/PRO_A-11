@@ -1,15 +1,15 @@
 <template>
-  <div class="container">
-      <v-alert
-      v-model="message.show"
-      :class="message.type"
-      dismissible
-      >
-        {{ message.content }}
+  <v-container>
+    <v-alert
+    v-model="message.show"
+    :class="message.type"
+    dismissible
+    >
+      {{ message.content }}
     </v-alert>
 
 
-    <div v-for="presentation in presentations.data" :key="presentation.id">
+    <!-- div v-for="presentation in presentations.data" :key="presentation.id">
       <router-link
         :to="{ name : 'presentation',
               params : { idPresentation : presentation.id,
@@ -20,10 +20,30 @@
         >
         {{ presentation.title }}
       </router-link>
-    </div>
+    </div-->
+
+          <v-list-tile
+            v-for="presentation in presentations"
+            :key="presentation.title"
+            avatar
+          >
+            <v-list-tile-avatar>
+              <v-icon :class="[item.iconClass]">{{ item.icon }}</v-icon>
+            </v-list-tile-avatar>
+
+            <v-list-tile-content>
+              <v-list-tile-title>{{ presentation.title }}</v-list-tile-title>
+            </v-list-tile-content>
+
+            <v-list-tile-action>
+              <v-btn icon ripple>
+                <v-icon color="grey lighten-1">info</v-icon>
+              </v-btn>
+            </v-list-tile-action>
+          </v-list-tile>
 
     <router-view></router-view>
-  </div>
+  </v-container>
 </template>
 
 <script>
