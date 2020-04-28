@@ -9,7 +9,7 @@
     </v-alert>
 
     <v-list two-line>
-      <template v-for="(presentation) in presentations">
+      <template v-for="(presentation) in presentations.data">
         <v-list-item
           :key="presentation.id"
         >
@@ -23,13 +23,13 @@
 </template>
 
 <script>
+import axios from 'axios';
 
 // set Bearer token in header of the future request
-window.axios.defaults.headers.common = { Authorization: `Bearer ${localStorage.getItem('Authorization-token')}` };
+axios.defaults.headers.common = { Authorization: `Bearer ${localStorage.getItem('Authorization-token')}` };
 
 export default {
   name: 'ListPresentations',
-  props: ['parent'],
   data() {
     return {
       presentations: [
@@ -42,9 +42,7 @@ export default {
         content: '',
         type: '',
       },
-      loggedUser: {
-
-      },
+      loggedUser: {},
     };
   },
   beforeMount() {
@@ -55,7 +53,7 @@ export default {
     window.axios
       .get('/api/v1/me')
       .then((response) => {
-        this.loggedUser = response.data.data;
+        this.loggedUser = response.data;
       })
       .catch((error) => {
         this.showMessage('error', `La recupération des donnée utilisateur a échoué: ${error}`);
