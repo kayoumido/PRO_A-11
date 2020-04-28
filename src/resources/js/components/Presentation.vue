@@ -15,21 +15,20 @@
 </template>
 
 <script>
-import axios from "axios";
+import axios from 'axios';
 
 export default {
-  name: "Presentation",
-  props: ["idPresentation"], // we will send the id of the presentation through props
+  name: 'Presentation',
+  props: ['idPresentation'], // we will send the id of the presentation through props
   data() {
     return {
       presentation: {},
       polls: [],
       isError: false,
-      message: ''
+      message: '',
     };
   },
   beforeMount() {
-
     // const apiUrl = `api/v1/presentations/${idPresentation}`;
     const apiUrl = 'api/v1/presentations/1';
 
@@ -40,7 +39,7 @@ export default {
       })
       .catch((error) => {
         this.isError = true;
-        this.message = "an error has occured while sending the data";
+        this.message = `an error has occured while sending the data ${error}`;
       });
   },
 };
