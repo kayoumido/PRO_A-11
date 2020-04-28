@@ -1,17 +1,42 @@
 <template>
-  <!--v-container-->
-  <div class="container">
-     <div v-if="isError" class="error">
-          <h3>{{ message }}</h3>
-     </div>
 
-     <h3>Presentation info</h3>
-     <div>
-          <h4>title : {{ presentation.data.title }} </h4>
-          <p>created on : {{ presentation.data.date }} </p>
-     </div>
-  </div>
-  <!--/v-container-->
+ <v-container>
+     <v-alert
+    v-model="message.show"
+    :class="message.type"
+    dismissible
+    >
+      {{ message.content }}
+    </v-alert>
+
+      <v-card
+      class="mx-auto"
+      max-width="344"
+      >
+      <v-list-item three-line>
+        <v-list-item-content>
+          <v-list-item-title class="headline mb-1">Titre</v-list-item-title>
+          <v-list-item-subtitle>Sous-titre</v-list-item-subtitle>
+        </v-list-item-content>
+
+        <v-list-item-avatar
+          tile
+          size="80"
+          color="grey"
+        ></v-list-item-avatar>
+      </v-list-item>
+
+      <v-card-actions>
+        <v-btn text>Button</v-btn>
+        <v-btn text>Button</v-btn>
+      </v-card-actions>
+    </v-card>
+
+    <!--div>
+        <h4>title : {{ presentation.data.title }} </h4>
+        <p>created on : {{ presentation.data.date }} </p>
+    </div-->
+  </v-container>
 </template>
 
 <script>
@@ -24,8 +49,12 @@ export default {
     return {
       presentation: {},
       polls: [],
-      isError: false,
-      message: '',
+      // object for message management
+      message: {
+        show: false,
+        content: '',
+        type: '',
+      },
     };
   },
   beforeMount() {
