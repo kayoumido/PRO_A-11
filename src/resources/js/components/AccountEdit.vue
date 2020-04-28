@@ -68,7 +68,6 @@ axios.defaults.headers.common = { Authorization: `Bearer ${localStorage.getItem(
 
 export default {
   name: 'AccountEdition',
-  props: ['parent'],
   data() {
     return {
       // vuetify
