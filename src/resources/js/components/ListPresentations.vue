@@ -32,11 +32,7 @@ export default {
   name: 'ListPresentations',
   data() {
     return {
-      presentations: [
-        // { title: 'aaa', id: 1 },
-        // { title: 'bbb', id: 2 },
-        // { title: 'cccc', id: 3 },
-      ],
+      presentations: [],
       message: {
         show: false,
         content: '',
@@ -46,33 +42,38 @@ export default {
     };
   },
   beforeMount() {
-    // const apiUrl = `/api/v1/users/${this.loggedUser.id}/presentations`;
-    const apiUrl = '/api/v1/users/1/presentations';
-
     // get logged user info
-    window.axios
+    axios
       .get('/api/v1/me')
       .then((response) => {
         this.loggedUser = response.data;
+
+        if (this.loggedUser === null) {
+          return;
+        }
+
+        const idUser = this.loggedUser.data.id;
+
+        // For testing with a different User ID
+        // const idUser = 1;
+
+        const apiUrl = `/api/v1/users/${idUser}/presentations`;
+
+        axios
+          .get(apiUrl)
+          .then((responsePresentation) => {
+            this.presentations = responsePresentation.data;
+
+            if (this.presentationsIsEmpty()) {
+              this.showMessage('info', 'Vous ne vous êtes inscrit à aucune presentation');
+            }
+          })
+          .catch((error) => {
+            this.showMessage('error', `La recupération des presentations a échoué: ${error}`);
+          });
       })
       .catch((error) => {
         this.showMessage('error', `La recupération des donnée utilisateur a échoué: ${error}`);
-      });
-
-    if (this.loggedUser === null) {
-      return;
-    }
-
-    window.axios
-      .get(apiUrl)
-      .then((response) => {
-        this.presentations = response.data;
-        if (this.presentationsIsEmpty()) {
-          this.showMessage('info', 'Vous ne vous êtes inscrit à aucune presentation');
-        }
-      })
-      .catch((error) => {
-        this.showMessage('error', `La recupération des presentations a échoué: ${error}`);
       });
   },
   methods: {
