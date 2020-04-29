@@ -61,17 +61,11 @@
 </template>
 
 <script>
-import axios from 'axios';
-
-// set Bearer token in header of the future request
-axios.defaults.headers.common = { Authorization: `Bearer ${localStorage.getItem('Authorization-token')}` };
-
 export default {
   name: 'AccountEdition',
   data() {
     return {
-      // vuetify
-      valid: true, // if a rules is not fully satisfied this will disable submit button
+      valid: true, // if a rules is not fully satisfied this will disable the submit button
       nameRules: [
         (v) => v === '' || v.length <= 10 || 'Le nom doit contenir moins de 10 caractères',
       ],
@@ -100,8 +94,11 @@ export default {
     };
   },
   beforeMount() {
+    // set Bearer token in header of the future request
+    window.axios.defaults.headers.common = { Authorization: `Bearer ${localStorage.getItem('Authorization-token')}` };
+
     // get logged user info
-    axios
+    window.axios
       .get('/api/v1/me')
       .then((response) => {
         this.loggedUser = response.data.data;
@@ -129,7 +126,7 @@ export default {
       }
 
       // send http request with axios and catch response or error
-      axios.put(apiUrl, data)
+      window.axios.put(apiUrl, data)
         .then((response) => {
           // real backend response
           // this.loggedUser = response.data.data;
