@@ -3,6 +3,7 @@ import VueRouter from 'vue-router';
 
 import Hello from './components/Hello';
 import ListPresentations from './components/ListPresentations';
+import Presentation from './components/Presentation';
 
 Vue.use(VueRouter);
 
@@ -26,6 +27,12 @@ const router = new VueRouter({
       name: 'Lister les Presentation',
       icon: 'mdi-help-box',
       component: ListPresentations,
+    },
+    {
+      path: 'presentation/:idPresentation',
+      name: 'presentation',
+      icon: 'mdi-help-box',
+      component: Presentation,
     },
   ],
 });
