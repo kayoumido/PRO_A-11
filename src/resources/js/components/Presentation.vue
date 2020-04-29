@@ -19,7 +19,7 @@
             Titre : {{ presentation.data.title }}
           </v-list-item-title>
           <v-list-item-subtitle>
-            Identifiant: {{ presentation.data.id }}
+            Date: {{ presentation.data.date }}
           </v-list-item-subtitle>
         </v-list-item-content>
 
