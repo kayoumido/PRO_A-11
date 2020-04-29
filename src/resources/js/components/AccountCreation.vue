@@ -29,8 +29,6 @@
 </template>
 
 <script>
-    import axios from 'axios'
-    import router from '../routes'
 
     export default {
     name : 'Register',
@@ -48,35 +46,39 @@
     },
     methods: {
       register() {
-         if (this.isFieldsEmpty()){ //if not blank
+        if (this.isFieldsEmpty()){ //if not blank
+          if(this.isEmail(this.input.email)){
             if (this.isPasswordConfirmMatchPassword()){ //if password is different of comfirm password
-                //sends credentials to backend 
-                axios.post(
-                '/api/register',{
-                    lname: this.lname,
-                    fname: this.fname,
-                    email: this.email,
-                    password: this.password
-                }).then(Response => {
-                  if(Response.data.passed === true){
-                    this.$router.replace({name: 'Hello'});
-                  }else{
-                    this.isError = true;
-                    this.message = 'Cette adresse mail est déjà utilisé';
-                  }
-                }).catch(error => {
+              //sends credentials to backend 
+              window.axios.post(
+              '/api/register',{
+                  lname: this.lname,
+                  fname: this.fname,
+                  email: this.email,
+                  password: this.password
+              }).then(Response => {
+                if(Response.data.passed){
+                  this.$router.replace({name: 'Hello'});
+                }else{
                   this.isError = true;
-                  this.message = 'Une erreur a eu lieu lors de la création du compte';
-                });
-                
+                  this.message = 'Cette adresse mail est déjà utilisé';
+                }
+              }).catch(error => {
+                this.isError = true;
+                this.message = 'Une erreur a eu lieu lors de la création du compte';
+              });
             } else {
                 this.isError = true;
                 this.message = 'Les mots de passe sont différents';
             }
-         } else {
-           this.isError = true;
-           this.message = 'Ils y a des champs vides';
-         }
+          } else{
+            this.isError = true;
+            this.message = 'Adresse e-mail non valide';
+          }
+        } else {
+          this.isError = true;
+          this.message = 'Ils y a des champs vides';
+        }
       },
       //check if both password are the same
       isPasswordConfirmMatchPassword(){
@@ -86,6 +88,11 @@
       isFieldsEmpty(){
         return (this.input.lname !== '' && this.input.fname !== '' && this.input.email !== '' && this.input.password !== '' && this.input.passwordConfirm !== '');
       },
+      //check email syntax
+      isEmail(inputEmail){
+        const mailFormat = /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/;
+        return (inputEmail.match(mailFormat));
+      }
     }
   }
 </script>
