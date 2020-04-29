@@ -108,7 +108,7 @@ export default {
       // send http request with axios and catch response or error
       axios.post(apiUrl, this.dataForm)
         .then((response) => {
-          this.showMessage('success', `La presentation ${response.data.data.title} a été correctement crée`);
+          this.showMessage('success', `La présentation ${response.data.data.title} a été correctement créée`);
           this.$refs.form.reset();
         })
         .catch((errorResponse) => {
