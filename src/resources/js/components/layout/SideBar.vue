@@ -19,12 +19,22 @@
 </template>
 
 <script>
-import router from '../../router';
 
 export default {
   name: 'SideBar',
   data: () => ({
-    routes: router.options.routes,
+    routes: [
+      {
+        name: 'Mes presentations',
+        icon: 'mdi-presentation-play',
+        path: '/presentations',
+      },
+      {
+        name: 'Créer presentation',
+        icon: 'mdi-folder-plus-outline',
+        path: '/presentations/nouveau',
+      },
+    ],
   }),
 };
 </script>

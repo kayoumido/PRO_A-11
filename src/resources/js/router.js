@@ -12,23 +12,11 @@ const router = new VueRouter({
     {
       path: '/',
       name: 'Hello',
-      icon: 'mdi-help-box',
-      component: Hello,
-    },
-    {
-      path: '/test',
-      name: 'Test',
-      icon: 'mdi-help-box',
       component: Hello,
     },
     {
       path: '/presentation',
-      /**
-       * leading to 404 error when accessing directly with browser
-       * path: 'presentation/:idPresentation',
-       */
       name: 'presentation',
-      icon: 'mdi-help-box',
       component: Presentation,
     },
   ],
