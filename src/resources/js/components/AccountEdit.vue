@@ -89,12 +89,7 @@ export default {
        * For now LoggedUser is the current user logged info
        * this will serve as temporary test and debug value
        */
-      loggedUser: {
-        // id: 3,
-        // fname: 'Jane',
-        // lname: 'Doe',
-        // email: 'jane@paul.lo',
-      },
+      loggedUser: {},
       // Object for form field binding
       updateUserInfo: {
         fname: '',
@@ -117,9 +112,10 @@ export default {
   },
   methods: {
     submitChange() {
-      // API Url use mirageJS for testing,
+      // API Url use mirageJS for testing data ,
       const apiUrl = `/api/user/${this.loggedUser.id}`;
-      // real backend
+
+      // real backend URL
       // const apiUrl = `/api/v1/users/${this.loggedUser.id}`;
 
       // prepare the data to send
