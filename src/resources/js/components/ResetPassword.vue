@@ -51,7 +51,6 @@ export default {
       },
       input: {
         password: '',
-        passwordConfirm: '',
       },
     };
   },
@@ -62,11 +61,9 @@ export default {
             token: this.$route.params.token,
             password: this.password,
           },
-        ).then((Response) => {
-          if (Response.data.passed === true) {
-            this.$router.replace({ name: 'Authentification' });
-          }
-        }).catch(() => {
+        ).then(result => {
+          this.$router.push({ name: 'Authentification' })
+        }, error => {
           this.showMessage('error', 'Une erreur a eu lieu lors de la demande de changement de mot de passe');
         });
     },
