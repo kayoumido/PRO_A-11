@@ -72,7 +72,6 @@ export default {
     dateMenu: false,
     dateRules: [
       (v) => !!v || 'Vous devez renseigner une date',
-      // (v) => Date.parse(v) >= Date.now() || 'Must specify a valid date',
     ],
     dataForm: {
       date: new Date().toISOString().substr(0, 10),
@@ -84,7 +83,7 @@ export default {
       content: '',
       type: '',
     },
-    loggedUserID: {},
+    loggedUser: {},
 
   }),
   beforeMount() {
@@ -100,12 +99,7 @@ export default {
   },
   methods: {
     createPresentation() {
-      /* -------------------------------------------------------
-      For testing purpose theses value are hardcoded here */
-      const userID = 1;
-      // const userID = this.loggedUser.data.id;
-      const apiUrl = `api/v1/users/${userID}/presentations`;
-      // -------------------------------------------------------
+      const apiUrl = `api/v1/users/${this.loggedUser.data.id}/presentations`;
 
       if (!this.$refs.form.validate()) {
         return;
@@ -114,8 +108,7 @@ export default {
       // send http request with axios and catch response or error
       axios.post(apiUrl, this.dataForm)
         .then((response) => {
-          const newData = response.data;
-          this.showMessage('success', `La presentation a été correctement crée : ${newData.data.toISOString}`);
+          this.showMessage('success', `La presentation ${response.data.data.title} a été correctement crée`);
           this.$refs.form.reset();
         })
         .catch((errorResponse) => {
