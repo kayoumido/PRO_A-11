@@ -6,9 +6,7 @@ use Closure;
 use Illuminate\Support\Facades\Auth;
 use App\Providers\RouteServiceProvider;
 
-
-
-class CheckAuthUserIsUrlUser
+class CheckSubscriptionPermission
 {
     /**
      * Handle an incoming request.
@@ -19,7 +17,11 @@ class CheckAuthUserIsUrlUser
      */
     public function handle($request, Closure $next)
     {
-        if (Auth::user()->id != $request->user->id)
+        // get the presentation presenter
+        $presenter = $request->presentation->users()->where('role', 'presenter')->first();
+
+        if ((Auth::user()->id != $presenter->id and Auth::user()->id != $request->user->id) or
+            (Auth::user()->id == $presenter->id and Auth::user()->id == $request->user->id))
             return redirect(RouteServiceProvider::HOME);
 
         return $next($request);
