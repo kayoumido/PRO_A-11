@@ -7,19 +7,20 @@
         lazy-validation
     >
       <v-text-field
-            v-model="input.email"
-            :rules="emailRules"
+            v-model="input.password"
+            :append-icon="showPassword ? 'midi-eye' : 'mdi-eye-off'"
+            :type="showPassword ? 'test' : 'password'"
             required
-            label="Adresse email"
+            label="Mot de passe"
       />
 
       <v-btn
             :disabled="!valid"
             color="success"
             class="mr-4"
-            @click="reset"
+            @click="resetPassword"
             >
-            Envoyer email
+            Changer mot de passe
       </v-btn>
       <v-alert
             v-model="message.show"
@@ -36,29 +37,30 @@
 import axios from 'axios';
 
 export default {
-  name: 'Reset',
+  name: 'ResetPassword',
   data() {
     return {
+      token: null,
       // vuetify
       valid: true,
-      emailRules: [
-        (v) => (!!v && /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,})+$/.test(v)) || 'Adresse e-mail non valide',
-      ],
+      showPassword: false,
       message: {
         show: false,
         content: '',
         type: '',
       },
       input: {
-        email: '',
+        password: '',
+        passwordConfirm: '',
       },
     };
   },
   methods: {
-    reset() {
+    resetPassword() {
         axios.post(
-          '/api/v1/reset', {
-            email: this.email,
+          '/api/v1/reset-password', {
+            token: this.$route.params.token,
+            password: this.password,
           },
         ).then((Response) => {
           if (Response.data.passed === true) {
