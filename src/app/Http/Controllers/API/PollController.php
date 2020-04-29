@@ -44,10 +44,12 @@ class PollController extends Controller
             'status' => 'required'
         ]);
 
-        $poll = $presentation->polls()->create($request->only([
+        $newstate = $request->only([
             'subject',
-            'status'
-        ]));
+        ]);
+        $newstate['status'] = 'new';
+
+        $poll = $presentation->polls()->create($request->only($newstate));
 
         return new PollResource($poll);
     }
@@ -75,7 +77,11 @@ class PollController extends Controller
      */
     public function update(Request $request, Poll $poll)
     {
-        //
+        $request->validate([
+            'subject' => 'required'
+        ]);
+
+        $poll->update($request->only(['subject']));
     }
 
     /**
@@ -100,11 +106,8 @@ class PollController extends Controller
      */
     public function publish(Request $request, Poll $poll)
     {
-        $request->validate([
-            'subject' => 'required'
-        ]);
-
-        // how to set status ?
+        $poll->status = 'published';
+        $poll->save();
     }
 
     /**
@@ -134,6 +137,6 @@ class PollController extends Controller
      */
     public function vote(Request $request, Poll $poll, User $user)
     {
-
+        $user->polls()->attach($poll);
     }
 }
