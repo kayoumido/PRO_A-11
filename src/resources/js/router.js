@@ -22,8 +22,7 @@ const router = new VueRouter({
       component: Hello,
     },
     {
-      // path: '/presentation/creer' comment du to issue #128,
-      path: '/presentation-creer',
+      path: '/presentation/creer',
       name: 'newPresentation',
       icon: 'mdi-help-box',
       component: newPresentation,
