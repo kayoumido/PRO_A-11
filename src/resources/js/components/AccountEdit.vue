@@ -131,7 +131,11 @@ export default {
       // send http request with axios and catch response or error
       axios.put(apiUrl, data)
         .then((response) => {
-          this.loggedUser = response.data.data;
+          // real backend response
+          // this.loggedUser = response.data.data;
+
+          // mirage response
+          this.loggedUser = response.data.user;
           this.showMessage('success', 'Changement appliqué');
 
           this.cleanForm();
