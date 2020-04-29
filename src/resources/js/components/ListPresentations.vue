@@ -23,11 +23,6 @@
 </template>
 
 <script>
-import axios from 'axios';
-
-// set Bearer token in header of the future request
-axios.defaults.headers.common = { Authorization: `Bearer ${localStorage.getItem('Authorization-token')}` };
-
 export default {
   name: 'ListPresentations',
   data() {
@@ -42,8 +37,11 @@ export default {
     };
   },
   beforeMount() {
+    // set Bearer token in header of the future request
+    window.axios.defaults.headers.common = { Authorization: `Bearer ${localStorage.getItem('Authorization-token')}` };
+
     // get logged user info
-    axios
+    window.axios
       .get('/api/v1/me')
       .then((response) => {
         this.loggedUser = response.data;
@@ -59,7 +57,8 @@ export default {
 
         const apiUrl = `/api/v1/users/${idUser}/presentations`;
 
-        axios
+        // eslint-disable-next-line no-undef
+        window.axios
           .get(apiUrl)
           .then((responsePresentation) => {
             this.presentations = responsePresentation.data;
