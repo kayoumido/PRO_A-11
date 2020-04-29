@@ -30,10 +30,6 @@
 </template>
 
 <script>
-import axios from 'axios';
-
-axios.defaults.headers.common = { Authorization: `Bearer ${localStorage.getItem('Authorization-token')}` };
-
 export default {
   name: 'Presentation',
   data() {
@@ -51,11 +47,14 @@ export default {
     };
   },
   beforeMount() {
+    // set the bearer token
+    window.axios.defaults.headers.common = { Authorization: `Bearer ${localStorage.getItem('Authorization-token')}` };
+
     // take the param in vu-route in presentation/{idPresentation}
 
     const apiUrl = `api/v1/presentations/${this.$route.params.idPresentation}`;
 
-    axios
+    window.axios
       .get(apiUrl)
       .then((response) => {
         this.presentation = response.data;
