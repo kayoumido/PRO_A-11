@@ -8,17 +8,31 @@
       {{ message.content }}
     </v-alert>
 
-    <v-list two-line>
-      <template v-for="(presentation) in presentations.data">
-        <v-list-item
-          :key="presentation.id"
+      <v-row align="center">
+      <v-card
+        class="mx-auto"
+        max-width="400"
+        tile
+      >
+        <v-list
+          shaped="shaped"
         >
-          <v-list-item-content>
-            <v-list-item-title v-html="presentation.title"/>
-          </v-list-item-content>
-        </v-list-item>
-      </template>
-    </v-list>
+          <v-subheader>Presentations</v-subheader>
+          <v-list-item-group v-model="presentations" color="primary">
+            <v-list-item
+              v-for="(presentation) in presentations.data"
+              :key="presentation.id"
+              @click="goToPresentation(presentation.id)"
+            >
+              <v-list-item-content>
+                <v-list-item-title v-html="presentation.title"></v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+          </v-list-item-group>
+        </v-list>
+      </v-card>
+    </v-row>
+
   </v-container>
 </template>
 
@@ -83,6 +97,12 @@ export default {
       this.message.show = true;
       this.message.content = content;
       this.message.type = type;
+    },
+    goToPresentation(presentationId) {
+      this.$router.push({
+        name: 'presentation',
+        params: { Idpresentation: presentationId },
+      });
     },
   },
 };
