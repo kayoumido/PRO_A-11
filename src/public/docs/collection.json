@@ -2,11 +2,145 @@
     "variables": [],
     "info": {
         "name": "Paul API",
-        "_postman_id": "60cf258c-bf87-4d29-bc79-199bcc74263e",
+        "_postman_id": "4dd0859e-cf6a-49af-aa82-415d132b3cdb",
         "description": "",
         "schema": "https:\/\/schema.getpostman.com\/json\/collection\/v2.0.0\/collection.json"
     },
     "item": [
+        {
+            "name": "Authentication",
+            "description": "All routes that need authentication should contain a bearer token in the headers\nusing the following synthax:<br>\n`Authorization: Bearer <token>`",
+            "item": [
+                {
+                    "name": "Log the user in",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "localhost",
+                            "path": "api\/v1\/login",
+                            "query": []
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {token}"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"email\": \"aut\",\n    \"password\": \"a\"\n}"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Create e new user account",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "localhost",
+                            "path": "api\/v1\/register",
+                            "query": []
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {token}"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"fname\": \"et\",\n    \"lname\": \"ut\",\n    \"email\": \"itaque\",\n    \"password\": \"explicabo\"\n}"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Return the current authenticated information",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "localhost",
+                            "path": "api\/v1\/me",
+                            "query": []
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {token}"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Sign out the user from everywere",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "localhost",
+                            "path": "api\/v1\/logout",
+                            "query": []
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {token}"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                }
+            ]
+        },
         {
             "name": "Choices management",
             "description": "",
@@ -23,7 +157,7 @@
                                 {
                                     "id": "poll",
                                     "key": "poll",
-                                    "value": "delectus",
+                                    "value": "rerum",
                                     "description": "id of the poll"
                                 }
                             ]
@@ -37,6 +171,10 @@
                             {
                                 "key": "Accept",
                                 "value": "application\/json"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {token}"
                             }
                         ],
                         "body": {
@@ -59,7 +197,7 @@
                                 {
                                     "id": "poll",
                                     "key": "poll",
-                                    "value": "iusto",
+                                    "value": "fuga",
                                     "description": "id of the linked poll"
                                 }
                             ]
@@ -73,11 +211,15 @@
                             {
                                 "key": "Accept",
                                 "value": "application\/json"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {token}"
                             }
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"message\": \"et\"\n}"
+                            "raw": "{\n    \"message\": \"inventore\"\n}"
                         },
                         "description": "",
                         "response": []
@@ -95,7 +237,7 @@
                                 {
                                     "id": "choice",
                                     "key": "choice",
-                                    "value": "molestiae",
+                                    "value": "repellat",
                                     "description": "Id of the choice to update"
                                 }
                             ]
@@ -109,11 +251,15 @@
                             {
                                 "key": "Accept",
                                 "value": "application\/json"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {token}"
                             }
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"message\": \"ipsam\"\n}"
+                            "raw": "{\n    \"message\": \"nostrum\"\n}"
                         },
                         "description": "",
                         "response": []
@@ -131,7 +277,7 @@
                                 {
                                     "id": "choice",
                                     "key": "choice",
-                                    "value": "eum",
+                                    "value": "atque",
                                     "description": "Id of the choice to delete"
                                 }
                             ]
@@ -145,6 +291,10 @@
                             {
                                 "key": "Accept",
                                 "value": "application\/json"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {token}"
                             }
                         ],
                         "body": {
@@ -167,13 +317,13 @@
                                 {
                                     "id": "poll",
                                     "key": "poll",
-                                    "value": "quod",
+                                    "value": "molestiae",
                                     "description": "Poll id for the vote"
                                 },
                                 {
                                     "id": "user",
                                     "key": "user",
-                                    "value": "est",
+                                    "value": "enim",
                                     "description": "User id for the vote"
                                 }
                             ]
@@ -187,11 +337,15 @@
                             {
                                 "key": "Accept",
                                 "value": "application\/json"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {token}"
                             }
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"choice_id\": \"tempore\"\n}"
+                            "raw": "{\n    \"choice_id\": \"hic\"\n}"
                         },
                         "description": "",
                         "response": []
@@ -215,13 +369,13 @@
                                 {
                                     "id": "presentation",
                                     "key": "presentation",
-                                    "value": "quo",
+                                    "value": "blanditiis",
                                     "description": "Presentation id"
                                 },
                                 {
                                     "id": "user",
                                     "key": "user",
-                                    "value": "dolor",
+                                    "value": "deleniti",
                                     "description": "User id"
                                 }
                             ]
@@ -235,6 +389,10 @@
                             {
                                 "key": "Accept",
                                 "value": "application\/json"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {token}"
                             }
                         ],
                         "body": {
@@ -257,13 +415,13 @@
                                 {
                                     "id": "presentation",
                                     "key": "presentation",
-                                    "value": "facere",
+                                    "value": "quae",
                                     "description": "Presentation id"
                                 },
                                 {
                                     "id": "user",
                                     "key": "user",
-                                    "value": "vitae",
+                                    "value": "ut",
                                     "description": "User id"
                                 }
                             ]
@@ -277,6 +435,10 @@
                             {
                                 "key": "Accept",
                                 "value": "application\/json"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {token}"
                             }
                         ],
                         "body": {
@@ -305,13 +467,13 @@
                                 {
                                     "id": "presentation",
                                     "key": "presentation",
-                                    "value": "sequi",
+                                    "value": "eum",
                                     "description": "Presentation id"
                                 },
                                 {
                                     "id": "user",
                                     "key": "user",
-                                    "value": "accusantium",
+                                    "value": "sequi",
                                     "description": "User id"
                                 }
                             ]
@@ -325,11 +487,15 @@
                             {
                                 "key": "Accept",
                                 "value": "application\/json"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {token}"
                             }
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"role\": \"magnam\"\n}"
+                            "raw": "{\n    \"role\": \"rerum\"\n}"
                         },
                         "description": "",
                         "response": []
@@ -353,7 +519,7 @@
                                 {
                                     "id": "presentation",
                                     "key": "presentation",
-                                    "value": "provident",
+                                    "value": "autem",
                                     "description": "Id of the presentation"
                                 }
                             ]
@@ -367,6 +533,10 @@
                             {
                                 "key": "Accept",
                                 "value": "application\/json"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {token}"
                             }
                         ],
                         "body": {
@@ -389,7 +559,7 @@
                                 {
                                     "id": "presentation",
                                     "key": "presentation",
-                                    "value": "voluptate",
+                                    "value": "id",
                                     "description": "Id of the presentation"
                                 }
                             ]
@@ -403,6 +573,10 @@
                             {
                                 "key": "Accept",
                                 "value": "application\/json"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {token}"
                             }
                         ],
                         "body": {
@@ -425,7 +599,7 @@
                                 {
                                     "id": "poll",
                                     "key": "poll",
-                                    "value": "dolorem",
+                                    "value": "molestias",
                                     "description": "Poll id"
                                 }
                             ]
@@ -439,6 +613,10 @@
                             {
                                 "key": "Accept",
                                 "value": "application\/json"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {token}"
                             }
                         ],
                         "body": {
@@ -461,7 +639,7 @@
                                 {
                                     "id": "poll",
                                     "key": "poll",
-                                    "value": "et",
+                                    "value": "eius",
                                     "description": "Poll id"
                                 }
                             ]
@@ -475,11 +653,15 @@
                             {
                                 "key": "Accept",
                                 "value": "application\/json"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {token}"
                             }
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"subject\": \"et\"\n}"
+                            "raw": "{\n    \"subject\": \"molestiae\"\n}"
                         },
                         "description": "",
                         "response": []
@@ -497,7 +679,7 @@
                                 {
                                     "id": "poll",
                                     "key": "poll",
-                                    "value": "enim",
+                                    "value": "id",
                                     "description": "Poll id"
                                 }
                             ]
@@ -511,6 +693,10 @@
                             {
                                 "key": "Accept",
                                 "value": "application\/json"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {token}"
                             }
                         ],
                         "body": {
@@ -539,6 +725,10 @@
                             {
                                 "key": "Accept",
                                 "value": "application\/json"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {token}"
                             }
                         ],
                         "body": {
@@ -561,7 +751,7 @@
                                 {
                                     "id": "poll",
                                     "key": "poll",
-                                    "value": "et",
+                                    "value": "natus",
                                     "description": "Poll id"
                                 }
                             ]
@@ -575,6 +765,10 @@
                             {
                                 "key": "Accept",
                                 "value": "application\/json"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {token}"
                             }
                         ],
                         "body": {
@@ -603,7 +797,7 @@
                                 {
                                     "id": "user",
                                     "key": "user",
-                                    "value": "rem",
+                                    "value": "architecto",
                                     "description": "User id"
                                 }
                             ]
@@ -617,6 +811,10 @@
                             {
                                 "key": "Accept",
                                 "value": "application\/json"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {token}"
                             }
                         ],
                         "body": {
@@ -639,7 +837,7 @@
                                 {
                                     "id": "user",
                                     "key": "user",
-                                    "value": "sed",
+                                    "value": "assumenda",
                                     "description": "User id"
                                 }
                             ]
@@ -653,11 +851,15 @@
                             {
                                 "key": "Accept",
                                 "value": "application\/json"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {token}"
                             }
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"title\": \"nihil\",\n    \"date\": \"autem\"\n}"
+                            "raw": "{\n    \"title\": \"non\",\n    \"date\": \"debitis\"\n}"
                         },
                         "description": "",
                         "response": []
@@ -675,7 +877,7 @@
                                 {
                                     "id": "presentation",
                                     "key": "presentation",
-                                    "value": "facilis",
+                                    "value": "aut",
                                     "description": "Presentation id"
                                 }
                             ]
@@ -689,6 +891,10 @@
                             {
                                 "key": "Accept",
                                 "value": "application\/json"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {token}"
                             }
                         ],
                         "body": {
@@ -711,7 +917,7 @@
                                 {
                                     "id": "presentation",
                                     "key": "presentation",
-                                    "value": "est",
+                                    "value": "autem",
                                     "description": "Presentation id"
                                 }
                             ]
@@ -725,11 +931,15 @@
                             {
                                 "key": "Accept",
                                 "value": "application\/json"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {token}"
                             }
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"title\": \"qui\",\n    \"date\": \"voluptas\"\n}"
+                            "raw": "{\n    \"title\": \"qui\",\n    \"date\": \"quia\"\n}"
                         },
                         "description": "",
                         "response": []
@@ -747,7 +957,7 @@
                                 {
                                     "id": "presentation",
                                     "key": "presentation",
-                                    "value": "beatae",
+                                    "value": "voluptate",
                                     "description": "Presentation id"
                                 }
                             ]
@@ -761,6 +971,10 @@
                             {
                                 "key": "Accept",
                                 "value": "application\/json"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {token}"
                             }
                         ],
                         "body": {
@@ -777,11 +991,11 @@
                         "url": {
                             "protocol": "http",
                             "host": "localhost",
-                            "path": "api\/v1\/prestations\/search",
+                            "path": "api\/v1\/presentations\/search",
                             "query": [
                                 {
                                     "key": "keywords",
-                                    "value": "temporibus",
+                                    "value": "exercitationem",
                                     "description": "Keywords to search",
                                     "disabled": false
                                 }
@@ -796,6 +1010,10 @@
                             {
                                 "key": "Accept",
                                 "value": "application\/json"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {token}"
                             }
                         ],
                         "body": {
@@ -830,6 +1048,10 @@
                             {
                                 "key": "Accept",
                                 "value": "application\/json"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {token}"
                             }
                         ],
                         "body": {
