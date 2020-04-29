@@ -44,12 +44,11 @@ class PollController extends Controller
             'status' => 'required'
         ]);
 
-        $newstate = $request->only([
+        $poll_data = $request->only([
             'subject',
         ]);
-        $newstate['status'] = 'new';
-
-        $poll = $presentation->polls()->create($request->only($newstate));
+        $poll_data['status'] = 'new';
+        $poll = $presentation->polls()->create($poll_data);
 
         return new PollResource($poll);
     }
@@ -77,6 +76,11 @@ class PollController extends Controller
      */
     public function update(Request $request, Poll $poll)
     {
+        if (!($poll->users()->find($request->user()) &&
+            $poll->users()->find($request->user())->role == 'presenter')) {
+            return response()->json('unauthorized', Response::HTTP_UNAUTHORIZED);
+        }
+
         $request->validate([
             'subject' => 'required'
         ]);
@@ -106,6 +110,11 @@ class PollController extends Controller
      */
     public function publish(Request $request, Poll $poll)
     {
+        if (!($poll->users()->find($request->user()) &&
+            $poll->users()->find($request->user())->role == 'presenter')) {
+            return response()->json('unauthorized', Response::HTTP_UNAUTHORIZED);
+        }
+
         $poll->status = 'published';
         $poll->save();
     }
@@ -137,6 +146,10 @@ class PollController extends Controller
      */
     public function vote(Request $request, Poll $poll, User $user)
     {
+        if (!$poll->users()->find($request->user())) {
+            return response()->json('unauthorized', Response::HTTP_UNAUTHORIZED);
+        }
+
         $user->polls()->attach($poll);
     }
 }
