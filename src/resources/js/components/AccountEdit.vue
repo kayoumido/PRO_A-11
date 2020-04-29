@@ -131,10 +131,7 @@ export default {
       // send http request with axios and catch response or error
       axios.put(apiUrl, data)
         .then((response) => {
-          this.loggedUser.fname = response.data.user.fname;
-          this.loggedUser.lname = response.data.user.lname;
-          this.loggedUser.email = response.data.user.email;
-
+          this.loggedUser = response.data.data;
           this.showMessage('success', 'Changement appliqué');
 
           this.cleanForm();
