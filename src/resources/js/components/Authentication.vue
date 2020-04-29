@@ -14,7 +14,6 @@
         <v-form
             ref="form"
             v-model="valid"
-            lazy-validation
         >
 
             <v-text-field
@@ -31,7 +30,6 @@
                 :type="showPassword ? 'text' : 'password'"
                 :rules="passwordRules"
                 label="Mot de passe"
-                value=""
                 class="input-group--focused"
                 @click:append="showPassword = !showPassword"
                 required
@@ -83,29 +81,26 @@ export default {
   },
   methods: {
     login() {
-      if (this.input.email !== '' && this.input.password !== '') { // if not blank
-        // sends credentials to backend for verification
+      // sends credentials to backend for verification
 
-        const data = this.input;
+      const data = this.input;
 
-        axios.post(
-          '/api/v1/login', data,
-        )
-          .then((response) => {
-            if (response.data.token_type === 'Bearer') {
-              const token = response.data.access_token;
-              localStorage.setItem('Authorization-token', token); // store the token in localstorage
-              this.showMessage('success', 'Authentifié');
-            } else {
-              this.showMessage('error', 'Réponse du serveur inatendue');
-            }
-          })
-          .catch((error) => {
-            this.showMessage('error', `erreur de type: ${error}`);
-          });
-      } else { // is blank
-        this.showMessage('error', 'Veuillez remplir tous les champs');
-      }
+      axios.post(
+        '/api/v1/login', data,
+      )
+        .then((response) => {
+          if (response.data.token_type === 'Bearer') {
+            const token = response.data.access_token;
+            localStorage.setItem('Authorization-token', token); // store the token in localstorage
+            this.showMessage('success', 'Authentifié');
+            this.$router.replace({ name: 'Hello' }); // all routing is handled by vuejs, should be changed for the final home route
+          } else {
+            this.showMessage('error', 'Réponse du serveur inatendue');
+          }
+        })
+        .catch((error) => {
+          this.showMessage('error', `erreur de type: ${error}`);
+        });
     },
     showMessage(type, content) {
       this.message.show = true;

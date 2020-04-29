@@ -22,7 +22,7 @@ const router = new VueRouter({
       component: Hello,
     },
     {
-      path: '/Authentification',
+      path: '/login',
       name: 'Authentication',
       icon: 'mdi-help-box',
       component: Authentication,
