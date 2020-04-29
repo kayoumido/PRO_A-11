@@ -74,7 +74,7 @@ export default {
       (v) => !!v || 'Vous devez renseigner une date',
     ],
     dataForm: {
-      date: new Date().toISOString().substr(0, 10),
+      date: new Date(),
       title: '',
     },
     // object for message management
