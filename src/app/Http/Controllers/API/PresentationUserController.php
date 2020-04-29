@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Presentation;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 /**
  * Class PresentationUserController
@@ -46,7 +47,7 @@ class PresentationUserController extends Controller
             return response()->json([
                 'success' => false,
                 'message' => "Already unsubscribed",
-            ], 409);
+            ], Response::HTTP_CONFLICT);
         }
 
         // all gucci, the user can unsubscribe
@@ -58,7 +59,7 @@ class PresentationUserController extends Controller
         return response()->json([
             'success' => true,
             'message' => "Successfully unsubscribed",
-        ], 200);
+        ], Response::HTTP_OK);
     }
 
     /**
