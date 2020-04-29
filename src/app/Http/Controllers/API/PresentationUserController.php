@@ -30,7 +30,7 @@ class PresentationUserController extends Controller
             return response()->json([
                 'success' => false,
                 'message' => "Already subscribed",
-            ], 409);
+            ], Response::HTTP_CONFLICT);
         }
 
         // all gucci, the user can subscribe
