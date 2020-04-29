@@ -56,7 +56,7 @@ export default {
   },
   methods: {
     resetPassword() {
-        axios.post(
+        window.axios.post(
           '/api/v1/reset-password', {
             token: this.$route.params.token,
             password: this.password,

@@ -56,7 +56,7 @@ export default {
   },
   methods: {
     reset() {
-        axios.post(
+        window.axios.post(
           '/api/v1/reset', {
             email: this.email,
           },
