@@ -27,7 +27,8 @@ const router = new VueRouter({
       name: 'Authentication',
       icon: 'mdi-help-box',
       component: Authentication,
-    }],
+    },
+    {
       path: '/presentation',
       /**
        * leading to 404 error when accessing directly with browser

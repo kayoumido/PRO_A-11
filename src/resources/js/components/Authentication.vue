@@ -51,7 +51,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+// import axios from 'axios';
 
 export default {
   name: 'Authentication',
@@ -85,7 +85,7 @@ export default {
 
       const data = this.input;
 
-      axios.post(
+      window.axios.post(
         '/api/v1/login', data,
       )
         .then((response) => {
