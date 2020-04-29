@@ -22,7 +22,8 @@ const router = new VueRouter({
       component: Hello,
     },
     {
-      path: '/userEdit',
+      path: '/mon-compte-modifier/',
+      // path: '/mon-compte/modifier/', commented for avoid 404 error issue
       name: 'Edition de compte',
       icon: 'mdi-help-box',
       component: AccountEdition,
