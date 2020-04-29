@@ -22,7 +22,7 @@ const router = new VueRouter({
       component: Hello,
     },
     {
-      path: '/moncompte/presentations',
+      path: '/mon-compte/presentations',
       name: 'Lister les Presentation',
       icon: 'mdi-help-box',
       component: ListPresentations,
