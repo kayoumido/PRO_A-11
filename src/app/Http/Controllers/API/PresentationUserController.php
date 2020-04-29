@@ -67,12 +67,6 @@ class PresentationUserController extends Controller
 
         // unsubscribe the user to the presentation
         $presentation->users()->detach($user);
-
-        // return success
-        return response()->json([
-            'success' => true,
-            'message' => "Successfully unsubscribed",
-        ], Response::HTTP_OK);
     }
 
     /**
