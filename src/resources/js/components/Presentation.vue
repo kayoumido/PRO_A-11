@@ -53,15 +53,7 @@ export default {
   beforeMount() {
     // take the param in vu-route in presentation/{idPresentation}
 
-    /** *************************************************************************
-     * there is an issue with the route here, it appears that route
-     * with the following pattern "aaaa/bbbb" lead to a 404 error
-     */
-    // const apiUrl = `api/v1/presentations/${this.$route.params.idPresentation}`;
-
-    // harcoded for testing purpose
-    const idPresentation = 1;
-    const apiUrl = `api/v1/presentations/${idPresentation}`;
+    const apiUrl = `api/v1/presentations/${this.$route.params.idPresentation}`;
 
     axios
       .get(apiUrl)

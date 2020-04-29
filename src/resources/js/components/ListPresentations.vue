@@ -98,10 +98,10 @@ export default {
       this.message.content = content;
       this.message.type = type;
     },
-    goToPresentation(presentationId) {
+    goToPresentation(id) {
       this.$router.push({
         name: 'presentation',
-        params: { Idpresentation: presentationId },
+        params: { idPresentation: id },
       });
     },
   },
