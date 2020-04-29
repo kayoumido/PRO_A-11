@@ -110,8 +110,8 @@ class PollController extends Controller
      */
     public function publish(Request $request, Poll $poll)
     {
-        if (!($poll->users()->find($request->user()) &&
-            $poll->users()->find($request->user())->role == 'presenter')) {
+        $req_user = $poll->users()->find($request->user());
+        if (!($req_user && $req_user->role == 'presenter')) {
             return response()->json('unauthorized', Response::HTTP_UNAUTHORIZED);
         }
 
