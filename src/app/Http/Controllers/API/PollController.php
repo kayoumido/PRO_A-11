@@ -26,7 +26,7 @@ class PollController extends Controller
      */
     public function index(Request $request, Presentation $presentation)
     {
-        if (!$presentation->users()->find($request->user())) {
+        if (!PollController::getRequestUser($request, $poll)) {
             return response()->json('unauthorized', Response::HTTP_UNAUTHORIZED);
         }
 
