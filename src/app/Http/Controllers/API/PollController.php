@@ -95,10 +95,12 @@ class PollController extends Controller
         }
 
         $request->validate([
-            'subject' => 'required'
+            'subject' => 'required|string'
         ]);
 
         $poll->update($request->only(['subject']));
+
+        return new PollResource($poll);
     }
 
     /**
