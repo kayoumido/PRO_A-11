@@ -13,7 +13,7 @@ use Illuminate\Http\Request;
 /**
  * Class ChoiceController
  * @package App\Http\Controllers\API
- * @group Choices management
+ * @group  Choices management
  */
 class ChoiceController extends Controller
 {
