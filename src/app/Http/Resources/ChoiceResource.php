@@ -4,6 +4,11 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
+/**
+ * Class ChoiceResource
+ * @package App\Http\Resources
+ * @group Poll choices
+ */
 class ChoiceResource extends JsonResource
 {
     /**
