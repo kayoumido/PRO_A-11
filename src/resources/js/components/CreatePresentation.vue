@@ -22,26 +22,12 @@
         required
       />
 
-      <v-menu
-        v-model="dateMenu"
-        :close-on-content-click="false"
-        :nudge-right="40"
-        transition="scale-transition"
-        offset-y
-        min-width="290px"
+      <v-datetime-picker
+        label="Date et Heure"
+        v-model="dataForm.date"
+        :rules="dateRules"
       >
-        <template v-slot:activator="{ on }">
-          <v-text-field
-            v-model="dataForm.date"
-            label="Choisir une date"
-            :rules="dateRules"
-            required
-            readonly
-            v-on="on"
-          />
-        </template>
-        <v-date-picker v-model="dataForm.date" @input="menu = false" />
-      </v-menu>
+      </v-datetime-picker>
 
       <v-btn
         :disabled="!valid"
@@ -98,12 +84,16 @@ export default {
     createPresentation() {
       const apiUrl = `api/v1/users/${this.loggedUser.data.id}/presentations`;
 
+      // force date validation
       if (!this.$refs.form.validate()) {
         return;
       }
 
       // send http request with axios and catch response or error
-      window.axios.post(apiUrl, this.dataForm)
+      window.axios.post(apiUrl, {
+        title: this.dataForm.title,
+        date: this.dataForm.date,
+      })
         .then((response) => {
           this.showMessage('success', `La présentation ${response.data.data.title} a été correctement créée`);
           this.$refs.form.reset();
