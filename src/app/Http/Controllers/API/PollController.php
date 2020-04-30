@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\PollResource;
 use App\Poll;
 use App\Presentation;
 use App\User;
+use Illuminate\Http\Response;
 use Illuminate\Http\Request;
 
 /**
@@ -25,9 +27,13 @@ class PollController extends Controller
      *
      * @param Presentation $presentation
      */
-    public function index(Presentation $presentation)
+    public function index(Request $request, Presentation $presentation)
     {
-        //
+        if (!$presentation->users()->find($request->user())) {
+            return response()->json('unauthorized', Response::HTTP_UNAUTHORIZED);
+        }
+
+        return PollResource::collection($presentation->polls);
     }
 
     /**
@@ -44,7 +50,21 @@ class PollController extends Controller
      */
     public function store(Request $request, Presentation $presentation)
     {
-        //
+        if ($request->user()->id != $presentation->users()->where('role', 'presenter')->get()[0]->id) {
+            return response()->json('unauthorized', Response::HTTP_UNAUTHORIZED);
+        }
+
+        $request->validate([
+            'subject' => 'required|string',
+        ]);
+
+        $poll_data = $request->only([
+            'subject',
+        ]);
+        $poll_data['status'] = 'new';
+        $poll = $presentation->polls()->create($poll_data);
+
+        return new PollResource($poll);
     }
 
     /**
@@ -57,9 +77,13 @@ class PollController extends Controller
      *
      * @param Poll $poll
      */
-    public function show(Poll $poll)
+    public function show(Request $request, Poll $poll)
     {
-        //
+        if (!$poll->presentation->users()->find($request->user())) {
+            return response()->json('unauthorized', Response::HTTP_UNAUTHORIZED);
+        }
+
+        return new PollResource($poll);
     }
 
     /**
@@ -76,7 +100,17 @@ class PollController extends Controller
      */
     public function update(Request $request, Poll $poll)
     {
-        //
+        if (!PollController::checkPresenterPrivilege($request, $poll)) {
+            return response()->json('unauthorized', Response::HTTP_UNAUTHORIZED);
+        }
+
+        $request->validate([
+            'subject' => 'required|string'
+        ]);
+
+        $poll->update($request->only(['subject']));
+
+        return new PollResource($poll);
     }
 
     /**
@@ -105,7 +139,14 @@ class PollController extends Controller
      */
     public function publish(Request $request, Poll $poll)
     {
+        if (!PollController::checkPresenterPrivilege($request, $poll)) {
+            return response()->json('unauthorized', Response::HTTP_UNAUTHORIZED);
+        }
 
+        $poll->status = 'published';
+        $poll->save();
+
+        return new PollResource($poll);
     }
 
     /**
@@ -120,7 +161,11 @@ class PollController extends Controller
      */
     public function results(Request $request, Poll $poll)
     {
+        if (!PollController::checkPresenterPrivilege($request, $poll)) {
+            return response()->json('unauthorized', Response::HTTP_UNAUTHORIZED);
+        }
 
+        return PollResource::collection($poll->users);
     }
 
     /**
@@ -138,6 +183,17 @@ class PollController extends Controller
      */
     public function vote(Request $request, Poll $poll, User $user)
     {
+        //
+    }
 
+    /**
+     * Checks if the request's user has presenter privilege for the poll
+     *
+     * @param Request $request
+     * @param Poll $poll
+     */
+    public static function checkPresenterPrivilege(Request $request, Poll $poll)
+    {
+        return $request->user()->id == $poll->presentation->users()->where('role', 'presenter')->get()[0]->id;
     }
 }
