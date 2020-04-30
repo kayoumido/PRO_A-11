@@ -45,8 +45,7 @@ class PollController extends Controller
         }
 
         $request->validate([
-            'subject' => 'required',
-            'status' => 'required'
+            'subject' => 'required|string',
         ]);
 
         $poll_data = $request->only([
