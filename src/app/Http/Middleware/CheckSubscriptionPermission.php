@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Support\Facades\Auth;
-use App\Providers\RouteServiceProvider;
+use Illuminate\Http\Response;
 
 class CheckSubscriptionPermission
 {
@@ -17,12 +17,13 @@ class CheckSubscriptionPermission
      */
     public function handle($request, Closure $next)
     {
-        // get the presentation presenter
-        $presenter = $request->presentation->users()->where('role', 'presenter')->first();
+        $moderators = $request->presentation->moderators();
 
-        if ((Auth::user()->id != $presenter->id and Auth::user()->id != $request->user->id) or
-            (Auth::user()->id == $presenter->id and Auth::user()->id == $request->user->id))
-            return redirect(RouteServiceProvider::HOME);
+        if (!$moderators->contains(Auth::user()) and Auth::user()->id != $request->user->id)
+            return response()->json([
+                'success' => false,
+                'message' => "Unauthorized",
+            ], Response::HTTP_UNAUTHORIZED);;
 
         return $next($request);
     }
