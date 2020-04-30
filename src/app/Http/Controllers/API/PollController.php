@@ -4,7 +4,6 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\PollResource;
-use App\Http\Resources\PollUserResource;
 use App\Poll;
 use App\Presentation;
 use App\User;
