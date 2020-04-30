@@ -132,6 +132,8 @@ class PollController extends Controller
 
         $poll->status = 'published';
         $poll->save();
+
+        return new PollResource($poll);
     }
 
     /**
