@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Choice;
+use App\Http\Resources\ChoiceResource;
 use App\Http\Controllers\Controller;
 use App\Poll;
 use Illuminate\Http\Request;
@@ -23,7 +24,7 @@ class ChoiceController extends Controller
      */
     public function index(Poll $poll)
     {
-        //
+        return ChoiceResource::collection($poll->choices()->get());
     }
 
     /**

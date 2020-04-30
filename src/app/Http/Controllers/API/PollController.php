@@ -25,7 +25,7 @@ class PollController extends Controller
      */
     public function index(Presentation $presentation)
     {
-        return PollResource::collection($presentation->polls());
+        return PollResource::collection($presentation->polls()->get());
     }
 
     /**
