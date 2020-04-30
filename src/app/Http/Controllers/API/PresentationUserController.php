@@ -43,6 +43,11 @@ class PresentationUserController extends Controller
         $presentation->users()->attach($user, [
             'role' => Role::ATENDEE()
         ]);
+
+        return response()->json([
+            'success' => true,
+            'message' => "Subscribed",
+        ], Response::HTTP_OK);
     }
 
     /**
@@ -78,6 +83,11 @@ class PresentationUserController extends Controller
 
         // unsubscribe the user to the presentation
         $presentation->users()->detach($user);
+
+        return response()->json([
+            'success' => true,
+            'message' => "Unsubscribed",
+        ], Response::HTTP_OK);
     }
 
     /**
