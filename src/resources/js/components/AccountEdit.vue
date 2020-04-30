@@ -94,10 +94,10 @@ export default {
   methods: {
     submitChange() {
       // API Url use mirageJS for testing data ,
-      const apiUrl = `/api/user/${this.loggedUser.id}`;
+      // const apiUrl = `/api/user/${this.loggedUser.id}`;
 
       // real backend URL
-      // const apiUrl = `/api/v1/users/${this.loggedUser.id}`;
+      const apiUrl = `/api/v1/users/${this.loggedUser.id}`;
 
       // prepare the data to send
       const data = this.getDataToSend();
