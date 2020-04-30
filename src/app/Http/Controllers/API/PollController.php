@@ -89,8 +89,8 @@ class PollController extends Controller
      */
     public function update(Request $request, Poll $poll)
     {
-        if (!($poll->users()->find($request->user()) &&
-            $poll->users()->find($request->user())->role == 'presenter')) {
+        $req_user = PollController::getRequestUser($request, $poll);
+        if (!($req_user && PollController::isUserPresenter($req_user))) {
             return response()->json('unauthorized', Response::HTTP_UNAUTHORIZED);
         }
 
