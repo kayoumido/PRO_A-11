@@ -52,7 +52,7 @@ export default {
 
     // take the param in vu-route in presentation/{idPresentation}
 
-    const apiUrl = `api/v1/presentations/${this.$route.params.idPresentation}`;
+    const apiUrl = `/api/v1/presentations/${this.$route.params.idPresentation}`;
 
     window.axios
       .get(apiUrl)
