@@ -7,7 +7,6 @@ use App\Http\Resources\PollResource;
 use App\Poll;
 use App\Presentation;
 use App\User;
-use App\PollUser;
 use Illuminate\Http\Response;
 use Illuminate\Http\Request;
 
