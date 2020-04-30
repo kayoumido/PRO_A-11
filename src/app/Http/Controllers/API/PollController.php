@@ -68,7 +68,7 @@ class PollController extends Controller
      *
      * @param Poll $poll
      */
-    public function show(Poll $poll)
+    public function show(Request $request, Poll $poll)
     {
         if (!PollController::getRequestUser($request, $poll)) {
             return response()->json('unauthorized', Response::HTTP_UNAUTHORIZED);
@@ -122,8 +122,8 @@ class PollController extends Controller
      */
     public function publish(Request $request, Poll $poll)
     {
-        $req_user = $poll->users()->find($request->user());
-        if (!($req_user && $req_user->role == 'presenter')) {
+        $req_user = PollController::getRequestUser($request, $poll);
+        if (!($req_user && PollController::isUserPresenter($req_user))) {
             return response()->json('unauthorized', Response::HTTP_UNAUTHORIZED);
         }
 
@@ -162,7 +162,7 @@ class PollController extends Controller
      */
     public function vote(Request $request, Poll $poll, User $user)
     {
-        if (!$poll->users()->find($request->user())) {
+        if (!PollController::getRequestUser($request, $poll)) {
             return response()->json('unauthorized', Response::HTTP_UNAUTHORIZED);
         }
 
