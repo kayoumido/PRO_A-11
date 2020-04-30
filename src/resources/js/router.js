@@ -2,7 +2,7 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 
 import Hello from './components/Hello';
-import Presentation from './components/Presentation';
+import AccountEdition from './components/AccountEdit';
 
 Vue.use(VueRouter);
 
@@ -22,14 +22,10 @@ const router = new VueRouter({
       component: Hello,
     },
     {
-      path: '/presentation',
-      /**
-       * leading to 404 error when accessing directly with browser
-       * path: 'presentation/:idPresentation',
-       */
-      name: 'presentation',
+      path: '/mon-compte/modifier/',
+      name: 'Edition de compte',
       icon: 'mdi-help-box',
-      component: Presentation,
+      component: AccountEdition,
     },
   ],
 });
