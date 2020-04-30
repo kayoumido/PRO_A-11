@@ -51,8 +51,7 @@ class PollController extends Controller
      */
     public function store(Request $request, Presentation $presentation)
     {
-        $req_user = $request->user();
-        if (!($req_user && PollController::isUserPresenter($req_user))) {
+        if ($request->user()->id != $presentation->users()->where('role', 'presenter')->get()[0]->id) {
             return response()->json('unauthorized', Response::HTTP_UNAUTHORIZED);
         }
 
@@ -81,7 +80,7 @@ class PollController extends Controller
      */
     public function show(Request $request, Poll $poll)
     {
-        if (!PollController::getRequestUser($request, $poll)) {
+        if (!$poll->presentation->users()->find($request->user())) {
             return response()->json('unauthorized', Response::HTTP_UNAUTHORIZED);
         }
 
@@ -102,8 +101,7 @@ class PollController extends Controller
      */
     public function update(Request $request, Poll $poll)
     {
-        $req_user = PollController::getRequestUser($request, $poll);
-        if (!($req_user && PollController::isUserPresenter($req_user))) {
+        if (!PollController::checkPresenterPrivilege($request, $poll)) {
             return response()->json('unauthorized', Response::HTTP_UNAUTHORIZED);
         }
 
@@ -142,8 +140,7 @@ class PollController extends Controller
      */
     public function publish(Request $request, Poll $poll)
     {
-        $req_user = PollController::getRequestUser($request, $poll);
-        if (!($req_user && PollController::isUserPresenter($req_user))) {
+        if (!PollController::checkPresenterPrivilege($request, $poll)) {
             return response()->json('unauthorized', Response::HTTP_UNAUTHORIZED);
         }
 
@@ -165,7 +162,7 @@ class PollController extends Controller
      */
     public function results(Request $request, Poll $poll)
     {
-        if (!PollController::getRequestUser($request, $poll)) {
+        if (!PollController::checkPresenterPrivilege($request, $poll)) {
             return response()->json('unauthorized', Response::HTTP_UNAUTHORIZED);
         }
 
@@ -191,23 +188,13 @@ class PollController extends Controller
     }
 
     /**
-     * Fetch the request user from the poll's user pool, if existing
+     * Checks if the request's user has presenter privilege for the poll
      *
      * @param Request $request
      * @param Poll $poll
      */
-    public static function getRequestUser(Request $request, Poll $poll)
+    public static function checkPresenterPrivilege(Request $request, Poll $poll)
     {
-        return $poll->users()->find($request->user());
-    }
-
-    /**
-     * Determines if the given user has a presenter role
-     *
-     * @param $req_user
-     */
-    public static function isUserPresenter($req_user)
-    {
-        return $req_user->role == 'presenter';
+        return $request->user()->id == $poll->presentation->users()->where('role', 'presenter')->get()[0]->id;
     }
 }
