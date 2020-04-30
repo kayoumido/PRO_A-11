@@ -82,7 +82,7 @@ export default {
   },
   methods: {
     createPresentation() {
-      const apiUrl = `api/v1/users/${this.loggedUser.data.id}/presentations`;
+      const apiUrl = `/api/v1/users/${this.loggedUser.data.id}/presentations`;
 
       // force date validation
       if (!this.$refs.form.validate()) {
