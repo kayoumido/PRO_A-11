@@ -23,8 +23,12 @@ class PollController extends Controller
      *
      * @param Presentation $presentation
      */
-    public function index(Presentation $presentation)
+    public function index(Request $request, Presentation $presentation)
     {
+        if (!$presentation->users()->find($request->user())) {
+            return response()->json('unauthorized', Response::HTTP_UNAUTHORIZED);
+        }
+
         return PollResource::collection($presentation->polls()->get());
     }
 
