@@ -15,18 +15,36 @@
         tile
       >
         <v-list
-          shaped="shaped"
         >
           <v-subheader>Presentations</v-subheader>
-          <v-list-item-group v-model="presentations" color="primary">
+          <v-list-item-group v-model="presentations" color="primary" >
             <v-list-item
               v-for="(presentation) in presentations.data"
               :key="presentation.id"
-              @click="goToPresentation(presentation.id)"
+              inactive
             >
               <v-list-item-content>
                 <v-list-item-title v-html="presentation.title"></v-list-item-title>
               </v-list-item-content>
+
+              <v-list-item-action>
+                <v-btn icon @click.prevent="goToPresentation(presentation.id)">
+                  <v-icon color="grey lighten-1">mdi-information</v-icon>
+                </v-btn>
+              </v-list-item-action>
+
+              <v-list-item-action>
+                <v-btn small color="error">
+                  quitter
+                </v-btn>
+              </v-list-item-action>
+
+              <v-list-item-action>
+                <v-btn small>
+                  action
+                </v-btn>
+              </v-list-item-action>
+
             </v-list-item>
           </v-list-item-group>
         </v-list>
@@ -71,7 +89,6 @@ export default {
 
         const apiUrl = `/api/v1/users/${idUser}/presentations`;
 
-        // eslint-disable-next-line no-undef
         window.axios
           .get(apiUrl)
           .then((responsePresentation) => {
