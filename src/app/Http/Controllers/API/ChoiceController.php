@@ -30,7 +30,7 @@ class ChoiceController extends Controller
             return response()->json('unauthorized', Response::HTTP_UNAUTHORIZED);
         }
 
-        return ChoiceResource::collection($poll->choices()->get());
+        return ChoiceResource::collection($poll->choices);
     }
 
     /**

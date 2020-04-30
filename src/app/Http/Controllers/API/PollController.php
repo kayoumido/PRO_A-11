@@ -30,7 +30,7 @@ class PollController extends Controller
             return response()->json('unauthorized', Response::HTTP_UNAUTHORIZED);
         }
 
-        return PollResource::collection($presentation->polls()->get());
+        return PollResource::collection($presentation->polls);
     }
 
     /**
