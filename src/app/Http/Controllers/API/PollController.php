@@ -169,11 +169,7 @@ class PollController extends Controller
      */
     public function vote(Request $request, Poll $poll, User $user)
     {
-        if (!PollController::getRequestUser($request, $poll)) {
-            return response()->json('unauthorized', Response::HTTP_UNAUTHORIZED);
-        }
-
-        $user->polls()->attach($poll);
+        //
     }
 
     /**
