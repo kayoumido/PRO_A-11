@@ -168,4 +168,25 @@ class PollController extends Controller
 
         $user->polls()->attach($poll);
     }
+
+    /**
+     * Fetch the request user from the poll's user pool, if existing
+     *
+     * @param Request $request
+     * @param Poll $poll
+     */
+    public static function getRequestUser(Request $request, Poll $poll)
+    {
+        return $poll->users()->find($request->user());
+    }
+
+    /**
+     * Determines if the given user has a presenter role
+     *
+     * @param $req_user
+     */
+    public static function isUserPresenter($req_user)
+    {
+        return $req_user->role == 'presenter';
+    }
 }
