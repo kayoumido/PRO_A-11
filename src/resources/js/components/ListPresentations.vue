@@ -14,10 +14,8 @@
         max-width="400"
         tile
       >
-        <v-list
-        >
+        <v-list>
           <v-subheader>Presentations</v-subheader>
-          <v-list-item-group v-model="presentations" color="primary" >
             <v-list-item
               v-for="(presentation) in presentations.data"
               :key="presentation.id"
@@ -46,7 +44,6 @@
               </v-list-item-action>
 
             </v-list-item>
-          </v-list-item-group>
         </v-list>
       </v-card>
     </v-row>
@@ -66,6 +63,7 @@ export default {
         type: '',
       },
       loggedUser: {},
+      inactive: true,
     };
   },
   beforeMount() {
