@@ -36,6 +36,8 @@ export default function makeServer({ environment = 'development' } = {}) {
 
         return schema.users.find(id);
       });
+
+      this.passthrough();
     },
   });
 

@@ -119,6 +119,13 @@ $ docker exec dev_laravel php artisan migrate
 $ docker exec dev_laravel php artisan db:seed
 ```
 
+4. Generate Passport secrets
+```shell
+$ docker exec dev_laravel php artisan passport:install
+```
+Once donne copy the values of `Client id` and `Client secret` from the Password 
+grant client section and paste them on your `.env` file under `PASSPORT_CLIENT` and `PASSPORT_CLIENT_SECRET`
+
 ### Working with Vue.js
 1. Compile node vues following your environment:
 ```shell
