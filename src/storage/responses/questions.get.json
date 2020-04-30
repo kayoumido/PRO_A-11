@@ -1,0 +1,7 @@
+{
+    "id" :              12,
+    "question" :        "Quel est le meilleur oiseau",
+    "signaled" :        false,
+    "user_id" :         2,
+    "presentation_id" : 1
+}

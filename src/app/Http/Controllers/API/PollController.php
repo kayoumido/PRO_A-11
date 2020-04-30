@@ -21,6 +21,9 @@ class PollController extends Controller
 {
     /**
      * List all polls related to the presentation.
+     * @authenticated
+     *
+     * @responseFile responses/polls.get.json
      *
      * @urlParam presentation required Id of the presentation
      *
@@ -37,6 +40,9 @@ class PollController extends Controller
 
     /**
      * Create a new poll
+     * @authenticated
+     *
+     * @responseFile responses/poll.get.json
      *
      * @urlParam presentation required Id of the presentation
      * @bodyParam subject string required Subject of the poll
@@ -66,6 +72,9 @@ class PollController extends Controller
 
     /**
      * Show a poll
+     * @authenticated
+     *
+     * @responseFile responses/poll.get.json
      *
      * @urlParam poll required Poll id
      *
@@ -82,6 +91,9 @@ class PollController extends Controller
 
     /**
      * Update a poll
+     * @authenticated
+     *
+     * @responseFile responses/poll.get.json
      *
      * @urlParam poll required Poll id
      * @bodyParam subject string required Subject of the poll
@@ -107,6 +119,7 @@ class PollController extends Controller
 
     /**
      * Delete a poll
+     * @authenticated
      *
      * @urlParam poll required Poll id
      *
@@ -120,6 +133,9 @@ class PollController extends Controller
 
     /**
      * Change the status of a poll to published
+     * @authenticated
+     *
+     * @responseFile responses/poll.get.json
      *
      * @ulrParam poll require Poll id
      * @param Request $request
@@ -140,7 +156,9 @@ class PollController extends Controller
 
     /**
      * Show results of the poll
+     * @authenticated
      *
+     * @responseFile responses/poll.results.json
      * @urlParam poll required Poll id
      *
      * @param Request $request
@@ -157,6 +175,7 @@ class PollController extends Controller
 
     /**
      * Make a user vote on a poll
+     * @authenticated
      *
      * @group Choices management
      * @urlParam poll required Poll id for the vote

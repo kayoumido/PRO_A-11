@@ -19,6 +19,9 @@ class ChoiceController extends Controller
 {
     /**
      * List poll choices
+     * @authenticated
+     *
+     * @responseFile responses/choices.get.json
      *
      * @urlParam    poll required id of the poll
      *
@@ -35,6 +38,9 @@ class ChoiceController extends Controller
 
     /**
      * Create a poll choice
+     * @authenticated
+     *
+     * @responseFile responses/choice.get.json
      *
      * @urlParam    poll required id of the linked poll
      * @bodyParam   message string required message corresponding to the choice
@@ -62,6 +68,9 @@ class ChoiceController extends Controller
 
     /**
      * Update a poll choice
+     * @authenticated
+     *
+     * @responseFile responses/choice.get.json
      *
      * @urlParam choice required Id of the choice to update
      * @bodyParam message string required message corresponding to the choice
@@ -76,6 +85,7 @@ class ChoiceController extends Controller
 
     /**
      * Delete a poll choice
+     * @authenticated
      *
      * @urlParam choice required Id of the choice to delete
      *
