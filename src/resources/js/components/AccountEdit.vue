@@ -36,16 +36,6 @@
       label="E-mail"
     />
 
-    <v-text-field
-      v-model="updateUserInfo.password"
-      :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-      :type="showPassword ? 'text' : 'password'"
-      label="Mot de passe"
-      value=""
-      class="input-group--focused"
-      @click:append="showPassword = !showPassword"
-    />
-
     <v-btn
       :disabled="!valid"
       color="success"
@@ -72,24 +62,18 @@ export default {
       emailRules: [
         (v) => v === '' || /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,})+$/.test(v) || 'l\'E-mail doit être valide',
       ],
-      showPassword: false,
       // object for message management
       message: {
         show: false,
         content: '',
         type: '',
       },
-      /*
-       * For now LoggedUser is the current user logged info
-       * this will serve as temporary test and debug value
-       */
       loggedUser: {},
       // Object for form field binding
       updateUserInfo: {
         fname: '',
         lname: '',
         email: '',
-        password: '',
       },
     };
   },
@@ -129,10 +113,10 @@ export default {
       window.axios.put(apiUrl, data)
         .then((response) => {
           // real backend response
-          // this.loggedUser = response.data.data;
+          this.loggedUser = response.data.data;
 
           // mirage response
-          this.loggedUser = response.data.user;
+          // this.loggedUser = response.data.user;
           this.showMessage('success', 'Changement appliqué');
 
           this.cleanForm();
@@ -157,16 +141,13 @@ export default {
       if (!this.isEmpty(this.updateUserInfo.email)) {
         data.email = this.updateUserInfo.email;
       }
-      if (!this.isEmpty(this.updateUserInfo.password)) {
-        data.password = this.updateUserInfo.password;
-      }
+
       return data;
     },
     cleanForm() {
       this.updateUserInfo.fname = '';
       this.updateUserInfo.lname = '';
       this.updateUserInfo.email = '';
-      this.updateUserInfo.password = '';
     },
     isEmpty(textInput) {
       return (textInput === '');
