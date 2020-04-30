@@ -138,7 +138,11 @@ class PollController extends Controller
      */
     public function results(Request $request, Poll $poll)
     {
-        return PollResource::collection($poll->users;
+        if (!PollController::getRequestUser($request, $poll)) {
+            return response()->json('unauthorized', Response::HTTP_UNAUTHORIZED);
+        }
+
+        return PollResource::collection($poll->users);
     }
 
     /**
