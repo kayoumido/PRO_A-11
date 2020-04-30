@@ -8,6 +8,7 @@ use App\User;
 use App\User\Role;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * Class PresentationUserController
@@ -56,6 +57,15 @@ class PresentationUserController extends Controller
      */
     public function unsubscribe(Presentation $presentation, User $user)
     {
+        $moderators = $presentation->moderators();
+
+        if ($moderators->contains($user) and $moderators->count() == 1) {
+            return response()->json([
+                'success' => false,
+                'message' => "Last moderator",
+            ], Response::HTTP_FORBIDDEN);
+        }
+
         // check that the user isn't already unsubscribed to the presentation
         if (!$presentation->users()->find($user)) {
             return response()->json([
