@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\PresentationResource;
 use App\Presentation;
 use App\User;
-use App\Role;
+use App\User\Role;
 use Illuminate\Http\Request;
 
 /**
