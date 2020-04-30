@@ -39,6 +39,11 @@ class PollController extends Controller
      */
     public function store(Request $request, Presentation $presentation)
     {
+        $req_user = $request->user();
+        if (!($req_user && PollController::isUserPresenter($req_user))) {
+            return response()->json('unauthorized', Response::HTTP_UNAUTHORIZED);
+        }
+
         $request->validate([
             'subject' => 'required',
             'status' => 'required'
