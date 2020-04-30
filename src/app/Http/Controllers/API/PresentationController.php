@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\PresentationResource;
 use App\Presentation;
 use App\User;
+use App\Role;
 use Illuminate\Http\Request;
 
 /**
@@ -57,7 +58,7 @@ class PresentationController extends Controller
                 'date'
             ]),
             [
-                'role' => 'presenter'
+                'role' => Role::PRESENTER()
             ]
         );
 

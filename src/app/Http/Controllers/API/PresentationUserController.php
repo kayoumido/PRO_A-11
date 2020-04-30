@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Presentation;
 use App\User;
+use App\Role;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -39,7 +40,7 @@ class PresentationUserController extends Controller
 
         // subscribe the user to the presentation
         $presentation->users()->attach($user, [
-            'role' => 'attendee'
+            'role' => Role::ATENDEE()
         ]);
     }
 
