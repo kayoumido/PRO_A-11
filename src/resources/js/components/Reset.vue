@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <p class="title">PAUL</p>
+    <h2 class="title">Récupération de mot de passe</h2>
     <v-form
         ref="form"
         v-model="valid"
@@ -33,7 +33,6 @@
 </template>
 
 <script>
-import axios from 'axios';
 
 export default {
   name: 'Reset',
@@ -56,15 +55,15 @@ export default {
   },
   methods: {
     reset() {
-        window.axios.post(
-          '/api/v1/reset', {
-            email: this.email,
-          },
-        ).then(result => {
-          this.$router.push({ name: 'Authentification' })
-        }, error => {
-          this.showMessage('error', 'Une erreur a eu lieu lors de la demande de changement de mot de passe');
-        });
+      window.axios.post(
+        '/api/v1/reset', {
+          email: this.email,
+        },
+      ).then(result => {
+        this.showMessage('information', 'Un email vous a été envoyé avec les instructions nécessaires');
+      }, error => {
+        this.showMessage('error', 'Une erreur a eu lieu lors de la demande de changement de mot de passe');
+      });
     },
     showMessage(type, content) {
       this.message.show = true;
