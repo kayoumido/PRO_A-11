@@ -44,7 +44,6 @@
 </template>
 
 <script>
-
 export default {
   name: 'Presentation',
   data() {
@@ -64,14 +63,8 @@ export default {
     };
   },
   beforeMount() {
-    // take the param in vu-route in presentation/{idPresentation}
-
-    /** *************************************************************************
-     * there is an issue with the route here, it appears that route
-     * with the following pattern "aaaa/bbbb" lead to a 404 error
-     */
+ 
     const apiUrl = `presentations/${this.$route.params.idPresentation}`;
-
     window.axios
       .get(apiUrl)
       .then((presResponse) => {
