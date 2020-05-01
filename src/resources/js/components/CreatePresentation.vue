@@ -26,7 +26,14 @@
         label="Date et Heure"
         v-model="dataForm.date"
         :rules="dateRules"
+        clearText="annuler"
       >
+        <template slot="dateIcon">
+          <v-icon>mdi-calendar</v-icon>
+        </template>
+        <template slot="timeIcon">
+          <v-icon>mdi-clock</v-icon>
+        </template>
       </v-datetime-picker>
 
       <v-btn
@@ -50,7 +57,6 @@ export default {
       (v) => !!v || 'Vous devez renseigner un titre',
       (v) => (v && v.length <= 20) || 'Le Nom doit contenir moins de 20 caractères',
     ],
-    dateMenu: false,
     dateRules: [
       (v) => !!v || 'Vous devez renseigner une date',
     ],
