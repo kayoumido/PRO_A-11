@@ -4,6 +4,8 @@ import VueRouter from 'vue-router';
 import Hello from './components/Hello';
 import ListPresentations from './components/ListPresentations';
 import Presentation from './components/Presentation';
+import Authentication from './components/Authentication';
+import AccountEdition from './components/AccountEdit';
 
 Vue.use(VueRouter);
 
@@ -33,6 +35,18 @@ const router = new VueRouter({
       name: 'presentation',
       icon: 'mdi-help-box',
       component: Presentation,
+    },
+    {
+      path: '/login',
+      name: 'Authentication',
+      icon: 'mdi-help-box',
+      component: Authentication,
+    },
+    {
+      path: '/mon-compte/modifier/',
+      name: 'Edition de compte',
+      icon: 'mdi-help-box',
+      component: AccountEdition,
     },
   ],
 });
