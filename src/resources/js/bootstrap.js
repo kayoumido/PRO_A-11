@@ -7,6 +7,8 @@
 window.axios = require('axios');
 
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+window.axios.defaults.headers.common = { Authorization: `Bearer ${localStorage.getItem('Authorization-token')}` };
+window.axios.defaults.baseURL = '/api/v1';
 
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
