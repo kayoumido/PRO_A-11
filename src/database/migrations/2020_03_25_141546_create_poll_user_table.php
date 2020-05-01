@@ -18,7 +18,7 @@ class CreatePollUserTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('choice_id');
 
-            $table->index(['poll_id', 'user_id']);
+            $table->primary(['poll_id', 'user_id']);
 
             $table->foreign('poll_id')
                 ->references('id')
