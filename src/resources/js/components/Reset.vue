@@ -56,14 +56,15 @@ export default {
   methods: {
     reset() {
       window.axios.post(
-        '/api/v1/reset', {
+        '/api/v1/password/send-reset-email', {
           email: this.email,
         },
-      ).then(result => {
+      ).then(() => {
         this.showMessage('information', 'Un email vous a été envoyé avec les instructions nécessaires');
-      }, error => {
-        this.showMessage('error', 'Une erreur a eu lieu lors de la demande de changement de mot de passe');
-      });
+      })
+        .catch((error) => {
+          this.showMessage('error', `Erreur de type : ${error}`);
+        });
     },
     showMessage(type, content) {
       this.message.show = true;

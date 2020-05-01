@@ -6,6 +6,14 @@
         v-model="valid"
         lazy-validation
     >
+
+      <v-text-field
+            v-model="input.email"
+            :rules="emailRules"
+            required
+            label="Adresse email"
+      />
+
       <v-text-field
             v-model="input.password"
             :append-icon="showPassword ? 'midi-eye' : 'mdi-eye-off'"
@@ -42,6 +50,9 @@ export default {
       token: null,
       // vuetify
       valid: true,
+      emailRules: [
+        (v) => (!!v && /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,})+$/.test(v)) || 'Adresse e-mail non valide',
+      ],
       showPassword: false,
       message: {
         show: false,
@@ -49,6 +60,7 @@ export default {
         type: '',
       },
       input: {
+        email: '',
         password: '',
       },
     };
@@ -56,15 +68,17 @@ export default {
   methods: {
     resetPassword() {
       window.axios.post(
-        '/api/v1/reset-password', {
+        '/api/v1/password/reset', {
           token: this.$route.params.token,
+          email: this.email,
           password: this.password,
         },
-      ).then(result => {
-        this.$router.push({ name: 'Authentification' })
-      }, error => {
-        this.showMessage('error', 'Une erreur a eu lieu lors de la demande de changement de mot de passe');
-      });
+      ).then(() => {
+        this.$router.push({ name: 'Authentification' });
+      })
+        .catch((error) => {
+          this.showMessage('error', `Erreur de type : ${error}`);
+        });
     },
     showMessage(type, content) {
       this.message.show = true;
