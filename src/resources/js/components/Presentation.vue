@@ -63,7 +63,6 @@ export default {
     };
   },
   beforeMount() {
- 
     const apiUrl = `presentations/${this.$route.params.idPresentation}`;
     window.axios
       .get(apiUrl)
