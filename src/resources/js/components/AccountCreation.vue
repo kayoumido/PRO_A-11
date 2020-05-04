@@ -74,7 +74,7 @@ export default {
       // vuetify
       valid: true,
       fnameRules: [
-        (v) => !!v || 'Un prénomest nécessaire',
+        (v) => !!v || 'Un prénom est nécessaire',
       ],
       lnameRules: [
         (v) => !!v || 'Un nom de famille est nécessaire',
