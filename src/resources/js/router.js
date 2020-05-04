@@ -4,7 +4,6 @@ import VueRouter from 'vue-router';
 import Hello from './components/Hello';
 import Reset from './components/Reset';
 import ResetPassword from './components/ResetPassword';
-import AccountCreation from './components/AccountCreation';
 
 Vue.use(VueRouter);
 
