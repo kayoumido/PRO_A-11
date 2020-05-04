@@ -3,6 +3,7 @@
         "id":               5,
         "title":            "Quel est la place de la communication au sein de notre société",
         "date":             "2010-04-02 12:23",
-        "conference_id":    3
+        "conference_id":    3,
+        "auth_user_role":   "presenter"
     }
 }
