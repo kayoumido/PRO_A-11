@@ -4,6 +4,7 @@ import VueRouter from 'vue-router';
 import Hello from './components/Hello';
 import Reset from './components/Reset';
 import ResetPassword from './components/ResetPassword';
+import AccountCreation from './components/AccountCreation';
 
 Vue.use(VueRouter);
 
@@ -18,7 +19,7 @@ const router = new VueRouter({
     },
     {
       path: '/test',
-      name: 'Hello',
+      name: 'Test',
       icon: 'mdi-help-box',
       component: Hello,
     },
@@ -29,7 +30,7 @@ const router = new VueRouter({
       component: Reset,
     },
     {
-      path: '/reset-password/:token',
+      path: '/reset-password:token',
       name: 'ResetPassword',
       icon: 'mdi-help-box',
       component: ResetPassword,

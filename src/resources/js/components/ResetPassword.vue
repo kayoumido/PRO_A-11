@@ -18,6 +18,7 @@
             v-model="input.password"
             :append-icon="showPassword ? 'midi-eye' : 'mdi-eye-off'"
             :type="showPassword ? 'test' : 'password'"
+            :rules="passwordRules"
             required
             label="Mot de passe"
       />
@@ -53,6 +54,9 @@ export default {
       emailRules: [
         (v) => (!!v && /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,})+$/.test(v)) || 'Adresse e-mail non valide',
       ],
+      passwordRules: [
+        (v) => !!v || 'Un mot de passe est nécessaire',
+      ],
       showPassword: false,
       message: {
         show: false,
@@ -70,8 +74,8 @@ export default {
       window.axios.post(
         '/api/v1/password/reset', {
           token: this.$route.params.token,
-          email: this.email,
-          password: this.password,
+          email: this.input.email,
+          password: this.input.password,
         },
       ).then(() => {
         this.$router.push({ name: 'Authentification' });

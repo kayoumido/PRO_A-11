@@ -57,7 +57,7 @@ export default {
     reset() {
       window.axios.post(
         '/api/v1/password/send-reset-email', {
-          email: this.email,
+          email: this.input.email,
         },
       ).then(() => {
         this.showMessage('information', 'Un email vous a été envoyé avec les instructions nécessaires');
