@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\PollResource;
 use App\Poll;
+use App\Poll\State;
 use App\Presentation;
 use App\User;
 use Illuminate\Http\Response;
@@ -143,7 +144,7 @@ class PollController extends Controller
             return response()->json('unauthorized', Response::HTTP_UNAUTHORIZED);
         }
 
-        $poll->status = 'published';
+        $poll->status = State::PUBLISHED();
         $poll->save();
 
         return new PollResource($poll);
