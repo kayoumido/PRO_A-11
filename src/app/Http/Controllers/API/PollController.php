@@ -30,11 +30,14 @@ class PollController extends Controller
      */
     public function index(Request $request, Presentation $presentation)
     {
-        if (!$presentation->users()->find($request->user())) {
-            return response()->json('unauthorized', Response::HTTP_UNAUTHORIZED);
+        $res = PollResource::collection($presentation->polls);
+
+        // filter drafts for viewers
+        if ($res->count() > 0 && $request->user()->id != $res->first()->presenter()) {
+            $res = $res->diff(Poll::whereIn('state', State::DRAFT())->get());
         }
 
-        return PollResource::collection($presentation->polls);
+        return $res;
     }
 
     /**
