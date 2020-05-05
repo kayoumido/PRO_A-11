@@ -32,10 +32,22 @@ Route::prefix('v1')->group(function () {
         Route::delete('presentations/{presentation}/users/{user}', 'API\PresentationUserController@unsubscribe')->name('presentations.users.unsubscribe');
         // manage user rights on presentations
         Route::put('presentations/{presentation}/users/{user}', 'API\PresentationUserController@changeRole')->name('presentations.change_role');
+
         // poll management
         Route::apiResource('presentations.polls', 'API\PollController')->shallow();
-        Route::put('polls/{poll}/publish', 'API\PollController@publish')->name('polls.publish');
-        Route::get('polls/{poll}/results', 'API\PollController@results')->name('polls.results');
+        Route::middleware(['poll.perms.presenter'])->group(function () {
+            Route::put('presentations/{presentation}/polls', 'API\PollController@store')->name('presentations.polls.store');
+            Route::put('polls/{poll}', 'API\PollController@update')->name('polls.update');
+            Route::get('polls/{poll}/publish', 'API\PollController@publish')->name('polls.publish');
+            Route::get('polls/{poll}/results', 'API\PollController@results')->name('polls.results');
+            Route::post('polls/{poll}/choices', 'API\ChoiceController@store')->name('polls.choices.store');
+        });
+        Route::middleware(['poll.perms.viewer'])->group(function () {
+            Route::get('polls/{poll}', 'API\PollController@show')->name('polls.show');
+            Route::get('presentations/{presentation}/polls', 'API\PollController@index')->name('presentations.polls.index');
+            Route::get('polls/{poll}/choices', 'API\ChoiceController@index')->name('polls.choices.index');
+        });
+
         // Choices management
         Route::apiResource('polls.choices', 'API\ChoiceController')->except(['show'])->shallow();
         Route::post('polls/{poll}/users/{user}', 'API\PollController@vote')->name('polls.vote');

@@ -29,10 +29,6 @@ class ChoiceController extends Controller
      */
     public function index(Request $request, Poll $poll)
     {
-        if (!PollController::getRequestUser($request, $poll)) {
-            return response()->json('unauthorized', Response::HTTP_UNAUTHORIZED);
-        }
-
         return ChoiceResource::collection($poll->choices);
     }
 
@@ -50,11 +46,6 @@ class ChoiceController extends Controller
      */
     public function store(Request $request, Poll $poll)
     {
-        $req_user = PollController::getRequestUser($request, $poll);
-        if (!($req_user && PollController::isUserPresenter($req_user))) {
-            return response()->json('unauthorized', Response::HTTP_UNAUTHORIZED);
-        }
-
         $request->validate([
             'message' => 'required'
         ]);

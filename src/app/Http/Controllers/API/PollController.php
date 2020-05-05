@@ -51,10 +51,6 @@ class PollController extends Controller
      */
     public function store(Request $request, Presentation $presentation)
     {
-        if ($request->user()->id != $presentation->users()->where('role', 'presenter')->get()[0]->id) {
-            return response()->json('unauthorized', Response::HTTP_UNAUTHORIZED);
-        }
-
         $request->validate([
             'subject' => 'required|string',
         ]);
@@ -101,10 +97,6 @@ class PollController extends Controller
      */
     public function update(Request $request, Poll $poll)
     {
-        if (!PollController::checkPresenterPrivilege($request, $poll)) {
-            return response()->json('unauthorized', Response::HTTP_UNAUTHORIZED);
-        }
-
         $request->validate([
             'subject' => 'required|string'
         ]);
@@ -140,10 +132,6 @@ class PollController extends Controller
      */
     public function publish(Request $request, Poll $poll)
     {
-        if (!PollController::checkPresenterPrivilege($request, $poll)) {
-            return response()->json('unauthorized', Response::HTTP_UNAUTHORIZED);
-        }
-
         $poll->status = State::PUBLISHED();
         $poll->save();
 
@@ -162,10 +150,6 @@ class PollController extends Controller
      */
     public function results(Request $request, Poll $poll)
     {
-        if (!PollController::checkPresenterPrivilege($request, $poll)) {
-            return response()->json('unauthorized', Response::HTTP_UNAUTHORIZED);
-        }
-
         return PollResource::collection($poll->users);
     }
 
@@ -185,16 +169,5 @@ class PollController extends Controller
     public function vote(Request $request, Poll $poll, User $user)
     {
         //
-    }
-
-    /**
-     * Checks if the request's user has presenter privilege for the poll
-     *
-     * @param Request $request
-     * @param Poll $poll
-     */
-    public static function checkPresenterPrivilege(Request $request, Poll $poll)
-    {
-        return $request->user()->id == $poll->presentation->users()->where('role', 'presenter')->get()[0]->id;
     }
 }

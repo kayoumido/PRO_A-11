@@ -61,6 +61,8 @@ class Kernel extends HttpKernel
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+        'poll.perms.presenter' => \App\Http\Middleware\PollPermsPresenter::class,
+        'poll.perms.viewer' => \App\Http\Middleware\PollPermsViewer::class,
     ];
 
     /**
