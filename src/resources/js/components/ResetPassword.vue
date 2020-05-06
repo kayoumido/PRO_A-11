@@ -19,6 +19,7 @@
             :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
             :type="showPassword ? 'text' : 'password'"
             :rules="passwordRules"
+            @click:append="showPassword = !showPassword"
             required
             label="Mot de passe"
       />
