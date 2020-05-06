@@ -85,7 +85,7 @@ export default {
     window.axios
       .get('/api/v1/me')
       .then((response) => {
-        this.loggedUser = response.data.data;
+        this.loggedUser = response.data;
       })
       .catch((error) => {
         this.showMessage('error', `La recupération des donnée utilisateur a échoué: ${error}`);
@@ -113,7 +113,7 @@ export default {
       window.axios.put(apiUrl, data)
         .then((response) => {
           // real backend response
-          this.loggedUser = response.data.data;
+          this.loggedUser = response.data;
 
           // mirage response
           // this.loggedUser = response.data.user;

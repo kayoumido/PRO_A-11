@@ -17,7 +17,7 @@
         <v-list>
           <v-subheader>Presentations</v-subheader>
             <v-list-item
-              v-for="(presentation) in presentations.data"
+              v-for="(presentation) in presentations"
               :key="presentation.id"
               inactive
             >
@@ -74,7 +74,7 @@ export default {
           return;
         }
 
-        const idUser = this.loggedUser.data.id;
+        const idUser = this.loggedUser.id;
 
         // For testing with a different User ID
         // const idUser = 1;

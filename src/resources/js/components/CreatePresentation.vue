@@ -88,7 +88,7 @@ export default {
   },
   methods: {
     createPresentation() {
-      const apiUrl = `/api/v1/users/${this.loggedUser.data.id}/presentations`;
+      const apiUrl = `/api/v1/users/${this.loggedUser.id}/presentations`;
 
       // force date validation
       if (!this.$refs.form.validate()) {
@@ -101,7 +101,7 @@ export default {
         date: this.dataForm.date,
       })
         .then((response) => {
-          this.showMessage('success', `La présentation ${response.data.data.title} a été correctement créée`);
+          this.showMessage('success', `La présentation ${response.data.title} a été correctement créée`);
           this.$refs.form.reset();
         })
         .catch((errorResponse) => {

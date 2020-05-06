@@ -67,7 +67,7 @@ export default {
     window.axios
       .get(apiUrl)
       .then((presResponse) => {
-        this.presentation = presResponse.data.data;
+        this.presentation = presResponse.data;
       })
       .catch(() => {
         this.showMessage('error', 'Oops une erreur est survenue lors du traitement de votre demande');
@@ -77,12 +77,12 @@ export default {
     window.axios
       .get('/me')
       .then((userResponse) => {
-        this.user = userResponse.data.data;
+        this.user = userResponse.data;
         // check if the user is subscribed
         window.axios
           .get(`/users/${this.user.id}/presentations`)
           .then((subResponse) => {
-            subResponse.data.data.forEach((pres) => {
+            subResponse.data.forEach((pres) => {
               if (pres.id === this.presentation.id) {
                 this.user.isSubscribed = true;
               }
