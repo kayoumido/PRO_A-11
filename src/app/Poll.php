@@ -34,8 +34,8 @@ class Poll extends Model
         return $this->belongsTo('App\Presentation');
     }
 
-    public function presenter()
+    public function presenters()
     {
-        return $this->presentation->users()->where('role', 'presenter')->first()->id;
+        return $this->presentation->users()->where('role', 'presenter')->get();
     }
 }

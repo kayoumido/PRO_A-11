@@ -6,6 +6,7 @@ use Closure;
 use App\Presentation;
 use App\Poll\PollStatuses;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 
 class PollPermsViewer
 {
@@ -28,7 +29,7 @@ class PollPermsViewer
         }
 
         // allow iff admin or user, and poll not draft if not a presentation
-        if ($request->user()->id == $presentation->users()->where('role', 'presenter')->first()->id
+        if ($presentation->moderators()->contains(Auth::user())
             || $presentation->users()->find($request->user()->id)
             && !($is_poll && $request->poll->state == State::DRAFT())) {
             return $next($request);

@@ -33,7 +33,7 @@ class PollController extends Controller
         $res = PollResource::collection($presentation->polls);
 
         // filter drafts for viewers
-        if ($res->count() > 0 && $request->user()->id != $res->first()->presenter()) {
+        if ($res->count() > 0 && !$presentation->moderators()->contains($request->user())) {
             $res = $res->diff(Poll::whereIn('state', PollStatuses::DRAFT())->get());
         }
 
@@ -79,7 +79,7 @@ class PollController extends Controller
      */
     public function show(Request $request, Poll $poll)
     {
-        if ($request->user()->id != $poll->presenter() && $poll->state == PollStatuses::DRAFT()) {
+        if (!$poll->presenters()->contains($request->user()) && $poll->state == PollStatuses::DRAFT()) {
             return response()->json('unauthorized', Response::HTTP_UNAUTHORIZED);
         }
 

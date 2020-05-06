@@ -17,10 +17,11 @@ class PollPermsPresenter
      */
     public function handle($request, Closure $next)
     {
-        if ($request->user()->id != $request->poll->presenter()) {
-            return response()->json('unauthorized', Response::HTTP_UNAUTHORIZED);
+        if ($request->poll->presenters()->contains(Auth::user())
+            && $request->user()->id == Auth::user()->id) {
+            return $next($request);
         };
 
-        return $next($request);
+        return response()->json('unauthorized', Response::HTTP_UNAUTHORIZED);
     }
 }
