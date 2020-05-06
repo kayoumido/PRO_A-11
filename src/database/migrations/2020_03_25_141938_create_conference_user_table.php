@@ -18,7 +18,7 @@ class CreateConferenceUserTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->string('role');
 
-            $table->index(['conference_id', 'user_id']);
+            $table->primary(['conference_id', 'user_id']);
 
 
             $table->foreign('conference_id')
