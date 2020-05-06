@@ -7,7 +7,7 @@ Vous avez fait une demande de récupération de mot de passe, pour réinitialise
 Réinitialiser mdp
 @endcomponent
 
-Si vous n'êtes pas à l'origine de cette demande merci de contacter nous contacter au plus vite.
+Si vous n'êtes pas à l'origine de cette demande merci de nous contacter au plus vite.
 
 Merci d'utiliser nos services,<br>
 {{ config('app.name') }}

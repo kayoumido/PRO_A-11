@@ -152,7 +152,7 @@ class AuthController extends Controller
         $request->validate([
             'token' => 'required',
             'password' => 'required|string|min:6',
-            'email' => 'required|email'
+            'email' => 'required|email|exists:users,email'
         ]);
 
         $passwordRowRequest = DB::table('password_resets')->where(['email' => $request->email, 'token' => $request->token]);
