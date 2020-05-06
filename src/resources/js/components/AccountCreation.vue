@@ -48,7 +48,7 @@
             v-model="input.passwordConfirm"
             :type="showPassword ? 'text' : 'password'"
             required
-            label="Mot de passe"
+            label="Confirmation de mot de passe"
       />
 
       <v-btn
