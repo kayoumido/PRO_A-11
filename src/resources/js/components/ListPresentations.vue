@@ -64,7 +64,7 @@ export default {
 
     // get logged user info
     window.axios
-      .get('/api/v1/me')
+      .get('/me')
       .then((response) => {
         this.loggedUser = response.data;
 
@@ -77,7 +77,7 @@ export default {
         // For testing with a different User ID
         // const idUser = 1;
 
-        const apiUrl = `/api/v1/users/${idUser}/presentations`;
+        const apiUrl = `/users/${idUser}/presentations`;
 
         window.axios
           .get(apiUrl)

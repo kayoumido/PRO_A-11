@@ -76,7 +76,7 @@ export default {
   beforeMount() {
     // get logged user info
     window.axios
-      .get('/api/v1/me')
+      .get('/me')
       .then((response) => {
         this.loggedUser = response.data;
       })
@@ -86,7 +86,7 @@ export default {
   },
   methods: {
     createPresentation() {
-      const apiUrl = `/api/v1/users/${this.loggedUser.id}/presentations`;
+      const apiUrl = `/users/${this.loggedUser.id}/presentations`;
 
       // force date validation
       if (!this.$refs.form.validate()) {

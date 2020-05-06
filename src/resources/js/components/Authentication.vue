@@ -86,7 +86,7 @@ export default {
       const data = this.input;
 
       window.axios.post(
-        '/api/v1/login', data,
+        '/login', data,
       )
         .then((response) => {
           if (response.data.token_type === 'Bearer') {

@@ -73,7 +73,7 @@ export default {
   methods: {
     resetPassword() {
       window.axios.post(
-        '/api/v1/password/reset', {
+        '/password/reset', {
           token: this.$route.params.token,
           email: this.input.email,
           password: this.input.password,

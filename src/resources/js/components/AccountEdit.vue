@@ -80,7 +80,7 @@ export default {
   beforeMount() {
     // get logged user info
     window.axios
-      .get('/api/v1/me')
+      .get('/me')
       .then((response) => {
         this.loggedUser = response.data;
       })
@@ -94,7 +94,7 @@ export default {
       // const apiUrl = `/api/user/${this.loggedUser.id}`;
 
       // real backend URL
-      const apiUrl = `/api/v1/users/${this.loggedUser.id}`;
+      const apiUrl = `/users/${this.loggedUser.id}`;
 
       // prepare the data to send
       const data = this.getDataToSend();

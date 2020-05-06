@@ -106,7 +106,7 @@ export default {
       if (this.isPasswordConfirmMatchPassword()) {
       // sends credentials to backend
         window.axios.post(
-          '/api/v1/register', {
+          '/register', {
             fname: this.input.fname,
             lname: this.input.lname,
             email: this.input.email,
