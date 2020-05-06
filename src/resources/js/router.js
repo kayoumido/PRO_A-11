@@ -7,7 +7,7 @@ import ListPresentations from './components/ListPresentations';
 import Presentation from './components/Presentation';
 import Authentication from './components/Authentication';
 import AccountEdition from './components/AccountEdit';
-import Presentation from './components/Presentation';
+import AccountCreation from './components/AccountCreation';
 
 Vue.use(VueRouter);
 
@@ -52,6 +52,12 @@ const router = new VueRouter({
       path: '/mon-compte/modifier/',
       name: 'Edition de compte',
       component: AccountEdition,
+    },
+    {
+      path: '/register',
+      name: 'AccountCreation',
+      icon: 'mdi-help-box',
+      component: AccountCreation,
     },
   ],
 });
