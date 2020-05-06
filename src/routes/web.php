@@ -11,4 +11,4 @@
 |
 */
 
-Route::view('/{any?}', 'app');
+Route::view('/{any}', 'app')->where('any', '.*');
