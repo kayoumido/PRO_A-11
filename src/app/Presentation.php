@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\User\Role;
 
 class Presentation extends Model
 {
@@ -36,5 +37,12 @@ class Presentation extends Model
      */
     public function polls() {
         return $this->hasMany('App\Poll');
+    }
+
+    /**
+     * List of users moderation the presentation (presenters included)
+     */
+    public function moderators() {
+        return $this->users()->where('role', Role::PRESENTER())->get();
     }
 }
