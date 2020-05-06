@@ -16,8 +16,8 @@
 
       <v-text-field
             v-model="input.password"
-            :append-icon="showPassword ? 'midi-eye' : 'mdi-eye-off'"
-            :type="showPassword ? 'test' : 'password'"
+            :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+            :type="showPassword ? 'text' : 'password'"
             :rules="passwordRules"
             required
             label="Mot de passe"
