@@ -46,7 +46,9 @@
 
       <v-text-field
             v-model="input.passwordConfirm"
-            :type="showPassword ? 'text' : 'password'"
+            :append-icon="showPasswordConfirm ? 'mdi-eye' : 'mdi-eye-off'"
+            :type="showPasswordConfirm ? 'text' : 'password'"
+            @click:append="showPasswordConfirm = !showPasswordConfirm"
             required
             label="Confirmation de mot de passe"
       />
@@ -84,6 +86,7 @@ export default {
         (v) => !!v || 'Un mot de passe est nécessaire',
       ],
       showPassword: false,
+      showPasswordConfirm: false,
       message: {
         show: false,
         content: '',
