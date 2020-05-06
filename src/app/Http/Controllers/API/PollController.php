@@ -34,7 +34,7 @@ class PollController extends Controller
 
         // filter drafts for viewers
         if ($res->count() > 0 && !$presentation->moderators()->contains($request->user())) {
-            $res = $res->diff(Poll::whereIn('state', PollStatuses::DRAFT())->get());
+            $res = $presentation->nonDraftPolls();
         }
 
         return $res;

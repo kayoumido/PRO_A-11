@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Poll\PollStatuses;
 
 class Presentation extends Model
 {
@@ -36,5 +37,19 @@ class Presentation extends Model
      */
     public function polls() {
         return $this->hasMany('App\Poll');
+    }
+
+    /**
+     * List of users moderation the presentation (presenters included)
+     */
+    public function moderators() {
+        return $this->users()->where('role', 'presenter')->get();
+    }
+
+    /**
+     * List of non-draft polls linked to the presentation
+     */
+    public function nonDraftPolls() {
+        return $this->polls()->where('status', '!=', PollStatuses::DRAFT())->get();
     }
 }
