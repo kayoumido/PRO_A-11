@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use App\Presentation;
-use App\Poll\State;
+use App\Poll\PollStatuses;
 use Illuminate\Http\Response;
 
 class PollPermsViewer

@@ -9,7 +9,7 @@ use MyCLabs\Enum\Enum;
  * @method static self PUBLISHED()
  * @method static self FINISHED()
  */
-class State extends Enum
+class PollStatuses extends Enum
 {
     // created but not published, only seen by moderators, votes not allowed
     private const DRAFT = "draft";
