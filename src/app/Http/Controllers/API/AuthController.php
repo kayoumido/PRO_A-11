@@ -3,10 +3,16 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Resources\UserResource;
+use App\Mail\ResetPasswordMail;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Response;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
 
 /**
  * Class AuthController
@@ -106,7 +112,7 @@ class AuthController extends Controller
     {
         return new UserResource($request->user());
     }
-  
+
   /**
      * Send an email to the user with the reset password link
      *
