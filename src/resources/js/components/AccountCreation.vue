@@ -6,15 +6,21 @@
         v-model="valid"
         lazy-validation
     >
-
-    <v-text-field
+      <v-alert
+            v-model="message.show"
+            :class="message.type"
+            dismissible
+            >
+            {{ message.content }}
+        </v-alert>
+      <v-text-field
             v-model="input.fname"
             :rules="fnameRules"
             required
             label="Prénom"
       />
 
-    <v-text-field
+      <v-text-field
             v-model="input.lname"
             :rules="lnameRules"
             required
@@ -30,18 +36,17 @@
 
       <v-text-field
             v-model="input.password"
-            :append-icon="showPassword ? 'midi-eye' : 'mdi-eye-off'"
-            :type="showPassword ? 'test' : 'password'"
+            :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+            :type="showPassword ? 'text' : 'password'"
             :rules="passwordRules"
             @click:append="showPassword = !showPassword"
             required
             label="Mot de passe"
       />
 
-
       <v-text-field
             v-model="input.passwordConfirm"
-            :type="showPassword ? 'test' : 'password'"
+            :type="showPassword ? 'text' : 'password'"
             required
             label="Mot de passe"
       />
@@ -54,13 +59,6 @@
             >
             Créer compte
       </v-btn>
-      <v-alert
-            v-model="message.show"
-            :class="message.type"
-            dismissible
-            >
-            {{ message.content }}
-      </v-alert>
     </v-form>
   </v-container>
 </template>
@@ -93,8 +91,8 @@ export default {
       },
 
       input: {
-        lname: '',
         fname: '',
+        lname: '',
         email: '',
         password: '',
       },
