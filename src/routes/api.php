@@ -38,7 +38,7 @@ Route::prefix('v1')->group(function () {
         Route::middleware(['poll.perms.presenter'])->group(function () {
             Route::put('presentations/{presentation}/polls', 'API\PollController@store')->name('presentations.polls.store');
             Route::put('polls/{poll}', 'API\PollController@update')->name('polls.update');
-            Route::get('polls/{poll}/publish', 'API\PollController@publish')->name('polls.publish');
+            Route::put('polls/{poll}/publish', 'API\PollController@publish')->name('polls.publish');
             Route::get('polls/{poll}/results', 'API\PollController@results')->name('polls.results');
             Route::post('polls/{poll}/choices', 'API\ChoiceController@store')->name('polls.choices.store');
         });
