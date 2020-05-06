@@ -74,8 +74,6 @@ export default {
 
   }),
   beforeMount() {
-    // set Bearer token in header of the future request
-    window.axios.defaults.headers.common = { Authorization: `Bearer ${localStorage.getItem('Authorization-token')}` };
     // get logged user info
     window.axios
       .get('/api/v1/me')
