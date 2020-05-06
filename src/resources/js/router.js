@@ -8,6 +8,8 @@ import Presentation from './components/Presentation';
 import Authentication from './components/Authentication';
 import AccountEdition from './components/AccountEdit';
 import AccountCreation from './components/AccountCreation';
+import Reset from './components/Reset';
+import ResetPassword from './components/ResetPassword';
 
 Vue.use(VueRouter);
 
@@ -58,6 +60,18 @@ const router = new VueRouter({
       name: 'AccountCreation',
       icon: 'mdi-help-box',
       component: AccountCreation,
+    },
+    {
+      path: '/reset',
+      name: 'Reset',
+      icon: 'mdi-help-box',
+      component: Reset,
+    },
+    {
+      path: '/reset-password:token',
+      name: 'ResetPassword',
+      icon: 'mdi-help-box',
+      component: ResetPassword,
     },
   ],
 });
