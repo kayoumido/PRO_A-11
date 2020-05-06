@@ -61,7 +61,7 @@ const router = new VueRouter({
       icon: 'mdi-help-box',
       component: AccountCreation,
     },
-        {
+    {
       path: '/reset',
       name: 'Reset',
       icon: 'mdi-help-box',
@@ -72,7 +72,7 @@ const router = new VueRouter({
       name: 'ResetPassword',
       icon: 'mdi-help-box',
       component: ResetPassword,
-    }],
+    },
   ],
 });
 
