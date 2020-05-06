@@ -15,10 +15,10 @@ use Illuminate\Http\Request;
 
 Route::prefix('v1')->group(function () {
 
-        Route::post('login', 'API\AuthController@login');
-        Route::post('register', 'API\AuthController@register');
+    Route::post('login', 'API\AuthController@login');
+    Route::post('register', 'API\AuthController@register');
 
-    Route::middleware(['auth:api'])->group(function (){
+    Route::middleware(['auth:api'])->group(function () {
         Route::get('/me', 'API\AuthController@user');
 
         Route::post('/logout', 'API\AuthController@logout');
@@ -27,9 +27,11 @@ Route::prefix('v1')->group(function () {
         // presentation management
         Route::apiResource('users.presentations', 'API\PresentationController')->shallow();
         Route::get('presentations/search', 'API\PresentationController@search')->name('presentations.search');
-        // presentation inscriptions
-        Route::post('presentations/{presentation}/users/{user}', 'API\PresentationUserController@subscribe')->name('presentations.users.subscribe');
-        Route::delete('presentations/{presentation}/users/{user}', 'API\PresentationUserController@unsubscribe')->name('presentations.users.unsubscribe');
+        // presentation subscription management
+        Route::middleware(['subscription.permission'])->group(function () {
+            Route::post('presentations/{presentation}/users/{user}', 'API\PresentationUserController@subscribe')->name('presentations.users.subscribe');
+            Route::delete('presentations/{presentation}/users/{user}', 'API\PresentationUserController@unsubscribe')->name('presentations.users.unsubscribe');
+        });
         // manage user rights on presentations
         Route::put('presentations/{presentation}/users/{user}', 'API\PresentationUserController@changeRole')->name('presentations.change_role');
         // poll management

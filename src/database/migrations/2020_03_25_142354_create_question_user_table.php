@@ -17,7 +17,7 @@ class CreateQuestionUserTable extends Migration
             $table->unsignedBigInteger('question_id');
             $table->unsignedBigInteger('user_id');
 
-            $table->index(['question_id', 'user_id']);
+            $table->primary(['question_id', 'user_id']);
 
 
             $table->foreign('question_id')
