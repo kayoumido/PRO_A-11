@@ -22,7 +22,7 @@
           </v-list-item-subtitle>
             <v-list-item-action v-if="isLoaded">
                 <v-btn
-                    v-if="!user.isSubscribed"
+                    v-if="!loggedUser.isSubscribed"
                     @click="subscribe"
                     color="primary"
                     >
@@ -45,14 +45,10 @@
 
 <script>
 export default {
-  name: 'Presentation',
   data() {
     return {
       isLoaded: false,
       presentation: {},
-      user: {
-        isSubscribed: false,
-      },
       polls: [],
       // object for message management
       message: {
@@ -72,19 +68,15 @@ export default {
       .catch(() => {
         this.showMessage('error', 'Oops une erreur est survenue lors du traitement de votre demande');
       });
-
-    // get current user
-    window.axios
-      .get('/me')
-      .then((userResponse) => {
-        this.user = userResponse.data;
-        // check if the user is subscribed
+    this.setLoggedUser()
+      .then(() => {
         window.axios
-          .get(`/users/${this.user.id}/presentations`)
+          .get(`/users/${this.loggedUser.id}/presentations`)
           .then((subResponse) => {
+            this.loggedUser.isSubscribed = false;
             subResponse.data.forEach((pres) => {
               if (pres.id === this.presentation.id) {
-                this.user.isSubscribed = true;
+                this.loggedUser.isSubscribed = true;
               }
             });
             this.isLoaded = true;
@@ -99,10 +91,10 @@ export default {
     },
     subscribe() {
       window.axios
-        .post(`/presentations/${this.presentation.id}/users/${this.user.id}`)
+        .post(`/presentations/${this.presentation.id}/users/${this.loggedUser.id}`)
         .then(() => {
           this.showMessage('success', 'Félicitations vous êtes maintenant inscrit à la présentation');
-          this.user.isSubscribed = true;
+          this.loggedUser.isSubscribed = true;
         })
         .catch(() => {
           this.showMessage('error', 'Oops une erreur c\'est produite lors de l\'inscription');
@@ -110,10 +102,10 @@ export default {
     },
     unsubscribe() {
       window.axios
-        .delete(`/presentations/${this.presentation.id}/users/${this.user.id}`)
+        .delete(`/presentations/${this.presentation.id}/users/${this.loggedUser.id}`)
         .then(() => {
           this.showMessage('warning', 'Vous n\'êtes plus inscrit a cette présentation');
-          this.user.isSubscribed = false;
+          this.loggedUser.isSubscribed = false;
         })
         .catch(() => {
           this.showMessage('error', 'Oops une erreur c\'est produite lors de la désinscription');

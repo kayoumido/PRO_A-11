@@ -70,19 +70,10 @@ export default {
       content: '',
       type: '',
     },
-    loggedUser: {},
 
   }),
   beforeMount() {
-    // get logged user info
-    window.axios
-      .get('/me')
-      .then((response) => {
-        this.loggedUser = response.data;
-      })
-      .catch((error) => {
-        this.showMessage('error', `Erreur lors de la recuperation des info: ${error}`);
-      });
+    this.setLoggedUser();
   },
   methods: {
     createPresentation() {

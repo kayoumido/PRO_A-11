@@ -68,7 +68,6 @@ export default {
         content: '',
         type: '',
       },
-      loggedUser: {},
       // Object for form field binding
       updateUserInfo: {
         fname: '',
@@ -78,15 +77,7 @@ export default {
     };
   },
   beforeMount() {
-    // get logged user info
-    window.axios
-      .get('/me')
-      .then((response) => {
-        this.loggedUser = response.data;
-      })
-      .catch((error) => {
-        this.showMessage('error', `La recupération des donnée utilisateur a échoué: ${error}`);
-      });
+    this.setLoggedUser();
   },
   methods: {
     submitChange() {

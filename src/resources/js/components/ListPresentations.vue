@@ -14,6 +14,7 @@
         max-width="400"
         tile
       >
+          <v-card-title>User {{loggedUser.fname}}</v-card-title>
         <v-list>
           <v-subheader>Presentations</v-subheader>
             <v-list-item
@@ -47,7 +48,6 @@
 
 <script>
 export default {
-  name: 'ListPresentations',
   data() {
     return {
       presentations: [],
@@ -56,28 +56,13 @@ export default {
         content: '',
         type: '',
       },
-      loggedUser: {},
       inactive: true,
     };
   },
   beforeMount() {
-
-    // get logged user info
-    window.axios
-      .get('/me')
-      .then((response) => {
-        this.loggedUser = response.data;
-
-        if (this.loggedUser === null) {
-          return;
-        }
-
-        const idUser = this.loggedUser.id;
-
-        // For testing with a different User ID
-        // const idUser = 1;
-
-        const apiUrl = `/users/${idUser}/presentations`;
+    this.setLoggedUser()
+      .then(() => {
+        const apiUrl = `/users/${this.loggedUser.id}/presentations`;
 
         window.axios
           .get(apiUrl)
@@ -91,9 +76,6 @@ export default {
           .catch((error) => {
             this.showMessage('error', `La recupération des presentations a échoué: ${error}`);
           });
-      })
-      .catch((error) => {
-        this.showMessage('error', `La recupération des donnée utilisateur a échoué: ${error}`);
       });
   },
   methods: {
@@ -107,7 +89,7 @@ export default {
     },
     goToPresentation(id) {
       this.$router.push({
-        name: 'presentation',
+        name: 'Présentation',
         params: { idPresentation: id },
       });
     },

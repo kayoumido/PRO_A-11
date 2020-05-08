@@ -1,6 +1,6 @@
 <template>
     <v-container>
-        <h3>Hello</h3>
+        <h3>Hello {{loggedUser}}</h3>
         <v-btn class="primary">Primary btn</v-btn>
         <v-btn class="secondary">Secondary btn</v-btn>
         <br><br><br>
@@ -16,16 +16,15 @@
 
 <script>
 export default {
-  data() {
-    return {
-      user: {},
-    };
+  beforeMount() {
+    this.setLoggedUser();
+    this.coucou();
   },
-  created() {
-    window.axios.get('/api/user/1')
-      .then((response) => {
-        this.user = response.data.user;
-      });
+  methods: {
+    coucou() {
+      // eslint-disable-next-line no-console
+      console.log('bonojur');
+    },
   },
 };
 </script>
