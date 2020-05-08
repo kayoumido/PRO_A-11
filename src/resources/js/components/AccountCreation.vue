@@ -6,13 +6,6 @@
         v-model="valid"
         lazy-validation
     >
-      <v-alert
-            v-model="message.show"
-            :class="message.type"
-            dismissible
-            >
-            {{ message.content }}
-        </v-alert>
       <v-text-field
             v-model="input.fname"
             :rules="fnameRules"
@@ -66,9 +59,9 @@
 </template>
 
 <script>
-
+let alert = {};
 export default {
-  name: 'Register',
+  props: ['parentRefs'],
   data() {
     return {
       // vuetify
@@ -87,11 +80,6 @@ export default {
       ],
       showPassword: false,
       showPasswordConfirm: false,
-      message: {
-        show: false,
-        content: '',
-        type: '',
-      },
 
       input: {
         fname: '',
@@ -100,6 +88,9 @@ export default {
         password: '',
       },
     };
+  },
+  beforeMount() {
+    alert = this.parentRefs.alert;
   },
   methods: {
     register() {
@@ -116,22 +107,17 @@ export default {
           if (response.data.token_type === 'Bearer') {
             const token = response.data.access_token;
             localStorage.setItem('Authorization-token', token);
-            this.showMessage('success', 'Authentifié');
+            alert.showMessage('success', 'Authentifié');
             this.$router.push({ name: 'Hello' });
           } else {
-            this.showMessage('error', 'Réponse du serveur inatendue');
+            alert.showMessage('error', 'Réponse du serveur inatendue');
           }
         }).catch((error) => {
-          this.showMessage('error', `Erreur de type : ${error}`);
+          alert.showMessage('error', `Erreur de type : ${error}`);
         });
       } else {
-        this.showMessage('error', 'Les mots de passe sont différents');
+        alert.showMessage('error', 'Les mots de passe sont différents');
       }
-    },
-    showMessage(type, content) {
-      this.message.show = true;
-      this.message.content = content;
-      this.message.type = type;
     },
     // check if both password are the same
     isPasswordConfirmMatchPassword() {

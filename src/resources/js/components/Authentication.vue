@@ -3,14 +3,6 @@
 
         <h2>Authentification</h2>
 
-        <v-alert
-            v-model="message.show"
-            :class="message.type"
-            dismissible
-        >
-            {{ message.content }}
-        </v-alert>
-
         <v-form
             ref="form"
             v-model="valid"
@@ -51,10 +43,9 @@
 </template>
 
 <script>
-// import axios from 'axios';
-
+let alert = {};
 export default {
-  name: 'Authentication',
+  props: ['parentRefs'],
   data() {
     return {
       // vuetify
@@ -66,18 +57,15 @@ export default {
         (v) => (!!v && /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,})+$/.test(v)) || 'une addresse email valide est necessaire',
       ],
       showPassword: false,
-      // object for message management
-      message: {
-        show: false,
-        content: '',
-        type: '',
-      },
 
       input: {
         email: '',
         password: '',
       },
     };
+  },
+  beforeMount() {
+    alert = this.parentRefs.alert;
   },
   methods: {
     login() {
@@ -92,20 +80,15 @@ export default {
           if (response.data.token_type === 'Bearer') {
             const token = response.data.access_token;
             localStorage.setItem('Authorization-token', token); // store the token in localstorage
-            this.showMessage('success', 'Authentifié');
+            alert.showMessage('success', 'Authentifié');
             this.$router.replace({ name: 'Hello' }); // all routing is handled by vuejs, should be changed for the final home route
           } else {
-            this.showMessage('error', 'Réponse du serveur inatendue');
+            alert.showMessage('error', 'Réponse du serveur inatendue');
           }
         })
         .catch((error) => {
-          this.showMessage('error', `erreur de type: ${error}`);
+          alert.showMessage('error', `erreur de type: ${error}`);
         });
-    },
-    showMessage(type, content) {
-      this.message.show = true;
-      this.message.content = content;
-      this.message.type = type;
     },
   },
 };

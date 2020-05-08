@@ -1,14 +1,6 @@
 <template>
   <v-container>
 
-  <v-alert
-    v-model="message.show"
-    :class="message.type"
-    dismissible
-    >
-      {{ message.content }}
-    </v-alert>
-
   <h2>Mon Compte</h2>
 
   <v-form
@@ -51,8 +43,9 @@
 </template>
 
 <script>
+let alert = {};
 export default {
-  name: 'AccountEdition',
+  props: ['parentRefs'],
   data() {
     return {
       valid: true, // if a rules is not fully satisfied this will disable the submit button
@@ -62,12 +55,6 @@ export default {
       emailRules: [
         (v) => v === '' || /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,})+$/.test(v) || 'l\'E-mail doit être valide',
       ],
-      // object for message management
-      message: {
-        show: false,
-        content: '',
-        type: '',
-      },
       // Object for form field binding
       updateUserInfo: {
         fname: '',
@@ -78,6 +65,7 @@ export default {
   },
   beforeMount() {
     this.setLoggedUser();
+    alert = this.parentRefs.alert;
   },
   methods: {
     submitChange() {
@@ -93,7 +81,7 @@ export default {
       // Check if the object is Empty
 
       if (Object.keys(data).length === 0) {
-        this.showMessage('error', 'Vous devez remplir au moins un champs');
+        alert.showMessage('error', 'Vous devez remplir au moins un champs');
         return;
       }
 
@@ -105,12 +93,12 @@ export default {
 
           // mirage response
           // this.loggedUser = response.data.user;
-          this.showMessage('success', 'Changement appliqué');
+          alert.showMessage('success', 'Changement appliqué');
 
           this.cleanForm();
         })
         .catch((errorResponse) => {
-          this.showMessage('error', `Erreur lors de l'envoie des donnée ${errorResponse}`);
+          alert.showMessage('error', `Erreur lors de l'envoie des donnée ${errorResponse}`);
         });
     },
     /**
@@ -139,11 +127,6 @@ export default {
     },
     isEmpty(textInput) {
       return (textInput === '');
-    },
-    showMessage(type, content) {
-      this.message.show = true;
-      this.message.content = content;
-      this.message.type = type;
     },
   },
 };

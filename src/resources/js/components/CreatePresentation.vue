@@ -1,12 +1,5 @@
 <template>
   <v-container>
-    <v-alert
-    v-model="message.show"
-    :class="message.type"
-    dismissible
-    >
-      {{ message.content }}
-    </v-alert>
 
     <h2>Creation de presentation</h2>
     <v-form
@@ -50,30 +43,28 @@
 </template>
 
 <script>
+let alert = {};
 export default {
-  data: () => ({
-    valid: true,
-    titleRules: [
-      (v) => !!v || 'Vous devez renseigner un titre',
-      (v) => (v && v.length <= 20) || 'Le Nom doit contenir moins de 20 caractères',
-    ],
-    dateRules: [
-      (v) => !!v || 'Vous devez renseigner une date',
-    ],
-    dataForm: {
-      date: new Date(),
-      title: '',
-    },
-    // object for message management
-    message: {
-      show: false,
-      content: '',
-      type: '',
-    },
-
-  }),
+  props: ['parentRefs'],
+  data() {
+    return {
+      valid: true,
+      titleRules: [
+        (v) => !!v || 'Vous devez renseigner un titre',
+        (v) => (v && v.length <= 20) || 'Le Nom doit contenir moins de 20 caractères',
+      ],
+      dateRules: [
+        (v) => !!v || 'Vous devez renseigner une date',
+      ],
+      dataForm: {
+        date: new Date(),
+        title: '',
+      },
+    };
+  },
   beforeMount() {
     this.setLoggedUser();
+    alert = this.parentRefs.alert;
   },
   methods: {
     createPresentation() {
@@ -90,21 +81,13 @@ export default {
         date: this.dataForm.date,
       })
         .then((response) => {
-          this.showMessage('success', `La présentation ${response.data.title} a été correctement créée`);
+          alert.showMessage('success', `La présentation ${response.data.title} a été correctement créée`);
           this.$refs.form.reset();
         })
         .catch((errorResponse) => {
-          this.showMessage('error', `erreur lors de l'envoie des données ${errorResponse}`);
+          alert.showMessage('error', `erreur lors de l'envoie des données ${errorResponse}`);
         });
-    },
-    showMessage(type, content) {
-      this.message.show = true;
-      this.message.content = content;
-      this.message.type = type;
     },
   },
 };
 </script>
-<style>
-
-</style>

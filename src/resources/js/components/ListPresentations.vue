@@ -1,20 +1,11 @@
 <template>
   <v-container>
-    <v-alert
-    v-model="message.show"
-    :class="message.type"
-    dismissible
-    >
-      {{ message.content }}
-    </v-alert>
-
       <v-row align="center">
       <v-card
         class="mx-auto"
         max-width="400"
         tile
       >
-          <v-card-title>User {{loggedUser.fname}}</v-card-title>
         <v-list>
           <v-subheader>Presentations</v-subheader>
             <v-list-item
@@ -48,18 +39,15 @@
 
 <script>
 export default {
+  props: ['parentRefs'],
   data() {
     return {
       presentations: [],
-      message: {
-        show: false,
-        content: '',
-        type: '',
-      },
       inactive: true,
     };
   },
   beforeMount() {
+    const { alert } = this.parentRefs;
     this.setLoggedUser()
       .then(() => {
         const apiUrl = `/users/${this.loggedUser.id}/presentations`;
@@ -70,22 +58,17 @@ export default {
             this.presentations = responsePresentation.data;
 
             if (this.presentationsIsEmpty()) {
-              this.showMessage('info', 'Vous ne vous êtes inscrit à aucune presentation');
+              alert.showMessage('info', 'Vous ne vous êtes inscrit à aucune presentation');
             }
           })
           .catch((error) => {
-            this.showMessage('error', `La recupération des presentations a échoué: ${error}`);
+            alert.showMessage('error', `La recupération des presentations a échoué: ${error}`);
           });
       });
   },
   methods: {
     presentationsIsEmpty() {
       return (this.presentations.length === 0);
-    },
-    showMessage(type, content) {
-      this.message.show = true;
-      this.message.content = content;
-      this.message.type = type;
     },
     goToPresentation(id) {
       this.$router.push({
