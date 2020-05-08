@@ -1,7 +1,4 @@
 <template>
-  <v-container>
-
-    <h2>Creation de presentation</h2>
     <v-form
       ref="form"
       v-model="valid"
@@ -39,7 +36,6 @@
       </v-btn>
 
     </v-form>
-  </v-container>
 </template>
 
 <script>

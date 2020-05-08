@@ -1,7 +1,4 @@
 <template>
-  <v-container>
-
-  <h2>Mon Compte</h2>
 
   <v-form
     ref="form"
@@ -38,8 +35,6 @@
     </v-btn>
 
   </v-form>
-
-  </v-container>
 </template>
 
 <script>

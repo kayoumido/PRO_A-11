@@ -29,7 +29,7 @@
                 <!-- If using vue-router -->
                 <v-row>
                     <v-col>
-                        <h1>Titre</h1>
+                        <h1>{{routeName}}</h1>
                     </v-col>
                 </v-row>
                 <v-row>
@@ -47,8 +47,17 @@ import SideBar from './SideBar';
 import SearchBar from './SearchBar';
 import UserTooltip from './UserTooltip';
 import AlertMessage from './AlertMessage';
+import router from '../../router';
 
 export default {
+  data() {
+    return {
+      routeName: '',
+    };
+  },
+  beforeMount() {
+    this.routeName = router.currentRoute.name;
+  },
   components: {
     AlertMessage, UserTooltip, SearchBar, SideBar,
   },

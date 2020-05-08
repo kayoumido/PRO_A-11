@@ -1,13 +1,11 @@
 <template>
-  <v-container>
-      <v-row align="center">
+    <v-row align="center">
       <v-card
         class="mx-auto"
         max-width="400"
         tile
       >
         <v-list>
-          <v-subheader>Presentations</v-subheader>
             <v-list-item
               v-for="(presentation) in presentations"
               :key="presentation.id"
@@ -33,8 +31,6 @@
         </v-list>
       </v-card>
     </v-row>
-
-  </v-container>
 </template>
 
 <script>

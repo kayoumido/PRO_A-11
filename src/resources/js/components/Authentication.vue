@@ -1,45 +1,38 @@
 <template>
-    <v-container>
+    <v-form
+        ref="form"
+        v-model="valid"
+    >
 
-        <h2>Authentification</h2>
+        <v-text-field
+            v-model="input.email"
+            :rules="emailRules"
+            required
+            label="Adresse email"
+        />
 
-        <v-form
-            ref="form"
-            v-model="valid"
+
+        <v-text-field
+            v-model="input.password"
+            :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+            :type="showPassword ? 'text' : 'password'"
+            :rules="passwordRules"
+            label="Mot de passe"
+            class="input-group--focused"
+            @click:append="showPassword = !showPassword"
+            required
+        />
+
+        <v-btn
+            :disabled="!valid"
+            color="success"
+            class="mr-4"
+            @click="login"
         >
+            Se connecter
+        </v-btn>
 
-            <v-text-field
-                v-model="input.email"
-                :rules="emailRules"
-                required
-                label="Adresse email"
-            />
-
-
-            <v-text-field
-                v-model="input.password"
-                :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-                :type="showPassword ? 'text' : 'password'"
-                :rules="passwordRules"
-                label="Mot de passe"
-                class="input-group--focused"
-                @click:append="showPassword = !showPassword"
-                required
-            />
-
-            <v-btn
-                :disabled="!valid"
-                color="success"
-                class="mr-4"
-                @click="login"
-            >
-                Se connecter
-            </v-btn>
-
-        </v-form>
-
-
-    </v-container>
+    </v-form>
 </template>
 
 <script>

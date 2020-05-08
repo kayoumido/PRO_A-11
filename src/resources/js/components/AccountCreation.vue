@@ -1,6 +1,4 @@
 <template>
-  <v-container>
-    <h2 class="title">Inscription</h2>
     <v-form
         ref="form"
         v-model="valid"
@@ -55,7 +53,6 @@
             Créer compte
       </v-btn>
     </v-form>
-  </v-container>
 </template>
 
 <script>

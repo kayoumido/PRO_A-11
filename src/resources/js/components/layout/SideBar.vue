@@ -32,7 +32,7 @@ export default {
       {
         name: 'Créer presentation',
         icon: 'mdi-folder-plus-outline',
-        path: '/presentations/nouveau',
+        path: '/presentation/creer',
       },
     ],
   }),

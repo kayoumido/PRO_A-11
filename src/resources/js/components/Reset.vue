@@ -1,6 +1,4 @@
 <template>
-  <v-container>
-    <h2 class="title">Récupération de mot de passe</h2>
     <v-form
         ref="form"
         v-model="valid"
@@ -22,7 +20,6 @@
             Envoyer email
       </v-btn>
     </v-form>
-  </v-container>
 </template>
 
 <script>
