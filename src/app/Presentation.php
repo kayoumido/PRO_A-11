@@ -19,6 +19,14 @@ class Presentation extends Model
         return 'presentations_index';
     }
 
+    public function toSearchableArray()
+    {
+        return [
+            'id' => $this->id,
+            'title' => $this->title,
+       ];
+    }
+
     /**
      * The conference of this presentation
      */
