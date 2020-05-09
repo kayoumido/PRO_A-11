@@ -58,6 +58,9 @@ export default {
   beforeMount() {
     this.routeName = router.currentRoute.name;
   },
+  beforeUpdate() {
+    this.routeName = router.currentRoute.name;
+  },
   components: {
     AlertMessage, UserTooltip, SearchBar, SideBar,
   },
