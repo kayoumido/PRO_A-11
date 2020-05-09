@@ -3,7 +3,7 @@
 
 Vous avez fait une demande de récupération de mot de passe, pour réinitialiser votre mot de passe veuillez cliquer sur le bouton ci-dessous.
 
-@component('mail::button', ['url' => config('app.url') . '/reset-password?token=' . $token])
+@component('mail::button', ['url' => config('app.url') . '/reset-password/' . $token])
 Réinitialiser mdp
 @endcomponent
 
