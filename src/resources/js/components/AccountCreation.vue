@@ -1,18 +1,9 @@
 <template>
-  <v-container>
-    <h2 class="title">Inscription</h2>
     <v-form
         ref="form"
         v-model="valid"
         lazy-validation
     >
-      <v-alert
-            v-model="message.show"
-            :class="message.type"
-            dismissible
-            >
-            {{ message.content }}
-        </v-alert>
       <v-text-field
             v-model="input.fname"
             :rules="fnameRules"
@@ -62,13 +53,12 @@
             Créer compte
       </v-btn>
     </v-form>
-  </v-container>
 </template>
 
 <script>
-
+let alert = {};
 export default {
-  name: 'Register',
+  props: ['parentRefs'],
   data() {
     return {
       // vuetify
@@ -87,11 +77,6 @@ export default {
       ],
       showPassword: false,
       showPasswordConfirm: false,
-      message: {
-        show: false,
-        content: '',
-        type: '',
-      },
 
       input: {
         fname: '',
@@ -101,12 +86,15 @@ export default {
       },
     };
   },
+  beforeMount() {
+    alert = this.parentRefs.alert;
+  },
   methods: {
     register() {
       if (this.isPasswordConfirmMatchPassword()) {
       // sends credentials to backend
         window.axios.post(
-          '/api/v1/register', {
+          '/register', {
             fname: this.input.fname,
             lname: this.input.lname,
             email: this.input.email,
@@ -116,22 +104,17 @@ export default {
           if (response.data.token_type === 'Bearer') {
             const token = response.data.access_token;
             localStorage.setItem('Authorization-token', token);
-            this.showMessage('success', 'Authentifié');
+            alert.showMessage('success', 'Authentifié');
             this.$router.push({ name: 'Hello' });
           } else {
-            this.showMessage('error', 'Réponse du serveur inatendue');
+            alert.showMessage('error', 'Réponse du serveur inatendue');
           }
         }).catch((error) => {
-          this.showMessage('error', `Erreur de type : ${error}`);
+          alert.showMessage('error', `Erreur de type : ${error}`);
         });
       } else {
-        this.showMessage('error', 'Les mots de passe sont différents');
+        alert.showMessage('error', 'Les mots de passe sont différents');
       }
-    },
-    showMessage(type, content) {
-      this.message.show = true;
-      this.message.content = content;
-      this.message.type = type;
     },
     // check if both password are the same
     isPasswordConfirmMatchPassword() {

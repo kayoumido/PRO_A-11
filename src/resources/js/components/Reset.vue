@@ -1,6 +1,4 @@
 <template>
-  <v-container>
-    <h2 class="title">Récupération de mot de passe</h2>
     <v-form
         ref="form"
         v-model="valid"
@@ -21,21 +19,14 @@
             >
             Envoyer email
       </v-btn>
-      <v-alert
-            v-model="message.show"
-            :class="message.type"
-            dismissible
-            >
-            {{ message.content }}
-      </v-alert>
     </v-form>
-  </v-container>
 </template>
 
 <script>
-
+let alert = {};
 export default {
   name: 'Reset',
+  props: ['parentRefs'],
   data() {
     return {
       // vuetify
@@ -43,33 +34,26 @@ export default {
       emailRules: [
         (v) => (!!v && /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,})+$/.test(v)) || 'Adresse e-mail non valide',
       ],
-      message: {
-        show: false,
-        content: '',
-        type: '',
-      },
       input: {
         email: '',
       },
     };
   },
+  beforeMount() {
+    alert = this.parentRefs.alert;
+  },
   methods: {
     reset() {
       window.axios.post(
-        '/api/v1/password/send-reset-email', {
+        '/password/send-reset-email', {
           email: this.input.email,
         },
       ).then(() => {
-        this.showMessage('information', 'Un email vous a été envoyé avec les instructions nécessaires');
+        alert.showMessage('information', 'Un email vous a été envoyé avec les instructions nécessaires');
       })
         .catch((error) => {
-          this.showMessage('error', `Erreur de type : ${error}`);
+          alert.showMessage('error', `Erreur de type : ${error}`);
         });
-    },
-    showMessage(type, content) {
-      this.message.show = true;
-      this.message.content = content;
-      this.message.type = type;
     },
   },
 };

@@ -1,14 +1,4 @@
 <template>
-  <v-container>
-    <v-alert
-    v-model="message.show"
-    :class="message.type"
-    dismissible
-    >
-      {{ message.content }}
-    </v-alert>
-
-    <h2>Creation de presentation</h2>
     <v-form
       ref="form"
       v-model="valid"
@@ -46,49 +36,35 @@
       </v-btn>
 
     </v-form>
-  </v-container>
 </template>
 
 <script>
+let alert = {};
 export default {
-  data: () => ({
-    valid: true,
-    titleRules: [
-      (v) => !!v || 'Vous devez renseigner un titre',
-      (v) => (v && v.length <= 20) || 'Le Nom doit contenir moins de 20 caractères',
-    ],
-    dateRules: [
-      (v) => !!v || 'Vous devez renseigner une date',
-    ],
-    dataForm: {
-      date: new Date(),
-      title: '',
-    },
-    // object for message management
-    message: {
-      show: false,
-      content: '',
-      type: '',
-    },
-    loggedUser: {},
-
-  }),
+  props: ['parentRefs'],
+  data() {
+    return {
+      valid: true,
+      titleRules: [
+        (v) => !!v || 'Vous devez renseigner un titre',
+        (v) => (v && v.length <= 20) || 'Le Nom doit contenir moins de 20 caractères',
+      ],
+      dateRules: [
+        (v) => !!v || 'Vous devez renseigner une date',
+      ],
+      dataForm: {
+        date: new Date(),
+        title: '',
+      },
+    };
+  },
   beforeMount() {
-    // set Bearer token in header of the future request
-    window.axios.defaults.headers.common = { Authorization: `Bearer ${localStorage.getItem('Authorization-token')}` };
-    // get logged user info
-    window.axios
-      .get('/api/v1/me')
-      .then((response) => {
-        this.loggedUser = response.data;
-      })
-      .catch((error) => {
-        this.showMessage('error', `Erreur lors de la recuperation des info: ${error}`);
-      });
+    this.setLoggedUser();
+    alert = this.parentRefs.alert;
   },
   methods: {
     createPresentation() {
-      const apiUrl = `/api/v1/users/${this.loggedUser.data.id}/presentations`;
+      const apiUrl = `/users/${this.loggedUser.id}/presentations`;
 
       // force date validation
       if (!this.$refs.form.validate()) {
@@ -101,21 +77,13 @@ export default {
         date: this.dataForm.date,
       })
         .then((response) => {
-          this.showMessage('success', `La présentation ${response.data.data.title} a été correctement créée`);
+          alert.showMessage('success', `La présentation ${response.data.title} a été correctement créée`);
           this.$refs.form.reset();
         })
         .catch((errorResponse) => {
-          this.showMessage('error', `erreur lors de l'envoie des données ${errorResponse}`);
+          alert.showMessage('error', `erreur lors de l'envoie des données ${errorResponse}`);
         });
-    },
-    showMessage(type, content) {
-      this.message.show = true;
-      this.message.content = content;
-      this.message.type = type;
     },
   },
 };
 </script>
-<style>
-
-</style>
