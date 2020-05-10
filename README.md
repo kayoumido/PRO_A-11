@@ -127,7 +127,12 @@ Once donne copy the values of `Client id` and `Client secret` from the Password
 grant client section and paste them on your `.env` file under `PASSPORT_CLIENT` and `PASSPORT_CLIENT_SECRET`
 
 5. Setup Scout
-if you already have records in your database, you'll need to import the records to
+First things first, you need to add the following to your `.env`
+```
+SCOUT_DRIVER=tntsearch
+```
+
+Then, if you already have records in your database, you'll need to import the records to
 the search driver for every model that is searchable.
 In our case we only have `App\Presentation`.
 ```shell
