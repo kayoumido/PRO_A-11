@@ -123,8 +123,22 @@ $ docker exec dev_laravel php artisan db:seed
 ```shell
 $ docker exec dev_laravel php artisan passport:install
 ```
-Once donne copy the values of `Client id` and `Client secret` from the Password 
+Once donne copy the values of `Client id` and `Client secret` from the Password
 grant client section and paste them on your `.env` file under `PASSPORT_CLIENT` and `PASSPORT_CLIENT_SECRET`
+
+5. Setup Scout
+First things first, you need to add the following to your `.env`
+```
+SCOUT_DRIVER=tntsearch
+```
+
+Then, if you already have records in your database, you'll need to import the records to
+the search driver for every model that is searchable.
+In our case we only have `App\Presentation`.
+```shell
+$ docker exec dev_laravel php artisan scout:import "App\Presentation"
+```
+Since we've added the `Laravel\Scout\Searchable` trait to `App\Presentation`, Scout will take care of adding any new records to the search index.
 
 ### Working with Vue.js
 1. Compile node vues following your environment:

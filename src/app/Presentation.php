@@ -2,14 +2,30 @@
 
 namespace App;
 
+use Laravel\Scout\Searchable;
 use Illuminate\Database\Eloquent\Model;
 use App\User\Role;
 
 class Presentation extends Model
 {
+    use Searchable;
+
     public $timestamps = false;
 
     protected $fillable = ['title', 'date', 'conference_id'];
+
+    public function searchableAs()
+    {
+        return 'presentations_index';
+    }
+
+    public function toSearchableArray()
+    {
+        return [
+            'id' => $this->id,
+            'title' => $this->title,
+       ];
+    }
 
     /**
      * The conference of this presentation
