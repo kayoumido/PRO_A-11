@@ -17,7 +17,7 @@
 
             <v-spacer></v-spacer>
             <SearchBar></SearchBar>
-            <UserTooltip></UserTooltip>
+            <UserTooltip :parentRefs="$refs"></UserTooltip>
         </v-app-bar>
 
         <!-- Sizes your content based upon application components -->
@@ -63,6 +63,8 @@ export default {
   },
   components: {
     AlertMessage, UserTooltip, SearchBar, SideBar,
+  },
+  methods: {
   },
 };
 </script>

@@ -13,6 +13,7 @@ Vue.mixin({
   data() {
     return {
       loggedUser: {},
+      isLogged: false,
     };
   },
   methods: {
@@ -21,6 +22,7 @@ Vue.mixin({
       return window.axios.get('/me')
         .then((response) => {
           this.loggedUser = response.data;
+          this.isLogged = true;
         });
     },
   },

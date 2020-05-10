@@ -58,6 +58,7 @@ export default {
     };
   },
   beforeMount() {
+    // this.setLoggedUser();
     alert = this.parentRefs.alert;
   },
   methods: {
@@ -79,8 +80,8 @@ export default {
             alert.showMessage('error', 'Réponse du serveur inatendue');
           }
         })
-        .catch((error) => {
-          alert.showMessage('error', `erreur de type: ${error}`);
+        .catch(() => {
+          alert.showMessage('error', 'Adresse email ou mot de passe incorrect');
         });
     },
   },
