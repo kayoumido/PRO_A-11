@@ -96,7 +96,12 @@ class PresentationController extends Controller
      */
     public function update(Request $request, Presentation $presentation)
     {
-        //
+        $request->validate([
+            'title' => 'sometimes|required',
+            'date' => 'sometimes|required|date',
+        ]);
+
+        $presentation->update($request->only(['title', 'date']));
     }
 
     /**
