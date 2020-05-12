@@ -25,8 +25,8 @@
                     color="error">
                     Se désincrire
                 </v-btn>
-                <!-- else if user owned presentation he could delete it.the usage of user role is needed-->
-                <v-btn small color="error" @click.prevent="delPresentation(presentation.id)">
+                <!-- else if user owned presentation he could delete it-->
+                <v-btn color="error" @click.prevent="delPresentation(presentation.id)">
                   Supprimer
                 </v-btn>
             </v-list-item-action>
@@ -103,7 +103,7 @@ export default {
       window.axios.delete(apiUrl)
         .then(() => {
           // go back to presentation list
-          this.$router.push('Lister les présentation');
+          this.$router.push('/presentations');
         })
         .catch((error) => {
           alert.showMessage('error', `echec de la suppression : ${error.status}`);
