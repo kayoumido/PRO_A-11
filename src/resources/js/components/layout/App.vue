@@ -27,7 +27,17 @@
             <v-container>
 
                 <!-- If using vue-router -->
-                <router-view></router-view>
+                <v-row>
+                    <v-col>
+                        <h1>{{routeName}}</h1>
+                    </v-col>
+                </v-row>
+                <v-row>
+                    <v-container>
+                        <AlertMessage ref="alert"></AlertMessage>
+                        <router-view :parentRefs="$refs"></router-view>
+                    </v-container>
+                </v-row>
             </v-container>
         </v-content>
     </v-app>
@@ -36,8 +46,23 @@
 import SideBar from './SideBar';
 import SearchBar from './SearchBar';
 import UserTooltip from './UserTooltip';
+import AlertMessage from './AlertMessage';
+import router from '../../router';
 
 export default {
-  components: { UserTooltip, SearchBar, SideBar },
+  data() {
+    return {
+      routeName: '',
+    };
+  },
+  beforeMount() {
+    this.routeName = router.currentRoute.name;
+  },
+  beforeUpdate() {
+    this.routeName = router.currentRoute.name;
+  },
+  components: {
+    AlertMessage, UserTooltip, SearchBar, SideBar,
+  },
 };
 </script>

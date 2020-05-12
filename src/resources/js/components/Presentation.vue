@@ -1,14 +1,4 @@
 <template>
-
- <v-container>
-     <v-alert
-    v-model="message.show"
-    :class="message.type"
-    dismissible
-    >
-      {{ message.content }}
-    </v-alert>
-
       <v-card
       class="mx-auto"
       max-width="344"
@@ -16,58 +6,92 @@
       <v-list-item three-line>
         <v-list-item-content>
           <v-list-item-title class="headline mb-1">
-            Titre : {{ presentation.data.title }}
+            Titre : {{ presentation.title }}
           </v-list-item-title>
           <v-list-item-subtitle>
-            Date: {{ presentation.data.date }}
+            Date: {{ presentation.date }}
           </v-list-item-subtitle>
+            <v-list-item-action v-if="isLoaded">
+                <v-btn
+                    v-if="!isSubscribed"
+                    @click="subscribe"
+                    color="primary"
+                    >
+                    S'inscrire
+                </v-btn>
+                <v-btn
+                    v-else
+                    @click="unsubscribe"
+                    color="error">
+                    Se désincrire
+                </v-btn>
+            </v-list-item-action>
         </v-list-item-content>
 
       </v-list-item>
 
     </v-card>
-  </v-container>
 </template>
 
 <script>
+let alert = {};
 export default {
-  name: 'Presentation',
+  props: ['parentRefs'],
   data() {
     return {
-      presentation: {
-        data: {},
-      },
+      isLoaded: false,
+      isSubscribed: false,
+      presentation: {},
       polls: [],
-      // object for message management
-      message: {
-        show: false,
-        content: '',
-        type: '',
-      },
     };
   },
   beforeMount() {
-    // set the bearer token
-    window.axios.defaults.headers.common = { Authorization: `Bearer ${localStorage.getItem('Authorization-token')}` };
-
-    // take the param in vu-route in presentation/{idPresentation}
-
-    const apiUrl = `/api/v1/presentations/${this.$route.params.idPresentation}`;
-
+    alert = this.parentRefs.alert;
+    const apiUrl = `presentations/${this.$route.params.idPresentation}`;
     window.axios
       .get(apiUrl)
-      .then((response) => {
-        this.presentation = response.data;
+      .then((presResponse) => {
+        this.presentation = presResponse.data;
       })
-      .catch((error) => {
-        this.showMessage('error', `erreur lors de l'envoie des donnée ${error}`);
+      .catch(() => {
+        alert.showMessage('error', 'Oops une erreur est survenue lors du traitement de votre demande');
+      });
+    this.setLoggedUser()
+      .then(() => {
+        window.axios
+          .get(`/users/${this.loggedUser.id}/presentations`)
+          .then((subResponse) => {
+            subResponse.data.forEach((pres) => {
+              if (pres.id === this.presentation.id) {
+                this.isSubscribed = true;
+              }
+            });
+            this.isLoaded = true;
+          });
       });
   },
   methods: {
-    showMessage(type, content) {
-      this.message.show = true;
-      this.message.content = content;
-      this.message.type = type;
+    subscribe() {
+      window.axios
+        .post(`/presentations/${this.presentation.id}/users/${this.loggedUser.id}`)
+        .then(() => {
+          alert.showMessage('success', 'Félicitations vous êtes maintenant inscrit à la présentation');
+          this.isSubscribed = true;
+        })
+        .catch(() => {
+          alert.showMessage('error', 'Oops une erreur c\'est produite lors de l\'inscription');
+        });
+    },
+    unsubscribe() {
+      window.axios
+        .delete(`/presentations/${this.presentation.id}/users/${this.loggedUser.id}`)
+        .then(() => {
+          alert.showMessage('warning', 'Vous n\'êtes plus inscrit a cette présentation');
+          this.isSubscribed = false;
+        })
+        .catch(() => {
+          alert.showMessage('error', 'Oops une erreur c\'est produite lors de la désinscription');
+        });
     },
   },
 
