@@ -30,7 +30,7 @@ class PollPermsViewer
 
         // allow iff admin or user, and poll not draft if not a presentation
         if ($presentation->moderators()->contains(Auth::user())
-            || $presentation->users()->find($request->user()->id)
+            || $presentation->users()->find(Auth::user()->id)
             && !($is_poll && $request->poll->state == PollStatuses::DRAFT())) {
             return $next($request);
         };
