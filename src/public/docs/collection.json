@@ -2,7 +2,7 @@
     "variables": [],
     "info": {
         "name": "Paul API",
-        "_postman_id": "ecc31b23-a9bd-461e-ad51-8b5e8643cd4d",
+        "_postman_id": "61f6a0ab-1c5f-4acd-93ba-f357da65625d",
         "description": "",
         "schema": "https:\/\/schema.getpostman.com\/json\/collection\/v2.0.0\/collection.json"
     },
@@ -37,14 +37,14 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"email\": \"aut\",\n    \"password\": \"a\"\n}"
+                            "raw": "{\n    \"email\": \"nihil\",\n    \"password\": \"quasi\"\n}"
                         },
                         "description": "",
                         "response": []
                     }
                 },
                 {
-                    "name": "Create e new user account",
+                    "name": "Create a new user account",
                     "request": {
                         "url": {
                             "protocol": "http",
@@ -69,7 +69,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"fname\": \"et\",\n    \"lname\": \"ut\",\n    \"email\": \"itaque\",\n    \"password\": \"explicabo\"\n}"
+                            "raw": "{\n    \"fname\": \"recusandae\",\n    \"lname\": \"corrupti\",\n    \"email\": \"voluptatum\",\n    \"password\": \"modi\"\n}"
                         },
                         "description": "",
                         "response": []
@@ -157,7 +157,7 @@
                                 {
                                     "id": "poll",
                                     "key": "poll",
-                                    "value": "aut",
+                                    "value": "non",
                                     "description": "id of the poll"
                                 }
                             ]
@@ -197,7 +197,7 @@
                                 {
                                     "id": "poll",
                                     "key": "poll",
-                                    "value": "autem",
+                                    "value": "doloremque",
                                     "description": "id of the linked poll"
                                 }
                             ]
@@ -219,7 +219,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"message\": \"sit\"\n}"
+                            "raw": "{\n    \"message\": \"minus\"\n}"
                         },
                         "description": "",
                         "response": []
@@ -237,7 +237,7 @@
                                 {
                                     "id": "choice",
                                     "key": "choice",
-                                    "value": "at",
+                                    "value": "cum",
                                     "description": "Id of the choice to update"
                                 }
                             ]
@@ -259,7 +259,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"message\": \"pariatur\"\n}"
+                            "raw": "{\n    \"message\": \"repellendus\"\n}"
                         },
                         "description": "",
                         "response": []
@@ -277,7 +277,7 @@
                                 {
                                     "id": "choice",
                                     "key": "choice",
-                                    "value": "quaerat",
+                                    "value": "ad",
                                     "description": "Id of the choice to delete"
                                 }
                             ]
@@ -317,13 +317,13 @@
                                 {
                                     "id": "poll",
                                     "key": "poll",
-                                    "value": "temporibus",
+                                    "value": "atque",
                                     "description": "Poll id for the vote"
                                 },
                                 {
                                     "id": "user",
                                     "key": "user",
-                                    "value": "eaque",
+                                    "value": "incidunt",
                                     "description": "User id for the vote"
                                 }
                             ]
@@ -345,7 +345,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"choice_id\": \"quos\"\n}"
+                            "raw": "{\n    \"choice_id\": \"labore\"\n}"
                         },
                         "description": "",
                         "response": []
@@ -369,13 +369,13 @@
                                 {
                                     "id": "presentation",
                                     "key": "presentation",
-                                    "value": "velit",
+                                    "value": "consequatur",
                                     "description": "Presentation id"
                                 },
                                 {
                                     "id": "user",
                                     "key": "user",
-                                    "value": "atque",
+                                    "value": "sed",
                                     "description": "User id"
                                 }
                             ]
@@ -415,13 +415,13 @@
                                 {
                                     "id": "presentation",
                                     "key": "presentation",
-                                    "value": "vero",
+                                    "value": "asperiores",
                                     "description": "Presentation id"
                                 },
                                 {
                                     "id": "user",
                                     "key": "user",
-                                    "value": "quasi",
+                                    "value": "amet",
                                     "description": "User id"
                                 }
                             ]
@@ -467,13 +467,13 @@
                                 {
                                     "id": "presentation",
                                     "key": "presentation",
-                                    "value": "earum",
+                                    "value": "occaecati",
                                     "description": "Presentation id"
                                 },
                                 {
                                     "id": "user",
                                     "key": "user",
-                                    "value": "voluptatem",
+                                    "value": "quae",
                                     "description": "User id"
                                 }
                             ]
@@ -495,7 +495,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"role\": \"sit\"\n}"
+                            "raw": "{\n    \"role\": \"ad\"\n}"
                         },
                         "description": "",
                         "response": []
@@ -519,7 +519,7 @@
                                 {
                                     "id": "presentation",
                                     "key": "presentation",
-                                    "value": "beatae",
+                                    "value": "quasi",
                                     "description": "Id of the presentation"
                                 }
                             ]
@@ -559,7 +559,7 @@
                                 {
                                     "id": "presentation",
                                     "key": "presentation",
-                                    "value": "quidem",
+                                    "value": "dolorum",
                                     "description": "Id of the presentation"
                                 }
                             ]
@@ -581,7 +581,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"subject\": \"nam\"\n}"
+                            "raw": "{\n    \"subject\": \"nihil\"\n}"
                         },
                         "description": "",
                         "response": []
@@ -599,7 +599,7 @@
                                 {
                                     "id": "poll",
                                     "key": "poll",
-                                    "value": "laudantium",
+                                    "value": "beatae",
                                     "description": "Poll id"
                                 }
                             ]
@@ -639,7 +639,7 @@
                                 {
                                     "id": "poll",
                                     "key": "poll",
-                                    "value": "atque",
+                                    "value": "id",
                                     "description": "Poll id"
                                 }
                             ]
@@ -661,7 +661,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"subject\": \"qui\"\n}"
+                            "raw": "{\n    \"subject\": \"eos\"\n}"
                         },
                         "description": "",
                         "response": []
@@ -679,7 +679,7 @@
                                 {
                                     "id": "poll",
                                     "key": "poll",
-                                    "value": "mollitia",
+                                    "value": "placeat",
                                     "description": "Poll id"
                                 }
                             ]
@@ -751,7 +751,7 @@
                                 {
                                     "id": "poll",
                                     "key": "poll",
-                                    "value": "aut",
+                                    "value": "est",
                                     "description": "Poll id"
                                 }
                             ]
@@ -797,7 +797,7 @@
                                 {
                                     "id": "user",
                                     "key": "user",
-                                    "value": "alias",
+                                    "value": "non",
                                     "description": "User id"
                                 }
                             ]
@@ -837,7 +837,7 @@
                                 {
                                     "id": "user",
                                     "key": "user",
-                                    "value": "incidunt",
+                                    "value": "numquam",
                                     "description": "User id"
                                 }
                             ]
@@ -859,7 +859,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"title\": \"aspernatur\",\n    \"date\": \"modi\"\n}"
+                            "raw": "{\n    \"title\": \"vero\",\n    \"date\": \"odio\"\n}"
                         },
                         "description": "",
                         "response": []
@@ -877,7 +877,7 @@
                                 {
                                     "id": "presentation",
                                     "key": "presentation",
-                                    "value": "consequuntur",
+                                    "value": "totam",
                                     "description": "Presentation id"
                                 }
                             ]
@@ -917,7 +917,7 @@
                                 {
                                     "id": "presentation",
                                     "key": "presentation",
-                                    "value": "cumque",
+                                    "value": "nihil",
                                     "description": "Presentation id"
                                 }
                             ]
@@ -939,7 +939,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"title\": \"sunt\",\n    \"date\": \"molestias\"\n}"
+                            "raw": "{\n    \"title\": \"modi\",\n    \"date\": \"et\"\n}"
                         },
                         "description": "",
                         "response": []
@@ -957,7 +957,7 @@
                                 {
                                     "id": "presentation",
                                     "key": "presentation",
-                                    "value": "qui",
+                                    "value": "enim",
                                     "description": "Presentation id"
                                 }
                             ]
@@ -995,7 +995,7 @@
                             "query": [
                                 {
                                     "key": "keywords",
-                                    "value": "debitis",
+                                    "value": "quis",
                                     "description": "Keywords to search",
                                     "disabled": false
                                 }
@@ -1057,68 +1057,6 @@
                         "body": {
                             "mode": "raw",
                             "raw": "[]"
-                        },
-                        "description": "",
-                        "response": []
-                    }
-                }
-            ]
-        },
-        {
-            "name": "general",
-            "description": "",
-            "item": [
-                {
-                    "name": "Send an email to the user with the reset password link",
-                    "request": {
-                        "url": {
-                            "protocol": "http",
-                            "host": "localhost",
-                            "path": "api\/v1\/password\/send-reset-email",
-                            "query": []
-                        },
-                        "method": "POST",
-                        "header": [
-                            {
-                                "key": "Content-Type",
-                                "value": "application\/json"
-                            },
-                            {
-                                "key": "Accept",
-                                "value": "application\/json"
-                            }
-                        ],
-                        "body": {
-                            "mode": "raw",
-                            "raw": "{\n    \"email\": \"dolor\"\n}"
-                        },
-                        "description": "",
-                        "response": []
-                    }
-                },
-                {
-                    "name": "Change the password",
-                    "request": {
-                        "url": {
-                            "protocol": "http",
-                            "host": "localhost",
-                            "path": "api\/v1\/password\/reset",
-                            "query": []
-                        },
-                        "method": "POST",
-                        "header": [
-                            {
-                                "key": "Content-Type",
-                                "value": "application\/json"
-                            },
-                            {
-                                "key": "Accept",
-                                "value": "application\/json"
-                            }
-                        ],
-                        "body": {
-                            "mode": "raw",
-                            "raw": "{\n    \"token\": \"voluptatibus\",\n    \"email\": \"voluptatem\",\n    \"password\": \"doloribus\"\n}"
                         },
                         "description": "",
                         "response": []

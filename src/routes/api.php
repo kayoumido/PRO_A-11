@@ -29,8 +29,8 @@ Route::prefix('v1')->group(function () {
         // user management
         Route::apiResource('users', 'API\UserController')->only('update');
         // presentation management
-        Route::apiResource('users.presentations', 'API\PresentationController')->shallow();
         Route::get('presentations/search', 'API\PresentationController@search')->name('presentations.search');
+        Route::apiResource('users.presentations', 'API\PresentationController')->shallow();
         // presentation subscription management
         Route::middleware(['subscription.permission'])->group(function () {
             Route::post('presentations/{presentation}/users/{user}', 'API\PresentationUserController@subscribe')->name('presentations.users.subscribe');

@@ -9,6 +9,23 @@ require('./bootstrap');
 
 Vue.use(DatetimePicker);
 
+Vue.mixin({
+  data() {
+    return {
+      loggedUser: {},
+    };
+  },
+  methods: {
+    setLoggedUser() {
+      // get logged user
+      return window.axios.get('/me')
+        .then((response) => {
+          this.loggedUser = response.data;
+        });
+    },
+  },
+});
+
 if (process.env.NODE_ENV === 'development') {
   makeServer();
 }
