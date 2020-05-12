@@ -52,6 +52,130 @@
 <p>All routes that need authentication should contain a bearer token in the headers
 using the following synthax:<br>
 <code>Authorization: Bearer &lt;token&gt;</code></p>
+<!-- START_1a1bf5a3b78c8e2727d466dbb4ddd7e4 -->
+<h2>Send an email to the user with the reset password link</h2>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST \
+    "http://localhost/api/v1/password/send-reset-email" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -H "Authorization: Bearer {token}" \
+    -d '{"email":"recusandae"}'
+</code></pre>
+<pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/v1/password/send-reset-email"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+    "Authorization": "Bearer {token}",
+};
+
+let body = {
+    "email": "recusandae"
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST api/v1/password/send-reset-email</code></p>
+<h4>Body Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>email</code></td>
+<td>email</td>
+<td>required</td>
+<td>email of the user who makes the request</td>
+</tr>
+</tbody>
+</table>
+<!-- END_1a1bf5a3b78c8e2727d466dbb4ddd7e4 -->
+<!-- START_a62f1703e9fba891a3e20ff27854aac0 -->
+<h2>Change the password</h2>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST \
+    "http://localhost/api/v1/password/reset" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -H "Authorization: Bearer {token}" \
+    -d '{"token":"magni","email":"aperiam","password":"numquam"}'
+</code></pre>
+<pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/v1/password/reset"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+    "Authorization": "Bearer {token}",
+};
+
+let body = {
+    "token": "magni",
+    "email": "aperiam",
+    "password": "numquam"
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST api/v1/password/reset</code></p>
+<h4>Body Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>token</code></td>
+<td>string</td>
+<td>required</td>
+<td>token to validate the request</td>
+</tr>
+<tr>
+<td><code>email</code></td>
+<td>email</td>
+<td>required</td>
+<td>email of the user who wants to change is password</td>
+</tr>
+<tr>
+<td><code>password</code></td>
+<td>string</td>
+<td>required</td>
+<td>the new password for the user</td>
+</tr>
+</tbody>
+</table>
+<!-- END_a62f1703e9fba891a3e20ff27854aac0 -->
 <!-- START_8c0e48cd8efa861b308fc45872ff0837 -->
 <h2>Log the user in</h2>
 <blockquote>
@@ -433,14 +557,14 @@ fetch(url, {
 <p>Example request:</p>
 </blockquote>
 <pre><code class="language-bash">curl -X PUT \
-    "http://localhost/api/v1/choices/cum" \
+    "http://localhost/api/v1/choices/mollitia" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
     -H "Authorization: Bearer {token}" \
-    -d '{"message":"repellendus"}'
+    -d '{"message":"porro"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/v1/choices/cum"
+    "http://localhost/api/v1/choices/mollitia"
 );
 
 let headers = {
@@ -450,7 +574,7 @@ let headers = {
 };
 
 let body = {
-    "message": "repellendus"
+    "message": "porro"
 }
 
 fetch(url, {
@@ -515,12 +639,12 @@ fetch(url, {
 <p>Example request:</p>
 </blockquote>
 <pre><code class="language-bash">curl -X DELETE \
-    "http://localhost/api/v1/choices/ad" \
+    "http://localhost/api/v1/choices/tempore" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
     -H "Authorization: Bearer {token}"</code></pre>
 <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/v1/choices/ad"
+    "http://localhost/api/v1/choices/tempore"
 );
 
 let headers = {
@@ -562,14 +686,14 @@ fetch(url, {
 <p>Example request:</p>
 </blockquote>
 <pre><code class="language-bash">curl -X POST \
-    "http://localhost/api/v1/polls/atque/users/incidunt" \
+    "http://localhost/api/v1/polls/et/users/omnis" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
     -H "Authorization: Bearer {token}" \
-    -d '{"choice_id":"labore"}'
+    -d '{"choice_id":"vero"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/v1/polls/atque/users/incidunt"
+    "http://localhost/api/v1/polls/et/users/omnis"
 );
 
 let headers = {
@@ -579,7 +703,7 @@ let headers = {
 };
 
 let body = {
-    "choice_id": "labore"
+    "choice_id": "vero"
 }
 
 fetch(url, {
@@ -641,12 +765,12 @@ fetch(url, {
 <p>Example request:</p>
 </blockquote>
 <pre><code class="language-bash">curl -X POST \
-    "http://localhost/api/v1/presentations/consequatur/users/sed" \
+    "http://localhost/api/v1/presentations/officiis/users/ut" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
     -H "Authorization: Bearer {token}"</code></pre>
 <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/v1/presentations/consequatur/users/sed"
+    "http://localhost/api/v1/presentations/officiis/users/ut"
 );
 
 let headers = {
@@ -693,12 +817,12 @@ fetch(url, {
 <p>Example request:</p>
 </blockquote>
 <pre><code class="language-bash">curl -X DELETE \
-    "http://localhost/api/v1/presentations/asperiores/users/amet" \
+    "http://localhost/api/v1/presentations/consequuntur/users/vel" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
     -H "Authorization: Bearer {token}"</code></pre>
 <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/v1/presentations/asperiores/users/amet"
+    "http://localhost/api/v1/presentations/consequuntur/users/vel"
 );
 
 let headers = {
@@ -746,14 +870,14 @@ fetch(url, {
 <p>Example request:</p>
 </blockquote>
 <pre><code class="language-bash">curl -X PUT \
-    "http://localhost/api/v1/presentations/occaecati/users/quae" \
+    "http://localhost/api/v1/presentations/aut/users/molestiae" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
     -H "Authorization: Bearer {token}" \
-    -d '{"role":"ad"}'
+    -d '{"role":"unde"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/v1/presentations/occaecati/users/quae"
+    "http://localhost/api/v1/presentations/aut/users/molestiae"
 );
 
 let headers = {
@@ -763,7 +887,7 @@ let headers = {
 };
 
 let body = {
-    "role": "ad"
+    "role": "unde"
 }
 
 fetch(url, {
@@ -825,12 +949,12 @@ fetch(url, {
 <p>Example request:</p>
 </blockquote>
 <pre><code class="language-bash">curl -X GET \
-    -G "http://localhost/api/v1/presentations/quasi/polls" \
+    -G "http://localhost/api/v1/presentations/quo/polls" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
     -H "Authorization: Bearer {token}"</code></pre>
 <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/v1/presentations/quasi/polls"
+    "http://localhost/api/v1/presentations/quo/polls"
 );
 
 let headers = {
@@ -889,14 +1013,14 @@ fetch(url, {
 <p>Example request:</p>
 </blockquote>
 <pre><code class="language-bash">curl -X POST \
-    "http://localhost/api/v1/presentations/dolorum/polls" \
+    "http://localhost/api/v1/presentations/necessitatibus/polls" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
     -H "Authorization: Bearer {token}" \
-    -d '{"subject":"nihil"}'
+    -d '{"subject":"voluptatem"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/v1/presentations/dolorum/polls"
+    "http://localhost/api/v1/presentations/necessitatibus/polls"
 );
 
 let headers = {
@@ -906,7 +1030,7 @@ let headers = {
 };
 
 let body = {
-    "subject": "nihil"
+    "subject": "voluptatem"
 }
 
 fetch(url, {
@@ -971,12 +1095,12 @@ fetch(url, {
 <p>Example request:</p>
 </blockquote>
 <pre><code class="language-bash">curl -X GET \
-    -G "http://localhost/api/v1/polls/beatae" \
+    -G "http://localhost/api/v1/polls/esse" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
     -H "Authorization: Bearer {token}"</code></pre>
 <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/v1/polls/beatae"
+    "http://localhost/api/v1/polls/esse"
 );
 
 let headers = {
@@ -1027,14 +1151,14 @@ fetch(url, {
 <p>Example request:</p>
 </blockquote>
 <pre><code class="language-bash">curl -X PUT \
-    "http://localhost/api/v1/polls/id" \
+    "http://localhost/api/v1/polls/distinctio" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
     -H "Authorization: Bearer {token}" \
-    -d '{"subject":"eos"}'
+    -d '{"subject":"et"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/v1/polls/id"
+    "http://localhost/api/v1/polls/distinctio"
 );
 
 let headers = {
@@ -1044,7 +1168,7 @@ let headers = {
 };
 
 let body = {
-    "subject": "eos"
+    "subject": "et"
 }
 
 fetch(url, {
@@ -1110,12 +1234,12 @@ fetch(url, {
 <p>Example request:</p>
 </blockquote>
 <pre><code class="language-bash">curl -X DELETE \
-    "http://localhost/api/v1/polls/placeat" \
+    "http://localhost/api/v1/polls/et" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
     -H "Authorization: Bearer {token}"</code></pre>
 <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/v1/polls/placeat"
+    "http://localhost/api/v1/polls/et"
 );
 
 let headers = {
@@ -1196,12 +1320,12 @@ fetch(url, {
 <p>Example request:</p>
 </blockquote>
 <pre><code class="language-bash">curl -X GET \
-    -G "http://localhost/api/v1/polls/est/results" \
+    -G "http://localhost/api/v1/polls/optio/results" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
     -H "Authorization: Bearer {token}"</code></pre>
 <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/v1/polls/est/results"
+    "http://localhost/api/v1/polls/optio/results"
 );
 
 let headers = {
@@ -1254,6 +1378,82 @@ fetch(url, {
 </table>
 <!-- END_fc03f8ead82e85626d1a3a1090521037 -->
 <h1>Presentations management</h1>
+<!-- START_e96335a14a712c3589807d07a2b53adb -->
+<h2>Search for a presentation</h2>
+<p><br><small style="padding: 1px 9px 2px;font-weight: bold;white-space: nowrap;color: #ffffff;-webkit-border-radius: 9px;-moz-border-radius: 9px;border-radius: 9px;background-color: #3a87ad;">Requires authentication</small></p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X GET \
+    -G "http://localhost/api/v1/presentations/search?keywords=explicabo" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -H "Authorization: Bearer {token}"</code></pre>
+<pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/v1/presentations/search"
+);
+
+let params = {
+    "keywords": "explicabo",
+};
+Object.keys(params)
+    .forEach(key =&gt; url.searchParams.append(key, params[key]));
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+    "Authorization": "Bearer {token}",
+};
+
+fetch(url, {
+    method: "GET",
+    headers: headers,
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<blockquote>
+<p>Example response (200):</p>
+</blockquote>
+<pre><code class="language-json">[
+    {
+        "id": 5,
+        "title": "Quel est la place de la communication au sein de notre société",
+        "date": "2010-04-02 12:23",
+        "conference_id": 3
+    },
+    {
+        "id": 20,
+        "title": "Est-ce que les lions sont végétariens",
+        "date": "2010-02-02 17:00",
+        "conference_id": 3
+    },
+    {
+        "id": 37,
+        "title": "Quel est le vrai rôle des moustiques dans l'écosystème",
+        "date": "2010-03-02 10:15",
+        "conference_id": 3
+    }
+]</code></pre>
+<h3>HTTP Request</h3>
+<p><code>GET api/v1/presentations/search</code></p>
+<h4>Query Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>keywords</code></td>
+<td>required</td>
+<td>Keywords to search</td>
+</tr>
+</tbody>
+</table>
+<!-- END_e96335a14a712c3589807d07a2b53adb -->
 <!-- START_b88e9ba7b4015e12b6b73a5b328ee5ac -->
 <h2>List all presentations related to a user</h2>
 <p><br><small style="padding: 1px 9px 2px;font-weight: bold;white-space: nowrap;color: #ffffff;-webkit-border-radius: 9px;-moz-border-radius: 9px;border-radius: 9px;background-color: #3a87ad;">Requires authentication</small></p>
@@ -1261,12 +1461,12 @@ fetch(url, {
 <p>Example request:</p>
 </blockquote>
 <pre><code class="language-bash">curl -X GET \
-    -G "http://localhost/api/v1/users/non/presentations" \
+    -G "http://localhost/api/v1/users/et/presentations" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
     -H "Authorization: Bearer {token}"</code></pre>
 <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/v1/users/non/presentations"
+    "http://localhost/api/v1/users/et/presentations"
 );
 
 let headers = {
@@ -1331,14 +1531,14 @@ fetch(url, {
 <p>Example request:</p>
 </blockquote>
 <pre><code class="language-bash">curl -X POST \
-    "http://localhost/api/v1/users/numquam/presentations" \
+    "http://localhost/api/v1/users/facilis/presentations" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
     -H "Authorization: Bearer {token}" \
-    -d '{"title":"vero","date":"odio"}'
+    -d '{"title":"recusandae","date":"laudantium"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/v1/users/numquam/presentations"
+    "http://localhost/api/v1/users/facilis/presentations"
 );
 
 let headers = {
@@ -1348,8 +1548,8 @@ let headers = {
 };
 
 let body = {
-    "title": "vero",
-    "date": "odio"
+    "title": "recusandae",
+    "date": "laudantium"
 }
 
 fetch(url, {
@@ -1420,12 +1620,12 @@ fetch(url, {
 <p>Example request:</p>
 </blockquote>
 <pre><code class="language-bash">curl -X GET \
-    -G "http://localhost/api/v1/presentations/totam" \
+    -G "http://localhost/api/v1/presentations/beatae" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
     -H "Authorization: Bearer {token}"</code></pre>
 <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/v1/presentations/totam"
+    "http://localhost/api/v1/presentations/beatae"
 );
 
 let headers = {
@@ -1476,14 +1676,14 @@ fetch(url, {
 <p>Example request:</p>
 </blockquote>
 <pre><code class="language-bash">curl -X PUT \
-    "http://localhost/api/v1/presentations/nihil" \
+    "http://localhost/api/v1/presentations/et" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
     -H "Authorization: Bearer {token}" \
-    -d '{"title":"modi","date":"et"}'
+    -d '{"title":"est","date":"recusandae"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/v1/presentations/nihil"
+    "http://localhost/api/v1/presentations/et"
 );
 
 let headers = {
@@ -1493,8 +1693,8 @@ let headers = {
 };
 
 let body = {
-    "title": "modi",
-    "date": "et"
+    "title": "est",
+    "date": "recusandae"
 }
 
 fetch(url, {
@@ -1566,12 +1766,12 @@ fetch(url, {
 <p>Example request:</p>
 </blockquote>
 <pre><code class="language-bash">curl -X DELETE \
-    "http://localhost/api/v1/presentations/enim" \
+    "http://localhost/api/v1/presentations/vel" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
     -H "Authorization: Bearer {token}"</code></pre>
 <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/v1/presentations/enim"
+    "http://localhost/api/v1/presentations/vel"
 );
 
 let headers = {
@@ -1606,82 +1806,6 @@ fetch(url, {
 </tbody>
 </table>
 <!-- END_d75bb5a606d83d55cff58d40d188d6f7 -->
-<!-- START_e96335a14a712c3589807d07a2b53adb -->
-<h2>Search for a presentation</h2>
-<p><br><small style="padding: 1px 9px 2px;font-weight: bold;white-space: nowrap;color: #ffffff;-webkit-border-radius: 9px;-moz-border-radius: 9px;border-radius: 9px;background-color: #3a87ad;">Requires authentication</small></p>
-<blockquote>
-<p>Example request:</p>
-</blockquote>
-<pre><code class="language-bash">curl -X GET \
-    -G "http://localhost/api/v1/presentations/search?keywords=quis" \
-    -H "Content-Type: application/json" \
-    -H "Accept: application/json" \
-    -H "Authorization: Bearer {token}"</code></pre>
-<pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/v1/presentations/search"
-);
-
-let params = {
-    "keywords": "quis",
-};
-Object.keys(params)
-    .forEach(key =&gt; url.searchParams.append(key, params[key]));
-
-let headers = {
-    "Content-Type": "application/json",
-    "Accept": "application/json",
-    "Authorization": "Bearer {token}",
-};
-
-fetch(url, {
-    method: "GET",
-    headers: headers,
-})
-    .then(response =&gt; response.json())
-    .then(json =&gt; console.log(json));</code></pre>
-<blockquote>
-<p>Example response (200):</p>
-</blockquote>
-<pre><code class="language-json">[
-    {
-        "id": 5,
-        "title": "Quel est la place de la communication au sein de notre société",
-        "date": "2010-04-02 12:23",
-        "conference_id": 3
-    },
-    {
-        "id": 20,
-        "title": "Est-ce que les lions sont végétariens",
-        "date": "2010-02-02 17:00",
-        "conference_id": 3
-    },
-    {
-        "id": 37,
-        "title": "Quel est le vrai rôle des moustiques dans l'écosystème",
-        "date": "2010-03-02 10:15",
-        "conference_id": 3
-    }
-]</code></pre>
-<h3>HTTP Request</h3>
-<p><code>GET api/v1/presentations/search</code></p>
-<h4>Query Parameters</h4>
-<table>
-<thead>
-<tr>
-<th>Parameter</th>
-<th>Status</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>keywords</code></td>
-<td>required</td>
-<td>Keywords to search</td>
-</tr>
-</tbody>
-</table>
-<!-- END_e96335a14a712c3589807d07a2b53adb -->
 <h1>User Management</h1>
 <!-- START_296fac4bf818c99f6dd42a4a0eb56b58 -->
 <h2>Update the specified resource in storage.</h2>
