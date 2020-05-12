@@ -40,13 +40,6 @@ class Presentation extends Model
     }
 
     /**
-     * List of users moderation the presentation (presenters included)
-     */
-    public function moderators() {
-        return $this->users()->where('role', 'presenter')->get();
-    }
-
-    /**
      * List of non-draft polls linked to the presentation
      */
     public function nonDraftPolls() {
