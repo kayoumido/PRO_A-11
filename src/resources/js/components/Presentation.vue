@@ -25,6 +25,10 @@
                     color="error">
                     Se désincrire
                 </v-btn>
+                <!-- else if user owned presentation he could delete it.the usage of user role is needed-->
+                <v-btn small color="error" @click.prevent="delPresentation(presentation.id)">
+                  Supprimer
+                </v-btn>
             </v-list-item-action>
         </v-list-item-content>
 
@@ -91,6 +95,18 @@ export default {
         })
         .catch(() => {
           alert.showMessage('error', 'Oops une erreur c\'est produite lors de la désinscription');
+        });
+    },
+    delPresentation(id) {
+      const apiUrl = `/presentations/${id}`;
+
+      window.axios.delete(apiUrl)
+        .then(() => {
+          // go back to presentation list
+          this.$router.push('Lister les présentation');
+        })
+        .catch((error) => {
+          alert.showMessage('error', `echec de la suppression : ${error.status}`);
         });
     },
   },

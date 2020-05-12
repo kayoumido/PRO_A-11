@@ -26,13 +26,6 @@
                   quitter
                 </v-btn>
               </v-list-item-action>
-
-              <v-list-item-action>
-                <v-btn small color="error" @click.prevent="delPresentation(presentation.id)">
-                  Supprimer
-                </v-btn>
-              </v-list-item-action>
-
             </v-list-item>
         </v-list>
       </v-card>
@@ -45,7 +38,6 @@ export default {
   data() {
     return {
       presentations: [],
-      inactive: true,
     };
   },
   beforeMount() {
@@ -76,14 +68,6 @@ export default {
       this.$router.push({
         name: 'Présentation',
         params: { idPresentation: id },
-      });
-    },
-    delPresentation(id) {
-      const apiUrl = `/presentations/${id}`;
-
-      window.axios.delete(apiUrl).catch((error) => {
-        this.showMessage('error', `echec de la suppression : ${error.status}`);
-        // TODO : find a way to automatically reload the page or refresh data
       });
     },
   },
