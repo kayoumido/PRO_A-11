@@ -109,7 +109,7 @@ class PresentationController extends Controller
      */
     public function destroy(Presentation $presentation)
     {
-        //
+        $presentation->delete();
     }
 
     /**
