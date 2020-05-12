@@ -31,7 +31,7 @@ Route::prefix('v1')->group(function () {
         // presentation management
         Route::get('presentations/search', 'API\PresentationController@search')->name('presentations.search');
         Route::apiResource('users.presentations', 'API\PresentationController')
-            ->only(['show', 'store'])
+            ->only(['index', 'show', 'store'])
             ->shallow();
         Route::apiResource('users.presentations', 'API\PresentationController')
             ->only(['update', 'destroy'])
