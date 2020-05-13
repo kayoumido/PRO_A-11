@@ -4,6 +4,7 @@ public/storage
 src/public/js/
 src/public/css
 src/storage/*.key
+src/storage/*.index
 vendor
 .env
 .env.backup

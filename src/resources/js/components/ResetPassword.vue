@@ -1,6 +1,4 @@
 <template>
-  <v-container>
-    <h2 class="title">Récupération de mot de passe</h2>
     <v-form
         ref="form"
         v-model="valid"
@@ -32,21 +30,13 @@
             >
             Changer mot de passe
       </v-btn>
-      <v-alert
-            v-model="message.show"
-            :class="message.type"
-            dismissible
-            >
-            {{ message.content }}
-      </v-alert>
     </v-form>
-  </v-container>
 </template>
 
 <script>
-
+let alert = {};
 export default {
-  name: 'ResetPassword',
+  props: ['parentRefs'],
   data() {
     return {
       token: null,
@@ -59,21 +49,19 @@ export default {
         (v) => !!v || 'Un mot de passe est nécessaire',
       ],
       showPassword: false,
-      message: {
-        show: false,
-        content: '',
-        type: '',
-      },
       input: {
         email: '',
         password: '',
       },
     };
   },
+  beforeMount() {
+    alert = this.parentRefs.alert;
+  },
   methods: {
     resetPassword() {
       window.axios.post(
-        '/api/v1/password/reset', {
+        '/password/reset', {
           token: this.$route.params.token,
           email: this.input.email,
           password: this.input.password,
@@ -82,13 +70,8 @@ export default {
         this.$router.push({ name: 'Authentification' });
       })
         .catch((error) => {
-          this.showMessage('error', `Erreur de type : ${error}`);
+          alert.showMessage('error', `Erreur de type : ${error}`);
         });
-    },
-    showMessage(type, content) {
-      this.message.show = true;
-      this.message.content = content;
-      this.message.type = type;
     },
   },
 };

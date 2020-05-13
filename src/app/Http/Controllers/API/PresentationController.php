@@ -124,6 +124,12 @@ class PresentationController extends Controller
      */
     public function search(Request $request)
     {
-        //
+        $request->validate([
+            'keywords' => 'required'
+        ]);
+
+        return PresentationResource::collection(
+            Presentation::search($request->get('keywords'))->get()
+        );
     }
 }

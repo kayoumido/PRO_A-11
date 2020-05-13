@@ -15,6 +15,9 @@ use Illuminate\Http\Request;
 
 Route::prefix('v1')->group(function () {
 
+    Route::post('password/send-reset-email', 'API\AuthController@sendResetLinkEmail');
+    Route::post('password/reset', 'API\AuthController@reset');
+
     Route::post('login', 'API\AuthController@login');
     Route::post('register', 'API\AuthController@register');
 
@@ -22,11 +25,12 @@ Route::prefix('v1')->group(function () {
         Route::get('/me', 'API\AuthController@user');
 
         Route::post('/logout', 'API\AuthController@logout');
+      
         // user management
         Route::apiResource('users', 'API\UserController')->only('update');
         // presentation management
-        Route::apiResource('users.presentations', 'API\PresentationController')->shallow();
         Route::get('presentations/search', 'API\PresentationController@search')->name('presentations.search');
+        Route::apiResource('users.presentations', 'API\PresentationController')->shallow();
         // presentation subscription management
         Route::middleware(['subscription.permission'])->group(function () {
             Route::post('presentations/{presentation}/users/{user}', 'API\PresentationUserController@subscribe')->name('presentations.users.subscribe');

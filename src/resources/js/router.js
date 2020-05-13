@@ -1,7 +1,6 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 
-import Hello from './components/Hello';
 import newPresentation from './components/CreatePresentation';
 import ListPresentations from './components/ListPresentations';
 import Presentation from './components/Presentation';
@@ -17,60 +16,44 @@ const router = new VueRouter({
   mode: 'history',
   routes: [
     {
-      path: '/',
-      name: 'Hello',
-      component: Hello,
-    },
-    {
-      path: '/presentation',
-      name: 'presentation',
-      component: Presentation,
-    },
-    {
       path: '/presentation/creer',
       icon: 'mdi-help-box',
-      name: 'newPresentation',
+      name: 'Créer présentation',
       component: newPresentation,
     },
     {
-      name: 'Lister les Presentation',
-      icon: 'mdi-help-box',
       path: '/presentations',
+      name: 'Lister les présentation',
       component: ListPresentations,
     },
     {
       path: '/presentation/:idPresentation',
-      name: 'presentation',
-      icon: 'mdi-help-box',
+      name: 'Présentation',
       component: Presentation,
     },
     {
       path: '/login',
-      name: 'Authentication',
-      icon: 'mdi-help-box',
+      name: 'Connexion',
       component: Authentication,
     },
     {
-      path: '/mon-compte/modifier/',
+      path: '/mon-compte/modifier',
       name: 'Edition de compte',
       component: AccountEdition,
     },
     {
-      path: '/register',
-      name: 'AccountCreation',
-      icon: 'mdi-help-box',
+      path: '/creer-compte',
+      name: 'Création de compte',
       component: AccountCreation,
     },
     {
       path: '/reset',
-      name: 'Reset',
-      icon: 'mdi-help-box',
+      name: 'Mot de passe oublié',
       component: Reset,
     },
     {
-      path: '/reset-password:token',
-      name: 'ResetPassword',
-      icon: 'mdi-help-box',
+      path: '/reset-password/:token',
+      name: 'Redéfinir mot de passe',
       component: ResetPassword,
     },
   ],
