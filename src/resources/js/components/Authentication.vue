@@ -74,7 +74,11 @@ export default {
           if (response.data.token_type === 'Bearer') {
             const token = response.data.access_token;
             localStorage.setItem('Authorization-token', token); // store the token in localstorage
+            window.axios.defaults.headers.common = {
+              Authorization: `Bearer ${localStorage.getItem('Authorization-token')}`, // put it directly in header
+            };
             alert.showMessage('success', 'Authentifié');
+            this.setLoggedUser();
             this.$router.replace({ name: 'Hello' }); // all routing is handled by vuejs, should be changed for the final home route
           } else {
             alert.showMessage('error', 'Réponse du serveur inatendue');
