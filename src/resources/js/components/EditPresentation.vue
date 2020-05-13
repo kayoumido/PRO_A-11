@@ -42,23 +42,52 @@
        },
       };
     },
-    beforeMount() {
-      
+    beforeMount() {    
       alert = this.parentRefs.alert;
     },
     methods: {
       submitChange() {
-        const data = this.updatePresentationInfo;
+        const data = this.getDataToSend();
         const apiUrl = `presentations/${this.$route.params.idPresentation}`;
+
+        // Check if the object is Empty
+        if (Object.keys(data).length === 0) {
+          alert.showMessage('error', 'Vous devez remplir au moins un champs');
+          return;
+        }
 
         // sends credentials to backend
         window.axios.put(apiUrl, data)
         .then((response) => {
           alert.showMessage('success', 'Les informations de la présentation ont été modifiés');
+          this.cleanForm();
          })
         .catch((error) => {
         alert.showMessage('error', `Nous n'avons pas réussi à appliqurer les changements`);
         });
+      },
+      /**
+       * Prepare the data object for sending to the backend
+       * add a key only if the field is not empty
+       */
+      getDataToSend() {
+        const data = {};
+        // we add the key and value if user has change the field
+        if (!this.isEmpty(this.updatePresentationInfo.title)) {
+          data.fname = this.updatePresentationInfo.title;
+        }
+        if (!this.isEmpty(this.updatePresentationInfo.date)) {
+          data.lname = this.updatePresentationInfo.date;
+        }
+
+        return data;
+      },
+      cleanForm() {
+        this.updateUserInfo.title = '';
+        this.updateUserInfo.date = '';
+      },
+      isEmpty(textInput) {
+        return (textInput === '');
       },
     },
   };
