@@ -74,10 +74,10 @@
         const data = {};
         // we add the key and value if user has change the field
         if (!this.isEmpty(this.updatePresentationInfo.title)) {
-          data.fname = this.updatePresentationInfo.title;
+          data.title = this.updatePresentationInfo.title;
         }
         if (!this.isEmpty(this.updatePresentationInfo.date)) {
-          data.lname = this.updatePresentationInfo.date;
+          data.date = this.updatePresentationInfo.date;
         }
 
         return data;
