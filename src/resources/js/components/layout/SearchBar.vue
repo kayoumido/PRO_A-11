@@ -11,6 +11,7 @@
         item-value="id"
         item-text="title"
         :search-input.sync="search"
+        @change="GoToPresentation(select)"
     ></v-autocomplete>
 </template>
 
@@ -38,14 +39,23 @@ export default {
     querySelections(v) {
       const apiUrl = '/presentations/search';
       this.loading = true;
-      setTimeout(() => {
-        window.axios.get(apiUrl, { params: { keywords: v } })
-          .then((res) => {
-            this.items = res.data;
-          });
-      }, 500);
+
+      window.axios.get(apiUrl, { params: { keywords: v } })
+        .then((res) => {
+          this.items = res.data;
+        });
 
       this.loading = false;
+    },
+    GoToPresentation(id) {
+      if (id !== null && id !== '') {
+        this.$router.push({
+          name: 'Présentation',
+          params: { idPresentation: id },
+        });
+      }
+      // eslint-disable-next-line no-console
+      console.log(id);
     },
   },
 
