@@ -96,7 +96,13 @@ class PresentationController extends Controller
      */
     public function update(Request $request, Presentation $presentation)
     {
-        //
+        $request->validate([
+            'title' => 'required_without_all:date|string',
+            'date' => 'required_without_all:title|date',
+        ]);
+
+        $presentation->update($request->only(['title', 'date']));
+        return new PresentationResource($presentation);
     }
 
     /**
@@ -109,7 +115,7 @@ class PresentationController extends Controller
      */
     public function destroy(Presentation $presentation)
     {
-        //
+        $presentation->delete();
     }
 
     /**

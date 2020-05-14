@@ -23,7 +23,7 @@ class CheckSubscriptionPermission
             return response()->json([
                 'success' => false,
                 'message' => "Unauthorized",
-            ], Response::HTTP_UNAUTHORIZED);;
+            ], Response::HTTP_UNAUTHORIZED);
 
         return $next($request);
     }

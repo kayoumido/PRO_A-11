@@ -25,12 +25,18 @@ Route::prefix('v1')->group(function () {
         Route::get('/me', 'API\AuthController@user');
 
         Route::post('/logout', 'API\AuthController@logout');
-      
+
         // user management
         Route::apiResource('users', 'API\UserController')->only('update');
         // presentation management
         Route::get('presentations/search', 'API\PresentationController@search')->name('presentations.search');
-        Route::apiResource('users.presentations', 'API\PresentationController')->shallow();
+        Route::apiResource('users.presentations', 'API\PresentationController')
+            ->only(['index', 'show', 'store'])
+            ->shallow();
+        Route::apiResource('users.presentations', 'API\PresentationController')
+            ->only(['update', 'destroy'])
+            ->shallow()
+            ->middleware('presentation.roles:'.App\User\Role::PRESENTER());
         // presentation subscription management
         Route::middleware(['subscription.permission'])->group(function () {
             Route::post('presentations/{presentation}/users/{user}', 'API\PresentationUserController@subscribe')->name('presentations.users.subscribe');
