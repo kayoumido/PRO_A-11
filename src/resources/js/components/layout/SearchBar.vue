@@ -20,15 +20,11 @@ export default {
   name: 'SearchBar',
   data() {
     return {
-      model: null,
-      value: '',
       loading: false,
       items: [],
       search: null,
       select: null,
     };
-  },
-  beforeUpdate() {
   },
   watch: {
     search(val) {
@@ -54,8 +50,6 @@ export default {
           params: { idPresentation: id },
         });
       }
-      // eslint-disable-next-line no-console
-      console.log(id);
     },
   },
 
