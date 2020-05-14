@@ -97,11 +97,12 @@ class PresentationController extends Controller
     public function update(Request $request, Presentation $presentation)
     {
         $request->validate([
-            'title' => 'sometimes|required',
-            'date' => 'sometimes|required|date',
+            'title' => 'required_without_all:date',
+            'date' => 'required_without_all:title|date',
         ]);
 
         $presentation->update($request->only(['title', 'date']));
+        return new PresentationResource($presentation);
     }
 
     /**
