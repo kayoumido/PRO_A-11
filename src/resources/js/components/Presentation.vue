@@ -54,6 +54,7 @@ export default {
     },
   },
   beforeMount() {
+    alert = this.parentRefs.alert;
     this.getPresentation(this.$route.params.idPresentation);
     this.setLoggedUser()
       .then(() => {
@@ -94,7 +95,7 @@ export default {
     },
     getPresentation(id) {
       alert = this.parentRefs.alert;
-      const apiUrl = `presentations/${id}`;
+      const apiUrl = `/presentations/${id}`;
       window.axios
         .get(apiUrl)
         .then((presResponse) => {
