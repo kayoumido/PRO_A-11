@@ -149,6 +149,12 @@ $ docker exec <env>_laravel npm run dev
 $ docker exec dev_laravel npm run dev
 ```
 
+### Setup email
+To send emails you just need to configure the mail infos section on your .env file.
+You can use your own email account gmail, hotmail, heig, etc. or you can use a service like mailtrap.
+For development purpose mailtrap is already pre-configured you only need to fill the fields MAIL_USERNAME and MAIL_PASSWORD 
+with the credential related to your mailtrap inbox.
+
 ### Start hacking :trollface:
 Now you have the environment up and running, the website should now be available with the following url: http://localhost:<port>
 The port will change depending on what is configured in `infra/dev/docker-compose.yml`. We've decided to use `80`
