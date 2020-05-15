@@ -13,7 +13,13 @@
           </v-list-item-subtitle>
             <v-list-item-action v-if="isLoaded">
                 <v-btn
-                    v-if="!isSubscribed"
+                v-if="isPresenter()"
+                color="error"
+                @click.prevent="delPresentation(presentation.id)">
+                  Supprimer
+                </v-btn>
+                <v-btn
+                    v-else-if="!isSubscribed"
                     @click="subscribe"
                     color="primary"
                     >
@@ -24,10 +30,6 @@
                     @click="unsubscribe"
                     color="error">
                     Se désincrire
-                </v-btn>
-                <!-- else if user owned presentation he could delete it-->
-                <v-btn color="error" @click.prevent="delPresentation(presentation.id)">
-                  Supprimer
                 </v-btn>
             </v-list-item-action>
         </v-list-item-content>
@@ -97,13 +99,19 @@ export default {
           alert.showMessage('error', 'Oops une erreur c\'est produite lors de la désinscription');
         });
     },
+    isPresenter() {
+      return (this.presentation.auth_user_role === 'presenter');
+    },
     delPresentation(id) {
       const apiUrl = `/presentations/${id}`;
 
       window.axios.delete(apiUrl)
         .then(() => {
           // go back to presentation list
-          this.$router.push('/presentations');
+          alert.showMessage('success', 'La presentation à été supprimé correctement');
+          setTimeout(() => {
+            this.$router.push('/presentations');
+          }, 2000);
         })
         .catch((error) => {
           alert.showMessage('error', `echec de la suppression : ${error.status}`);
