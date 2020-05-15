@@ -32,11 +32,11 @@ export default {
     },
   },
   methods: {
-    querySelections(v) {
+    querySelections(searchVal) {
       const apiUrl = '/presentations/search';
       this.loading = true;
 
-      window.axios.get(apiUrl, { params: { keywords: v } })
+      window.axios.get(apiUrl, { params: { keywords: searchVal } })
         .then((res) => {
           this.items = res.data;
         });
