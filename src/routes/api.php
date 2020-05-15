@@ -35,16 +35,16 @@ Route::prefix('v1')->group(function () {
 
         // poll management
         Route::apiResource('presentations.polls', 'API\PollController')->shallow();
-        Route::middleware(['poll.perms.presenter'])->group(function () {
+        Route::middleware(['poll.role:' . App\User\Role::PRESENTER()])->group(function () {
             Route::put('presentations/{presentation}/polls', 'API\PollController@store')->name('presentations.polls.store');
             Route::put('polls/{poll}', 'API\PollController@update')->name('polls.update');
             Route::put('polls/{poll}/publish', 'API\PollController@publish')->name('polls.publish');
             Route::get('polls/{poll}/results', 'API\PollController@results')->name('polls.results');
             Route::post('polls/{poll}/choices', 'API\ChoiceController@store')->name('polls.choices.store');
         });
-        Route::middleware(['poll.perms.viewer'])->group(function () {
-            Route::get('polls/{poll}', 'API\PollController@show')->name('polls.show');
+        Route::middleware(['poll.role'])->group(function () {
             Route::get('presentations/{presentation}/polls', 'API\PollController@index')->name('presentations.polls.index');
+            Route::get('polls/{poll}', 'API\PollController@show')->name('polls.show');
             Route::get('polls/{poll}/choices', 'API\ChoiceController@index')->name('polls.choices.index');
         });
 

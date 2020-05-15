@@ -79,7 +79,7 @@ class PollController extends Controller
      */
     public function show(Request $request, Poll $poll)
     {
-        if (!$poll->presenters()->contains($request->user()) && $poll->state == PollStatuses::DRAFT()) {
+        if (!$request->poll->presentation->moderators()->contains($request->user()) && $poll->state == PollStatuses::DRAFT()) {
             return response()->json('unauthorized', Response::HTTP_UNAUTHORIZED);
         }
 
