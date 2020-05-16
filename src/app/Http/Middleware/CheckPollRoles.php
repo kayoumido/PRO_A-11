@@ -20,12 +20,10 @@ class CheckPollRoles
     {
         $error = false;
 
-        $req_presentation = $request->presentation == null ? $request->poll->presentation : $request->presentation;
-        $obj_presentation = Auth::user()->presentations()->where('id', $req_presentation->id)->first();
-        $presentation = Presentation::find($request->poll->presentation->id)->first();
+        $presentation = Auth::user()->presentations()->where('id', $request->poll->presentation->id)->first();
 
-        if ($obj_presentation) {
-            $user_role = $obj_presentation->pivot->role;
+        if ($presentation) {
+            $user_role = $presentation->pivot->role;
             if (!empty($roles) && !in_array($user_role, $roles)) {
                 $error = true;
             }
