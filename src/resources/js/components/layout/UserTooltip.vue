@@ -1,12 +1,10 @@
 <template>
 <v-container>
-    <v-btn icon
+    <v-btn
+    icon
+    v-if="isLoaded"
     @click="beheavior">
-        <v-icon>{{yes}}</v-icon>
-    </v-btn>
-    <v-btn icon
-    @click="update">
-        <v-icon>mdi-menu</v-icon>
+        <v-icon>{{icon}}</v-icon>
     </v-btn>
     </v-container>
 </template>
@@ -19,64 +17,79 @@ export default {
 
   data() {
     return {
-      // isLogged: ${this.isLogged},
-      yes: '',
+      icon: '',
+      isLoaded: false,
+      isLogged: false,
     };
   },
   beforeMount() {
-    alert = this.parentRefs.alert;
-    this.setLoggedUser(); // doesnt do this before this.update why?
-    this.update();
-    // eslint-disable-next-line no-console
-    console.log('BeforeMount');
+    alert = this.parentRefs.alert; // without this line, there are "uncaught exception: Object"
+    this.refresh()
+      .then(() => {
+        // is always called
+        // this is only usefull when beforeMount is called
+        this.isLoaded = true;
+      });
   },
   beforeUpdate() {
     alert = this.parentRefs.alert;
-    this.setLoggedUser();
-    this.update();
-    // eslint-disable-next-line no-console
-    console.log('BeforeUpdate');
   },
   methods: {
     beheavior() {
-      // eslint-disable-next-line no-console
-      console.log('update info to determine behavior');
-      this.setLoggedUser();
-      if (this.isLogged) {
-        localStorage.removeItem('Authorization-token');
+      this.refresh()
+        .then(() => {
+          if (this.isLogged) {
+            // important, if I did not remove the token from the axios header,
+            // the post /logout would make that token unuseable which
+            // makes that token as effective as no token at all
+            // this logic technically also applies to the token in local storage
+            // I still do it for the logout error case
+            localStorage.removeItem('Authorization-token'); // delete token from local storage
 
-        window.axios.post(
-          '/logout',
-        )
-          .then(() => {
-            alert.showMessage('success', 'Déconnecté');
-          })
-          .catch(() => {
-            alert.showMessage('error', 'Echec déconnexion');
-          });
-
-        // eslint-disable-next-line no-console
-        console.log('update info to determine new icon');
-
-        this.setLoggedUser(); // or any way to update the app as it doesn work
-
-        this.update();
-      } else {
-        // eslint-disable-next-line no-console
-        console.log('redirection');
-        alert.showMessage('success', 'redirection pour login');
-        this.update();
-        this.$router.replace({ name: 'Connexion' });
-      }
+            window.axios.post(
+              '/logout',
+            )
+              .then(() => {
+                this.deleteTokenFromHeader();
+                alert.showMessage('success', 'Déconnecté');
+              })
+              .catch(() => {
+                // when this happens, the user will still be logged out,
+                // but it's token will still be valid (if it was valid in the first place)
+                // if his token was invalid (and managed to be logged in?) he'll be logged out
+                // this should never happen normally
+                this.deleteTokenFromHeader();
+                alert.showMessage('error', 'Echec déconnexion');
+              });
+            this.icon = 'mdi-account-circle-outline';
+            this.isLogged = false;
+          } else {
+            // the user is not logged in, he'll be redirected to login page
+            alert.showMessage('success', 'redirection pour login');
+            this.$router.replace({ name: 'Connexion' });
+          }
+        });
     },
-    update() {
-      if (this.isLogged) {
-        this.yes = 'mdi-account-circle';
-      } else {
-        this.yes = 'mdi-account-circle-outline';
-      }
-      // eslint-disable-next-line no-console
-      console.log('update (icon should have changed)');
+
+    refresh() {
+      return window.axios.get('/me')
+        // i need a way to know it's a success, but I don't actually care about the response
+        // eslint-disable-next-line no-unused-vars
+        .then((response) => {
+          // handles success
+          this.icon = 'mdi-account-circle';
+          this.isLogged = true;
+        })
+        .catch(() => {
+          // handles error
+          this.icon = 'mdi-account-circle-outline';
+          this.isLogged = false;
+        });
+    },
+    deleteTokenFromHeader() {
+      window.axios.defaults.headers.common = {
+        Authorization: 'Bearer ', // delete token from header
+      };
     },
 
   },

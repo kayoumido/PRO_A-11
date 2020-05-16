@@ -13,7 +13,6 @@ Vue.mixin({
   data() {
     return {
       loggedUser: {},
-      isLogged: false,
     };
   },
   methods: {
@@ -22,15 +21,6 @@ Vue.mixin({
       return window.axios.get('/me')
         .then((response) => {
           this.loggedUser = response.data;
-          this.isLogged = true;
-          // eslint-disable-next-line no-console
-          console.log('set logged success');
-        })
-        .catch(() => {
-          this.loggedUser = {};
-          this.isLogged = false;
-          // eslint-disable-next-line no-console
-          console.log('set logged failed');
         });
     },
   },
