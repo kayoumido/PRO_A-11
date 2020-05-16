@@ -30,14 +30,11 @@ class PollController extends Controller
      */
     public function index(Request $request, Presentation $presentation)
     {
-        $res = PollResource::collection($presentation->polls);
-
-        // filter drafts for viewers
-        if ($res->count() > 0 && !$presentation->moderators()->contains($request->user())) {
-            $res = $presentation->nonDraftPolls();
+        if ($presentation->moderators()->contains($request->user())) {
+            return PollResource::collection($presentation->polls);
+        } else {
+            return PollResource::collection($presentation->nonDraftPolls());
         }
-
-        return $res;
     }
 
     /**
