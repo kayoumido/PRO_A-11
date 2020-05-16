@@ -65,7 +65,7 @@ export default {
             this.isLogged = false;
           } else {
             // the user is not logged in, he'll be redirected to login page
-            alert.showMessage('success', 'redirection pour login');
+            alert.showMessage('success', 'Redirection pour login');
             this.$router.replace({ name: 'Connexion' });
           }
         });
