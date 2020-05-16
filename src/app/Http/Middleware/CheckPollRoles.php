@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 
-class CheckPollRole
+class CheckPollRoles
 {
     /**
      * Handle an incoming request.
@@ -22,6 +22,7 @@ class CheckPollRole
 
         $req_presentation = $request->presentation == null ? $request->poll->presentation : $request->presentation;
         $obj_presentation = Auth::user()->presentations()->where('id', $req_presentation->id)->first();
+        $presentation = Presentation::find($request->poll->presentation->id)->first();
 
         if ($obj_presentation) {
             $user_role = $obj_presentation->pivot->role;
