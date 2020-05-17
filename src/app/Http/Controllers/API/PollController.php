@@ -150,7 +150,16 @@ class PollController extends Controller
      */
     public function results(Request $request, Poll $poll)
     {
-        return PollResource::collection($poll->users);
+        $res = array();
+
+        foreach ($poll->choices as $choice) {
+            array_push($res, array(
+                "choice_id" => $choice->id,
+                "votes" => count($poll->users()->where('choice_id', '=', $choice->id)->get()),
+            ));
+        }
+
+        return $res;
     }
 
     /**
