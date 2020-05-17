@@ -150,13 +150,13 @@ class PollController extends Controller
      */
     public function results(Request $request, Poll $poll)
     {
-        $res = array();
+        $res = [];
 
         foreach ($poll->choices as $choice) {
-            array_push($res, array(
-                "choice_id" => $choice->id,
-                "votes" => count($poll->users()->where('choice_id', '=', $choice->id)->get()),
-            ));
+            $res[] = [
+                'choice_id' => $choice->id,
+                'votes' => $poll->users()->where('choice_id', '=', $choice->id)->count()
+            ];
         }
 
         return $res;
