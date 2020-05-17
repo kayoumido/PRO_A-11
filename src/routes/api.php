@@ -48,12 +48,10 @@ Route::prefix('v1')->group(function () {
 
         // poll management
         Route::middleware(['poll.roles:' . App\User\Role::PRESENTER()])->group(function () {
-            Route::put('polls/{poll}', 'API\PollController@update')->name('polls.update');
+            Route::apiResource('polls', 'API\PresentationController')->only(['update'])->shallow();
             Route::put('polls/{poll}/publish', 'API\PollController@publish')->name('polls.publish');
             Route::get('polls/{poll}/results', 'API\PollController@results')->name('polls.results');
             Route::apiResource('polls.choices', 'API\ChoiceController')->only(['store'])->shallow();
-        });
-        Route::middleware(['poll.roles'])->group(function () {
         });
 
         // Choices management
