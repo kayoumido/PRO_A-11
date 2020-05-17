@@ -25,6 +25,112 @@ Welcome to the generated API reference.
 All routes that need authentication should contain a bearer token in the headers
 using the following synthax:<br>
 `Authorization: Bearer <token>`
+<!-- START_1a1bf5a3b78c8e2727d466dbb4ddd7e4 -->
+## Send an email to the user with the reset password link
+
+> Example request:
+
+```bash
+curl -X POST \
+    "http://localhost/api/v1/password/send-reset-email" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -H "Authorization: Bearer {token}" \
+    -d '{"email":"recusandae"}'
+
+```
+
+```javascript
+const url = new URL(
+    "http://localhost/api/v1/password/send-reset-email"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+    "Authorization": "Bearer {token}",
+};
+
+let body = {
+    "email": "recusandae"
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+    body: body
+})
+    .then(response => response.json())
+    .then(json => console.log(json));
+```
+
+
+
+### HTTP Request
+`POST api/v1/password/send-reset-email`
+
+#### Body Parameters
+Parameter | Type | Status | Description
+--------- | ------- | ------- | ------- | -----------
+    `email` | email |  required  | email of the user who makes the request
+    
+<!-- END_1a1bf5a3b78c8e2727d466dbb4ddd7e4 -->
+
+<!-- START_a62f1703e9fba891a3e20ff27854aac0 -->
+## Change the password
+
+> Example request:
+
+```bash
+curl -X POST \
+    "http://localhost/api/v1/password/reset" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -H "Authorization: Bearer {token}" \
+    -d '{"token":"magni","email":"aperiam","password":"numquam"}'
+
+```
+
+```javascript
+const url = new URL(
+    "http://localhost/api/v1/password/reset"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+    "Authorization": "Bearer {token}",
+};
+
+let body = {
+    "token": "magni",
+    "email": "aperiam",
+    "password": "numquam"
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+    body: body
+})
+    .then(response => response.json())
+    .then(json => console.log(json));
+```
+
+
+
+### HTTP Request
+`POST api/v1/password/reset`
+
+#### Body Parameters
+Parameter | Type | Status | Description
+--------- | ------- | ------- | ------- | -----------
+    `token` | string |  required  | token to validate the request
+        `email` | email |  required  | email of the user who wants to change is password
+        `password` | string |  required  | the new password for the user
+    
+<!-- END_a62f1703e9fba891a3e20ff27854aac0 -->
+
 <!-- START_8c0e48cd8efa861b308fc45872ff0837 -->
 ## Log the user in
 
@@ -36,7 +142,7 @@ curl -X POST \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
     -H "Authorization: Bearer {token}" \
-    -d '{"email":"aut","password":"a"}'
+    -d '{"email":"sunt","password":"maxime"}'
 
 ```
 
@@ -52,8 +158,8 @@ let headers = {
 };
 
 let body = {
-    "email": "aut",
-    "password": "a"
+    "email": "sunt",
+    "password": "maxime"
 }
 
 fetch(url, {
@@ -87,9 +193,8 @@ Parameter | Type | Status | Description
         `password` | string |  required  | the password related to the user
     
 <!-- END_8c0e48cd8efa861b308fc45872ff0837 -->
-
 <!-- START_8ae5d428da27b2b014dc767c2f19a813 -->
-## Create e new user account
+## Create a new user account
 
 > Example request:
 
@@ -99,7 +204,7 @@ curl -X POST \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
     -H "Authorization: Bearer {token}" \
-    -d '{"fname":"et","lname":"ut","email":"itaque","password":"explicabo"}'
+    -d '{"fname":"inventore","lname":"eveniet","email":"modi","password":"provident"}'
 
 ```
 
@@ -115,10 +220,10 @@ let headers = {
 };
 
 let body = {
-    "fname": "et",
-    "lname": "ut",
-    "email": "itaque",
-    "password": "explicabo"
+    "fname": "inventore",
+    "lname": "eveniet",
+    "email": "modi",
+    "password": "provident"
 }
 
 fetch(url, {
@@ -154,7 +259,6 @@ Parameter | Type | Status | Description
         `password` | string |  required  | User's password
     
 <!-- END_8ae5d428da27b2b014dc767c2f19a813 -->
-
 <!-- START_d58be746f29144cb8a66c4e189fcb1e1 -->
 ## Return the current authenticated information
 
@@ -193,12 +297,10 @@ fetch(url, {
 
 ```json
 {
-    "data": {
-        "id": 11,
-        "fname": "Fizz",
-        "lname": "Buzz",
-        "email": "fizz.buzz@example.com"
-    }
+    "id": 11,
+    "fname": "Fizz",
+    "lname": "Buzz",
+    "email": "fizz.buzz@example.com"
 }
 ```
 
@@ -260,7 +362,7 @@ fetch(url, {
 
 ```bash
 curl -X GET \
-    -G "http://localhost/api/v1/polls/rerum/choices" \
+    -G "http://localhost/api/v1/polls/cum/choices" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
     -H "Authorization: Bearer {token}"
@@ -268,7 +370,7 @@ curl -X GET \
 
 ```javascript
 const url = new URL(
-    "http://localhost/api/v1/polls/rerum/choices"
+    "http://localhost/api/v1/polls/cum/choices"
 );
 
 let headers = {
@@ -289,25 +391,23 @@ fetch(url, {
 > Example response (200):
 
 ```json
-{
-    "data": [
-        {
-            "id": 1,
-            "message": "Trump",
-            "poll_id": 2
-        },
-        {
-            "id": 2,
-            "message": "Obama",
-            "poll_id": 2
-        },
-        {
-            "id": 3,
-            "message": "LeroiJenkins",
-            "poll_id": 2
-        }
-    ]
-}
+[
+    {
+        "id": 1,
+        "message": "Trump",
+        "poll_id": 2
+    },
+    {
+        "id": 2,
+        "message": "Obama",
+        "poll_id": 2
+    },
+    {
+        "id": 3,
+        "message": "Leeroy Jenkins",
+        "poll_id": 2
+    }
+]
 ```
 
 ### HTTP Request
@@ -320,7 +420,6 @@ Parameter | Status | Description
     `poll` |  required  | id of the poll
 
 <!-- END_60a80cc241c6a08926ae5cb62645ac8d -->
-
 <!-- START_db09c59fb04bf48a331584b8b60206e2 -->
 ## Create a poll choice
 
@@ -329,17 +428,17 @@ Parameter | Status | Description
 
 ```bash
 curl -X POST \
-    "http://localhost/api/v1/polls/fuga/choices" \
+    "http://localhost/api/v1/polls/nulla/choices" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
     -H "Authorization: Bearer {token}" \
-    -d '{"message":"inventore"}'
+    -d '{"message":"nobis"}'
 
 ```
 
 ```javascript
 const url = new URL(
-    "http://localhost/api/v1/polls/fuga/choices"
+    "http://localhost/api/v1/polls/nulla/choices"
 );
 
 let headers = {
@@ -349,7 +448,7 @@ let headers = {
 };
 
 let body = {
-    "message": "inventore"
+    "message": "nobis"
 }
 
 fetch(url, {
@@ -366,11 +465,9 @@ fetch(url, {
 
 ```json
 {
-    "data": {
-        "id": 3,
-        "message": "LeroiJenkins",
-        "poll_id": 2
-    }
+    "id": 3,
+    "message": "Leeroy Jenkins",
+    "poll_id": 2
 }
 ```
 
@@ -388,7 +485,6 @@ Parameter | Type | Status | Description
     `message` | string |  required  | message corresponding to the choice
     
 <!-- END_db09c59fb04bf48a331584b8b60206e2 -->
-
 <!-- START_758ad1db5165188308a1821a01093f11 -->
 ## Update a poll choice
 
@@ -397,17 +493,17 @@ Parameter | Type | Status | Description
 
 ```bash
 curl -X PUT \
-    "http://localhost/api/v1/choices/repellat" \
+    "http://localhost/api/v1/choices/mollitia" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
     -H "Authorization: Bearer {token}" \
-    -d '{"message":"nostrum"}'
+    -d '{"message":"porro"}'
 
 ```
 
 ```javascript
 const url = new URL(
-    "http://localhost/api/v1/choices/repellat"
+    "http://localhost/api/v1/choices/mollitia"
 );
 
 let headers = {
@@ -417,7 +513,7 @@ let headers = {
 };
 
 let body = {
-    "message": "nostrum"
+    "message": "porro"
 }
 
 fetch(url, {
@@ -434,11 +530,9 @@ fetch(url, {
 
 ```json
 {
-    "data": {
-        "id": 3,
-        "message": "LeroiJenkins",
-        "poll_id": 2
-    }
+    "id": 3,
+    "message": "Leeroy Jenkins",
+    "poll_id": 2
 }
 ```
 
@@ -467,7 +561,7 @@ Parameter | Type | Status | Description
 
 ```bash
 curl -X DELETE \
-    "http://localhost/api/v1/choices/atque" \
+    "http://localhost/api/v1/choices/tempore" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
     -H "Authorization: Bearer {token}"
@@ -475,7 +569,7 @@ curl -X DELETE \
 
 ```javascript
 const url = new URL(
-    "http://localhost/api/v1/choices/atque"
+    "http://localhost/api/v1/choices/tempore"
 );
 
 let headers = {
@@ -513,17 +607,17 @@ Parameter | Status | Description
 
 ```bash
 curl -X POST \
-    "http://localhost/api/v1/polls/molestiae/users/enim" \
+    "http://localhost/api/v1/polls/et/users/omnis" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
     -H "Authorization: Bearer {token}" \
-    -d '{"choice_id":"hic"}'
+    -d '{"choice_id":"vero"}'
 
 ```
 
 ```javascript
 const url = new URL(
-    "http://localhost/api/v1/polls/molestiae/users/enim"
+    "http://localhost/api/v1/polls/et/users/omnis"
 );
 
 let headers = {
@@ -533,7 +627,7 @@ let headers = {
 };
 
 let body = {
-    "choice_id": "hic"
+    "choice_id": "vero"
 }
 
 fetch(url, {
@@ -574,7 +668,7 @@ Parameter | Type | Status | Description
 
 ```bash
 curl -X POST \
-    "http://localhost/api/v1/presentations/blanditiis/users/deleniti" \
+    "http://localhost/api/v1/presentations/officiis/users/ut" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
     -H "Authorization: Bearer {token}"
@@ -582,7 +676,7 @@ curl -X POST \
 
 ```javascript
 const url = new URL(
-    "http://localhost/api/v1/presentations/blanditiis/users/deleniti"
+    "http://localhost/api/v1/presentations/officiis/users/ut"
 );
 
 let headers = {
@@ -621,7 +715,7 @@ Parameter | Status | Description
 
 ```bash
 curl -X DELETE \
-    "http://localhost/api/v1/presentations/quae/users/ut" \
+    "http://localhost/api/v1/presentations/consequuntur/users/vel" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
     -H "Authorization: Bearer {token}"
@@ -629,7 +723,7 @@ curl -X DELETE \
 
 ```javascript
 const url = new URL(
-    "http://localhost/api/v1/presentations/quae/users/ut"
+    "http://localhost/api/v1/presentations/consequuntur/users/vel"
 );
 
 let headers = {
@@ -671,17 +765,17 @@ Parameter | Status | Description
 
 ```bash
 curl -X PUT \
-    "http://localhost/api/v1/presentations/eum/users/sequi" \
+    "http://localhost/api/v1/presentations/aut/users/molestiae" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
     -H "Authorization: Bearer {token}" \
-    -d '{"role":"rerum"}'
+    -d '{"role":"unde"}'
 
 ```
 
 ```javascript
 const url = new URL(
-    "http://localhost/api/v1/presentations/eum/users/sequi"
+    "http://localhost/api/v1/presentations/aut/users/molestiae"
 );
 
 let headers = {
@@ -691,7 +785,7 @@ let headers = {
 };
 
 let body = {
-    "role": "rerum"
+    "role": "unde"
 }
 
 fetch(url, {
@@ -732,7 +826,7 @@ Parameter | Type | Status | Description
 
 ```bash
 curl -X GET \
-    -G "http://localhost/api/v1/presentations/autem/polls" \
+    -G "http://localhost/api/v1/presentations/quo/polls" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
     -H "Authorization: Bearer {token}"
@@ -740,7 +834,7 @@ curl -X GET \
 
 ```javascript
 const url = new URL(
-    "http://localhost/api/v1/presentations/autem/polls"
+    "http://localhost/api/v1/presentations/quo/polls"
 );
 
 let headers = {
@@ -761,22 +855,20 @@ fetch(url, {
 > Example response (200):
 
 ```json
-{
-    "data": [
-        {
-            "id": 1,
-            "subject": "Prof.",
-            "status": "Texas",
-            "presentation_id": 1
-        },
-        {
-            "id": 2,
-            "subject": "Qui est le meilleur président",
-            "status": "draft",
-            "presentation_id": 4
-        }
-    ]
-}
+[
+    {
+        "id": 1,
+        "subject": "Prof.",
+        "status": "Texas",
+        "presentation_id": 1
+    },
+    {
+        "id": 2,
+        "subject": "Qui est le meilleur président",
+        "status": "draft",
+        "presentation_id": 4
+    }
+]
 ```
 
 ### HTTP Request
@@ -798,17 +890,17 @@ Parameter | Status | Description
 
 ```bash
 curl -X POST \
-    "http://localhost/api/v1/presentations/id/polls" \
+    "http://localhost/api/v1/presentations/necessitatibus/polls" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
     -H "Authorization: Bearer {token}" \
-    -d '{"subject":"nulla"}'
+    -d '{"subject":"voluptatem"}'
 
 ```
 
 ```javascript
 const url = new URL(
-    "http://localhost/api/v1/presentations/id/polls"
+    "http://localhost/api/v1/presentations/necessitatibus/polls"
 );
 
 let headers = {
@@ -818,7 +910,7 @@ let headers = {
 };
 
 let body = {
-    "subject": "nulla"
+    "subject": "voluptatem"
 }
 
 fetch(url, {
@@ -835,12 +927,10 @@ fetch(url, {
 
 ```json
 {
-    "data": {
-        "id": 2,
-        "subject": "Qui est le meilleur président",
-        "status": "draft",
-        "presentation_id": 4
-    }
+    "id": 2,
+    "subject": "Qui est le meilleur président",
+    "status": "draft",
+    "presentation_id": 4
 }
 ```
 
@@ -867,7 +957,7 @@ Parameter | Type | Status | Description
 
 ```bash
 curl -X GET \
-    -G "http://localhost/api/v1/polls/molestias" \
+    -G "http://localhost/api/v1/polls/esse" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
     -H "Authorization: Bearer {token}"
@@ -875,7 +965,7 @@ curl -X GET \
 
 ```javascript
 const url = new URL(
-    "http://localhost/api/v1/polls/molestias"
+    "http://localhost/api/v1/polls/esse"
 );
 
 let headers = {
@@ -897,12 +987,10 @@ fetch(url, {
 
 ```json
 {
-    "data": {
-        "id": 2,
-        "subject": "Qui est le meilleur président",
-        "status": "draft",
-        "presentation_id": 4
-    }
+    "id": 2,
+    "subject": "Qui est le meilleur président",
+    "status": "draft",
+    "presentation_id": 4
 }
 ```
 
@@ -925,17 +1013,17 @@ Parameter | Status | Description
 
 ```bash
 curl -X PUT \
-    "http://localhost/api/v1/polls/eius" \
+    "http://localhost/api/v1/polls/distinctio" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
     -H "Authorization: Bearer {token}" \
-    -d '{"subject":"molestiae"}'
+    -d '{"subject":"et"}'
 
 ```
 
 ```javascript
 const url = new URL(
-    "http://localhost/api/v1/polls/eius"
+    "http://localhost/api/v1/polls/distinctio"
 );
 
 let headers = {
@@ -945,7 +1033,7 @@ let headers = {
 };
 
 let body = {
-    "subject": "molestiae"
+    "subject": "et"
 }
 
 fetch(url, {
@@ -962,12 +1050,10 @@ fetch(url, {
 
 ```json
 {
-    "data": {
-        "id": 2,
-        "subject": "Qui est le meilleur président",
-        "status": "draft",
-        "presentation_id": 4
-    }
+    "id": 2,
+    "subject": "Qui est le meilleur président",
+    "status": "draft",
+    "presentation_id": 4
 }
 ```
 
@@ -996,7 +1082,7 @@ Parameter | Type | Status | Description
 
 ```bash
 curl -X DELETE \
-    "http://localhost/api/v1/polls/id" \
+    "http://localhost/api/v1/polls/et" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
     -H "Authorization: Bearer {token}"
@@ -1004,7 +1090,7 @@ curl -X DELETE \
 
 ```javascript
 const url = new URL(
-    "http://localhost/api/v1/polls/id"
+    "http://localhost/api/v1/polls/et"
 );
 
 let headers = {
@@ -1072,12 +1158,10 @@ fetch(url, {
 
 ```json
 {
-    "data": {
-        "id": 2,
-        "subject": "Qui est le meilleur président",
-        "status": "draft",
-        "presentation_id": 4
-    }
+    "id": 2,
+    "subject": "Qui est le meilleur président",
+    "status": "draft",
+    "presentation_id": 4
 }
 ```
 
@@ -1095,7 +1179,7 @@ fetch(url, {
 
 ```bash
 curl -X GET \
-    -G "http://localhost/api/v1/polls/natus/results" \
+    -G "http://localhost/api/v1/polls/optio/results" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
     -H "Authorization: Bearer {token}"
@@ -1103,7 +1187,7 @@ curl -X GET \
 
 ```javascript
 const url = new URL(
-    "http://localhost/api/v1/polls/natus/results"
+    "http://localhost/api/v1/polls/optio/results"
 );
 
 let headers = {
@@ -1124,22 +1208,20 @@ fetch(url, {
 > Example response (200):
 
 ```json
-{
-    "data": [
-        {
-            "choice_id": 1,
-            "votes": 13
-        },
-        {
-            "choice_id": 2,
-            "votes": 25
-        },
-        {
-            "choice_id": 3,
-            "votes": 2
-        }
-    ]
-}
+[
+    {
+        "choice_id": 1,
+        "votes": 13
+    },
+    {
+        "choice_id": 2,
+        "votes": 25
+    },
+    {
+        "choice_id": 3,
+        "votes": 2
+    }
+]
 ```
 
 ### HTTP Request
@@ -1156,6 +1238,82 @@ Parameter | Status | Description
 #Presentations management
 
 
+<!-- START_e96335a14a712c3589807d07a2b53adb -->
+## Search for a presentation
+
+<br><small style="padding: 1px 9px 2px;font-weight: bold;white-space: nowrap;color: #ffffff;-webkit-border-radius: 9px;-moz-border-radius: 9px;border-radius: 9px;background-color: #3a87ad;">Requires authentication</small>
+> Example request:
+
+```bash
+curl -X GET \
+    -G "http://localhost/api/v1/presentations/search?keywords=explicabo" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -H "Authorization: Bearer {token}"
+```
+
+```javascript
+const url = new URL(
+    "http://localhost/api/v1/presentations/search"
+);
+
+let params = {
+    "keywords": "explicabo",
+};
+Object.keys(params)
+    .forEach(key => url.searchParams.append(key, params[key]));
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+    "Authorization": "Bearer {token}",
+};
+
+fetch(url, {
+    method: "GET",
+    headers: headers,
+})
+    .then(response => response.json())
+    .then(json => console.log(json));
+```
+
+
+> Example response (200):
+
+```json
+[
+    {
+        "id": 5,
+        "title": "Quel est la place de la communication au sein de notre société",
+        "date": "2010-04-02 12:23",
+        "conference_id": 3
+    },
+    {
+        "id": 20,
+        "title": "Est-ce que les lions sont végétariens",
+        "date": "2010-02-02 17:00",
+        "conference_id": 3
+    },
+    {
+        "id": 37,
+        "title": "Quel est le vrai rôle des moustiques dans l'écosystème",
+        "date": "2010-03-02 10:15",
+        "conference_id": 3
+    }
+]
+```
+
+### HTTP Request
+`GET api/v1/presentations/search`
+
+#### Query Parameters
+
+Parameter | Status | Description
+--------- | ------- | ------- | -----------
+    `keywords` |  required  | Keywords to search
+
+<!-- END_e96335a14a712c3589807d07a2b53adb -->
+
 <!-- START_b88e9ba7b4015e12b6b73a5b328ee5ac -->
 ## List all presentations related to a user
 
@@ -1164,7 +1322,7 @@ Parameter | Status | Description
 
 ```bash
 curl -X GET \
-    -G "http://localhost/api/v1/users/architecto/presentations" \
+    -G "http://localhost/api/v1/users/et/presentations" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
     -H "Authorization: Bearer {token}"
@@ -1172,7 +1330,7 @@ curl -X GET \
 
 ```javascript
 const url = new URL(
-    "http://localhost/api/v1/users/architecto/presentations"
+    "http://localhost/api/v1/users/et/presentations"
 );
 
 let headers = {
@@ -1193,28 +1351,26 @@ fetch(url, {
 > Example response (200):
 
 ```json
-{
-    "data": [
-        {
-            "id": 5,
-            "title": "Quel est la place de la communication au sein de notre société",
-            "date": "2010-04-02 12:23",
-            "conference_id": 3
-        },
-        {
-            "id": 20,
-            "title": "Est-ce que les lions sont végétariens",
-            "date": "2010-02-02 17:00",
-            "conference_id": 3
-        },
-        {
-            "id": 37,
-            "title": "Quel est le vrai rôle des moustiques dans l'écosystème",
-            "date": "2010-03-02 10:15",
-            "conference_id": 3
-        }
-    ]
-}
+[
+    {
+        "id": 5,
+        "title": "Quel est la place de la communication au sein de notre société",
+        "date": "2010-04-02 12:23",
+        "conference_id": 3
+    },
+    {
+        "id": 20,
+        "title": "Est-ce que les lions sont végétariens",
+        "date": "2010-02-02 17:00",
+        "conference_id": 3
+    },
+    {
+        "id": 37,
+        "title": "Quel est le vrai rôle des moustiques dans l'écosystème",
+        "date": "2010-03-02 10:15",
+        "conference_id": 3
+    }
+]
 ```
 
 ### HTTP Request
@@ -1236,17 +1392,17 @@ Parameter | Status | Description
 
 ```bash
 curl -X POST \
-    "http://localhost/api/v1/users/assumenda/presentations" \
+    "http://localhost/api/v1/users/facilis/presentations" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
     -H "Authorization: Bearer {token}" \
-    -d '{"title":"non","date":"debitis"}'
+    -d '{"title":"recusandae","date":"laudantium"}'
 
 ```
 
 ```javascript
 const url = new URL(
-    "http://localhost/api/v1/users/assumenda/presentations"
+    "http://localhost/api/v1/users/facilis/presentations"
 );
 
 let headers = {
@@ -1256,8 +1412,8 @@ let headers = {
 };
 
 let body = {
-    "title": "non",
-    "date": "debitis"
+    "title": "recusandae",
+    "date": "laudantium"
 }
 
 fetch(url, {
@@ -1274,12 +1430,10 @@ fetch(url, {
 
 ```json
 {
-    "data": {
-        "id": 5,
-        "title": "Quel est la place de la communication au sein de notre société",
-        "date": "2010-04-02 12:23",
-        "conference_id": 3
-    }
+    "id": 5,
+    "title": "Quel est la place de la communication au sein de notre société",
+    "date": "2010-04-02 12:23",
+    "conference_id": 3
 }
 ```
 
@@ -1307,7 +1461,7 @@ Parameter | Type | Status | Description
 
 ```bash
 curl -X GET \
-    -G "http://localhost/api/v1/presentations/aut" \
+    -G "http://localhost/api/v1/presentations/beatae" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
     -H "Authorization: Bearer {token}"
@@ -1315,7 +1469,7 @@ curl -X GET \
 
 ```javascript
 const url = new URL(
-    "http://localhost/api/v1/presentations/aut"
+    "http://localhost/api/v1/presentations/beatae"
 );
 
 let headers = {
@@ -1337,12 +1491,10 @@ fetch(url, {
 
 ```json
 {
-    "data": {
-        "id": 5,
-        "title": "Quel est la place de la communication au sein de notre société",
-        "date": "2010-04-02 12:23",
-        "conference_id": 3
-    }
+    "id": 5,
+    "title": "Quel est la place de la communication au sein de notre société",
+    "date": "2010-04-02 12:23",
+    "conference_id": 3
 }
 ```
 
@@ -1365,17 +1517,17 @@ Parameter | Status | Description
 
 ```bash
 curl -X PUT \
-    "http://localhost/api/v1/presentations/autem" \
+    "http://localhost/api/v1/presentations/et" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
     -H "Authorization: Bearer {token}" \
-    -d '{"title":"qui","date":"quia"}'
+    -d '{"title":"est","date":"recusandae"}'
 
 ```
 
 ```javascript
 const url = new URL(
-    "http://localhost/api/v1/presentations/autem"
+    "http://localhost/api/v1/presentations/et"
 );
 
 let headers = {
@@ -1385,8 +1537,8 @@ let headers = {
 };
 
 let body = {
-    "title": "qui",
-    "date": "quia"
+    "title": "est",
+    "date": "recusandae"
 }
 
 fetch(url, {
@@ -1403,12 +1555,10 @@ fetch(url, {
 
 ```json
 {
-    "data": {
-        "id": 5,
-        "title": "Quel est la place de la communication au sein de notre société",
-        "date": "2010-04-02 12:23",
-        "conference_id": 3
-    }
+    "id": 5,
+    "title": "Quel est la place de la communication au sein de notre société",
+    "date": "2010-04-02 12:23",
+    "conference_id": 3
 }
 ```
 
@@ -1438,7 +1588,7 @@ Parameter | Type | Status | Description
 
 ```bash
 curl -X DELETE \
-    "http://localhost/api/v1/presentations/voluptate" \
+    "http://localhost/api/v1/presentations/vel" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
     -H "Authorization: Bearer {token}"
@@ -1446,7 +1596,7 @@ curl -X DELETE \
 
 ```javascript
 const url = new URL(
-    "http://localhost/api/v1/presentations/voluptate"
+    "http://localhost/api/v1/presentations/vel"
 );
 
 let headers = {
@@ -1475,84 +1625,6 @@ Parameter | Status | Description
     `presentation` |  required  | Presentation id
 
 <!-- END_d75bb5a606d83d55cff58d40d188d6f7 -->
-
-<!-- START_e96335a14a712c3589807d07a2b53adb -->
-## Search for a presentation
-
-<br><small style="padding: 1px 9px 2px;font-weight: bold;white-space: nowrap;color: #ffffff;-webkit-border-radius: 9px;-moz-border-radius: 9px;border-radius: 9px;background-color: #3a87ad;">Requires authentication</small>
-> Example request:
-
-```bash
-curl -X GET \
-    -G "http://localhost/api/v1/presentations/search?keywords=exercitationem" \
-    -H "Content-Type: application/json" \
-    -H "Accept: application/json" \
-    -H "Authorization: Bearer {token}"
-```
-
-```javascript
-const url = new URL(
-    "http://localhost/api/v1/presentations/search"
-);
-
-let params = {
-    "keywords": "exercitationem",
-};
-Object.keys(params)
-    .forEach(key => url.searchParams.append(key, params[key]));
-
-let headers = {
-    "Content-Type": "application/json",
-    "Accept": "application/json",
-    "Authorization": "Bearer {token}",
-};
-
-fetch(url, {
-    method: "GET",
-    headers: headers,
-})
-    .then(response => response.json())
-    .then(json => console.log(json));
-```
-
-
-> Example response (200):
-
-```json
-{
-    "data": [
-        {
-            "id": 5,
-            "title": "Quel est la place de la communication au sein de notre société",
-            "date": "2010-04-02 12:23",
-            "conference_id": 3
-        },
-        {
-            "id": 20,
-            "title": "Est-ce que les lions sont végétariens",
-            "date": "2010-02-02 17:00",
-            "conference_id": 3
-        },
-        {
-            "id": 37,
-            "title": "Quel est le vrai rôle des moustiques dans l'écosystème",
-            "date": "2010-03-02 10:15",
-            "conference_id": 3
-        }
-    ]
-}
-```
-
-### HTTP Request
-`GET api/v1/presentations/search`
-
-#### Query Parameters
-
-Parameter | Status | Description
---------- | ------- | ------- | -----------
-    `keywords` |  required  | Keywords to search
-
-<!-- END_e96335a14a712c3589807d07a2b53adb -->
 
 #User Management
 
@@ -1595,12 +1667,10 @@ fetch(url, {
 
 ```json
 {
-    "data": {
-        "id": 11,
-        "fname": "Fizz",
-        "lname": "Buzz",
-        "email": "fizz.buzz@example.com"
-    }
+    "id": 11,
+    "fname": "Fizz",
+    "lname": "Buzz",
+    "email": "fizz.buzz@example.com"
 }
 ```
 

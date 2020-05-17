@@ -2,7 +2,7 @@
     "variables": [],
     "info": {
         "name": "Paul API",
-        "_postman_id": "4dd0859e-cf6a-49af-aa82-415d132b3cdb",
+        "_postman_id": "2acfcafe-6580-49c6-b3bc-8f6d024106a1",
         "description": "",
         "schema": "https:\/\/schema.getpostman.com\/json\/collection\/v2.0.0\/collection.json"
     },
@@ -11,6 +11,70 @@
             "name": "Authentication",
             "description": "All routes that need authentication should contain a bearer token in the headers\nusing the following synthax:<br>\n`Authorization: Bearer <token>`",
             "item": [
+                {
+                    "name": "Send an email to the user with the reset password link",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "localhost",
+                            "path": "api\/v1\/password\/send-reset-email",
+                            "query": []
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {token}"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"email\": \"recusandae\"\n}"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Change the password",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "localhost",
+                            "path": "api\/v1\/password\/reset",
+                            "query": []
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {token}"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"token\": \"magni\",\n    \"email\": \"aperiam\",\n    \"password\": \"numquam\"\n}"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
                 {
                     "name": "Log the user in",
                     "request": {
@@ -37,14 +101,14 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"email\": \"aut\",\n    \"password\": \"a\"\n}"
+                            "raw": "{\n    \"email\": \"at\",\n    \"password\": \"nam\"\n}"
                         },
                         "description": "",
                         "response": []
                     }
                 },
                 {
-                    "name": "Create e new user account",
+                    "name": "Create a new user account",
                     "request": {
                         "url": {
                             "protocol": "http",
@@ -69,7 +133,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"fname\": \"et\",\n    \"lname\": \"ut\",\n    \"email\": \"itaque\",\n    \"password\": \"explicabo\"\n}"
+                            "raw": "{\n    \"fname\": \"quis\",\n    \"lname\": \"id\",\n    \"email\": \"atque\",\n    \"password\": \"atque\"\n}"
                         },
                         "description": "",
                         "response": []
@@ -157,7 +221,7 @@
                                 {
                                     "id": "poll",
                                     "key": "poll",
-                                    "value": "rerum",
+                                    "value": "at",
                                     "description": "id of the poll"
                                 }
                             ]
@@ -197,7 +261,7 @@
                                 {
                                     "id": "poll",
                                     "key": "poll",
-                                    "value": "fuga",
+                                    "value": "quia",
                                     "description": "id of the linked poll"
                                 }
                             ]
@@ -219,7 +283,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"message\": \"inventore\"\n}"
+                            "raw": "{\n    \"message\": \"animi\"\n}"
                         },
                         "description": "",
                         "response": []
@@ -237,7 +301,7 @@
                                 {
                                     "id": "choice",
                                     "key": "choice",
-                                    "value": "repellat",
+                                    "value": "mollitia",
                                     "description": "Id of the choice to update"
                                 }
                             ]
@@ -259,7 +323,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"message\": \"nostrum\"\n}"
+                            "raw": "{\n    \"message\": \"porro\"\n}"
                         },
                         "description": "",
                         "response": []
@@ -277,7 +341,7 @@
                                 {
                                     "id": "choice",
                                     "key": "choice",
-                                    "value": "atque",
+                                    "value": "tempore",
                                     "description": "Id of the choice to delete"
                                 }
                             ]
@@ -317,13 +381,13 @@
                                 {
                                     "id": "poll",
                                     "key": "poll",
-                                    "value": "molestiae",
+                                    "value": "et",
                                     "description": "Poll id for the vote"
                                 },
                                 {
                                     "id": "user",
                                     "key": "user",
-                                    "value": "enim",
+                                    "value": "omnis",
                                     "description": "User id for the vote"
                                 }
                             ]
@@ -345,7 +409,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"choice_id\": \"hic\"\n}"
+                            "raw": "{\n    \"choice_id\": \"vero\"\n}"
                         },
                         "description": "",
                         "response": []
@@ -369,13 +433,13 @@
                                 {
                                     "id": "presentation",
                                     "key": "presentation",
-                                    "value": "blanditiis",
+                                    "value": "officiis",
                                     "description": "Presentation id"
                                 },
                                 {
                                     "id": "user",
                                     "key": "user",
-                                    "value": "deleniti",
+                                    "value": "ut",
                                     "description": "User id"
                                 }
                             ]
@@ -415,13 +479,13 @@
                                 {
                                     "id": "presentation",
                                     "key": "presentation",
-                                    "value": "quae",
+                                    "value": "consequuntur",
                                     "description": "Presentation id"
                                 },
                                 {
                                     "id": "user",
                                     "key": "user",
-                                    "value": "ut",
+                                    "value": "vel",
                                     "description": "User id"
                                 }
                             ]
@@ -467,13 +531,13 @@
                                 {
                                     "id": "presentation",
                                     "key": "presentation",
-                                    "value": "eum",
+                                    "value": "aut",
                                     "description": "Presentation id"
                                 },
                                 {
                                     "id": "user",
                                     "key": "user",
-                                    "value": "sequi",
+                                    "value": "molestiae",
                                     "description": "User id"
                                 }
                             ]
@@ -495,7 +559,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"role\": \"rerum\"\n}"
+                            "raw": "{\n    \"role\": \"unde\"\n}"
                         },
                         "description": "",
                         "response": []
@@ -519,7 +583,7 @@
                                 {
                                     "id": "presentation",
                                     "key": "presentation",
-                                    "value": "autem",
+                                    "value": "quo",
                                     "description": "Id of the presentation"
                                 }
                             ]
@@ -559,7 +623,7 @@
                                 {
                                     "id": "presentation",
                                     "key": "presentation",
-                                    "value": "id",
+                                    "value": "necessitatibus",
                                     "description": "Id of the presentation"
                                 }
                             ]
@@ -581,7 +645,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"subject\": \"nulla\"\n}"
+                            "raw": "{\n    \"subject\": \"voluptatem\"\n}"
                         },
                         "description": "",
                         "response": []
@@ -599,7 +663,7 @@
                                 {
                                     "id": "poll",
                                     "key": "poll",
-                                    "value": "molestias",
+                                    "value": "esse",
                                     "description": "Poll id"
                                 }
                             ]
@@ -639,7 +703,7 @@
                                 {
                                     "id": "poll",
                                     "key": "poll",
-                                    "value": "eius",
+                                    "value": "distinctio",
                                     "description": "Poll id"
                                 }
                             ]
@@ -661,7 +725,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"subject\": \"molestiae\"\n}"
+                            "raw": "{\n    \"subject\": \"et\"\n}"
                         },
                         "description": "",
                         "response": []
@@ -679,7 +743,7 @@
                                 {
                                     "id": "poll",
                                     "key": "poll",
-                                    "value": "id",
+                                    "value": "et",
                                     "description": "Poll id"
                                 }
                             ]
@@ -751,7 +815,7 @@
                                 {
                                     "id": "poll",
                                     "key": "poll",
-                                    "value": "natus",
+                                    "value": "optio",
                                     "description": "Poll id"
                                 }
                             ]
@@ -786,6 +850,45 @@
             "description": "",
             "item": [
                 {
+                    "name": "Search for a presentation",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "localhost",
+                            "path": "api\/v1\/presentations\/search",
+                            "query": [
+                                {
+                                    "key": "keywords",
+                                    "value": "explicabo",
+                                    "description": "Keywords to search",
+                                    "disabled": false
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {token}"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
                     "name": "List all presentations related to a user",
                     "request": {
                         "url": {
@@ -797,7 +900,7 @@
                                 {
                                     "id": "user",
                                     "key": "user",
-                                    "value": "architecto",
+                                    "value": "et",
                                     "description": "User id"
                                 }
                             ]
@@ -837,7 +940,7 @@
                                 {
                                     "id": "user",
                                     "key": "user",
-                                    "value": "assumenda",
+                                    "value": "facilis",
                                     "description": "User id"
                                 }
                             ]
@@ -859,7 +962,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"title\": \"non\",\n    \"date\": \"debitis\"\n}"
+                            "raw": "{\n    \"title\": \"recusandae\",\n    \"date\": \"laudantium\"\n}"
                         },
                         "description": "",
                         "response": []
@@ -877,7 +980,7 @@
                                 {
                                     "id": "presentation",
                                     "key": "presentation",
-                                    "value": "aut",
+                                    "value": "beatae",
                                     "description": "Presentation id"
                                 }
                             ]
@@ -917,7 +1020,7 @@
                                 {
                                     "id": "presentation",
                                     "key": "presentation",
-                                    "value": "autem",
+                                    "value": "et",
                                     "description": "Presentation id"
                                 }
                             ]
@@ -939,7 +1042,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"title\": \"qui\",\n    \"date\": \"quia\"\n}"
+                            "raw": "{\n    \"title\": \"est\",\n    \"date\": \"recusandae\"\n}"
                         },
                         "description": "",
                         "response": []
@@ -957,51 +1060,12 @@
                                 {
                                     "id": "presentation",
                                     "key": "presentation",
-                                    "value": "voluptate",
+                                    "value": "vel",
                                     "description": "Presentation id"
                                 }
                             ]
                         },
                         "method": "DELETE",
-                        "header": [
-                            {
-                                "key": "Content-Type",
-                                "value": "application\/json"
-                            },
-                            {
-                                "key": "Accept",
-                                "value": "application\/json"
-                            },
-                            {
-                                "key": "Authorization",
-                                "value": "Bearer {token}"
-                            }
-                        ],
-                        "body": {
-                            "mode": "raw",
-                            "raw": "[]"
-                        },
-                        "description": "",
-                        "response": []
-                    }
-                },
-                {
-                    "name": "Search for a presentation",
-                    "request": {
-                        "url": {
-                            "protocol": "http",
-                            "host": "localhost",
-                            "path": "api\/v1\/presentations\/search",
-                            "query": [
-                                {
-                                    "key": "keywords",
-                                    "value": "exercitationem",
-                                    "description": "Keywords to search",
-                                    "disabled": false
-                                }
-                            ]
-                        },
-                        "method": "GET",
                         "header": [
                             {
                                 "key": "Content-Type",

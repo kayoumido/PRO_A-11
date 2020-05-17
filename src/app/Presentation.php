@@ -2,14 +2,31 @@
 
 namespace App;
 
+use Laravel\Scout\Searchable;
 use Illuminate\Database\Eloquent\Model;
 use App\Poll\PollStatuses;
+use App\User\Role;
 
 class Presentation extends Model
 {
+    use Searchable;
+
     public $timestamps = false;
 
     protected $fillable = ['title', 'date', 'conference_id'];
+
+    public function searchableAs()
+    {
+        return 'presentations_index';
+    }
+
+    public function toSearchableArray()
+    {
+        return [
+            'id' => $this->id,
+            'title' => $this->title,
+       ];
+    }
 
     /**
      * The conference of this presentation
@@ -44,5 +61,12 @@ class Presentation extends Model
      */
     public function nonDraftPolls() {
         return $this->polls()->where('status', '!=', PollStatuses::DRAFT())->get();
+    }
+
+    /*
+     * List of users moderation the presentation (presenters included)
+     */
+    public function moderators() {
+        return $this->users()->where('role', Role::PRESENTER())->get();
     }
 }

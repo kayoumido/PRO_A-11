@@ -19,7 +19,7 @@ class CreatePresentationUserTable extends Migration
             $table->string('role');
             $table->dateTime('banned_until')->nullable();
 
-            $table->index(['presentation_id', 'user_id']);
+            $table->primary(['presentation_id', 'user_id']);
 
 
             $table->foreign('presentation_id')

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\PresentationResource;
 use App\Presentation;
 use App\User;
+use App\User\Role;
 use Illuminate\Http\Request;
 
 /**
@@ -57,7 +58,7 @@ class PresentationController extends Controller
                 'date'
             ]),
             [
-                'role' => 'presenter'
+                'role' => Role::PRESENTER()
             ]
         );
 
@@ -95,7 +96,13 @@ class PresentationController extends Controller
      */
     public function update(Request $request, Presentation $presentation)
     {
-        //
+        $request->validate([
+            'title' => 'required_without_all:date|string',
+            'date' => 'required_without_all:title|date',
+        ]);
+
+        $presentation->update($request->only(['title', 'date']));
+        return new PresentationResource($presentation);
     }
 
     /**
@@ -108,7 +115,7 @@ class PresentationController extends Controller
      */
     public function destroy(Presentation $presentation)
     {
-        //
+        $presentation->delete();
     }
 
     /**
@@ -123,6 +130,12 @@ class PresentationController extends Controller
      */
     public function search(Request $request)
     {
-        //
+        $request->validate([
+            'keywords' => 'required'
+        ]);
+
+        return PresentationResource::collection(
+            Presentation::search($request->get('keywords'))->get()
+        );
     }
 }
