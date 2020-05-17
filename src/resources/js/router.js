@@ -58,7 +58,7 @@ const router = new VueRouter({
       component: ResetPassword,
     },
     {
-      path: '/presentation/modifier/:idPresentation',
+      path: '/presentation/:idPresentation/modifier',
       name: 'Edition de présentation',
       component: EditPresentation,
     },

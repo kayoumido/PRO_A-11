@@ -10,10 +10,18 @@
             label="Titre"
       />
 
-      <v-text-field
-            v-model="updatePresentationInfo.date"
-            label="Date"
-      />
+      <v-datetime-picker
+        label="Date et Heure"
+        v-model="updatePresentationInfo.date"
+        clearText="annuler"
+      >
+        <template slot="dateIcon">
+          <v-icon>mdi-calendar</v-icon>
+        </template>
+        <template slot="timeIcon">
+          <v-icon>mdi-clock</v-icon>
+        </template>
+      </v-datetime-picker>
 
       <v-btn
             :disabled="!valid"
@@ -37,7 +45,7 @@
           (v) => v === '' || (v && v.length <= 20) || 'Le titre doit contenir moins de 20 caractères',
         ],
         updatePresentationInfo: {
-          date: new Date(),
+          date: null,
           title: '',
        },
       };
@@ -47,44 +55,17 @@
     },
     methods: {
       submitChange() {
-        const data = this.getDataToSend();
+        const data = this.updatePresentationInfo;
         const apiUrl = `presentations/${this.$route.params.idPresentation}`;
-
-        // Check if the object is Empty
-        if (Object.keys(data).length === 0) {
-          alert.showMessage('error', 'Vous devez remplir au moins un champs');
-          return;
-        }
 
         // sends credentials to backend
         window.axios.put(apiUrl, data)
         .then((response) => {
-          alert.showMessage('success', 'Les informations de la présentation ont été modifiés');
-          this.cleanForm();
+          alert.showMessage('success', 'Les informations de la présentation ont été modifiées');
          })
         .catch((error) => {
-        alert.showMessage('error', `Nous n'avons pas réussi à appliqurer les changements`);
+        alert.showMessage('error', `Nous n'avons pas réussi à appliquer les changements`);
         });
-      },
-      /**
-       * Prepare the data object for sending to the backend
-       * add a key only if the field is not empty
-       */
-      getDataToSend() {
-        const data = {};
-        // we add the key and value if user has change the field
-        if (!this.isEmpty(this.updatePresentationInfo.title)) {
-          data.title = this.updatePresentationInfo.title;
-        }
-        if (!this.isEmpty(this.updatePresentationInfo.date)) {
-          data.date = this.updatePresentationInfo.date;
-        }
-
-        return data;
-      },
-      cleanForm() {
-        this.updateUserInfo.title = '';
-        this.updateUserInfo.date = '';
       },
       isEmpty(textInput) {
         return (textInput === '');
