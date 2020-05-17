@@ -63,10 +63,13 @@ export default {
               });
             this.icon = 'mdi-account-circle-outline';
             this.isLogged = false;
+            this.$router.go(0); // this is a disgusting hack, it forces a refresh, and as
+            // our "current page" is the root, well it goes back to it
+            // This is to correctly update the side bar if we unlog
           } else {
             // the user is not logged in, he'll be redirected to login page
             alert.showMessage('success', 'Redirection pour login');
-            this.$router.replace({ name: 'Connexion' });
+            this.$router.push({ name: 'Accueil' });
           }
         });
     },

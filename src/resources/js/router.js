@@ -9,6 +9,7 @@ import AccountEdition from './components/AccountEdit';
 import AccountCreation from './components/AccountCreation';
 import Reset from './components/Reset';
 import ResetPassword from './components/ResetPassword';
+import NotAuthHome from './components/NotAuthHome';
 
 Vue.use(VueRouter);
 
@@ -94,6 +95,12 @@ const router = new VueRouter({
       path: '/reset-password/:token',
       name: 'Redéfinir mot de passe',
       component: ResetPassword,
+      beforeEnter: notAuthenticatedOnly,
+    },
+    {
+      path: '/home',
+      name: 'Accueil',
+      component: NotAuthHome,
       beforeEnter: notAuthenticatedOnly,
     },
   ],
