@@ -35,6 +35,8 @@
 </template>
 
 <script>
+import dateFormat from 'dateformat';
+
   let alert = {};
   export default {
     props: ['parentRefs'],
@@ -45,7 +47,7 @@
           (v) => v === '' || (v && v.length <= 20) || 'Le titre doit contenir moins de 20 caractères',
         ],
         updatePresentationInfo: {
-          date: '',
+          date: '' ,
           title: '',
        },
       };
@@ -56,7 +58,7 @@
       window.axios
         .get(`presentations/${this.$route.params.idPresentation}`)
         .then((response) =>{
-          // this.updatePresentationInfo.date = response.data.date;
+          this.updatePresentationInfo.date = dateFormat(response.data.date, 'yyyy-mm-dd HH:MM');
           this.updatePresentationInfo.title = response.data.title;
         })
         .catch(() => {
@@ -69,7 +71,10 @@
         const apiUrl = `presentations/${this.$route.params.idPresentation}`;
 
         // sends credentials to backend
-        window.axios.put(apiUrl, data)
+        window.axios.put(apiUrl, {
+          title: this.updatePresentationInfo.title,
+          date: dateFormat(this.updatePresentationInfo.date, 'yyyy-mm-dd HH:MM'),
+        })
         .then((response) => {
           alert.showMessage('success', 'Les informations de la présentation ont été modifiées');
          })
