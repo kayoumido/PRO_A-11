@@ -11,6 +11,26 @@
       label="Thème"
     />
 
+    <v-text-field
+      v-model="createPoll.choice1"
+      label="choix 1"
+    />
+
+    <v-text-field
+      v-model="createPoll.choice2"
+      label="choix 2"
+    />
+
+    <v-text-field
+      v-model="createPoll.choice3"
+      label="choix 3"
+    />
+
+    <v-text-field
+      v-model="createPoll.choice4"
+      label="choix 4"
+    />
+
     <v-btn
       :disabled="!valid"
       color="success"
@@ -36,6 +56,10 @@ export default {
       // Object for form field binding
       createPoll: {
         subject: '',
+        choice1: '',
+        choice2: '',
+        choice3: '',
+        choice4: '',
       },
     };
   },
@@ -52,11 +76,28 @@ export default {
       window.axios.post(apiUrl, data)
         .then((response) => {
           alert.showMessage('success', 'Sondage créé');
-          this.$router.push({ name: 'Login' });
         })
         .catch((errorResponse) => {
           alert.showMessage('error', `Problème lors de la création du sondage`);
         });
+
+      Window.axios.get(apiUrl, data)
+        .then((response) => {
+          apiUrl = 'polls/${this.response.id}/choices'
+        })
+        .catch((errorResponse) => {
+          alert.showMessage('error', `Problème lors de la création du sondage`);
+        });
+
+      Window.axios.post(apiUrl, data)
+        .then((response) => {
+          const pollId = response.id;
+        })
+        .catch((errorResponse) => {
+          alert.showMessage('error', `Problème lors de la création du sondage`);
+        });
+
+
     },
   },
 };
