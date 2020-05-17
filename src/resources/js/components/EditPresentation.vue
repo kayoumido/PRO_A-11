@@ -45,13 +45,23 @@
           (v) => v === '' || (v && v.length <= 20) || 'Le titre doit contenir moins de 20 caractères',
         ],
         updatePresentationInfo: {
-          date: null,
+          date: '',
           title: '',
        },
       };
     },
     beforeMount() {    
       alert = this.parentRefs.alert;
+      
+      window.axios
+        .get(`presentations/${this.$route.params.idPresentation}`)
+        .then((response) =>{
+          // this.updatePresentationInfo.date = response.data.date;
+          this.updatePresentationInfo.title = response.data.title;
+        })
+        .catch(() => {
+          alert.showMessage('error', 'Oops une erreur est survenue lors du traitement de votre demande');
+        })
     },
     methods: {
       submitChange() {
