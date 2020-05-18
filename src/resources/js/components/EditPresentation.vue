@@ -37,54 +37,50 @@
 <script>
 import dateFormat from 'dateformat';
 
-  let alert = {};
-  export default {
-    props: ['parentRefs'],
-    data() {
-      return {
-        valid: true,
-        titleRules: [
-          (v) => v === '' || (v && v.length <= 20) || 'Le titre doit contenir moins de 20 caractères',
-        ],
-        updatePresentationInfo: {
-          date: '' ,
-          title: '',
-       },
-      };
-    },
-    beforeMount() {    
-      alert = this.parentRefs.alert;
-      
-      window.axios
-        .get(`presentations/${this.$route.params.idPresentation}`)
-        .then((response) =>{ 
-          this.updatePresentationInfo.title = response.data.title;
-          this.updatePresentationInfo.date = dateFormat(response.data.date, 'yyyy-mm-dd HH:MM');
+let alert = {};
+export default {
+  props: ['parentRefs'],
+  data() {
+    return {
+      valid: true,
+      titleRules: [
+        (v) => v === '' || (v && v.length <= 20) || 'Le titre doit contenir moins de 20 caractères',
+      ],
+      updatePresentationInfo: {
+        date: '',
+        title: '',
+      },
+    };
+  },
+  beforeMount() {
+    alert = this.parentRefs.alert;
+
+    window.axios
+      .get(`presentations/${this.$route.params.idPresentation}`)
+      .then((response) => {
+        this.updatePresentationInfo.title = response.data.title;
+        this.updatePresentationInfo.date = dateFormat(response.data.date, 'yyyy-mm-dd HH:MM');
+      })
+      .catch(() => {
+        alert.showMessage('error', 'Une erreur est survenue lors du traitement de votre demande');
+      });
+  },
+  methods: {
+    submitChange() {
+      const apiUrl = `presentations/${this.$route.params.idPresentation}`;
+
+      // sends credentials to backend
+      window.axios.put(apiUrl, {
+        title: this.updatePresentationInfo.title,
+        date: dateFormat(this.updatePresentationInfo.date, 'yyyy-mm-dd HH:MM'),
+      })
+        .then(() => {
+          alert.showMessage('success', 'Les informations de la présentation ont été modifiées');
         })
         .catch(() => {
-          alert.showMessage('error', 'Une erreur est survenue lors du traitement de votre demande');
-        })
-    },
-    methods: {
-      submitChange() {
-        const data = this.updatePresentationInfo;
-        const apiUrl = `presentations/${this.$route.params.idPresentation}`;
-
-        // sends credentials to backend
-        window.axios.put(apiUrl, {
-          title: this.updatePresentationInfo.title,
-          date: dateFormat(this.updatePresentationInfo.date, 'yyyy-mm-dd HH:MM'),
-        })
-        .then((response) => {
-          alert.showMessage('success', 'Les informations de la présentation ont été modifiées');
-         })
-        .catch((error) => {
-        alert.showMessage('error', `Nous n'avons pas réussi à appliquer les changements`);
+          alert.showMessage('error', 'Nous n\'avons pas réussi à appliquer les changements');
         });
-      },
-      isEmpty(textInput) {
-        return (textInput === '');
-      },
     },
-  };
+  },
+};
 </script>
