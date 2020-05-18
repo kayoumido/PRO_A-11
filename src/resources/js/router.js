@@ -58,7 +58,7 @@ const router = new VueRouter({
       component: ResetPassword,
     },
     {
-      path: '/sondage/créer/:idPresentation',
+      path: '/sondage/creer/:idPresentation',
       name: 'Création de sondage',
       component: CreatePoll,
     },

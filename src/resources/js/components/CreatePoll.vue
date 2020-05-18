@@ -6,28 +6,28 @@
     lazy-validation
   >
     <v-text-field
-      v-model="createPoll.subject"
+      v-model="inputPoll.subject"
       :rules="subjectRules"
       label="Thème"
     />
 
     <v-text-field
-      v-model="createPoll.choice1"
+      v-model="inputChoice.choice1"
       label="choix 1"
     />
 
     <v-text-field
-      v-model="createPoll.choice2"
+      v-model="inputChoice.choice2"
       label="choix 2"
     />
 
     <v-text-field
-      v-model="createPoll.choice3"
+      v-model="inputChoice.choice3"
       label="choix 3"
     />
 
     <v-text-field
-      v-model="createPoll.choice4"
+      v-model="inputChoice.choice4"
       label="choix 4"
     />
 
@@ -54,8 +54,10 @@ export default {
         (v) => !!v || 'Un sujet est nécessaire',
       ],
       // Object for form field binding
-      createPoll: {
+      inputPoll: {
         subject: '',
+      },
+      inputChoice: {
         choice1: '',
         choice2: '',
         choice3: '',
@@ -64,40 +66,39 @@ export default {
     };
   },
   beforeMount() {
-    this.setLoggedUser();
     alert = this.parentRefs.alert;
   },
   methods: {
-    submitChange() {
-      const data = this.updatePresentationInfo;
-      const apiUrl = `presentations/${this.$route.params.idPresentation}/polls`;
+    createPoll() {
+      let apiUrl = `presentations/${this.$route.params.idPresentation}/polls`;
 
       // send http request with axios and catch response or error
-      window.axios.post(apiUrl, data)
+      window.axios.post(apiUrl, {
+        subject: this.inputPoll.subject,
+      })
         .then((response) => {
           alert.showMessage('success', 'Sondage créé');
+          apiUrl = `polls/${response.data.id}/choices`;
         })
-        .catch((errorResponse) => {
-          alert.showMessage('error', `Problème lors de la création du sondage`);
+        .catch(() => {
+          alert.showMessage('error', 'Problème lors de la création du sondage');
         });
 
-      Window.axios.get(apiUrl, data)
-        .then((response) => {
-          apiUrl = 'polls/${this.response.id}/choices'
-        })
-        .catch((errorResponse) => {
-          alert.showMessage('error', `Problème lors de la création du sondage`);
+      const requestChoice1 = window.axios.post(apiUrl, this.inputChoice.choice1);
+      const requestChoice2 = window.axios.post(apiUrl, this.inputChoice.choice2);
+      const requestChoice3 = window.axios.post(apiUrl, this.inputChoice.choice3);
+      const requestChoice4 = window.axios.post(apiUrl, this.inputChoice.choice4);
+
+      window.axios
+        .all([requestChoice1, requestChoice2, requestChoice3, requestChoice4])
+        .then(
+          window.axios.spread(() => {
+            alert.showMessage('success', 'Les choix du sondage ont été créés');
+          }),
+        )
+        .catch(() => {
+          alert.showMessage('error', 'Problème lors de la création du sondage');
         });
-
-      Window.axios.post(apiUrl, data)
-        .then((response) => {
-          const pollId = response.id;
-        })
-        .catch((errorResponse) => {
-          alert.showMessage('error', `Problème lors de la création du sondage`);
-        });
-
-
     },
   },
 };
