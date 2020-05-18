@@ -2,6 +2,7 @@
       <v-card
       class="mx-auto"
       max-width="344"
+      v-if="!isDeleted"
       >
       <v-list-item three-line>
         <v-list-item-content>
@@ -46,6 +47,7 @@ export default {
   data() {
     return {
       isLoaded: false,
+      isDeleted: false,
       isSubscribed: false,
       presentation: {},
       polls: [],
@@ -107,11 +109,8 @@ export default {
 
       window.axios.delete(apiUrl)
         .then(() => {
-          // go back to presentation list
           alert.showMessage('success', 'La presentation à été supprimé correctement');
-          setTimeout(() => {
-            this.$router.push('/presentations');
-          }, 2000);
+          this.isDeleted = true;
         })
         .catch(() => {
           alert.showMessage('error', 'La tentative de suppression a échoué');
