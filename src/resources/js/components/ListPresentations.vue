@@ -15,7 +15,7 @@
                 <v-list-item-title v-html="presentation.title"></v-list-item-title>
               </v-list-item-content>
 
-              <v-list-item-action>
+              <v-list-item-action v-if="presentation.auth_user_role === 'presenter'">
                 <v-btn icon @click.prevent="goToPresentationEdit(presentation.id)">
                   <v-icon color="grey lighten-1">mdi-pencil-outline</v-icon>
                 </v-btn>
