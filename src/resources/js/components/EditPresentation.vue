@@ -74,8 +74,10 @@ export default {
         title: this.updatePresentationInfo.title,
         date: dateFormat(this.updatePresentationInfo.date, 'yyyy-mm-dd HH:MM'),
       })
-        .then(() => {
+        .then((response) => {
           alert.showMessage('success', 'Les informations de la présentation ont été modifiées');
+          this.updatePresentationInfo.title = response.data.title;
+          this.updatePresentationInfo.date = dateFormat(response.data.date, 'yyyy-mm-dd HH:MM');
         })
         .catch(() => {
           alert.showMessage('error', 'Nous n\'avons pas réussi à appliquer les changements');
