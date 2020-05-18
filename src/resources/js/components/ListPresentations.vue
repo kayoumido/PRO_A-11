@@ -16,6 +16,12 @@
               </v-list-item-content>
 
               <v-list-item-action>
+                <v-btn icon @click.prevent="goToPresentationEdit(presentation.id)">
+                  <v-icon color="grey lighten-1">mdi-pencil-outline</v-icon>
+                </v-btn>
+              </v-list-item-action>
+
+              <v-list-item-action>
                 <v-btn icon @click.prevent="goToPresentation(presentation.id)">
                   <v-icon color="grey lighten-1">mdi-information</v-icon>
                 </v-btn>
@@ -69,6 +75,12 @@ export default {
     goToPresentation(id) {
       this.$router.push({
         name: 'Présentation',
+        params: { idPresentation: id },
+      });
+    },
+    goToPresentationEdit(id) {
+      this.$router.push({
+        name: 'Edition de présentation',
         params: { idPresentation: id },
       });
     },

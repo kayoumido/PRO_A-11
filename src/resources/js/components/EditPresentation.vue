@@ -57,12 +57,12 @@ import dateFormat from 'dateformat';
       
       window.axios
         .get(`presentations/${this.$route.params.idPresentation}`)
-        .then((response) =>{
-          this.updatePresentationInfo.date = dateFormat(response.data.date, 'yyyy-mm-dd HH:MM');
+        .then((response) =>{ 
           this.updatePresentationInfo.title = response.data.title;
+          this.updatePresentationInfo.date = dateFormat(response.data.date, 'yyyy-mm-dd HH:MM');
         })
         .catch(() => {
-          alert.showMessage('error', 'Oops une erreur est survenue lors du traitement de votre demande');
+          alert.showMessage('error', 'Une erreur est survenue lors du traitement de votre demande');
         })
     },
     methods: {
