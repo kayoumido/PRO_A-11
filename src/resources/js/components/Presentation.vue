@@ -113,8 +113,8 @@ export default {
             this.$router.push('/presentations');
           }, 2000);
         })
-        .catch((error) => {
-          alert.showMessage('error', `echec de la suppression : ${error.status}`);
+        .catch(() => {
+          alert.showMessage('error', 'La tentative de suppression a échoué');
         });
     },
   },
