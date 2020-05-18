@@ -44,7 +44,8 @@ export default {
     return {
       valid: true,
       titleRules: [
-        (v) => v === '' || (v && v.length <= 20) || 'Le titre doit contenir moins de 20 caractères',
+        (v) => !!v || 'Vous devez renseigner un titre',
+        (v) => (v && v.length <= 20) || 'Le titre doit contenir moins de 20 caractères',
       ],
       updatePresentationInfo: {
         date: '',
@@ -68,6 +69,11 @@ export default {
   methods: {
     submitChange() {
       const apiUrl = `presentations/${this.$route.params.idPresentation}`;
+
+      if (this.$refs.form.validate()) {
+        alert.showMessage('error', 'Vous devez renseigner une date');
+        return;
+      }
 
       // sends credentials to backend
       window.axios.put(apiUrl, {
