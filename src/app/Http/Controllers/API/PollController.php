@@ -155,7 +155,7 @@ class PollController extends Controller
         foreach ($poll->choices as $choice) {
             $res[] = [
                 'choice_id' => $choice->id,
-                'votes' => $poll->users()->where('choice_id', '=', $choice->id)->count()
+                'votes' => $choice->users()->count()
             ];
         }
 
