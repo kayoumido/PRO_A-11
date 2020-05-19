@@ -11,6 +11,15 @@
       required
     />
 
+    <v-slider
+    v-model="nbChoice"
+    thumb-label
+    class="align-center"
+    :max=6
+    :min=2
+    label="nombre de choix"
+    />
+
     <v-text-field
       v-model="inputChoice.choice1"
       :rules="choiceRules"
@@ -25,17 +34,31 @@
       required
     />
 
-    <v-text-field
+    <v-text-field v-if="nbChoice > 2"
       v-model="inputChoice.choice3"
       :rules="choiceRules"
       label="choix 3"
       required
     />
 
-    <v-text-field
+    <v-text-field v-if="nbChoice > 3"
       v-model="inputChoice.choice4"
       :rules="choiceRules"
       label="choix 4"
+      required
+    />
+
+    <v-text-field v-if="nbChoice > 4"
+      v-model="inputChoice.choice5"
+      :rules="choiceRules"
+      label="choix 5"
+      required
+    />
+
+    <v-text-field v-if="nbChoice > 5"
+      v-model="inputChoice.choice6"
+      :rules="choiceRules"
+      label="choix 6"
       required
     />
 
@@ -73,7 +96,10 @@ export default {
         choice2: '',
         choice3: '',
         choice4: '',
+        choice5: '',
+        choice6: '',
       },
+      nbChoice: '',
     };
   },
   beforeMount() {
@@ -91,21 +117,15 @@ export default {
           alert.showMessage('success', 'Sondage créé');
           apiUrl = `polls/${response.data.id}/choices`;
 
-          window.axios
-            .all([
-              window.axios.post(apiUrl, { message: this.inputChoice.choice1 }),
-              window.axios.post(apiUrl, { message: this.inputChoice.choice2 }),
-              window.axios.post(apiUrl, { message: this.inputChoice.choice3 }),
-              window.axios.post(apiUrl, { message: this.inputChoice.choice4 }),
-            ])
-            .then(
-              window.axios.spread(() => {
-                alert.showMessage('success', 'Les choix du sondage ont été créés');
-              }),
-            )
-            .catch(() => {
-              alert.showMessage('error', 'Problème lors de la création du sondage');
-            });
+          Object.values(this.inputChoice).forEach((value) => {
+            // the inputs not used are equal to ''
+            if (value !== '') {
+              window.axios.post(apiUrl, { message: value })
+                .catch(() => {
+                  alert.showMessage('error', 'Problème lors de la création du sondage');
+                });
+            }
+          });
         })
         .catch(() => {
           alert.showMessage('error', 'Problème lors de la création du sondage');
