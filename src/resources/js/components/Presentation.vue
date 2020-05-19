@@ -99,7 +99,6 @@ export default {
           alert.showMessage('error', 'Oops une erreur c\'est produite lors de la désinscription');
         });
     },
-<<<<<<< HEAD
     getPresentation(id) {
       alert = this.parentRefs.alert;
       const apiUrl = `/presentations/${id}`;
@@ -110,7 +109,8 @@ export default {
         })
         .catch(() => {
           alert.showMessage('error', 'Oops une erreur est survenue lors du traitement de votre demande');
-=======
+        });
+    },
     isPresenter() {
       return (this.presentation.auth_user_role === 'presenter');
     },
@@ -124,7 +124,6 @@ export default {
         })
         .catch(() => {
           alert.showMessage('error', 'La tentative de suppression a échoué');
->>>>>>> origin/develop
         });
     },
   },
