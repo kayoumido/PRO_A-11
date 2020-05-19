@@ -13,7 +13,13 @@
           </v-list-item-subtitle>
             <v-list-item-action v-if="isLoaded">
                 <v-btn
-                    v-if="!isSubscribed"
+                v-if="isPresenter()"
+                color="error"
+                @click.prevent="delPresentation(presentation.id)">
+                  Supprimer
+                </v-btn>
+                <v-btn
+                    v-else-if="!isSubscribed"
                     @click="subscribe"
                     color="primary"
                     >
@@ -91,6 +97,21 @@ export default {
         })
         .catch(() => {
           alert.showMessage('error', 'Oops une erreur c\'est produite lors de la désinscription');
+        });
+    },
+    isPresenter() {
+      return (this.presentation.auth_user_role === 'presenter');
+    },
+    delPresentation(id) {
+      const apiUrl = `/presentations/${id}`;
+
+      window.axios.delete(apiUrl)
+        .then(() => {
+          alert.showMessage('success', 'La presentation à été supprimé correctement');
+          this.$router.push('/presentations');
+        })
+        .catch(() => {
+          alert.showMessage('error', 'La tentative de suppression a échoué');
         });
     },
   },

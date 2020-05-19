@@ -22,11 +22,10 @@
               </v-list-item-action>
 
               <v-list-item-action>
-                <v-btn small color="error">
+                <v-btn small color="info">
                   quitter
                 </v-btn>
               </v-list-item-action>
-
             </v-list-item>
         </v-list>
       </v-card>
@@ -39,7 +38,6 @@ export default {
   data() {
     return {
       presentations: [],
-      inactive: true,
     };
   },
   beforeMount() {
