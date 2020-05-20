@@ -31,13 +31,19 @@ export default {
     'presentation_id',
   ],
   mounted() {
-    window.axios.get(`/presentations/${this.presentation_id}/polls`)
-      .then((response) => {
-        this.polls = response.data;
-      })
-      .catch(() => {
-        this.parent.parentRefs.alert.showMessage('error', 'Oops erreur lors de la récupération des sondages');
-      });
+    this.refreshPolls();
+  },
+  methods: {
+    refreshPolls() {
+      const { alert } = this.$parent.$parent.parentRefs;
+      window.axios.get(`/presentations/${this.presentation_id}/polls`)
+        .then((response) => {
+          this.polls = response.data;
+        })
+        .catch(() => {
+          alert.showMessage('error', 'Oops erreur lors de la récupération des sondages');
+        });
+    },
   },
 };
 </script>
