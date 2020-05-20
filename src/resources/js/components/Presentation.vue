@@ -2,6 +2,7 @@
       <v-card
       class="mx-auto"
       max-width="344"
+      v-if="isLoaded"
       >
       <v-list-item three-line>
         <v-list-item-content>
@@ -11,7 +12,7 @@
           <v-list-item-subtitle>
             Date: {{ presentation.date }}
           </v-list-item-subtitle>
-            <v-list-item-action v-if="isLoaded">
+            <v-list-item-action >
                 <v-btn
                 v-if="isPresenter()"
                 color="error"
@@ -35,13 +36,20 @@
         </v-list-item-content>
 
       </v-list-item>
+      <Polls
+        :user_id="loggedUser.id"
+        :user_role="presentation.auth_user_role"
+        :presentation_id="presentation.id"></Polls>
 
     </v-card>
 </template>
 
 <script>
+import Polls from './Polls';
+
 let alert = {};
 export default {
+  components: { Polls },
   props: ['parentRefs'],
   data() {
     return {
