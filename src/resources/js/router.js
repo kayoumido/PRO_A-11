@@ -9,20 +9,14 @@ import AccountEdition from './components/AccountEdit';
 import AccountCreation from './components/AccountCreation';
 import Reset from './components/Reset';
 import ResetPassword from './components/ResetPassword';
-import NotAuthHome from './components/NotAuthHome';
 
 Vue.use(VueRouter);
 
 const notAuthenticatedOnly = (to, from, next) => {
-  // eslint-disable-next-line no-console
-  console.log('notAuthOnly');
   window.axios.get('/me')
     .then(() => {
       // handles success
-      // this was supposed to bring the user back to its previous "page"
-      // but our previous "page" is always just the root
-      // this is not a problem
-      next(false); // don't go to next
+      next({ name: 'Lister les présentation' }); // don't go to next
     })
     .catch(() => {
       // handles error
@@ -31,12 +25,22 @@ const notAuthenticatedOnly = (to, from, next) => {
 };
 
 const authenticatedOnly = (to, from, next) => {
-  // eslint-disable-next-line no-console
-  console.log('authOnly');
   window.axios.get('/me')
     .then(() => {
     // handles success
-      next(); // go next
+      next(); // go pres
+    })
+    .catch(() => {
+    // handles error
+      next({ name: 'Connexion' }); // go login
+    });
+};
+
+const rootRule = (to, from, next) => {
+  window.axios.get('/me')
+    .then(() => {
+    // handles success
+      next({ name: 'Lister les présentation' }); // go pres
     })
     .catch(() => {
     // handles error
@@ -48,6 +52,11 @@ const authenticatedOnly = (to, from, next) => {
 const router = new VueRouter({
   mode: 'history',
   routes: [
+    {
+      path: '/',
+      name: 'root',
+      beforeEnter: rootRule,
+    },
     {
       path: '/presentation/creer',
       icon: 'mdi-help-box',
@@ -95,12 +104,6 @@ const router = new VueRouter({
       path: '/reset-password/:token',
       name: 'Redéfinir mot de passe',
       component: ResetPassword,
-      beforeEnter: notAuthenticatedOnly,
-    },
-    {
-      path: '/home',
-      name: 'Accueil',
-      component: NotAuthHome,
       beforeEnter: notAuthenticatedOnly,
     },
   ],

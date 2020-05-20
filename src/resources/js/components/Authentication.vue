@@ -71,18 +71,10 @@ export default {
       )
         .then((response) => {
           if (response.data.token_type === 'Bearer') {
+            alert.showMessage('success', 'Authentifié');
             const token = response.data.access_token;
             localStorage.setItem('Authorization-token', token); // store the token in localstorage
-            // this window.axios code may be deleted when login forces a hard refresh
-            window.axios.defaults.headers.common = {
-              Authorization: `Bearer ${localStorage.getItem('Authorization-token')}`, // put it directly in header
-            };
-            this.$router.go(0); // this is a disgusting hack, it forces a refresh, and as
-            // our "current page" is the root, well it goes back to it
-            // (the correct way would have been to update the value in usertooltip
-            // through one of many way vuejs let us do that)
-            this.$router.push({ name: 'Hello' }); // all routing is handled by vuejs, should be changed for the final home route
-            alert.showMessage('success', 'Authentifié');
+            this.$router.go(0);
           } else {
             alert.showMessage('error', 'Réponse du serveur inatendue');
           }

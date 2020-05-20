@@ -64,7 +64,5 @@ export default {
   components: {
     AlertMessage, UserTooltip, SearchBar, SideBar,
   },
-  methods: {
-  },
 };
 </script>
