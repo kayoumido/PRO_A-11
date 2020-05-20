@@ -33,7 +33,7 @@ Route::prefix('v1')->group(function () {
         Route::apiResource('users.presentations', 'API\PresentationController')
             ->only(['index', 'show', 'store'])
             ->shallow();
-        Route::middleware(['presentation.roles:' . App\User\Role::PRESENTER()])->group(function () {
+        Route::middleware(['presentation.role:' . App\User\Role::PRESENTER()])->group(function () {
             Route::apiResource('users.presentations', 'API\PresentationController')->only(['update', 'destroy'])->shallow();
             Route::apiResource('presentations.polls', 'API\PollController')->only(['store'])->shallow();
         });
@@ -47,7 +47,7 @@ Route::prefix('v1')->group(function () {
         Route::put('presentations/{presentation}/users/{user}', 'API\PresentationUserController@changeRole')->name('presentations.change_role');
 
         // poll management
-        Route::middleware(['poll.roles:' . App\User\Role::PRESENTER()])->group(function () {
+        Route::middleware(['poll.role:' . App\User\Role::PRESENTER()])->group(function () {
             Route::apiResource('polls', 'API\PollController')->only(['update'])->shallow();
             Route::put('polls/{poll}/publish', 'API\PollController@publish')->name('polls.publish');
             Route::get('polls/{poll}/results', 'API\PollController@results')->name('polls.results');

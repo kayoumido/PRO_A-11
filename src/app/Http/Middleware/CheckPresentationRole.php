@@ -19,18 +19,7 @@ class CheckPresentationRole
      */
     public function handle($request, Closure $next, ... $roles)
     {
-        $error = false;
-        $presentation = Auth::user()->presentations()->where('id', $request->presentation->id)->first();
-        if ($presentation) {
-            $user_role = $presentation->pivot->role;
-            if (!in_array($user_role, $roles)) {
-                $error = true;
-            }
-        } else {
-            $error = true;
-        }
-
-        if ($error) {
+        if (!check_role(Auth::user()->presentations()->where('id', $request->presentation->id)->first(), $roles)) {
             return response()->json([
                 'success' => false,
                 'message' => 'Unauthorized',
