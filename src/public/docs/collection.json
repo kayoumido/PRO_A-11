@@ -1,8 +1,8 @@
 {
     "variables": [],
     "info": {
-        "name": "Paul API",
-        "_postman_id": "2acfcafe-6580-49c6-b3bc-8f6d024106a1",
+        "name": "Laravel API",
+        "_postman_id": "64b1cdea-2541-403b-be1f-3dcb63441bff",
         "description": "",
         "schema": "https:\/\/schema.getpostman.com\/json\/collection\/v2.0.0\/collection.json"
     },
@@ -37,7 +37,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"email\": \"recusandae\"\n}"
+                            "raw": "{\n    \"email\": \"sit\"\n}"
                         },
                         "description": "",
                         "response": []
@@ -69,7 +69,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"token\": \"magni\",\n    \"email\": \"aperiam\",\n    \"password\": \"numquam\"\n}"
+                            "raw": "{\n    \"token\": \"quia\",\n    \"email\": \"repudiandae\",\n    \"password\": \"tempore\"\n}"
                         },
                         "description": "",
                         "response": []
@@ -101,7 +101,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"email\": \"at\",\n    \"password\": \"nam\"\n}"
+                            "raw": "{\n    \"email\": \"et\",\n    \"password\": \"est\"\n}"
                         },
                         "description": "",
                         "response": []
@@ -133,7 +133,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"fname\": \"quis\",\n    \"lname\": \"id\",\n    \"email\": \"atque\",\n    \"password\": \"atque\"\n}"
+                            "raw": "{\n    \"fname\": \"sunt\",\n    \"lname\": \"error\",\n    \"email\": \"nostrum\",\n    \"password\": \"et\"\n}"
                         },
                         "description": "",
                         "response": []
@@ -210,46 +210,6 @@
             "description": "",
             "item": [
                 {
-                    "name": "List poll choices",
-                    "request": {
-                        "url": {
-                            "protocol": "http",
-                            "host": "localhost",
-                            "path": "api\/v1\/polls\/:poll\/choices",
-                            "query": [],
-                            "variable": [
-                                {
-                                    "id": "poll",
-                                    "key": "poll",
-                                    "value": "at",
-                                    "description": "id of the poll"
-                                }
-                            ]
-                        },
-                        "method": "GET",
-                        "header": [
-                            {
-                                "key": "Content-Type",
-                                "value": "application\/json"
-                            },
-                            {
-                                "key": "Accept",
-                                "value": "application\/json"
-                            },
-                            {
-                                "key": "Authorization",
-                                "value": "Bearer {token}"
-                            }
-                        ],
-                        "body": {
-                            "mode": "raw",
-                            "raw": "[]"
-                        },
-                        "description": "",
-                        "response": []
-                    }
-                },
-                {
                     "name": "Create a poll choice",
                     "request": {
                         "url": {
@@ -261,7 +221,7 @@
                                 {
                                     "id": "poll",
                                     "key": "poll",
-                                    "value": "quia",
+                                    "value": "qui",
                                     "description": "id of the linked poll"
                                 }
                             ]
@@ -283,47 +243,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"message\": \"animi\"\n}"
-                        },
-                        "description": "",
-                        "response": []
-                    }
-                },
-                {
-                    "name": "Update a poll choice",
-                    "request": {
-                        "url": {
-                            "protocol": "http",
-                            "host": "localhost",
-                            "path": "api\/v1\/choices\/:choice",
-                            "query": [],
-                            "variable": [
-                                {
-                                    "id": "choice",
-                                    "key": "choice",
-                                    "value": "mollitia",
-                                    "description": "Id of the choice to update"
-                                }
-                            ]
-                        },
-                        "method": "PUT",
-                        "header": [
-                            {
-                                "key": "Content-Type",
-                                "value": "application\/json"
-                            },
-                            {
-                                "key": "Accept",
-                                "value": "application\/json"
-                            },
-                            {
-                                "key": "Authorization",
-                                "value": "Bearer {token}"
-                            }
-                        ],
-                        "body": {
-                            "mode": "raw",
-                            "raw": "{\n    \"message\": \"porro\"\n}"
+                            "raw": "{\n    \"message\": \"quia\"\n}"
                         },
                         "description": "",
                         "response": []
@@ -341,7 +261,7 @@
                                 {
                                     "id": "choice",
                                     "key": "choice",
-                                    "value": "tempore",
+                                    "value": "facilis",
                                     "description": "Id of the choice to delete"
                                 }
                             ]
@@ -370,6 +290,86 @@
                     }
                 },
                 {
+                    "name": "List poll choices",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "localhost",
+                            "path": "api\/v1\/polls\/:poll\/choices",
+                            "query": [],
+                            "variable": [
+                                {
+                                    "id": "poll",
+                                    "key": "poll",
+                                    "value": "qui",
+                                    "description": "id of the poll"
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {token}"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Update a poll choice",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "localhost",
+                            "path": "api\/v1\/choices\/:choice",
+                            "query": [],
+                            "variable": [
+                                {
+                                    "id": "choice",
+                                    "key": "choice",
+                                    "value": "quod",
+                                    "description": "Id of the choice to update"
+                                }
+                            ]
+                        },
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {token}"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"message\": \"repellat\"\n}"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
                     "name": "Make a user vote on a poll",
                     "request": {
                         "url": {
@@ -381,13 +381,13 @@
                                 {
                                     "id": "poll",
                                     "key": "poll",
-                                    "value": "et",
+                                    "value": "quaerat",
                                     "description": "Poll id for the vote"
                                 },
                                 {
                                     "id": "user",
                                     "key": "user",
-                                    "value": "omnis",
+                                    "value": "consequatur",
                                     "description": "User id for the vote"
                                 }
                             ]
@@ -409,7 +409,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"choice_id\": \"vero\"\n}"
+                            "raw": "{\n    \"choice_id\": \"ipsum\"\n}"
                         },
                         "description": "",
                         "response": []
@@ -433,13 +433,13 @@
                                 {
                                     "id": "presentation",
                                     "key": "presentation",
-                                    "value": "officiis",
+                                    "value": "et",
                                     "description": "Presentation id"
                                 },
                                 {
                                     "id": "user",
                                     "key": "user",
-                                    "value": "ut",
+                                    "value": "quibusdam",
                                     "description": "User id"
                                 }
                             ]
@@ -479,13 +479,13 @@
                                 {
                                     "id": "presentation",
                                     "key": "presentation",
-                                    "value": "consequuntur",
+                                    "value": "sunt",
                                     "description": "Presentation id"
                                 },
                                 {
                                     "id": "user",
                                     "key": "user",
-                                    "value": "vel",
+                                    "value": "voluptas",
                                     "description": "User id"
                                 }
                             ]
@@ -531,13 +531,13 @@
                                 {
                                     "id": "presentation",
                                     "key": "presentation",
-                                    "value": "aut",
+                                    "value": "dolor",
                                     "description": "Presentation id"
                                 },
                                 {
                                     "id": "user",
                                     "key": "user",
-                                    "value": "molestiae",
+                                    "value": "voluptate",
                                     "description": "User id"
                                 }
                             ]
@@ -559,7 +559,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"role\": \"unde\"\n}"
+                            "raw": "{\n    \"role\": \"sed\"\n}"
                         },
                         "description": "",
                         "response": []
@@ -572,6 +572,46 @@
             "description": "",
             "item": [
                 {
+                    "name": "Create a new poll",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "localhost",
+                            "path": "api\/v1\/presentations\/:presentation\/polls",
+                            "query": [],
+                            "variable": [
+                                {
+                                    "id": "presentation",
+                                    "key": "presentation",
+                                    "value": "quis",
+                                    "description": "Id of the presentation"
+                                }
+                            ]
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {token}"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"subject\": \"consequatur\"\n}"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
                     "name": "List all polls related to the presentation.",
                     "request": {
                         "url": {
@@ -583,7 +623,7 @@
                                 {
                                     "id": "presentation",
                                     "key": "presentation",
-                                    "value": "quo",
+                                    "value": "reiciendis",
                                     "description": "Id of the presentation"
                                 }
                             ]
@@ -612,46 +652,6 @@
                     }
                 },
                 {
-                    "name": "Create a new poll",
-                    "request": {
-                        "url": {
-                            "protocol": "http",
-                            "host": "localhost",
-                            "path": "api\/v1\/presentations\/:presentation\/polls",
-                            "query": [],
-                            "variable": [
-                                {
-                                    "id": "presentation",
-                                    "key": "presentation",
-                                    "value": "necessitatibus",
-                                    "description": "Id of the presentation"
-                                }
-                            ]
-                        },
-                        "method": "POST",
-                        "header": [
-                            {
-                                "key": "Content-Type",
-                                "value": "application\/json"
-                            },
-                            {
-                                "key": "Accept",
-                                "value": "application\/json"
-                            },
-                            {
-                                "key": "Authorization",
-                                "value": "Bearer {token}"
-                            }
-                        ],
-                        "body": {
-                            "mode": "raw",
-                            "raw": "{\n    \"subject\": \"voluptatem\"\n}"
-                        },
-                        "description": "",
-                        "response": []
-                    }
-                },
-                {
                     "name": "Show a poll",
                     "request": {
                         "url": {
@@ -663,7 +663,7 @@
                                 {
                                     "id": "poll",
                                     "key": "poll",
-                                    "value": "esse",
+                                    "value": "velit",
                                     "description": "Poll id"
                                 }
                             ]
@@ -703,7 +703,7 @@
                                 {
                                     "id": "poll",
                                     "key": "poll",
-                                    "value": "distinctio",
+                                    "value": "hic",
                                     "description": "Poll id"
                                 }
                             ]
@@ -725,47 +725,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"subject\": \"et\"\n}"
-                        },
-                        "description": "",
-                        "response": []
-                    }
-                },
-                {
-                    "name": "Delete a poll",
-                    "request": {
-                        "url": {
-                            "protocol": "http",
-                            "host": "localhost",
-                            "path": "api\/v1\/polls\/:poll",
-                            "query": [],
-                            "variable": [
-                                {
-                                    "id": "poll",
-                                    "key": "poll",
-                                    "value": "et",
-                                    "description": "Poll id"
-                                }
-                            ]
-                        },
-                        "method": "DELETE",
-                        "header": [
-                            {
-                                "key": "Content-Type",
-                                "value": "application\/json"
-                            },
-                            {
-                                "key": "Accept",
-                                "value": "application\/json"
-                            },
-                            {
-                                "key": "Authorization",
-                                "value": "Bearer {token}"
-                            }
-                        ],
-                        "body": {
-                            "mode": "raw",
-                            "raw": "[]"
+                            "raw": "{\n    \"subject\": \"fugit\"\n}"
                         },
                         "description": "",
                         "response": []
@@ -815,7 +775,7 @@
                                 {
                                     "id": "poll",
                                     "key": "poll",
-                                    "value": "optio",
+                                    "value": "officiis",
                                     "description": "Poll id"
                                 }
                             ]
@@ -859,7 +819,7 @@
                             "query": [
                                 {
                                     "key": "keywords",
-                                    "value": "explicabo",
+                                    "value": "ab",
                                     "description": "Keywords to search",
                                     "disabled": false
                                 }
@@ -900,7 +860,7 @@
                                 {
                                     "id": "user",
                                     "key": "user",
-                                    "value": "et",
+                                    "value": "qui",
                                     "description": "User id"
                                 }
                             ]
@@ -940,7 +900,7 @@
                                 {
                                     "id": "user",
                                     "key": "user",
-                                    "value": "facilis",
+                                    "value": "inventore",
                                     "description": "User id"
                                 }
                             ]
@@ -962,7 +922,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"title\": \"recusandae\",\n    \"date\": \"laudantium\"\n}"
+                            "raw": "{\n    \"title\": \"numquam\",\n    \"date\": \"velit\"\n}"
                         },
                         "description": "",
                         "response": []
@@ -980,7 +940,7 @@
                                 {
                                     "id": "presentation",
                                     "key": "presentation",
-                                    "value": "beatae",
+                                    "value": "perferendis",
                                     "description": "Presentation id"
                                 }
                             ]
@@ -1020,7 +980,7 @@
                                 {
                                     "id": "presentation",
                                     "key": "presentation",
-                                    "value": "et",
+                                    "value": "itaque",
                                     "description": "Presentation id"
                                 }
                             ]
@@ -1042,7 +1002,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"title\": \"est\",\n    \"date\": \"recusandae\"\n}"
+                            "raw": "{\n    \"title\": \"molestias\",\n    \"date\": \"quaerat\"\n}"
                         },
                         "description": "",
                         "response": []
@@ -1060,7 +1020,7 @@
                                 {
                                     "id": "presentation",
                                     "key": "presentation",
-                                    "value": "vel",
+                                    "value": "excepturi",
                                     "description": "Presentation id"
                                 }
                             ]
