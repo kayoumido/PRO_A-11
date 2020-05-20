@@ -5,60 +5,9 @@
     lazy-validation
   >
     <v-text-field
-      v-model="inputPoll.subject"
+      v-model="input.subject"
       :rules="subjectRules"
       label="Thème"
-      required
-    />
-
-    <v-slider
-    v-model="nbChoice"
-    thumb-label
-    class="align-center"
-    :max=6
-    :min=2
-    label="nombre de choix"
-    />
-
-    <v-text-field
-      v-model="inputChoice.choice1"
-      :rules="choiceRules"
-      label="choix 1"
-      required
-    />
-
-    <v-text-field
-      v-model="inputChoice.choice2"
-      :rules="choiceRules"
-      label="choix 2"
-      required
-    />
-
-    <v-text-field v-if="nbChoice > 2"
-      v-model="inputChoice.choice3"
-      :rules="choiceRules"
-      label="choix 3"
-      required
-    />
-
-    <v-text-field v-if="nbChoice > 3"
-      v-model="inputChoice.choice4"
-      :rules="choiceRules"
-      label="choix 4"
-      required
-    />
-
-    <v-text-field v-if="nbChoice > 4"
-      v-model="inputChoice.choice5"
-      :rules="choiceRules"
-      label="choix 5"
-      required
-    />
-
-    <v-text-field v-if="nbChoice > 5"
-      v-model="inputChoice.choice6"
-      :rules="choiceRules"
-      label="choix 6"
       required
     />
 
@@ -84,22 +33,10 @@ export default {
       subjectRules: [
         (v) => !!v || 'Un sujet est nécessaire',
       ],
-      choiceRules: [
-        (v) => !!v || 'Il faut remplir les quatre choix',
-      ],
       // Object for form field binding
-      inputPoll: {
+      input: {
         subject: '',
       },
-      inputChoice: {
-        choice1: '',
-        choice2: '',
-        choice3: '',
-        choice4: '',
-        choice5: '',
-        choice6: '',
-      },
-      nbChoice: '',
     };
   },
   beforeMount() {
@@ -107,29 +44,19 @@ export default {
   },
   methods: {
     createPoll() {
-      let apiUrl = `presentations/${this.$route.params.idPresentation}/polls`;
+      const apiUrl = `presentations/${this.$route.params.idPresentation}/polls`;
 
+      // force data validation
       if (!this.$refs.form.validate()) {
         return;
       }
 
       // send http request with axios and catch response or error
       window.axios.post(apiUrl, {
-        subject: this.inputPoll.subject,
+        subject: this.input.subject,
       })
-        .then((response) => {
+        .then(() => {
           alert.showMessage('success', 'Sondage créé');
-          apiUrl = `polls/${response.data.id}/choices`;
-
-          Object.values(this.inputChoice).forEach((value) => {
-            // the inputs not used are equal to ''
-            if (value !== '') {
-              window.axios.post(apiUrl, { message: value })
-                .catch(() => {
-                  alert.showMessage('error', 'Problème lors de la création du sondage');
-                });
-            }
-          });
         })
         .catch(() => {
           alert.showMessage('error', 'Problème lors de la création du sondage');
