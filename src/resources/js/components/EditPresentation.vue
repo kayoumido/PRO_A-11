@@ -36,6 +36,7 @@
 
 <script>
 import dateFormat from 'dateformat';
+
 let alert = {};
 export default {
   props: ['parentRefs'],
@@ -54,6 +55,7 @@ export default {
   },
   beforeMount() {
     alert = this.parentRefs.alert;
+
     window.axios
       .get(`presentations/${this.$route.params.idPresentation}`)
       .then((response) => {
@@ -67,10 +69,12 @@ export default {
   methods: {
     submitChange() {
       const apiUrl = `presentations/${this.$route.params.idPresentation}`;
+
       if (this.$refs.form.validate()) {
         alert.showMessage('error', 'Vous devez renseigner une date');
         return;
       }
+
       // sends credentials to backend
       window.axios.put(apiUrl, {
         title: this.updatePresentationInfo.title,
@@ -87,4 +91,3 @@ export default {
     },
   },
 };
-</script>

@@ -39,7 +39,10 @@
 </template>
 
 <script>
+import dateFormat from 'dateformat';
+
 let alert = {};
+
 export default {
   props: ['parentRefs'],
   data() {
@@ -74,7 +77,7 @@ export default {
       // send http request with axios and catch response or error
       window.axios.post(apiUrl, {
         title: this.dataForm.title,
-        date: this.dataForm.date,
+        date: dateFormat(this.dataForm.date, 'yyyy-mm-dd HH:MM'),
       })
         .then((response) => {
           alert.showMessage('success', `La présentation ${response.data.title} a été correctement créée`);

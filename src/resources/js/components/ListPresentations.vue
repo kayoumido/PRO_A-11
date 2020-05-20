@@ -15,6 +15,12 @@
                 <v-list-item-title v-html="presentation.title"></v-list-item-title>
               </v-list-item-content>
 
+              <v-list-item-action v-if="presentation.auth_user_role === 'presenter'">
+                <v-btn icon @click.prevent="goToPresentationEdit(presentation.id)">
+                  <v-icon color="grey lighten-1">mdi-pencil-outline</v-icon>
+                </v-btn>
+              </v-list-item-action>
+
               <v-list-item-action>
                 <v-btn icon @click.prevent="goToPresentation(presentation.id)">
                   <v-icon color="grey lighten-1">mdi-information</v-icon>
@@ -22,11 +28,10 @@
               </v-list-item-action>
 
               <v-list-item-action>
-                <v-btn small color="error">
+                <v-btn small color="info">
                   quitter
                 </v-btn>
               </v-list-item-action>
-
             </v-list-item>
         </v-list>
       </v-card>
@@ -39,7 +44,6 @@ export default {
   data() {
     return {
       presentations: [],
-      inactive: true,
     };
   },
   beforeMount() {
@@ -69,6 +73,12 @@ export default {
     goToPresentation(id) {
       this.$router.push({
         name: 'Présentation',
+        params: { idPresentation: id },
+      });
+    },
+    goToPresentationEdit(id) {
+      this.$router.push({
+        name: 'Edition de présentation',
         params: { idPresentation: id },
       });
     },
