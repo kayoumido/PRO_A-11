@@ -109,6 +109,10 @@ export default {
     createPoll() {
       let apiUrl = `presentations/${this.$route.params.idPresentation}/polls`;
 
+      if (!this.$refs.form.validate()) {
+        return;
+      }
+
       // send http request with axios and catch response or error
       window.axios.post(apiUrl, {
         subject: this.inputPoll.subject,
