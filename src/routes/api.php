@@ -51,11 +51,14 @@ Route::prefix('v1')->group(function () {
             Route::apiResource('polls', 'API\PollController')->only(['update'])->shallow();
             Route::put('polls/{poll}/publish', 'API\PollController@publish')->name('polls.publish');
             Route::get('polls/{poll}/results', 'API\PollController@results')->name('polls.results');
-            Route::apiResource('polls.choices', 'API\ChoiceController')->only(['store', 'destroy'])->shallow();
+            Route::apiResource('polls.choices', 'API\ChoiceController')->only(['store'])->shallow();
         });
 
         // Choices management
-        Route::apiResource('polls.choices', 'API\ChoiceController')->except(['show'])->shallow();
+        Route::middleware(['choice.role:' . App\User\Role::PRESENTER()])->group(function () {
+            Route::apiResource('polls.choices', 'API\ChoiceController')->only(['destroy'])->shallow();
+        });
+
         Route::post('polls/{poll}/users/{user}', 'API\PollController@vote')->name('polls.vote');
     });
 

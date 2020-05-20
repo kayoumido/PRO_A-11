@@ -65,6 +65,7 @@ class Kernel extends HttpKernel
         'poll.role' => \App\Http\Middleware\CheckPollRole::class,
         'subscription.permission' => \App\Http\Middleware\CheckSubscriptionPermission::class,
         'presentation.role' => \App\Http\Middleware\CheckPresentationRole::class,
+        'choice.role' => \App\Http\Middleware\CheckChoiceRole::class,
     ];
 
     /**
