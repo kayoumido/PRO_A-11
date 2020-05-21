@@ -36,6 +36,7 @@
           </v-col>
       </v-row>
       <Polls
+        v-on:error="$emit('error', $event)"
         :user_id="loggedUser.id"
         :user_role="presentation.auth_user_role"
         :presentation_id="presentation.id"></Polls>

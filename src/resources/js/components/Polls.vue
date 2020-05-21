@@ -5,6 +5,8 @@
             :key="poll.id">
             <v-col>
                 <Poll
+                    v-on:error="$emit('error', $event)"
+                    v-on:update-polls="refreshPolls"
                     :user_id="user_id"
                     :user_role="user_role"
                     :poll="poll">
@@ -13,7 +15,10 @@
         </v-row>
         <v-row v-if="user_role === 'presenter'">
             <v-col>
-                <CreatePoll :presentation_id="presentation_id"></CreatePoll>
+                <CreatePoll
+                    v-on:update-polls="refreshPolls"
+                    v-on:error="$emit('error', $event)"
+                    :presentation_id="presentation_id"></CreatePoll>
             </v-col>
         </v-row>
     </v-container>
@@ -41,13 +46,12 @@ export default {
   },
   methods: {
     refreshPolls() {
-      const { alert } = this.$parent.parentRefs;
       window.axios.get(`/presentations/${this.presentation_id}/polls`)
         .then((response) => {
           this.polls = response.data;
         })
         .catch(() => {
-          alert.showMessage('error', 'Oops erreur lors de la récupération des sondages');
+          this.$emit('error', 'Oops erreur lors de la récupération des sondages');
         });
     },
   },

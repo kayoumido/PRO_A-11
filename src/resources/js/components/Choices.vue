@@ -6,13 +6,19 @@
             class="col-2"
         >
             <Choice
+                v-on:choice-done="$emit('choice-done', $event)"
+                v-on:error="$emit('error', $event)"
+                v-on:update-choices="refreshChoices"
                 :choice="choice"
                 :user_role="user_role"
                 :user_id="user_id"
                 :poll_id="poll_id"></Choice>
         </v-col>
         <v-col v-show="user_role === 'presenter'" class="col-2">
-            <CreateChoice :poll_id="poll_id"></CreateChoice>
+            <CreateChoice
+                v-on:error="$emit('error', $event)"
+                v-on:update-choices="refreshChoices"
+                :poll_id="poll_id"></CreateChoice>
         </v-col>
     </v-row>
 </template>
@@ -42,18 +48,11 @@ export default {
       window.axios.get(`/polls/${this.poll_id}/choices`)
         .then((response) => {
           this.choices = response.data;
-          // eslint-disable-next-line no-console
-          console.log(this.choices);
         })
-        .catch((error) => {
-          // eslint-disable-next-line no-console
-          console.log('erreur chargement des choix', error);
+        .catch(() => {
+          this.$emit('error', 'erreur chargement des choix');
         });
     },
   },
 };
 </script>
-
-<style scoped>
-
-</style>

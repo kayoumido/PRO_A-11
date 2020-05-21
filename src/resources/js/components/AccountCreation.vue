@@ -56,9 +56,7 @@
 </template>
 
 <script>
-let alert = {};
 export default {
-  props: ['parentRefs'],
   data() {
     return {
       // vuetify
@@ -86,9 +84,6 @@ export default {
       },
     };
   },
-  beforeMount() {
-    alert = this.parentRefs.alert;
-  },
   methods: {
     register() {
       if (this.isPasswordConfirmMatchPassword()) {
@@ -104,16 +99,16 @@ export default {
           if (response.data.token_type === 'Bearer') {
             const token = response.data.access_token;
             localStorage.setItem('Authorization-token', token);
-            alert.showMessage('success', 'Authentifié');
+            this.$emit('success', 'Authentifié');
             this.$router.push({ name: 'Hello' });
           } else {
-            alert.showMessage('error', 'Réponse du serveur inatendue');
+            this.$emit('error', 'Réponse du serveur inatendue');
           }
         }).catch((error) => {
-          alert.showMessage('error', `Erreur de type : ${error}`);
+          this.$emit('error', `Erreur de type : ${error}`);
         });
       } else {
-        alert.showMessage('error', 'Les mots de passe sont différents');
+        this.$emit('error', 'Les mots de passe sont différents');
       }
     },
     // check if both password are the same

@@ -35,7 +35,6 @@ export default {
   },
   methods: {
     createPoll() {
-      const { alert } = this.$parent.$parent.$parent.parentRefs;
       const apiUrl = `/presentations/${this.presentation_id}/polls`;
 
       // send http request with axios and catch response or error
@@ -43,11 +42,11 @@ export default {
         .then(() => {
           this.input.subject = '';
           this.error = false;
-          this.$parent.refreshPolls();
+          this.$emit('update-polls');
         })
         .catch(() => {
           this.error = true;
-          alert.showMessage('error', 'Problème lors de la création du sondage');
+          this.$emit('error', 'Problème lors de la création du sondage');
         });
     },
   },

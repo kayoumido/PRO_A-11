@@ -40,14 +40,12 @@
 
 <script>
 export default {
-  props: ['parentRefs'],
   data() {
     return {
       presentations: [],
     };
   },
   beforeMount() {
-    const { alert } = this.parentRefs;
     this.setLoggedUser()
       .then(() => {
         const apiUrl = `/users/${this.loggedUser.id}/presentations`;
@@ -58,11 +56,11 @@ export default {
             this.presentations = responsePresentation.data;
 
             if (this.presentationsIsEmpty()) {
-              alert.showMessage('info', 'Vous ne vous êtes inscrit à aucune presentation');
+              this.$emit('info', 'Vous ne vous êtes inscrit à aucune presentation');
             }
           })
           .catch((error) => {
-            alert.showMessage('error', `La recupération des presentations a échoué: ${error}`);
+            this.$emit('error', `La recupération des presentations a échoué: ${error}`);
           });
       });
   },

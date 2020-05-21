@@ -41,10 +41,7 @@
 <script>
 import dateFormat from 'dateformat';
 
-let alert = {};
-
 export default {
-  props: ['parentRefs'],
   data() {
     return {
       valid: true,
@@ -63,7 +60,6 @@ export default {
   },
   beforeMount() {
     this.setLoggedUser();
-    alert = this.parentRefs.alert;
   },
   methods: {
     createPresentation() {
@@ -80,11 +76,11 @@ export default {
         date: dateFormat(this.dataForm.date, 'yyyy-mm-dd HH:MM'),
       })
         .then((response) => {
-          alert.showMessage('success', `La présentation ${response.data.title} a été correctement créée`);
+          this.$emit('success', `La présentation ${response.data.title} a été correctement créée`);
           this.$refs.form.reset();
         })
         .catch((errorResponse) => {
-          alert.showMessage('error', `erreur lors de l'envoie des données ${errorResponse}`);
+          this.$emit('error', `erreur lors de l'envoie des données ${errorResponse}`);
         });
     },
   },

@@ -3,12 +3,14 @@
         "id": 1,
         "subject": "Prof.",
         "status": "Texas",
-        "presentation_id": 1
+        "presentation_id": 1,
+        "auth_user_choice": 1
     },
     {
         "id": 2,
         "subject": "Qui est le meilleur président",
         "status": "draft",
-        "presentation_id": 4
+        "presentation_id": 4,
+        "auth_user_choice": 2
     }
 ]

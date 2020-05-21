@@ -34,9 +34,7 @@
 </template>
 
 <script>
-let alert = {};
 export default {
-  props: ['parentRefs'],
   data() {
     return {
       token: null,
@@ -55,9 +53,6 @@ export default {
       },
     };
   },
-  beforeMount() {
-    alert = this.parentRefs.alert;
-  },
   methods: {
     resetPassword() {
       window.axios.post(
@@ -70,7 +65,7 @@ export default {
         this.$router.push({ name: 'Authentification' });
       })
         .catch((error) => {
-          alert.showMessage('error', `Erreur de type : ${error}`);
+          this.$emit('error', `Erreur de type : ${error}`);
         });
     },
   },

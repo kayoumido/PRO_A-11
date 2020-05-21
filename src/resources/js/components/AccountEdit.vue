@@ -38,9 +38,7 @@
 </template>
 
 <script>
-let alert = {};
 export default {
-  props: ['parentRefs'],
   data() {
     return {
       valid: true, // if a rules is not fully satisfied this will disable the submit button
@@ -60,7 +58,6 @@ export default {
   },
   beforeMount() {
     this.setLoggedUser();
-    alert = this.parentRefs.alert;
   },
   methods: {
     submitChange() {
@@ -76,7 +73,7 @@ export default {
       // Check if the object is Empty
 
       if (Object.keys(data).length === 0) {
-        alert.showMessage('error', 'Vous devez remplir au moins un champs');
+        this.$emit('error', 'Vous devez remplir au moins un champs');
         return;
       }
 
@@ -88,12 +85,12 @@ export default {
 
           // mirage response
           // this.loggedUser = response.data.user;
-          alert.showMessage('success', 'Changement appliqué');
+          this.$emit('success', 'Changement appliqué');
 
           this.cleanForm();
         })
         .catch((errorResponse) => {
-          alert.showMessage('error', `Erreur lors de l'envoie des donnée ${errorResponse}`);
+          this.$emit('error', `Erreur lors de l'envoie des donnée ${errorResponse}`);
         });
     },
     /**

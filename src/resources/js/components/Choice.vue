@@ -36,11 +36,10 @@ export default {
     deleteChoice() {
       window.axios.delete(`/choices/${this.choice.id}`)
         .then(() => {
-          this.$parent.refreshChoices();
+          this.$emit('update-choices');
         })
-        .catch((error) => {
-          // eslint-disable-next-line no-console
-          console.log('erreur de suppression de choix', error);
+        .catch(() => {
+          this.$emit('error', 'erreur de suppression de choix');
         });
     },
     vote() {
@@ -48,17 +47,12 @@ export default {
         choice_id: this.choice.id,
       })
         .then(() => {
-          this.$parent.refreshChoices();
+          this.$emit('choice-done', this.choice.id);
         })
-        .catch((error) => {
-          // eslint-disable-next-line no-console
-          console.log('erreur de vote', error);
+        .catch(() => {
+          this.$emit('error', 'problème lors du vote');
         });
     },
   },
 };
 </script>
-
-<style scoped>
-
-</style>

@@ -38,12 +38,11 @@ export default {
         .then(() => {
           this.error = false;
           this.input.message = '';
-          this.$parent.refreshChoices();
+          this.$emit('update-choices');
         })
-        .catch((error) => {
+        .catch(() => {
           this.error = true;
-          // eslint-disable-next-line no-console
-          console.log('erreur lors de la creation du choix', error);
+          this.$emit('error', 'erreur lors de la creation du choix');
         });
     },
   },
