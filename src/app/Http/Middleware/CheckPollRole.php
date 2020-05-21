@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 
-class CheckPollRoles
+class CheckPollRole
 {
     /**
      * Handle an incoming request.
@@ -18,25 +18,14 @@ class CheckPollRoles
      */
     public function handle($request, Closure $next, ...$roles)
     {
-        $error = false;
 
-        $presentation = Auth::user()->presentations()->where('id', $request->poll->presentation->id)->first();
-
-        if ($presentation) {
-            $user_role = $presentation->pivot->role;
-            if (!empty($roles) && !in_array($user_role, $roles)) {
-                $error = true;
-            }
-        } else {
-            $error = true;
-        }
-
-        if ($error) {
+        if (!check_role(Auth::user()->presentations()->where('id', $request->poll->presentation->id)->first(), $roles)) {
             return response()->json([
                 'success' => false,
                 'message' => 'Unauthorized',
             ], Response::HTTP_UNAUTHORIZED);
         }
+
         return $next($request);
     }
 }
