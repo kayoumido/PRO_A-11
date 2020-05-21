@@ -177,6 +177,13 @@ class PollController extends Controller
      */
     public function vote(Request $request, Poll $poll, User $user)
     {
-        //
+        $user->polls()->attach($poll, [
+            'choice_id' => $request->choice_id,
+        ]);
+
+        return response()->json([
+            'success' => true,
+            'message' => "Vote registered",
+        ], Response::HTTP_OK);
     }
 }
