@@ -68,6 +68,7 @@ class Kernel extends HttpKernel
         'choice.role' => \App\Http\Middleware\CheckChoiceRole::class,
         'poll.choice' => \App\Http\Middleware\CheckChoiceBelongsToPoll::class,
         'poll.vote' => \App\Http\Middleware\CheckAlreadyVoted::class,
+        'request.user' => \App\Http\Middleware\CheckSameUserAsRequest::class,
     ];
 
     /**
