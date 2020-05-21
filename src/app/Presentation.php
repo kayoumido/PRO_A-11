@@ -4,7 +4,7 @@ namespace App;
 
 use Laravel\Scout\Searchable;
 use Illuminate\Database\Eloquent\Model;
-use App\Poll\PollStatuses;
+use App\Poll\PollStatus;
 use App\User\Role;
 
 class Presentation extends Model
@@ -60,7 +60,7 @@ class Presentation extends Model
      * List of non-draft polls linked to the presentation
      */
     public function nonDraftPolls() {
-        return $this->polls()->where('status', '!=', PollStatuses::DRAFT())->get();
+        return $this->polls()->where('status', '!=', PollStatus::DRAFT())->get();
     }
 
     /*
