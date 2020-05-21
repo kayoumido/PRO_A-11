@@ -10,7 +10,6 @@ import AccountCreation from './components/AccountCreation';
 import Reset from './components/Reset';
 import ResetPassword from './components/ResetPassword';
 import EditPresentation from './components/EditPresentation';
-import CreatePoll from './components/CreatePoll';
 
 Vue.use(VueRouter);
 
@@ -62,11 +61,6 @@ const router = new VueRouter({
       path: '/presentation/:idPresentation/modifier',
       name: 'Edition de présentation',
       component: EditPresentation,
-    },
-    {
-      path: '/sondage/:idPresentation/creer',
-      name: 'Création de sondage',
-      component: CreatePoll,
     },
   ],
 });

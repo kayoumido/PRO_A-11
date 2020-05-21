@@ -11,15 +11,21 @@
                 </Poll>
             </v-col>
         </v-row>
+        <v-row>
+            <v-col>
+                <CreatePoll :presentation_id="presentation_id"></CreatePoll>
+            </v-col>
+        </v-row>
     </v-container>
 </template>
 
 <script>
 import Poll from './Poll';
+import CreatePoll from './CreatePoll';
 
 export default {
   name: 'Polls',
-  components: { Poll },
+  components: { CreatePoll, Poll },
   data() {
     return {
       polls: {},
