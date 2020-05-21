@@ -11,7 +11,7 @@
                 </Poll>
             </v-col>
         </v-row>
-        <v-row>
+        <v-row v-if="user_role === 'presenter'">
             <v-col>
                 <CreatePoll :presentation_id="presentation_id"></CreatePoll>
             </v-col>
