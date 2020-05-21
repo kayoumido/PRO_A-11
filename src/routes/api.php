@@ -56,7 +56,7 @@ Route::prefix('v1')->group(function () {
 
         // Choices management
         Route::middleware(['choice.role:' . App\User\Role::PRESENTER()])->group(function () {
-            Route::apiResource('polls.choices', 'API\ChoiceController')->only(['destroy'])->shallow();
+            Route::apiResource('polls.choices', 'API\ChoiceController')->only(['destroy', 'update'])->shallow();
         });
 
         Route::post('polls/{poll}/users/{user}', 'API\PollController@vote')->name('polls.vote');
