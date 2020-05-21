@@ -30,7 +30,7 @@ export default {
     'user_role',
   ],
   beforeMount() {
-    alert = this.$parent.$parent.$parent.parentRefs;
+    alert = this.$parent.$parent.$parent.parentRefs.alert;
   },
   methods: {
     deletePoll() {

@@ -1,12 +1,12 @@
 <template>
     <p>
         <span v-show="!editing">
-            {{value}}
+            {{input}}
             <v-btn @click="editing=true" color="warning" text><v-icon>mdi-pen</v-icon></v-btn>
         </span>
         <span v-show="editing">
             <v-text-field
-                v-model="value"
+                v-model="input"
                 append-icon="mdi-check"
                 :rules="[rules.required]"
                 :name="name"
@@ -33,15 +33,16 @@ export default {
       rules: {
         required: (value) => !!value || 'Required.',
       },
+      input: this.value,
     };
   },
   methods: {
     updateValue() {
       window.axios.put(this.apiUrl, {
-        [this.name]: this.value,
+        [this.name]: this.input,
       })
         .then((response) => {
-          this.value = response.data[this.name];
+          this.input = response.data[this.name];
           this.error = false;
           this.editing = false;
         })
