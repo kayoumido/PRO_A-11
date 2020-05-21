@@ -84,6 +84,6 @@ class ChoiceController extends Controller
      */
     public function destroy(Choice $choice)
     {
-        //
+        $choice->delete();
     }
 }
