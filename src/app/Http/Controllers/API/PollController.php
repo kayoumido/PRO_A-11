@@ -179,7 +179,7 @@ class PollController extends Controller
      * @param Poll $poll
      * @param User $user
      */
-    public function vote(VoteRequest $vote_request, Poll $poll, User $user)
+    public function vote(VoteRequest $request, Poll $poll, User $user)
     {
         $user->polls()->attach($poll, [
             'choice_id' => $request->choice_id,
