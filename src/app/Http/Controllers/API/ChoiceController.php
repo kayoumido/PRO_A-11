@@ -71,7 +71,12 @@ class ChoiceController extends Controller
      */
     public function update(Request $request, Choice $choice)
     {
-        //
+        $request->validate([
+            'message' => 'required|string',
+        ]);
+
+        $choice->update($request->only(['message']));
+        return new ChoiceResource($choice);
     }
 
     /**
