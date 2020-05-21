@@ -41,7 +41,7 @@ export default {
   },
   methods: {
     refreshPolls() {
-      const { alert } = this.$parent.$parent.parentRefs;
+      const { alert } = this.$parent.parentRefs;
       window.axios.get(`/presentations/${this.presentation_id}/polls`)
         .then((response) => {
           this.polls = response.data;

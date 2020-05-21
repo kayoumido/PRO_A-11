@@ -13,24 +13,28 @@
                 <v-icon>mdi-cloud-upload</v-icon>
             </v-btn>
         </v-card-title>
-        <v-card-actions>Put here the choices</v-card-actions>
+        <Choices
+            :user_role="user_role"
+            :poll_id="poll.id"
+            class="px-2"></Choices>
     </v-card>
 </template>
 
 <script>
 import EditableText from './EditableText';
+import Choices from './Choices';
 
 let alert = {};
 export default {
   name: 'Poll',
-  components: { EditableText },
+  components: { Choices, EditableText },
   props: [
     'poll',
     'user_id',
     'user_role',
   ],
   beforeMount() {
-    alert = this.$parent.$parent.$parent.parentRefs.alert;
+    alert = this.$parent.$parent.parentRefs.alert;
   },
   methods: {
     deletePoll() {
