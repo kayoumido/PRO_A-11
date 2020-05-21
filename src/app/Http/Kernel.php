@@ -69,6 +69,7 @@ class Kernel extends HttpKernel
         'poll.choice' => \App\Http\Middleware\CheckChoiceBelongsToPoll::class,
         'poll.vote' => \App\Http\Middleware\CheckAlreadyVoted::class,
         'request.user' => \App\Http\Middleware\CheckSameUserAsRequest::class,
+        'poll.votable' => \App\Http\Middleware\CheckPollIsVotable::class,
     ];
 
     /**
