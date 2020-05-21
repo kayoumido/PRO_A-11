@@ -16,13 +16,15 @@
         <Choices
             v-on:choice-done="poll.auth_user_choice = $event"
             v-on:error="$emit('error', $event)"
-            v-if="poll.auth_user_choice === 'none'"
+            v-if="user_role === 'presenter' || poll.auth_user_choice === 'none'"
             :user_role="user_role"
             :user_id="user_id"
             :poll_id="poll.id"
             class="px-2"></Choices>
         <PollResult
-            v-else></PollResult>
+            v-on:error="$emit('error', $event)"
+            v-else
+            :poll_id="poll.id"></PollResult>
     </v-card>
 </template>
 

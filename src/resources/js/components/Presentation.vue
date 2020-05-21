@@ -47,10 +47,8 @@
 <script>
 import Polls from './Polls';
 
-let alert = {};
 export default {
   components: { Polls },
-  props: ['parentRefs'],
   data() {
     return {
       isLoaded: false,
@@ -68,7 +66,6 @@ export default {
     },
   },
   beforeMount() {
-    alert = this.parentRefs.alert;
     this.getPresentation(this.$route.params.idPresentation);
     this.setLoggedUser()
       .then(() => {
@@ -89,26 +86,25 @@ export default {
       window.axios
         .post(`/presentations/${this.presentation.id}/users/${this.loggedUser.id}`)
         .then(() => {
-          alert.showMessage('success', 'Félicitations vous êtes maintenant inscrit à la présentation');
+          this.$emit('success', 'Félicitations vous êtes maintenant inscrit à la présentation');
           this.isSubscribed = true;
         })
         .catch(() => {
-          alert.showMessage('error', 'Oops une erreur c\'est produite lors de l\'inscription');
+          this.$emit('error', 'Oops une erreur c\'est produite lors de l\'inscription');
         });
     },
     unsubscribe() {
       window.axios
         .delete(`/presentations/${this.presentation.id}/users/${this.loggedUser.id}`)
         .then(() => {
-          alert.showMessage('warning', 'Vous n\'êtes plus inscrit a cette présentation');
+          this.$emit('warning', 'Vous n\'êtes plus inscrit a cette présentation');
           this.isSubscribed = false;
         })
         .catch(() => {
-          alert.showMessage('error', 'Oops une erreur c\'est produite lors de la désinscription');
+          this.$emit('error', 'Oops une erreur c\'est produite lors de la désinscription');
         });
     },
     getPresentation(id) {
-      alert = this.parentRefs.alert;
       const apiUrl = `/presentations/${id}`;
       window.axios
         .get(apiUrl)
@@ -116,7 +112,7 @@ export default {
           this.presentation = presResponse.data;
         })
         .catch(() => {
-          alert.showMessage('error', 'Oops une erreur est survenue lors du traitement de votre demande');
+          this.$emit('error', 'Oops une erreur est survenue lors du traitement de votre demande');
         });
     },
     isPresenter() {
@@ -127,11 +123,11 @@ export default {
 
       window.axios.delete(apiUrl)
         .then(() => {
-          alert.showMessage('success', 'La presentation à été supprimé correctement');
+          this.$emit('success', 'La presentation à été supprimé correctement');
           this.$router.push('/presentations');
         })
         .catch(() => {
-          alert.showMessage('error', 'La tentative de suppression a échoué');
+          this.$emit('error', 'La tentative de suppression a échoué');
         });
     },
   },
