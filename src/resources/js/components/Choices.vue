@@ -7,7 +7,9 @@
         >
             <Choice
                 :choice="choice"
-                :user_role="user_role"></Choice>
+                :user_role="user_role"
+                :user_id="user_id"
+                :poll_id="poll_id"></Choice>
         </v-col>
         <v-col v-show="user_role === 'presenter'" class="col-2">
             <CreateChoice :poll_id="poll_id"></CreateChoice>
@@ -24,6 +26,7 @@ export default {
   components: { CreateChoice, Choice },
   props: [
     'user_role',
+    'user_id',
     'poll_id',
   ],
   data() {

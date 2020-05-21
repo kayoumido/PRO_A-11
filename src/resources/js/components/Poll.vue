@@ -15,6 +15,7 @@
         </v-card-title>
         <Choices
             :user_role="user_role"
+            :user_id="user_id"
             :poll_id="poll.id"
             class="px-2"></Choices>
     </v-card>
