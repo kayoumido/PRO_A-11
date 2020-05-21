@@ -2,14 +2,18 @@
 
 namespace App\Http\Controllers\API;
 
+use Illuminate\Http\Response;
+use Illuminate\Http\Request;
+
 use App\Http\Controllers\Controller;
 use App\Http\Resources\PollResource;
+use App\Http\Requests\VoteRequest;
+
 use App\Poll;
 use App\Poll\PollStatuses;
 use App\Presentation;
 use App\User;
-use Illuminate\Http\Response;
-use Illuminate\Http\Request;
+
 
 /**
  * Class PollController
@@ -171,11 +175,11 @@ class PollController extends Controller
      * @urlParam user required User id for the vote
      * @bodyParam choice_id id required Choice id for the choosed choice
      *
-     * @param Request $request
+     * @param VoteRequest $request
      * @param Poll $poll
      * @param User $user
      */
-    public function vote(Request $request, Poll $poll, User $user)
+    public function vote(VoteRequest $vote_request, Poll $poll, User $user)
     {
         $user->polls()->attach($poll, [
             'choice_id' => $request->choice_id,
