@@ -11,6 +11,9 @@
                 :value="choice.message"
                 name="message"
                 :api-url="`/choices/${choice.id}`"></EditableText>
+            <v-btn @click="deleteChoice" text color="error">
+                <v-icon>mdi-delete</v-icon>
+            </v-btn>
         </div>
     </v-sheet>
 </template>
@@ -25,6 +28,18 @@ export default {
     'choice',
     'user_role',
   ],
+  methods: {
+    deleteChoice() {
+      window.axios.delete(`/choices/${this.choice.id}`)
+        .then(() => {
+          this.$parent.refreshChoices();
+        })
+        .catch((error) => {
+          // eslint-disable-next-line no-console
+          console.log('erreur de suppression de choix', error);
+        });
+    },
+  },
 };
 </script>
 
