@@ -3,18 +3,25 @@
         <v-col
             v-for="(choice) in choices"
             :key="choice.id"
+            class="col-2"
         >
-        <Choice :choice="choice"></Choice>
+            <Choice
+                :choice="choice"
+                :user_role="user_role"></Choice>
+        </v-col>
+        <v-col v-show="user_role === 'presenter'" class="col-2">
+            <CreateChoice :poll_id="poll_id"></CreateChoice>
         </v-col>
     </v-row>
 </template>
 
 <script>
 import Choice from './Choice';
+import CreateChoice from './CreateChoice';
 
 export default {
   name: 'Choices',
-  components: { Choice },
+  components: { CreateChoice, Choice },
   props: [
     'user_role',
     'poll_id',
