@@ -17,9 +17,9 @@ class CheckPresentationRole
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle($request, Closure $next, $roles)
+    public function handle($request, Closure $next, ...$roles)
     {
-        if (!check_role(Auth::user()->presentations()->where('id', $request->presentation->id)->first(), explode('|', $roles))) {
+        if (!check_role(Auth::user()->presentations()->where('id', $request->presentation->id)->first(), $roles)) {
             return response()->json([
                 'success' => false,
                 'message' => 'Unauthorized',

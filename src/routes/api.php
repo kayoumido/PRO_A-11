@@ -56,7 +56,7 @@ Route::prefix('v1')->group(function () {
 
         Route::apiResource('polls.choices', 'API\ChoiceController')->only(['index'])->shallow();
 
-        Route::middleware(['poll.role:' . App\User\Role::PRESENTER() . '|' . App\User\Role::ATENDEE()])->group(function () {
+        Route::middleware(['poll.role:' . App\User\Role::PRESENTER() . ',' . App\User\Role::ATENDEE()])->group(function () {
             Route::get('polls/{poll}/results', 'API\PollController@results')->name('polls.results');
         });
 
