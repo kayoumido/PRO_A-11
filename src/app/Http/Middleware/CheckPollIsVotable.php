@@ -3,7 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use App\Poll\PollStatuses;
+use App\Poll\PollStatus;
 use Illuminate\Http\Response;
 
 class CheckPollIsVotable
@@ -17,7 +17,7 @@ class CheckPollIsVotable
      */
     public function handle($request, Closure $next)
     {
-        if ($request->poll->status != PollStatuses::PUBLISHED())
+        if ($request->poll->status != PollStatus::PUBLISHED())
             return response()->json([
                 'success' => false,
                 'message' => "Poll isn't published!",
