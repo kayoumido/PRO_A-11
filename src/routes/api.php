@@ -59,7 +59,9 @@ Route::prefix('v1')->group(function () {
             Route::apiResource('polls.choices', 'API\ChoiceController')->only(['destroy', 'update'])->shallow();
         });
 
-        Route::post('polls/{poll}/users/{user}', 'API\PollController@vote')->name('polls.vote');
+        Route::middleware(['poll.role:' . App\User\Role::ATENDEE(), 'poll.choice', 'request.user', 'poll.votable'])->group(function () {
+            Route::post('polls/{poll}/users/{user}', 'API\PollController@vote')->name('polls.vote');
+        });
     });
 
 });

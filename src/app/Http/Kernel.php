@@ -66,6 +66,10 @@ class Kernel extends HttpKernel
         'subscription.permission' => \App\Http\Middleware\CheckSubscriptionPermission::class,
         'presentation.role' => \App\Http\Middleware\CheckPresentationRole::class,
         'choice.role' => \App\Http\Middleware\CheckChoiceRole::class,
+        'poll.choice' => \App\Http\Middleware\CheckChoiceBelongsToPoll::class,
+        'poll.vote' => \App\Http\Middleware\CheckAlreadyVoted::class,
+        'request.user' => \App\Http\Middleware\CheckSameUserAsRequest::class,
+        'poll.votable' => \App\Http\Middleware\CheckPollIsVotable::class,
     ];
 
     /**
