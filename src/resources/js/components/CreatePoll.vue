@@ -1,17 +1,17 @@
 <template>
   <v-card>
-      <v-card-title>
-          <v-text-field
-              v-model="input.subject"
-              :rules="[rules.required]"
-              name="subject"
-              placeholder="Nouveau poll"
-              :error="error">
-          </v-text-field>
-          <v-btn @click="createPoll" text color="success">
-              <v-icon>mdi-file-plus-outline</v-icon>
-          </v-btn>
-      </v-card-title>
+    <v-card-title>
+      <v-text-field
+        v-model="input.subject"
+        :rules="[rules.required]"
+        name="subject"
+        placeholder="Nouveau poll"
+        :error="error">
+      </v-text-field>
+      <v-btn @click="createPoll" text color="success">
+        <v-icon>mdi-file-plus-outline</v-icon>
+      </v-btn>
+    </v-card-title>
   </v-card>
 </template>
 
