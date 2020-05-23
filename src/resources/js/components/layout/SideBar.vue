@@ -53,11 +53,6 @@ export default {
         name: 'Mot de passe oublié',
         icon: 'mdi-account-question',
       },
-      {
-        path: '/reset-password/:token',
-        name: 'Redéfinir mot de passe',
-        icon: 'mdi-account-convert',
-      },
     ],
     isLoaded: false,
     isLogged: false,
