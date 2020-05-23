@@ -37,9 +37,7 @@
 <script>
 import dateFormat from 'dateformat';
 
-let alert = {};
 export default {
-  props: ['parentRefs'],
   data() {
     return {
       valid: true,
@@ -54,8 +52,6 @@ export default {
     };
   },
   beforeMount() {
-    alert = this.parentRefs.alert;
-
     window.axios
       .get(`presentations/${this.$route.params.idPresentation}`)
       .then((response) => {
@@ -63,7 +59,7 @@ export default {
         this.updatePresentationInfo.date = dateFormat(response.data.date, 'yyyy-mm-dd HH:MM');
       })
       .catch(() => {
-        alert.showMessage('error', 'Une erreur est survenue lors du traitement de votre demande');
+        this.$emit('error', 'Une erreur est survenue lors du traitement de votre demande');
       });
   },
   methods: {
@@ -71,7 +67,7 @@ export default {
       const apiUrl = `presentations/${this.$route.params.idPresentation}`;
 
       if (this.$refs.form.validate()) {
-        alert.showMessage('error', 'Vous devez renseigner une date');
+        this.$emit('error', 'Vous devez renseigner une date');
         return;
       }
 
@@ -81,12 +77,12 @@ export default {
         date: dateFormat(this.updatePresentationInfo.date, 'yyyy-mm-dd HH:MM'),
       })
         .then((response) => {
-          alert.showMessage('success', 'Les informations de la présentation ont été modifiées');
+          this.$emit('success', 'Les informations de la présentation ont été modifiées');
           this.updatePresentationInfo.title = response.data.title;
           this.updatePresentationInfo.date = dateFormat(response.data.date, 'yyyy-mm-dd HH:MM');
         })
         .catch(() => {
-          alert.showMessage('error', 'Nous n\'avons pas réussi à appliquer les changements');
+          this.$emit('error', 'Nous n\'avons pas réussi à appliquer les changements');
         });
     },
   },

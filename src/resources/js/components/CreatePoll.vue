@@ -1,65 +1,52 @@
 <template>
-  <v-form
-    ref="form"
-    v-model="valid"
-    lazy-validation
-  >
-    <v-text-field
-      v-model="input.subject"
-      :rules="subjectRules"
-      label="Thème"
-      required
-    />
-
-    <v-btn
-      :disabled="!valid"
-      color="success"
-      class="mr-4"
-      @click="createPoll"
-    >
-      Créer sondage
-    </v-btn>
-
-  </v-form>
+  <v-card>
+    <v-card-title>
+      <v-text-field
+        v-model="input.subject"
+        :rules="[rules.required]"
+        name="subject"
+        placeholder="Nouveau poll"
+        :error="error">
+      </v-text-field>
+      <v-btn @click="createPoll" text color="success">
+        <v-icon>mdi-file-plus-outline</v-icon>
+      </v-btn>
+    </v-card-title>
+  </v-card>
 </template>
 
 <script>
-let alert = {};
 export default {
-  props: ['parentRefs'],
+  name: 'CreatePoll',
+  props: [
+    'presentation_id',
+  ],
   data() {
     return {
-      valid: true,
-      subjectRules: [
-        (v) => !!v || 'Un sujet est nécessaire',
-      ],
+      rules: {
+        required: (v) => !!v || 'Un sujet est nécessaire',
+      },
       // Object for form field binding
       input: {
         subject: '',
       },
+      error: false,
     };
-  },
-  beforeMount() {
-    alert = this.parentRefs.alert;
   },
   methods: {
     createPoll() {
-      const apiUrl = `presentations/${this.$route.params.idPresentation}/polls`;
-
-      // force data validation
-      if (!this.$refs.form.validate()) {
-        return;
-      }
+      const apiUrl = `/presentations/${this.presentation_id}/polls`;
 
       // send http request with axios and catch response or error
-      window.axios.post(apiUrl, {
-        subject: this.input.subject,
-      })
+      window.axios.post(apiUrl, this.input)
         .then(() => {
-          alert.showMessage('success', 'Sondage créé');
+          this.input.subject = '';
+          this.error = false;
+          this.$emit('update-polls');
         })
         .catch(() => {
-          alert.showMessage('error', 'Problème lors de la création du sondage');
+          this.error = true;
+          this.$emit('error', 'Problème lors de la création du sondage');
         });
     },
   },

@@ -36,9 +36,7 @@
 </template>
 
 <script>
-let alert = {};
 export default {
-  props: ['parentRefs'],
   data() {
     return {
       // vuetify
@@ -57,9 +55,6 @@ export default {
       },
     };
   },
-  beforeMount() {
-    alert = this.parentRefs.alert;
-  },
   methods: {
     login() {
       // sends credentials to backend for verification
@@ -74,13 +69,14 @@ export default {
             alert.showMessage('success', 'Authentifié');
             const token = response.data.access_token;
             localStorage.setItem('Authorization-token', token); // store the token in localstorage
+            this.$emit('success', 'Authentifié');
             this.$router.go(0);
           } else {
-            alert.showMessage('error', 'Réponse du serveur inatendue');
+            this.$emit('error', 'Réponse du serveur inatendue');
           }
         })
         .catch(() => {
-          alert.showMessage('error', 'Adresse email ou mot de passe incorrect');
+          this.$emit('error', 'Adresse email ou mot de passe incorrect');
         });
     },
   },

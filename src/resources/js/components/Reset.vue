@@ -23,7 +23,6 @@
 </template>
 
 <script>
-let alert = {};
 export default {
   name: 'Reset',
   props: ['parentRefs'],
@@ -39,9 +38,6 @@ export default {
       },
     };
   },
-  beforeMount() {
-    alert = this.parentRefs.alert;
-  },
   methods: {
     reset() {
       window.axios.post(
@@ -49,10 +45,10 @@ export default {
           email: this.input.email,
         },
       ).then(() => {
-        alert.showMessage('information', 'Un email vous a été envoyé avec les instructions nécessaires');
+        this.$emit('information', 'Un email vous a été envoyé avec les instructions nécessaires');
       })
         .catch((error) => {
-          alert.showMessage('error', `Erreur de type : ${error}`);
+          this.$emit('error', `Erreur de type : ${error}`);
         });
     },
   },

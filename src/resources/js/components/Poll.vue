@@ -13,34 +13,42 @@
                 <v-icon>mdi-cloud-upload</v-icon>
             </v-btn>
         </v-card-title>
-        <v-card-actions>Put here the choices</v-card-actions>
+        <Choices
+            v-on:choice-done="poll.auth_user_choice = $event"
+            v-on:error="$emit('error', $event)"
+            v-if="user_role === 'presenter' || poll.auth_user_choice === 'none'"
+            :user_role="user_role"
+            :user_id="user_id"
+            :poll_id="poll.id"
+            class="px-2"></Choices>
+        <PollResult
+            v-on:error="$emit('error', $event)"
+            v-else
+            :poll_id="poll.id"></PollResult>
     </v-card>
 </template>
 
 <script>
 import EditableText from './EditableText';
+import Choices from './Choices';
+import PollResult from './PollResult';
 
-let alert = {};
 export default {
   name: 'Poll',
-  components: { EditableText },
+  components: { PollResult, Choices, EditableText },
   props: [
     'poll',
     'user_id',
     'user_role',
   ],
-  beforeMount() {
-    alert = this.$parent.$parent.$parent.parentRefs.alert;
-  },
   methods: {
     deletePoll() {
-      const pollList = this.$parent;
       window.axios.delete(`/polls/${this.poll.id}`)
         .then(() => {
-          pollList.refreshPolls();
+          this.$emit('update-polls');
         })
         .catch(() => {
-          alert.showMessage('error', 'Une erreur est survenue lors de la suppresion du sondage');
+          this.$emit('error', 'Une erreur est survenue lors de la suppresion du sondage');
         });
     },
     submitPoll() {
@@ -49,7 +57,7 @@ export default {
           this.poll = response.data;
         })
         .catch(() => {
-          alert.showMessage('error', 'Une erreur est survenue lors de la publication du sondage');
+          this.$emit('error', 'Une erreur est survenue lors de la publication du sondage');
         });
     },
   },

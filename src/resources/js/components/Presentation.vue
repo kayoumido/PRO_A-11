@@ -1,56 +1,54 @@
 <template>
-      <v-card
-      class="mx-auto"
-      max-width="344"
+      <v-container
       v-if="isLoaded"
       >
-      <v-list-item three-line>
-        <v-list-item-content>
-          <v-list-item-title class="headline mb-1">
-            Titre : {{ presentation.title }}
-          </v-list-item-title>
-          <v-list-item-subtitle>
-            Date: {{ presentation.date }}
-          </v-list-item-subtitle>
-            <v-list-item-action >
-                <v-btn
-                v-if="isPresenter()"
-                color="error"
-                @click.prevent="delPresentation(presentation.id)">
-                  Supprimer
-                </v-btn>
-                <v-btn
-                    v-else-if="!isSubscribed"
-                    @click="subscribe"
-                    color="primary"
-                    >
-                    S'inscrire
-                </v-btn>
-                <v-btn
-                    v-else
-                    @click="unsubscribe"
-                    color="error">
-                    Se désincrire
-                </v-btn>
-            </v-list-item-action>
-        </v-list-item-content>
-
-      </v-list-item>
+      <v-row>
+          <v-col>
+              <h2>{{presentation.title}}</h2>
+          </v-col>
+      </v-row>
+      <v-row>
+          <v-col>
+              <p>{{presentation.date}}</p>
+          </v-col>
+      </v-row>
+      <v-row>
+          <v-col>
+            <v-btn
+            v-if="isPresenter()"
+            color="error"
+            @click.prevent="delPresentation(presentation.id)">
+              Supprimer
+            </v-btn>
+            <v-btn
+                v-else-if="!isSubscribed"
+                @click="subscribe"
+                color="primary"
+                >
+                S'inscrire
+            </v-btn>
+            <v-btn
+                v-else
+                @click="unsubscribe"
+                color="error">
+                Se désincrire
+            </v-btn>
+          </v-col>
+      </v-row>
       <Polls
+        v-on:error="$emit('error', $event)"
         :user_id="loggedUser.id"
         :user_role="presentation.auth_user_role"
         :presentation_id="presentation.id"></Polls>
 
-    </v-card>
+    </v-container>
 </template>
 
 <script>
 import Polls from './Polls';
 
-let alert = {};
 export default {
   components: { Polls },
-  props: ['parentRefs'],
   data() {
     return {
       isLoaded: false,
@@ -68,7 +66,6 @@ export default {
     },
   },
   beforeMount() {
-    alert = this.parentRefs.alert;
     this.getPresentation(this.$route.params.idPresentation);
     this.setLoggedUser()
       .then(() => {
@@ -89,26 +86,25 @@ export default {
       window.axios
         .post(`/presentations/${this.presentation.id}/users/${this.loggedUser.id}`)
         .then(() => {
-          alert.showMessage('success', 'Félicitations vous êtes maintenant inscrit à la présentation');
+          this.$emit('success', 'Félicitations vous êtes maintenant inscrit à la présentation');
           this.isSubscribed = true;
         })
         .catch(() => {
-          alert.showMessage('error', 'Oops une erreur c\'est produite lors de l\'inscription');
+          this.$emit('error', 'Oops une erreur c\'est produite lors de l\'inscription');
         });
     },
     unsubscribe() {
       window.axios
         .delete(`/presentations/${this.presentation.id}/users/${this.loggedUser.id}`)
         .then(() => {
-          alert.showMessage('warning', 'Vous n\'êtes plus inscrit a cette présentation');
+          this.$emit('warning', 'Vous n\'êtes plus inscrit a cette présentation');
           this.isSubscribed = false;
         })
         .catch(() => {
-          alert.showMessage('error', 'Oops une erreur c\'est produite lors de la désinscription');
+          this.$emit('error', 'Oops une erreur c\'est produite lors de la désinscription');
         });
     },
     getPresentation(id) {
-      alert = this.parentRefs.alert;
       const apiUrl = `/presentations/${id}`;
       window.axios
         .get(apiUrl)
@@ -116,7 +112,7 @@ export default {
           this.presentation = presResponse.data;
         })
         .catch(() => {
-          alert.showMessage('error', 'Oops une erreur est survenue lors du traitement de votre demande');
+          this.$emit('error', 'Oops une erreur est survenue lors du traitement de votre demande');
         });
     },
     isPresenter() {
@@ -127,11 +123,11 @@ export default {
 
       window.axios.delete(apiUrl)
         .then(() => {
-          alert.showMessage('success', 'La presentation à été supprimé correctement');
+          this.$emit('success', 'La presentation à été supprimé correctement');
           this.$router.push('/presentations');
         })
         .catch(() => {
-          alert.showMessage('error', 'La tentative de suppression a échoué');
+          this.$emit('error', 'La tentative de suppression a échoué');
         });
     },
   },

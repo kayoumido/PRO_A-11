@@ -35,7 +35,9 @@
                 <v-row>
                     <v-container>
                         <AlertMessage ref="alert"></AlertMessage>
-                        <router-view :parentRefs="$refs"></router-view>
+                        <router-view
+                            v-on:error="handleAlert('error', $event)"
+                            v-on:success="handleAlert('success', $event)"></router-view>
                     </v-container>
                 </v-row>
             </v-container>
@@ -63,6 +65,11 @@ export default {
   },
   components: {
     AlertMessage, UserTooltip, SearchBar, SideBar,
+  },
+  methods: {
+    handleAlert(color, message) {
+      this.$refs.alert.showMessage(color, message);
+    },
   },
 };
 </script>
