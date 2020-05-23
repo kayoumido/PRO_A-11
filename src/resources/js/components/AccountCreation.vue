@@ -100,12 +100,12 @@ export default {
             const token = response.data.access_token;
             localStorage.setItem('Authorization-token', token);
             this.$emit('success', 'Authentifié');
-            this.$router.push({ name: 'Hello' });
+            this.$router.go(0);
           } else {
             this.$emit('error', 'Réponse du serveur inatendue');
           }
-        }).catch((error) => {
-          this.$emit('error', `Erreur de type : ${error}`);
+        }).catch(() => {
+          this.$emit('error', 'Connexion échouée');
         });
       } else {
         this.$emit('error', 'Les mots de passe sont différents');

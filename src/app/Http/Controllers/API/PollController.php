@@ -2,14 +2,18 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Http\Controllers\Controller;
-use App\Http\Resources\PollResource;
-use App\Poll;
-use App\Poll\PollStatuses;
-use App\Presentation;
-use App\User;
 use Illuminate\Http\Response;
 use Illuminate\Http\Request;
+
+use App\Http\Controllers\Controller;
+use App\Http\Resources\PollResource;
+use App\Http\Requests\VoteRequest;
+
+use App\Poll;
+use App\Poll\PollStatus;
+use App\Presentation;
+use App\User;
+
 
 /**
  * Class PollController
@@ -58,7 +62,7 @@ class PollController extends Controller
         $poll_data = $request->only([
             'subject',
         ]);
-        $poll_data['status'] = PollStatuses::DRAFT();
+        $poll_data['status'] = PollStatus::DRAFT();
         $poll = $presentation->polls()->create($poll_data);
 
         return new PollResource($poll);
@@ -76,7 +80,7 @@ class PollController extends Controller
      */
     public function show(Request $request, Poll $poll)
     {
-        if (!$request->poll->presentation->moderators()->contains($request->user()) && $poll->state == PollStatuses::DRAFT()) {
+        if (!$request->poll->presentation->moderators()->contains($request->user()) && $poll->state == PollStatus::DRAFT()) {
             return response()->json('unauthorized', Response::HTTP_UNAUTHORIZED);
         }
 
@@ -116,7 +120,7 @@ class PollController extends Controller
      */
     public function destroy(Poll $poll)
     {
-        //
+        $poll->delete();
     }
 
 
@@ -132,7 +136,7 @@ class PollController extends Controller
      */
     public function publish(Request $request, Poll $poll)
     {
-        $poll->status = PollStatuses::PUBLISHED();
+        $poll->status = PollStatus::PUBLISHED();
         $poll->save();
 
         return new PollResource($poll);
@@ -172,12 +176,19 @@ class PollController extends Controller
      * @urlParam user required User id for the vote
      * @bodyParam choice_id id required Choice id for the choosed choice
      *
-     * @param Request $request
+     * @param VoteRequest $request
      * @param Poll $poll
      * @param User $user
      */
-    public function vote(Request $request, Poll $poll, User $user)
+    public function vote(VoteRequest $request, Poll $poll, User $user)
     {
-        //
+        $user->polls()->attach($poll, [
+            'choice_id' => $request->choice_id,
+        ]);
+
+        return response()->json([
+            'success' => true,
+            'message' => "Vote registered",
+        ], Response::HTTP_OK);
     }
 }

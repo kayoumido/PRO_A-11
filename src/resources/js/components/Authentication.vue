@@ -66,16 +66,17 @@ export default {
       )
         .then((response) => {
           if (response.data.token_type === 'Bearer') {
+            alert.showMessage('success', 'Authentifié');
             const token = response.data.access_token;
             localStorage.setItem('Authorization-token', token); // store the token in localstorage
             this.$emit('success', 'Authentifié');
-            this.$router.replace({ name: 'Hello' }); // all routing is handled by vuejs, should be changed for the final home route
+            this.$router.go(0);
           } else {
             this.$emit('error', 'Réponse du serveur inatendue');
           }
         })
-        .catch((error) => {
-          this.$emit('error', `erreur de type: ${error}`);
+        .catch(() => {
+          this.$emit('error', 'Adresse email ou mot de passe incorrect');
         });
     },
   },

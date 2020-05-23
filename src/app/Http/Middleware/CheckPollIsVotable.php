@@ -3,27 +3,25 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use App\Poll\PollStatus;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Auth;
 
-class CheckPollRole
+class CheckPollIsVotable
 {
     /**
      * Handle an incoming request.
-     * Check if the Auth user has the right role to access the requested element
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle($request, Closure $next, ...$roles)
+    public function handle($request, Closure $next)
     {
-        if (!check_role(Auth::user()->presentations()->where('id', $request->poll->presentation->id)->first(), $roles)) {
+        if ($request->poll->status != PollStatus::PUBLISHED())
             return response()->json([
                 'success' => false,
-                'message' => 'Unauthorized',
+                'message' => "Poll isn't published!",
             ], Response::HTTP_UNAUTHORIZED);
-        }
 
         return $next($request);
     }

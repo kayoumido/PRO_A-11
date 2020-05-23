@@ -51,15 +51,23 @@ Route::prefix('v1')->group(function () {
             Route::apiResource('polls', 'API\PollController')->only(['update'])->shallow();
             Route::put('polls/{poll}/publish', 'API\PollController@publish')->name('polls.publish');
             Route::get('polls/{poll}/results', 'API\PollController@results')->name('polls.results');
-            Route::apiResource('polls.choices', 'API\ChoiceController')->only(['store'])->shallow();
+            Route::apiResource('polls.choices', 'API\ChoiceController')->only(['store', 'update'])->shallow();
+        });
+
+        Route::apiResource('polls.choices', 'API\ChoiceController')->only(['index'])->shallow();
+
+        Route::middleware(['poll.role:' . App\User\Role::PRESENTER() . ',' . App\User\Role::ATENDEE()])->group(function () {
+            Route::get('polls/{poll}/results', 'API\PollController@results')->name('polls.results');
         });
 
         // Choices management
         Route::middleware(['choice.role:' . App\User\Role::PRESENTER()])->group(function () {
-            Route::apiResource('polls.choices', 'API\ChoiceController')->only(['destroy'])->shallow();
+            Route::apiResource('polls.choices', 'API\ChoiceController')->only(['destroy', 'update'])->shallow();
         });
 
-        Route::post('polls/{poll}/users/{user}', 'API\PollController@vote')->name('polls.vote');
+        Route::middleware(['poll.role:' . App\User\Role::ATENDEE(), 'poll.choice', 'request.user', 'poll.votable'])->group(function () {
+            Route::post('polls/{poll}/users/{user}', 'API\PollController@vote')->name('polls.vote');
+        });
     });
 
 });

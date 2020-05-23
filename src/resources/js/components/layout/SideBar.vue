@@ -2,6 +2,7 @@
     <v-list
         nav
         dense
+        v-if="isLoaded"
     >
         <v-list-item
             v-for="(route, i) in routes"
@@ -23,7 +24,8 @@
 export default {
   name: 'SideBar',
   data: () => ({
-    routes: [
+    routes: [],
+    authRoutes: [
       {
         name: 'Mes presentations',
         icon: 'mdi-presentation-play',
@@ -35,7 +37,43 @@ export default {
         path: '/presentation/creer',
       },
     ],
+    notAuthRoutes: [
+      {
+        path: '/login',
+        name: 'Connexion',
+        icon: 'mdi-account-circle',
+      },
+      {
+        path: '/creer-compte',
+        name: 'Création de compte',
+        icon: 'mdi-account-plus',
+      },
+      {
+        path: '/reset',
+        name: 'Mot de passe oublié',
+        icon: 'mdi-account-question',
+      },
+    ],
+    isLoaded: false,
+    isLogged: false,
   }),
+  beforeMount() {
+    window.axios.get('/me')
+      .then(() => {
+        // handles success
+        this.isLogged = true;
+        this.routes = this.authRoutes;
+      })
+      .catch(() => {
+        // handles error
+        this.isLogged = false;
+        this.routes = this.notAuthRoutes;
+      })
+      .then(() => {
+        // always run
+        this.isLoaded = true;
+      });
+  },
 };
 </script>
 
