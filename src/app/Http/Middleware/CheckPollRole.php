@@ -18,7 +18,6 @@ class CheckPollRole
      */
     public function handle($request, Closure $next, ...$roles)
     {
-
         if (!check_role(Auth::user()->presentations()->where('id', $request->poll->presentation->id)->first(), $roles)) {
             return response()->json([
                 'success' => false,
