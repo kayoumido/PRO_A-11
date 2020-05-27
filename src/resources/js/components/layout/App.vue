@@ -35,31 +35,17 @@
         </v-navigation-drawer>
 
         <v-content>
+                <AlertMessage ref="alert"></AlertMessage>
                 <router-view
                     v-on:error="handleAlert('error', $event)"
                     v-on:success="handleAlert('success', $event)"></router-view>
-<!--                <v-row>-->
-<!--                    <v-col>-->
-<!--                        <h1>{{$router.currentRoute.name}}</h1>-->
-<!--                    </v-col>-->
-<!--                </v-row>-->
-<!--                <v-row>-->
-<!--                    <v-container>-->
-<!--                        <AlertMessage ref="alert"></AlertMessage>-->
-<!--                        <router-view-->
-<!--                            v-on:error="handleAlert('error', $event)"-->
-<!--                            v-on:success="handleAlert('success', $event)"></router-view>-->
-<!--                    </v-container>-->
-<!--                </v-row>-->
         </v-content>
     </v-app>
 </template>
 <script>
 import { mapActions, mapGetters } from 'vuex';
 import SideBar from './SideBar';
-// import SearchBar from './SearchBar';
-// import UserTooltip from './UserTooltip';
-// import AlertMessage from './AlertMessage';
+import AlertMessage from './AlertMessage';
 
 const appName = 'Paul';
 const shortAppName = 'P.';
@@ -76,8 +62,7 @@ export default {
     }),
   },
   components: {
-    // AlertMessage,
-    /* UserTooltip, SearchBar, */
+    AlertMessage,
     SideBar,
   },
   methods: {
@@ -88,7 +73,7 @@ export default {
       this.signOut()
         .then(() => {
           this.handleAlert('success', 'Déconnecté');
-          this.$router.replace({ name: 'Connexion' });
+          this.$router.push({ name: 'Connexion' });
         })
         .catch(() => {
           this.handleAlert('error', 'Une erreur c\'est produite lors de la déconnexion');
