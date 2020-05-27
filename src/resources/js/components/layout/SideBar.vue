@@ -1,7 +1,7 @@
 <template>
     <v-list
         nav
-        dense>>
+        dense>
         <template v-if="authenticated">
             <v-list-item href="/presentations">
                 <v-list-item-icon>

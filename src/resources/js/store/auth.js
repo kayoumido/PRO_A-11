@@ -30,41 +30,41 @@ export default ({
     },
   },
   actions: {
-    signIn({ dispatch }, credentials) {
-      return window.axios.post('/login', credentials)
-        .then((response) => {
-          dispatch('attempt', response.data.access_token);
-        });
+    async signIn({ dispatch }, credentials) {
+      const response = await window.axios.post('/login', credentials);
+      return dispatch('attempt', response.data.access_token);
     },
-    register({ dispatch }, userData) {
-      return window.axios.post('/register', userData)
-        .then((response) => {
-          dispatch('attempt', response.data.access_token);
-        });
+    async register({ dispatch }, userData) {
+      const response = await window.axios.post('/register', userData);
+      return dispatch('attempt', response.data.access_token);
     },
-    attempt({ commit, state }, token) {
+    async attempt({ commit, state }, token) {
       if (token) {
         commit('SET_TOKEN', token);
       }
-
       if (!state.token) {
         return;
       }
 
-      window.axios.get('/me')
-        .then((response) => {
-          commit('SET_USER', response.data);
-        })
-        .catch(() => {
-          commit('SET_TOKEN', null);
-          commit('SET_USER', null);
-        });
+      try {
+        const response = await window.axios.get('/me');
+        commit('SET_USER', response.data);
+      } catch (e) {
+        commit('SET_TOKEN', null);
+        commit('SET_USER', null);
+      }
     },
     signOut({ commit }) {
       return window.axios.post('/logout')
         .then(() => {
           commit('SET_TOKEN', null);
           commit('SET_USER', null);
+        });
+    },
+    updateUser({ commit, state }, userInfo) {
+      return window.axios.put(`/users/${state.user}`, userInfo)
+        .then((response) => {
+          commit('SET_USER', response.data);
         });
     },
   },

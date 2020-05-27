@@ -10,17 +10,21 @@ require('./bootstrap');
 
 Vue.use(DatetimePicker);
 
-store.dispatch('auth/attempt', localStorage.getItem('token'));
 
 if (process.env.NODE_ENV === 'development') {
   makeServer();
 }
 
-export default new Vue({
-  el: '#app',
-  router,
-  vuetify,
-  store,
-  components: { App },
-  render: (h) => h(App),
-});
+store.dispatch('auth/attempt', localStorage.getItem('token'))
+  .then(() => {
+    // make sure that the user is set before loading application
+    // eslint-disable-next-line no-new
+    new Vue({
+      el: '#app',
+      router,
+      vuetify,
+      store,
+      components: { App },
+      render: (h) => h(App),
+    });
+  });
