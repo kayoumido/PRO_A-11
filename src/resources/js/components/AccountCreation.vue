@@ -48,7 +48,7 @@
             :disabled="!valid"
             color="success"
             class="mr-4"
-            @click="register"
+            @click="createAccount"
             >
             Créer compte
       </v-btn>
@@ -56,6 +56,8 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
+
 export default {
   data() {
     return {
@@ -85,31 +87,17 @@ export default {
     };
   },
   methods: {
-    register() {
-      if (this.isPasswordConfirmMatchPassword()) {
-      // sends credentials to backend
-        window.axios.post(
-          '/register', {
-            fname: this.input.fname,
-            lname: this.input.lname,
-            email: this.input.email,
-            password: this.input.password,
-          },
-        ).then((response) => {
-          if (response.data.token_type === 'Bearer') {
-            const token = response.data.access_token;
-            localStorage.setItem('Authorization-token', token);
-            this.$emit('success', 'Authentifié');
-            this.$router.go(0);
-          } else {
-            this.$emit('error', 'Réponse du serveur inatendue');
-          }
+    ...mapActions({
+      register: 'auth/register',
+    }),
+    createAccount() {
+      this.register(this.input)
+        .then(() => {
+          this.$emit('success', 'Compte créé avec succés');
+          this.$router.push('/');
         }).catch(() => {
-          this.$emit('error', 'Connexion échouée');
+          this.$emit('error', 'Une erreur est surevenue lors de la création de compte');
         });
-      } else {
-        this.$emit('error', 'Les mots de passe sont différents');
-      }
     },
     // check if both password are the same
     isPasswordConfirmMatchPassword() {

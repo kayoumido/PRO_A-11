@@ -17,7 +17,8 @@
 
             <v-spacer></v-spacer>
             <SearchBar></SearchBar>
-            <UserTooltip :parentRefs="$refs"></UserTooltip>
+            <UserTooltip v-on:error="handleAlert('error', $event)"
+                         v-on:success="handleAlert('success', $event)"></UserTooltip>
         </v-app-bar>
 
         <!-- Sizes your content based upon application components -->

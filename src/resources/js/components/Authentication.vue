@@ -2,11 +2,12 @@
     <v-form
         ref="form"
         v-model="valid"
+        @submit.prevent="login"
     >
 
         <v-text-field
             v-model="input.email"
-            :rules="emailRules"
+            :rules="[rules.required, rules.email]"
             required
             label="Adresse email"
         />
@@ -16,7 +17,7 @@
             v-model="input.password"
             :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
             :type="showPassword ? 'text' : 'password'"
-            :rules="passwordRules"
+            :rules="[rules.required]"
             label="Mot de passe"
             class="input-group--focused"
             @click:append="showPassword = !showPassword"
@@ -36,17 +37,17 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
+
 export default {
   data() {
     return {
       // vuetify
       valid: true, // if a rules is not fully satisfied this will disable submit button
-      passwordRules: [
-        (v) => !!v || 'Un mot de passe est necessaire',
-      ],
-      emailRules: [
-        (v) => (!!v && /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,})+$/.test(v)) || 'une addresse email valide est necessaire',
-      ],
+      rules: {
+        required: (v) => !!v || 'Champ requis',
+        email: (v) => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,})+$/.test(v) || 'Addresse email invalide',
+      },
       showPassword: false,
 
       input: {
@@ -56,24 +57,14 @@ export default {
     };
   },
   methods: {
+    ...mapActions({
+      signIn: 'auth/signIn',
+    }),
     login() {
-      // sends credentials to backend for verification
-
-      const data = this.input;
-
-      window.axios.post(
-        '/login', data,
-      )
-        .then((response) => {
-          if (response.data.token_type === 'Bearer') {
-            alert.showMessage('success', 'Authentifié');
-            const token = response.data.access_token;
-            localStorage.setItem('Authorization-token', token); // store the token in localstorage
-            this.$emit('success', 'Authentifié');
-            this.$router.go(0);
-          } else {
-            this.$emit('error', 'Réponse du serveur inatendue');
-          }
+      this.signIn(this.input)
+        .then(() => {
+          this.$emit('success', 'Authentifié');
+          this.$router.replace('/');
         })
         .catch(() => {
           this.$emit('error', 'Adresse email ou mot de passe incorrect');
