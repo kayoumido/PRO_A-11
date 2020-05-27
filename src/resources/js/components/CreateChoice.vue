@@ -1,17 +1,23 @@
 <template>
     <v-sheet
         class="pa-12"
-        elevation="3">
-        <v-text-field
-            v-model="input.message"
-            :rules="[rules.required]"
-            name="message"
-            placeholder="Nouveau Choix"
-            :error="error">
-        </v-text-field>
-        <v-btn @click="createChoice" text color="success">
-            <v-icon>mdi-file-plus-outline</v-icon>
-        </v-btn>
+        elevation="3"
+        color="grey lighten-2">
+        <v-list-item-content>
+            <v-list-item-title>
+                <v-text-field
+                    v-model="input.message"
+                    :rules="[rules.required]"
+                    name="message"
+                    placeholder="Nouveau Choix">
+                </v-text-field>
+            </v-list-item-title>
+        </v-list-item-content>
+        <v-list-item-action>
+            <v-btn @click="createChoice" text small color="success">
+                Nouveau Choix
+            </v-btn>
+        </v-list-item-action>
     </v-sheet>
 </template>
 

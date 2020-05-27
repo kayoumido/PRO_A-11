@@ -3,8 +3,9 @@
         single-line
         hide-details
         placeholder="Rechecher une presentation"
-        append-icon="mdi-magnify"
+        prepend-inner-icon="mdi-magnify"
         hide-no-data
+        solo
         v-model="select"
         :loading="loading"
         :items="items"

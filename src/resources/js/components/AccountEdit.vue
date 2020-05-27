@@ -1,38 +1,66 @@
 <template>
+    <v-container
+        fluid>
+        <v-row
+            align="center"
+            justify="center"
+            class="my-5"
+        >
+            <v-col>
+                <v-card
+                    class="elevation-12 pa-4">
+                    <v-toolbar
+                        flat
+                    >
+                        <v-toolbar-title>Mon compte</v-toolbar-title>
+                    </v-toolbar>
+                    <v-card-text>
+                        <v-form
+                            ref="form"
+                            lazy-validation
+                        >
+                            <v-text-field
+                                v-model="form.fname"
+                                :counter="10"
+                                :rules="nameRules"
+                                label="Prenom"
+                            />
 
-  <v-form
-    ref="form"
-    lazy-validation
-  >
-    <v-text-field
-      v-model="form.fname"
-      :counter="10"
-      :rules="nameRules"
-      label="Prenom"
-    />
+                            <v-text-field
+                                v-model="form.lname"
+                                :counter="10"
+                                :rules="nameRules"
+                                label="Nom"
+                            />
 
-    <v-text-field
-      v-model="form.lname"
-      :counter="10"
-      :rules="nameRules"
-      label="Nom"
-    />
-
-    <v-text-field
-      v-model="form.email"
-      :rules="emailRules"
-      label="E-mail"
-    />
-
-    <v-btn
-      color="success"
-      class="mr-4"
-      @click="submitChange"
-    >
-      Appliquer
-    </v-btn>
-
-  </v-form>
+                            <v-text-field
+                                v-model="form.email"
+                                :rules="emailRules"
+                                label="E-mail"
+                            />
+                        </v-form>
+                    </v-card-text>
+                    <v-card-actions>
+                        <v-btn
+                            text
+                            small
+                            color="error"
+                            @click="$router.back()"
+                        >
+                            Annuler
+                        </v-btn>
+                        <v-spacer></v-spacer>
+                        <v-btn
+                            color="success"
+                            @click="submitChange"
+                        >
+                            Modifier
+                        </v-btn>
+                    </v-card-actions>
+                </v-card>
+            </v-col>
+        </v-row>
+    </v-container>
 </template>
 
 <script>

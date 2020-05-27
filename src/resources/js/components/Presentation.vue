@@ -1,40 +1,59 @@
 <template>
       <v-container
-      v-if="isLoaded"
+          fluid
+          v-if="isLoaded"
       >
       <v-row>
           <v-col>
-              <h2>{{presentation.title}}</h2>
+              <v-list-item two-line>
+                  <v-list-item-content>
+                      <v-list-item-title
+                          class="title">
+                          {{presentation.title}}
+                      </v-list-item-title>
+                      <v-list-item-subtitle>{{presentation.date}}</v-list-item-subtitle>
+                  </v-list-item-content>
+                  <template v-if="isPresenter()">
+                      <v-list-item-action>
+                          <v-btn
+                              text
+                              small
+                              color="warning"
+                              @click="goToEdit">
+                              Modifier
+                          </v-btn>
+                      </v-list-item-action>
+                      <v-list-item-action>
+                          <v-btn
+                              text
+                              small
+                              color="error"
+                              @click.prevent="delPresentation(presentation.id)">
+                              Supprimer
+                          </v-btn>
+                      </v-list-item-action>
+                  </template>
+                  <template v-else>
+                      <v-list-item-action>
+                          <v-btn
+                              v-if="!isSubscribed"
+                              @click="subscribe"
+                              color="primary"
+                          >
+                              S'inscrire
+                          </v-btn>
+                          <v-btn
+                              v-else
+                              @click="unsubscribe"
+                              color="error">
+                              Se désincrire
+                          </v-btn>
+                      </v-list-item-action>
+                  </template>
+              </v-list-item>
           </v-col>
       </v-row>
-      <v-row>
-          <v-col>
-              <p>{{presentation.date}}</p>
-          </v-col>
-      </v-row>
-      <v-row>
-          <v-col>
-            <v-btn
-            v-if="isPresenter()"
-            color="error"
-            @click.prevent="delPresentation(presentation.id)">
-              Supprimer
-            </v-btn>
-            <v-btn
-                v-else-if="!isSubscribed"
-                @click="subscribe"
-                color="primary"
-                >
-                S'inscrire
-            </v-btn>
-            <v-btn
-                v-else
-                @click="unsubscribe"
-                color="error">
-                Se désincrire
-            </v-btn>
-          </v-col>
-      </v-row>
+      <v-divider></v-divider>
       <Polls
         v-on:error="$emit('error', $event)"
         :user_id="user.id"
@@ -72,15 +91,9 @@ export default {
     }),
   },
   beforeMount() {
-    this.getPresentation(this.$route.params.idPresentation);
-    window.axios
-      .get(`/users/${this.user.id}/presentations`)
-      .then((subResponse) => {
-        subResponse.data.forEach((pres) => {
-          if (pres.id === this.presentation.id) {
-            this.isSubscribed = true;
-          }
-        });
+    this.getPresentation(this.$route.params.idPresentation)
+      .then(() => {
+        this.isSubscribed = this.presentation.auth_user_role !== 'none';
         this.isLoaded = true;
       });
   },
@@ -109,7 +122,7 @@ export default {
     },
     getPresentation(id) {
       const apiUrl = `/presentations/${id}`;
-      window.axios
+      return window.axios
         .get(apiUrl)
         .then((presResponse) => {
           this.presentation = presResponse.data;
@@ -132,6 +145,12 @@ export default {
         .catch(() => {
           this.$emit('error', 'La tentative de suppression a échoué');
         });
+    },
+    goToEdit() {
+      this.$router.push({
+        name: 'Edition de présentation',
+        params: { idPresentation: this.presentation.id },
+      });
     },
   },
 

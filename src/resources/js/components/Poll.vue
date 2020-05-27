@@ -1,17 +1,27 @@
 <template>
-    <v-card>
+    <v-card class="pa-4">
         <v-card-title v-if="user_role !== 'presenter'">{{poll.subject}}</v-card-title>
         <v-card-title v-else>
-            <EditableText
-                :value="poll.subject"
-                name="subject"
-                :api-url="`/polls/${poll.id}`"></EditableText>
-            <v-btn @click="deletePoll" text color="error">
-                <v-icon>mdi-delete</v-icon>
-            </v-btn>
-            <v-btn @click="submitPoll" v-show="poll.status === 'draft'" text color="success">
-                <v-icon>mdi-cloud-upload</v-icon>
-            </v-btn>
+            <v-list-item-content>
+                <v-list-item-title
+                    class="title">
+                    <v-text-field
+                        v-model="input"
+                        :rules="[rules.required]"
+                        @change="updateValue">
+                    </v-text-field>
+                </v-list-item-title>
+            </v-list-item-content>
+            <v-list-item-action v-show="poll.status === 'draft'">
+                <v-btn @click="submitPoll" text color="success">
+                    Publier
+                </v-btn>
+            </v-list-item-action>
+            <v-list-item-action>
+                <v-btn @click="deletePoll" text color="error">
+                    Supprimer
+                </v-btn>
+            </v-list-item-action>
         </v-card-title>
         <Choices
             v-on:choice-done="poll.auth_user_choice = $event"
@@ -29,18 +39,25 @@
 </template>
 
 <script>
-import EditableText from './EditableText';
 import Choices from './Choices';
 import PollResult from './PollResult';
 
 export default {
   name: 'Poll',
-  components: { PollResult, Choices, EditableText },
+  components: { PollResult, Choices },
   props: [
     'poll',
     'user_id',
     'user_role',
   ],
+  data() {
+    return {
+      rules: {
+        required: (value) => !!value || 'Required.',
+      },
+      input: this.poll.subject,
+    };
+  },
   methods: {
     deletePoll() {
       window.axios.delete(`/polls/${this.poll.id}`)
@@ -58,6 +75,17 @@ export default {
         })
         .catch(() => {
           this.$emit('error', 'Une erreur est survenue lors de la publication du sondage');
+        });
+    },
+    updateValue() {
+      window.axios.put(`/polls/${this.poll.id}`, {
+        subject: this.input,
+      })
+        .then((response) => {
+          this.input = response.data.subject;
+        })
+        .catch(() => {
+          this.$emit('error', 'Une erreur est survenue lors de la mise à jour du sondage');
         });
     },
   },
