@@ -62,7 +62,7 @@ export default ({
         });
     },
     updateUser({ commit, state }, userInfo) {
-      return window.axios.put(`/users/${state.user}`, userInfo)
+      return window.axios.put(`/users/${state.user.id}`, userInfo)
         .then((response) => {
           commit('SET_USER', response.data);
         });
