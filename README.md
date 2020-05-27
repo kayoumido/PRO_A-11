@@ -4,6 +4,8 @@
 <p align="center">
   <img src="https://forthebadge.com/images/badges/built-with-love.svg" alt="version">
   <img src="https://forthebadge.com/images/badges/made-with-vue.svg" alt="platform">
+  <img src="https://forthebadge.com/images/badges/makes-people-smile.svg" alt="platform">
+  <img src="https://forthebadge.com/images/badges/winter-is-coming.svg" alt="platform">
 </p>
 
 ## Table of contents
