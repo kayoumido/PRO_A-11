@@ -37,7 +37,7 @@
       </v-row>
       <Polls
         v-on:error="$emit('error', $event)"
-        :user_id="loggedUser.id"
+        :user_id="user.id"
         :user_role="presentation.auth_user_role"
         :presentation_id="presentation.id"></Polls>
 
@@ -45,6 +45,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import Polls from './Polls';
 
 export default {
@@ -65,26 +66,28 @@ export default {
       this.getPresentation(this.$route.params.idPresentation);
     },
   },
+  computed: {
+    ...mapGetters({
+      user: 'auth/user',
+    }),
+  },
   beforeMount() {
     this.getPresentation(this.$route.params.idPresentation);
-    this.setLoggedUser()
-      .then(() => {
-        window.axios
-          .get(`/users/${this.loggedUser.id}/presentations`)
-          .then((subResponse) => {
-            subResponse.data.forEach((pres) => {
-              if (pres.id === this.presentation.id) {
-                this.isSubscribed = true;
-              }
-            });
-            this.isLoaded = true;
-          });
+    window.axios
+      .get(`/users/${this.user.id}/presentations`)
+      .then((subResponse) => {
+        subResponse.data.forEach((pres) => {
+          if (pres.id === this.presentation.id) {
+            this.isSubscribed = true;
+          }
+        });
+        this.isLoaded = true;
       });
   },
   methods: {
     subscribe() {
       window.axios
-        .post(`/presentations/${this.presentation.id}/users/${this.loggedUser.id}`)
+        .post(`/presentations/${this.presentation.id}/users/${this.user.id}`)
         .then(() => {
           this.$emit('success', 'Félicitations vous êtes maintenant inscrit à la présentation');
           this.isSubscribed = true;
@@ -95,7 +98,7 @@ export default {
     },
     unsubscribe() {
       window.axios
-        .delete(`/presentations/${this.presentation.id}/users/${this.loggedUser.id}`)
+        .delete(`/presentations/${this.presentation.id}/users/${this.user.id}`)
         .then(() => {
           this.$emit('warning', 'Vous n\'êtes plus inscrit a cette présentation');
           this.isSubscribed = false;

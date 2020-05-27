@@ -40,6 +40,7 @@
 
 <script>
 import dateFormat from 'dateformat';
+import { mapGetters } from 'vuex';
 
 export default {
   data() {
@@ -58,12 +59,14 @@ export default {
       },
     };
   },
-  beforeMount() {
-    this.setLoggedUser();
+  computed: {
+    ...mapGetters({
+      user: 'auth/user',
+    }),
   },
   methods: {
     createPresentation() {
-      const apiUrl = `/users/${this.loggedUser.id}/presentations`;
+      const apiUrl = `/users/${this.user.id}/presentations`;
 
       // force date validation
       if (!this.$refs.form.validate()) {
@@ -79,8 +82,8 @@ export default {
           this.$emit('success', `La présentation ${response.data.title} a été correctement créée`);
           this.$refs.form.reset();
         })
-        .catch((errorResponse) => {
-          this.$emit('error', `erreur lors de l'envoie des données ${errorResponse}`);
+        .catch(() => {
+          this.$emit('error', 'erreur lors de l\'envoie des données');
         });
     },
   },

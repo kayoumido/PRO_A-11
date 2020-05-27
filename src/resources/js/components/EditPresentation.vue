@@ -5,14 +5,14 @@
         lazy-validation
     >
       <v-text-field
-            v-model="updatePresentationInfo.title"
+            v-model="form.title"
             :rules="titleRules"
             label="Titre"
       />
 
       <v-datetime-picker
         label="Date et Heure"
-        v-model="updatePresentationInfo.date"
+        v-model="form.date"
         clearText="annuler"
       >
         <template slot="dateIcon">
@@ -45,18 +45,17 @@ export default {
         (v) => !!v || 'Vous devez renseigner un titre',
         (v) => (v && v.length <= 20) || 'Le titre doit contenir moins de 20 caractères',
       ],
-      updatePresentationInfo: {
+      form: {
         date: '',
         title: '',
       },
     };
   },
   beforeMount() {
-    window.axios
-      .get(`presentations/${this.$route.params.idPresentation}`)
+    window.axios.get(`presentations/${this.$route.params.idPresentation}`)
       .then((response) => {
-        this.updatePresentationInfo.title = response.data.title;
-        this.updatePresentationInfo.date = dateFormat(response.data.date, 'yyyy-mm-dd HH:MM');
+        this.form.title = response.data.title;
+        this.form.date = dateFormat(response.data.date, 'yyyy-mm-dd HH:MM');
       })
       .catch(() => {
         this.$emit('error', 'Une erreur est survenue lors du traitement de votre demande');
@@ -66,20 +65,20 @@ export default {
     submitChange() {
       const apiUrl = `presentations/${this.$route.params.idPresentation}`;
 
-      if (this.$refs.form.validate()) {
-        this.$emit('error', 'Vous devez renseigner une date');
-        return;
-      }
+      // if (this.$refs.form.validate()) {
+      //   this.$emit('error', 'Vous devez renseigner une date');
+      //   return;
+      // }
 
       // sends credentials to backend
       window.axios.put(apiUrl, {
-        title: this.updatePresentationInfo.title,
-        date: dateFormat(this.updatePresentationInfo.date, 'yyyy-mm-dd HH:MM'),
+        title: this.form.title,
+        date: dateFormat(this.form.date, 'yyyy-mm-dd HH:MM'),
       })
         .then((response) => {
           this.$emit('success', 'Les informations de la présentation ont été modifiées');
-          this.updatePresentationInfo.title = response.data.title;
-          this.updatePresentationInfo.date = dateFormat(response.data.date, 'yyyy-mm-dd HH:MM');
+          this.form.title = response.data.title;
+          this.form.date = dateFormat(response.data.date, 'yyyy-mm-dd HH:MM');
         })
         .catch(() => {
           this.$emit('error', 'Nous n\'avons pas réussi à appliquer les changements');
@@ -87,3 +86,4 @@ export default {
     },
   },
 };
+</script>

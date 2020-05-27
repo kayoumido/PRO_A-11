@@ -39,29 +39,33 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
   data() {
     return {
       presentations: [],
     };
   },
+  computed: {
+    ...mapGetters({
+      user: 'auth/user',
+    }),
+  },
   beforeMount() {
-    this.setLoggedUser()
-      .then(() => {
-        const apiUrl = `/users/${this.loggedUser.id}/presentations`;
+    const apiUrl = `/users/${this.user.id}/presentations`;
 
-        window.axios
-          .get(apiUrl)
-          .then((responsePresentation) => {
-            this.presentations = responsePresentation.data;
+    window.axios
+      .get(apiUrl)
+      .then((responsePresentation) => {
+        this.presentations = responsePresentation.data;
 
-            if (this.presentationsIsEmpty()) {
-              this.$emit('info', 'Vous ne vous êtes inscrit à aucune presentation');
-            }
-          })
-          .catch((error) => {
-            this.$emit('error', `La recupération des presentations a échoué: ${error}`);
-          });
+        if (this.presentationsIsEmpty()) {
+          this.$emit('info', 'Vous ne vous êtes inscrit à aucune presentation');
+        }
+      })
+      .catch(() => {
+        this.$emit('error', 'La recupération des presentations a échoué');
       });
   },
   methods: {
