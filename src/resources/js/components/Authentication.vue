@@ -1,39 +1,81 @@
 <template>
-    <v-form
-        ref="form"
-        v-model="valid"
-        @submit.prevent="login"
-    >
-
-        <v-text-field
-            v-model="input.email"
-            :rules="[rules.required, rules.email]"
-            required
-            label="Adresse email"
-        />
-
-
-        <v-text-field
-            v-model="input.password"
-            :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-            :type="showPassword ? 'text' : 'password'"
-            :rules="[rules.required]"
-            label="Mot de passe"
-            class="input-group--focused"
-            @click:append="showPassword = !showPassword"
-            required
-        />
-
-        <v-btn
-            :disabled="!valid"
-            color="success"
-            class="mr-4"
-            @click="login"
+    <v-container
+        fluid>
+        <v-row
+            align="center"
+            justify="center">
+            <span class="text-center display-4" style="color: #5BDC8E">Paul</span>
+        </v-row>
+        <v-row
+            align="center"
+            justify="center"
+            class="my-5"
         >
-            Se connecter
-        </v-btn>
+            <v-col
+                cols="12"
+                sm="8"
+                md="4">
+                <v-card
+                    class="elevation-12 pa-4">
+                    <v-toolbar
+                        flat
+                    >
+                        <v-toolbar-title>Connexion</v-toolbar-title>
+                    </v-toolbar>
+                    <v-card-text>
+                        <v-form
+                            ref="form"
+                            v-model="valid"
+                            @submit.prevent="login">
+                            <v-text-field
+                                v-model="input.email"
+                                :rules="[rules.required, rules.email]"
+                                type="text"
+                                required
+                                label="Adresse email"
+                            />
 
-    </v-form>
+
+                            <v-text-field
+                                v-model="input.password"
+                                :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+                                :type="showPassword ? 'text' : 'password'"
+                                :rules="[rules.required]"
+                                label="Mot de passe"
+                                @click:append="showPassword = !showPassword"
+                                required
+                            />
+                        </v-form>
+                    </v-card-text>
+                    <v-card-actions>
+                        <v-btn
+                            text
+                            small
+                            color="secondary"
+                            href="/reset"
+                        >
+                            Mot de passe oublié?
+                        </v-btn>
+                        <v-btn
+                            text
+                            small
+                            color="secondary"
+                            href="/creer-compte"
+                        >
+                            Nouveau compte
+                        </v-btn>
+                        <v-spacer></v-spacer>
+                        <v-btn
+                            color="primary"
+                            @click="login"
+                        >
+                            Se connecter
+                        </v-btn>
+                    </v-card-actions>
+                </v-card>
+            </v-col>
+        </v-row>
+    </v-container>
 </template>
 
 <script>
