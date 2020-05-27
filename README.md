@@ -1,5 +1,6 @@
-<img src="doc/paul.png" width="600" align="center">
-
+<p align="center">
+<img src="doc/paul.png" width="600">
+</p>
 <p align="center">
   <img src="https://forthebadge.com/images/badges/built-with-love.svg" alt="version">
   <img src="https://forthebadge.com/images/badges/made-with-vue.svg" alt="platform">
