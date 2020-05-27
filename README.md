@@ -6,11 +6,17 @@
   <img src="https://forthebadge.com/images/badges/made-with-vue.svg" alt="platform">
 </p>
 
-
-
 ## Table of contents
-
-
+* [About Paul.](#about-paul)
+* [Getting started](#getting-started)
+  * [Prerequisites](#prerequisites)
+  * [Installation](#installation)
+  * [Working with Vue.js](#working-with-vuejs)
+  * [Start hacking :trollface:](#start-hacking-trollface)
+* [API](#api)
+* [Workflow](#workflow)
+* [Documentation](#documentation)
+* [Contributors](#contributors)
 
 ## About Paul.
 
