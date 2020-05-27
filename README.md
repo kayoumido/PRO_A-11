@@ -1,64 +1,111 @@
-# Paul
+<img src="doc/paul.png" width="600" align="center">
 
-- [Paul](#paul)
-  - [About](#about)
-  - [Contributers](#contributers)
-  - [Getting started](#getting-started)
-    - [Dependencies](#dependencies)
-    - [Configure environnment](#configure-environnment)
-    - [Build Docker containers](#build-docker-containers)
-    - [Install dependencies](#install-dependencies)
-    - [Setup Laravel](#setup-Laravel)
-    - [Working with Vue.js](#working-with-vuejs)
-    - [Start hacking :trollface:](#start-hacking-trollface)
-    - [Useful commands](#useful-commands)
+<p align="center">
+  <img src="https://forthebadge.com/images/badges/built-with-love.svg" alt="version">
+  <img src="https://forthebadge.com/images/badges/made-with-vue.svg" alt="platform">
+</p>
 
-## About
-<PROJECT_DESCRIPTION>
 
-This software was developed as semester project (PRO) at HEIG-VD,
-academic year 2019/20.
 
-## Contributers
+## Table of contents
 
-| Name                                         | Email                           | Github     |
-|----------------------------------------------|---------------------------------|------------|
-| Doran Kayoumi (project lead)                 | doran.kayoumi@heig-vd.ch        | kayoumido  |
-| Fabio da Silva Marques (deputy project lead) | fabio.dasilvamarques@heig-vd.ch | fabio10000 |
-| Moïn Danai                                   | guido.vanrossum@heig-vd.ch      | Serphentas |
-| Sacha Perdrizat                              | sacha.perdrizat@heig-vd.ch      | Sinyks     |
-| Rui Lopes Gouveia                            | rui.lopesgouveia@heig-vd.ch     | Lindwing   |
-| Alban Favre                                  | alban.favre@heig-vd.ch          | alfavre    |
+
+
+## About Paul.
+
+Paul was developed as a semester project at the [HEIG-VD](https://heig-vd.ch/) in the academic year of 2019-2020'. It's main purpose is allow any kind presenters to offer polls to her/his audience in a simple way and receive the results instantly
 
 ## Getting started
 
-Below you will find all information related on how to get the development environment up and running.
+### Prerequisites
 
-### Dependencies
+- [Git](https://git-scm.com/downloads) (v2.26.0)
+- [Docker](https://docs.docker.com/install/) (v19.03.8-cd)
+- [Docker-compose](https://docs.docker.com/compose/install/) (v1.25.4)
 
-This project requires:
+The rest of the dependencies are embed by the Docker containers. But if you do not wish to use them here's the list:
 
-- [git](https://git-scm.com/downloads)
-  - v2.26.0
-- [Docker](https://docs.docker.com/install/)
-  - v19.03.8-cd
-- [Docker-compose](https://docs.docker.com/compose/install/)
-  - v1.25.4
+* PHP
+* Laravel
+* Node
+* PosgeSQL
+* Nginx
 
-The containers will embed the other dependencies.
+### Installation
 
+First things first, you need to clone the project on your local machine. You can either download the zip or user git.
 
-### Configure environnment
-1. Clone this repository
-```
+```bash
+# without ssh
+https://github.com/kayoumido/HEIGVD-PRO-A-11.git
+
+# with ssh
 git clone git@github.com:kayoumido/HEIGVD-PRO-A-11.git
 ```
 
-2. Copy the file `src/.env.example` into `src/.env` and fill it with the environnement details
+#### Build the containers
 
-here's the details for the database used for dev
+Go the the appropriate environment directory and build and run the containers.
 
-*Note: If you changed something within de Docker config to match you needs, this config might not work.*
+> They can be found in the `infra` directory.  
+
+```bash
+cd infra/dev
+docker-compose run --build -d
+```
+
+> Note: `-d` will *detach* the container. i.e. they'll run in the background
+>
+> If you wish to just build the containers, you con run the following
+>
+> ```bash
+> docker-compose build
+> ```
+
+The names of the containers will be slightly different depending on the environment you choose.
+
+| Environment | Prefix |
+| ----------- | ------ |
+| Production  | prod   |
+| Development | dev    |
+
+#### Install dependencies
+
+You need to install the `composer` and `node` dependencies.
+
+```bash
+composer install
+npm i
+```
+
+If you're using docker, you need to execute the above commands within the `laravel` container. 
+
+> Note: The name of the containers will change depending on which environment you chose earlier. Production will have have the `prod` prefix and `dev` for the development environment.
+
+```bash
+docker exec dev_laravel composer install
+docker exec dev_laravel npm i
+```
+
+#### Setup Laravel
+
+First you need to copy the file `src/.env.example` into `src/.env` and fill it with the environment details. It will be needed for the following steps.
+
+You then need the generate the key for the application
+
+```shell
+php artisan key:generate
+
+# with docker
+docker exec dev_laravel php artisan key:generate
+```
+
+> Note: The key will be automatically added to the `.env` file.
+
+#### Setup the database
+
+Now we can setup the database. You'll need to add some environment variables to the `.env` file. Here's the configuration we used with our development environment.
+
 ```
 DB_CONNECTION=pgsql
 DB_HOST=db
@@ -68,129 +115,135 @@ DB_USERNAME=laravel
 DB_PASSWORD=passPRO
 ```
 
-### Build Docker containers
-1. Go to the appropriate environment folder (ex. ``dev``)
-```
-$ cd infra/dev
-```
+> Note: if you've changed something within the Docker config to match your needs, this config might not fight and you'll have to change it.
 
-2. Build your docker environment:
+To generate the DB and add some test data (i.e. seeds)
+
 ```shell
-$ docker-compose build
+php artisan migrate
+php artisan db:seed
+
+# with docker
+docker exec dev_laravel php artisan migrate
+docker exec dev_laravel php artisan db:seed
 ```
 
-3. Start your docker environment:
+Database setup check :heavy_check_mark:.
+
+#### Setup `laravel/passport`
+
+You'll need to generate the secrets of`laravel/passport`.
+
 ```shell
-$ docker-compose up -d
+php artisan passport:install
+
+# with docker
+docker exec dev_laravel php artisan passport:install
 ```
-*Note: `-d` will "detach" the container. i.e. they will run in the background*
+You'll then need to update your `.env` file with the values of the `Client id` and `Client secret` from the `Password grant client` section.
 
+ ```
+PASSPORT_CLIENT=<client_id>
+PASSPORT_CLIENT_SECRET=<client_secret>
+ ```
 
-### Install dependencies
-1. Install composer dependencies following your environment:
-```shell
-$ docker exec <env>_laravel composer install
+#### Setup `laravel/scout`
 
-# for dev
-$ docker exec dev_laravel composer install
-```
+In your `.env` file add the following.
 
-2. Install node dependencies following your environment:
-```shell
-$ docker exec <env>_laravel npm i
-
-# for dev
-$ docker exec dev_laravel npm i
-```
-
-### Setup Laravel
-1. Generate your app key:
-```shell
-$ docker exec dev_laravel php artisan key:generate
-```
-
-2. Migrate the database:
-```shell
-$ docker exec dev_laravel php artisan migrate
-```
-
-3. Fill the database:
-```shell
-$ docker exec dev_laravel php artisan db:seed
-```
-
-4. Generate Passport secrets
-```shell
-$ docker exec dev_laravel php artisan passport:install
-```
-Once donne copy the values of `Client id` and `Client secret` from the Password
-grant client section and paste them on your `.env` file under `PASSPORT_CLIENT` and `PASSPORT_CLIENT_SECRET`
-
-5. Setup Scout
-First things first, you need to add the following to your `.env`
 ```
 SCOUT_DRIVER=tntsearch
 ```
 
 Then, if you already have records in your database, you'll need to import the records to
-the search driver for every model that is searchable.
+the search driver for every model that you want to be "search-able".
 In our case we only have `App\Presentation`.
+
 ```shell
-$ docker exec dev_laravel php artisan scout:import "App\Presentation"
+php artisan scout:import "App\Presentation"
+
+# with docker
+docker exec dev_laravel php artisan scout:import "App\Presentation"
 ```
 Since we've added the `Laravel\Scout\Searchable` trait to `App\Presentation`, Scout will take care of adding any new records to the search index.
 
-### Working with Vue.js
-1. Compile node vues following your environment:
-```shell
-$ docker exec <env>_laravel npm run dev
+#### Setup email
 
-# for dev
-$ docker exec dev_laravel npm run dev
+You now need to setup the email environment variables in your `.env` file. The configuration will vary depending on the provider you decide to use (i.e. gmail, homail, etc...). Here's an example of configuration for `mailtrap`
+
+```
+MAIL_MAILER=smtp
+MAIL_HOST=smtp.mailtrap.io
+MAIL_PORT=2525
+MAIL_USERNAME=null
+MAIL_PASSWORD=null
+MAIL_ENCRYPTION=tls
+MAIL_FROM_ADDRESS=noreply@paul.ch
+MAIL_FROM_NAME="${APP_NAME}"
 ```
 
-### Setup email
-To send emails you just need to configure the mail infos section on your .env file.
-You can use your own email account gmail, hotmail, heig, etc. or you can use a service like mailtrap.
-For development purpose mailtrap is already pre-configured you only need to fill the fields MAIL_USERNAME and MAIL_PASSWORD 
-with the credential related to your mailtrap inbox.
+> Note: Mailtrap comes preconfigured with Laravel
+
+### Working with Vue.js
+```bash
+# compile the JS
+npm run dev
+
+# to have npm autocompile the JS after you save a file
+npm run wath
+
+# check if your code respects the JS guidelines
+npm run lint
+
+# fix any linting issues
+npm run lint-fix
+
+# with docker
+docker exec dev_laravel npm run dev
+docker exec dev_laravel npm run wath
+docker exec dev_laravel npm run lint
+docker exec dev_laravel npm run lint-fix
+```
 
 ### Start hacking :trollface:
 Now you have the environment up and running, the website should now be available with the following url: http://localhost:<port>
-The port will change depending on what is configured in `infra/dev/docker-compose.yml`. We've decided to use `80`
-so the url will be `http://localhost/.
+The port will change depending on what is configured in `infra/dev/docker-compose.yml`. We've decided to use `80`, so the url will be `http://localhost/.
 
-### Useful commands
-Below are some shell commands useful when working with the Docker stack.
+## API
 
-1. Stop all container in the stack (still in the same folder as `docker-compose.yml`)
-```shell
-$ docker-compose stop
-```
-2. Stop and delete all containers in the stack
-```shell
-$ docker-compose down
-```
+To see the documentation of the API, simply open  `src/public/docs/index.html` with your preferred web browser,
 
-3. Start a shell inside a running container
-```shell
-$ docker exec -it <container_name> bash
-```
-*Note: you can specify the user you want to use with the `--user=<username>` flag.
+### Update the documentation
 
-4. List running containers
-```shell
-$ docker ps
-```
+To update the api you must follow these [guidelines](https://laravel-apidoc-generator.readthedocs.io/en/v4/)
+
+To regenerate the documentation just execute the following command `php artisan apidoc:generate`
 
 ## Workflow
 
-Whenever a commit is made on any branch but master, or a PR is made on `develop`, the (Testing)[.github/workflows/testing.yml] pipeline will run. It reports whether the new code passes unit tests.
+For this project, we've put in place the [Gitflow](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow) workflow. Simply put, any new feature will have its own branch (see `GUIDELINES.md` for naming convention). Once it's completed, a PR will be made with `develop` as a base. This will trigger our [testing](.github/workflows/testing.yml) pipeline which will report if anything wrong happened (e.g. failed tests).
 
-Whenever a commit is made on `master`, the (Production)[.github/workflows/prod.yml] pipeline will run. It updates the production stack with the latest code, migrating DB data, etc.
+Once an iteration of development is completed, `develop` will be merged into `master` and it will trigger our second [pipeline](.github/workflows/prod.yml).
+
+> Note: We've used Scrum to manage our project, so we've merged develop into master at the end of each sprint.
 
 ## Documentation
 
-User manual: see file xxxxx.
+Guidelines: see `GUIDELINES.md`
 
-API documentation: see file `api.md`.
+Styleguide: see `STYLEGUIDE.md`
+
+Any other documentation can be found on the [Google drive](https://drive.google.com/drive/folders/1UG8XgBYXcLnsYemoNqBL4o8rzbHp67e-) of the project.
+
+## Contributors
+
+| Name                                         | Email                           | Github     |
+| -------------------------------------------- | ------------------------------- | ---------- |
+| Doran Kayoumi (project lead)                 | doran.kayoumi@heig-vd.ch        | kayoumido  |
+| Fabio da Silva Marques (deputy project lead) | fabio.dasilvamarques@heig-vd.ch | fabio10000 |
+| Moïn Danai                                   | guido.vanrossum@heig-vd.ch      | Serphentas |
+| Sacha Perdrizat                              | sacha.perdrizat@heig-vd.ch      | Sinyks     |
+| Rui Lopes Gouveia                            | rui.lopesgouveia@heig-vd.ch     | Lindwing   |
+| Alban Favre                                  | alban.favre@heig-vd.ch          | alfavre    |
+
+## 
