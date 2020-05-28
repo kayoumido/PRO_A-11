@@ -35,17 +35,28 @@
         </v-navigation-drawer>
 
         <v-content>
-                <AlertMessage ref="alert"></AlertMessage>
                 <router-view
                     v-on:error="handleAlert('error', $event)"
                     v-on:success="handleAlert('success', $event)"></router-view>
+                <v-snackbar
+                    v-model="snackbar"
+                    :color="snackColor"
+                >
+                    {{ snackText }}
+                    <v-btn
+                        dark
+                        icon
+                        @click="snackbar = false"
+                    >
+                        <v-icon>mdi-close</v-icon>
+                    </v-btn>
+                </v-snackbar>
         </v-content>
     </v-app>
 </template>
 <script>
 import { mapActions, mapGetters } from 'vuex';
 import SideBar from './SideBar';
-import AlertMessage from './AlertMessage';
 
 const appName = 'Paul';
 const shortAppName = 'P.';
@@ -54,6 +65,9 @@ export default {
     return {
       routeName: '',
       appName: shortAppName,
+      snackbar: false,
+      snackText: '',
+      snackColor: 'primary',
     };
   },
   computed: {
@@ -62,7 +76,6 @@ export default {
     }),
   },
   components: {
-    AlertMessage,
     SideBar,
   },
   methods: {
@@ -80,7 +93,9 @@ export default {
         });
     },
     handleAlert(color, message) {
-      this.$refs.alert.showMessage(color, message);
+      this.snackColor = color;
+      this.snackText = message;
+      this.snackbar = true;
     },
     updateAppName() {
       if (this.appName === appName) this.appName = shortAppName;
