@@ -39,13 +39,17 @@
                               v-if="!isSubscribed"
                               @click="subscribe"
                               color="primary"
+                              text
+                              small
                           >
                               S'inscrire
                           </v-btn>
                           <v-btn
                               v-else
                               @click="unsubscribe"
-                              color="error">
+                              color="error"
+                              text
+                              small>
                               Se désincrire
                           </v-btn>
                       </v-list-item-action>
