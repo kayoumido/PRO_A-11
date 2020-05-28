@@ -1,7 +1,15 @@
 <template>
     <v-container>
+        <v-row v-if="user_role === 'presenter'">
+            <v-col>
+                <CreatePoll
+                    v-on:update-polls="refreshPolls"
+                    v-on:error="$emit('error', $event)"
+                    :presentation_id="presentation_id"></CreatePoll>
+            </v-col>
+        </v-row>
         <v-row
-            v-for="(poll) in polls"
+            v-for="(poll) in sortedPolls"
             :key="poll.id">
             <v-col>
                 <Poll
@@ -11,14 +19,6 @@
                     :user_role="user_role"
                     :poll="poll">
                 </Poll>
-            </v-col>
-        </v-row>
-        <v-row v-if="user_role === 'presenter'">
-            <v-col>
-                <CreatePoll
-                    v-on:update-polls="refreshPolls"
-                    v-on:error="$emit('error', $event)"
-                    :presentation_id="presentation_id"></CreatePoll>
             </v-col>
         </v-row>
     </v-container>
@@ -33,7 +33,7 @@ export default {
   components: { CreatePoll, Poll },
   data() {
     return {
-      polls: {},
+      polls: [],
     };
   },
   props: [
@@ -43,6 +43,12 @@ export default {
   ],
   mounted() {
     this.refreshPolls();
+  },
+  computed: {
+    sortedPolls() {
+      // eslint-disable-next-line vue/no-side-effects-in-computed-properties
+      return this.polls.reverse();
+    },
   },
   methods: {
     refreshPolls() {
