@@ -1,42 +1,72 @@
 <template>
-    <v-form
-        ref="form"
-        v-model="valid"
-        lazy-validation
-    >
+    <div>
+        <AppTitle></AppTitle>
+        <v-row
+            align="center"
+            justify="center"
+            class="my-5"
+        >
+            <v-col
+                cols="12"
+                sm="8"
+                md="4">
+                <v-card
+                    class="elevation-12 pa-4">
+                    <v-toolbar
+                        flat
+                    >
+                        <v-toolbar-title>
+                            <CustomFont>
+                                Récupération de mot de passe
+                            </CustomFont>
+                        </v-toolbar-title>
+                    </v-toolbar>
+                    <v-card-text>
+                        <v-form
+                            ref="form"
+                            v-model="valid"
+                            lazy-validation
+                        >
 
-      <v-text-field
-            v-model="input.email"
-            :rules="emailRules"
-            required
-            label="Adresse email"
-      />
+                            <v-text-field
+                                v-model="input.email"
+                                :rules="emailRules"
+                                required
+                                label="Adresse email"
+                            />
 
-      <v-text-field
-            v-model="input.password"
-            :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-            :type="showPassword ? 'text' : 'password'"
-            :rules="passwordRules"
-            @click:append="showPassword = !showPassword"
-            required
-            label="Mot de passe"
-      />
-
-      <v-btn
-            :disabled="!valid"
-            color="success"
-            class="mr-4"
-            @click="resetPassword"
-            >
-            Changer mot de passe
-      </v-btn>
-    </v-form>
+                            <v-text-field
+                                v-model="input.password"
+                                :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+                                :type="showPassword ? 'text' : 'password'"
+                                :rules="passwordRules"
+                                @click:append="showPassword = !showPassword"
+                                required
+                                label="Nouveau mot de passe"
+                            />
+                        </v-form>
+                    </v-card-text>
+                    <v-card-actions>
+                        <v-spacer></v-spacer>
+                        <v-btn
+                            color="success"
+                            @click="resetPassword"
+                        >
+                            Modifier
+                        </v-btn>
+                    </v-card-actions>
+                </v-card>
+            </v-col>
+        </v-row>
+    </div>
 </template>
 
 <script>
-let alert = {};
+import AppTitle from './layout/AppTitle';
+import CustomFont from './layout/CustomFont';
+
 export default {
-  props: ['parentRefs'],
+  components: { CustomFont, AppTitle },
   data() {
     return {
       token: null,
@@ -55,9 +85,6 @@ export default {
       },
     };
   },
-  beforeMount() {
-    alert = this.parentRefs.alert;
-  },
   methods: {
     resetPassword() {
       window.axios.post(
@@ -67,10 +94,10 @@ export default {
           password: this.input.password,
         },
       ).then(() => {
-        this.$router.push({ name: 'Authentification' });
+        this.$router.push({ name: 'Connexion' });
       })
-        .catch((error) => {
-          alert.showMessage('error', `Erreur de type : ${error}`);
+        .catch(() => {
+          this.$emit('error', 'Une erreur est survenue');
         });
     },
   },

@@ -1,64 +1,103 @@
 <template>
-    <v-form
-        ref="form"
-        v-model="valid"
-        lazy-validation
-    >
-      <v-text-field
-            v-model="input.fname"
-            :rules="fnameRules"
-            required
-            label="Prénom"
-      />
+    <div>
+        <AppTitle></AppTitle>
+        <v-row
+            align="center"
+            justify="center"
+            class="my-5"
+        >
+            <v-col
+                cols="12"
+                sm="8"
+                md="4">
+                <v-card
+                    class="elevation-12 pa-4">
+                    <v-toolbar
+                        flat
+                    >
+                        <v-toolbar-title>
+                            <CustomFont>
+                                Créer un compte
+                            </CustomFont>
+                        </v-toolbar-title>
+                    </v-toolbar>
+                    <v-card-text>
+                        <v-form
+                            ref="form"
+                            v-model="valid"
+                            lazy-validation
+                        >
+                            <v-text-field
+                                v-model="input.fname"
+                                :rules="fnameRules"
+                                required
+                                label="Prénom"
+                            />
 
-      <v-text-field
-            v-model="input.lname"
-            :rules="lnameRules"
-            required
-            label="Nom"
-      />
+                            <v-text-field
+                                v-model="input.lname"
+                                :rules="lnameRules"
+                                required
+                                label="Nom"
+                            />
 
-      <v-text-field
-            v-model="input.email"
-            :rules="emailRules"
-            required
-            label="Adresse email"
-      />
+                            <v-text-field
+                                v-model="input.email"
+                                :rules="emailRules"
+                                required
+                                label="Adresse email"
+                            />
 
-      <v-text-field
-            v-model="input.password"
-            :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-            :type="showPassword ? 'text' : 'password'"
-            :rules="passwordRules"
-            @click:append="showPassword = !showPassword"
-            required
-            label="Mot de passe"
-      />
+                            <v-text-field
+                                v-model="input.password"
+                                :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+                                :type="showPassword ? 'text' : 'password'"
+                                :rules="passwordRules"
+                                @click:append="showPassword = !showPassword"
+                                required
+                                label="Mot de passe"
+                            />
 
-      <v-text-field
-            v-model="input.passwordConfirm"
-            :append-icon="showPasswordConfirm ? 'mdi-eye' : 'mdi-eye-off'"
-            :type="showPasswordConfirm ? 'text' : 'password'"
-            @click:append="showPasswordConfirm = !showPasswordConfirm"
-            required
-            label="Confirmation de mot de passe"
-      />
-
-      <v-btn
-            :disabled="!valid"
-            color="success"
-            class="mr-4"
-            @click="register"
-            >
-            Créer compte
-      </v-btn>
-    </v-form>
+                            <v-text-field
+                                v-model="input.passwordConfirm"
+                                :append-icon="showPasswordConfirm ? 'mdi-eye' : 'mdi-eye-off'"
+                                :type="showPasswordConfirm ? 'text' : 'password'"
+                                @click:append="showPasswordConfirm = !showPasswordConfirm"
+                                required
+                                label="Confirmation de mot de passe"
+                            />
+                        </v-form>
+                    </v-card-text>
+                    <v-card-actions>
+                        <v-btn
+                            text
+                            small
+                            color="secondary"
+                            href="/login"
+                        >
+                            Déjà un compte?
+                        </v-btn>
+                        <v-spacer></v-spacer>
+                        <v-btn
+                            color="success"
+                            @click="createAccount"
+                        >
+                            Créer
+                        </v-btn>
+                    </v-card-actions>
+                </v-card>
+            </v-col>
+        </v-row>
+    </div>
 </template>
 
 <script>
-let alert = {};
+import { mapActions } from 'vuex';
+import AppTitle from './layout/AppTitle';
+import CustomFont from './layout/CustomFont';
+
 export default {
-  props: ['parentRefs'],
+  components: { CustomFont, AppTitle },
   data() {
     return {
       // vuetify
@@ -86,35 +125,18 @@ export default {
       },
     };
   },
-  beforeMount() {
-    alert = this.parentRefs.alert;
-  },
   methods: {
-    register() {
-      if (this.isPasswordConfirmMatchPassword()) {
-      // sends credentials to backend
-        window.axios.post(
-          '/register', {
-            fname: this.input.fname,
-            lname: this.input.lname,
-            email: this.input.email,
-            password: this.input.password,
-          },
-        ).then((response) => {
-          if (response.data.token_type === 'Bearer') {
-            const token = response.data.access_token;
-            localStorage.setItem('Authorization-token', token);
-            alert.showMessage('success', 'Authentifié');
-            this.$router.push({ name: 'Hello' });
-          } else {
-            alert.showMessage('error', 'Réponse du serveur inatendue');
-          }
-        }).catch((error) => {
-          alert.showMessage('error', `Erreur de type : ${error}`);
+    ...mapActions({
+      register: 'auth/register',
+    }),
+    createAccount() {
+      this.register(this.input)
+        .then(() => {
+          this.$emit('success', 'Compte créé avec succés');
+          this.$router.push('/');
+        }).catch(() => {
+          this.$emit('error', 'Une erreur est surevenue lors de la création de compte');
         });
-      } else {
-        alert.showMessage('error', 'Les mots de passe sont différents');
-      }
     },
     // check if both password are the same
     isPasswordConfirmMatchPassword() {
@@ -123,3 +145,11 @@ export default {
   },
 };
 </script>
+<style scoped>
+    #appTitle {
+        color: #5BDC8E;
+    }
+    v-toolbar-title, v-row v-col h1.custom {
+        font-family: 'Fredoka One', cursive !important;
+    }
+</style>

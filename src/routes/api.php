@@ -25,12 +25,19 @@ Route::prefix('v1')->group(function () {
         Route::get('/me', 'API\AuthController@user');
 
         Route::post('/logout', 'API\AuthController@logout');
-      
+
         // user management
         Route::apiResource('users', 'API\UserController')->only('update');
         // presentation management
         Route::get('presentations/search', 'API\PresentationController@search')->name('presentations.search');
-        Route::apiResource('users.presentations', 'API\PresentationController')->shallow();
+        Route::apiResource('users.presentations', 'API\PresentationController')
+            ->only(['index', 'show', 'store'])
+            ->shallow();
+        Route::middleware(['presentation.role:' . App\User\Role::PRESENTER()])->group(function () {
+            Route::apiResource('users.presentations', 'API\PresentationController')->only(['update', 'destroy'])->shallow();
+            Route::apiResource('presentations.polls', 'API\PollController')->only(['store'])->shallow();
+        });
+        Route::apiResource('presentations.polls', 'API\PollController')->only(['index', 'show'])->shallow();
         // presentation subscription management
         Route::middleware(['subscription.permission'])->group(function () {
             Route::post('presentations/{presentation}/users/{user}', 'API\PresentationUserController@subscribe')->name('presentations.users.subscribe');
@@ -38,13 +45,29 @@ Route::prefix('v1')->group(function () {
         });
         // manage user rights on presentations
         Route::put('presentations/{presentation}/users/{user}', 'API\PresentationUserController@changeRole')->name('presentations.change_role');
+
         // poll management
-        Route::apiResource('presentations.polls', 'API\PollController')->shallow();
-        Route::put('polls/{poll}/publish', 'API\PollController@publish')->name('polls.publish');
-        Route::get('polls/{poll}/results', 'API\PollController@results')->name('polls.results');
+        Route::middleware(['poll.role:' . App\User\Role::PRESENTER()])->group(function () {
+            Route::apiResource('polls', 'API\PollController')->only(['update', 'destroy'])->shallow();
+            Route::put('polls/{poll}/publish', 'API\PollController@publish')->name('polls.publish');
+            Route::get('polls/{poll}/results', 'API\PollController@results')->name('polls.results');
+            Route::apiResource('polls.choices', 'API\ChoiceController')->only(['store', 'update'])->shallow();
+        });
+
+        Route::apiResource('polls.choices', 'API\ChoiceController')->only(['index'])->shallow();
+
+        Route::middleware(['poll.role:' . App\User\Role::PRESENTER() . ',' . App\User\Role::ATENDEE()])->group(function () {
+            Route::get('polls/{poll}/results', 'API\PollController@results')->name('polls.results');
+        });
+
         // Choices management
-        Route::apiResource('polls.choices', 'API\ChoiceController')->except(['show'])->shallow();
-        Route::post('polls/{poll}/users/{user}', 'API\PollController@vote')->name('polls.vote');
+        Route::middleware(['choice.role:' . App\User\Role::PRESENTER()])->group(function () {
+            Route::apiResource('polls.choices', 'API\ChoiceController')->only(['destroy', 'update'])->shallow();
+        });
+
+        Route::middleware(['poll.role:' . App\User\Role::ATENDEE(), 'poll.choice', 'request.user', 'poll.votable'])->group(function () {
+            Route::post('polls/{poll}/users/{user}', 'API\PollController@vote')->name('polls.vote');
+        });
     });
 
 });

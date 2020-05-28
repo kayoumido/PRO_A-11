@@ -13,21 +13,24 @@ class Poll extends Model
     /**
      * Available choices for this poll
      */
-    public function choices() {
+    public function choices()
+    {
         return $this->hasMany('App\Choice');
     }
 
     /**
      * List of users that answered to this poll
      */
-    public function users() {
+    public function users()
+    {
         return $this->belongsToMany('App\User')->withPivot('choice_id');
     }
 
     /**
      * Linked presentation
      */
-    public function presentation() {
+    public function presentation()
+    {
         return $this->belongsTo('App\Presentation');
     }
 }

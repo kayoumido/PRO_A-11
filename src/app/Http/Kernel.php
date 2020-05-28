@@ -40,6 +40,7 @@ class Kernel extends HttpKernel
         'api' => [
             'throttle:60,1',
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
+            \App\Http\Middleware\JsonMiddleware::class,
         ],
     ];
 
@@ -61,7 +62,14 @@ class Kernel extends HttpKernel
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
-        'subscription.permission' => \App\Http\Middleware\CheckSubscriptionPermission::class
+        'poll.role' => \App\Http\Middleware\CheckPollRole::class,
+        'subscription.permission' => \App\Http\Middleware\CheckSubscriptionPermission::class,
+        'presentation.role' => \App\Http\Middleware\CheckPresentationRole::class,
+        'choice.role' => \App\Http\Middleware\CheckChoiceRole::class,
+        'poll.choice' => \App\Http\Middleware\CheckChoiceBelongsToPoll::class,
+        'poll.vote' => \App\Http\Middleware\CheckAlreadyVoted::class,
+        'request.user' => \App\Http\Middleware\CheckSameUserAsRequest::class,
+        'poll.votable' => \App\Http\Middleware\CheckPollIsVotable::class,
     ];
 
     /**

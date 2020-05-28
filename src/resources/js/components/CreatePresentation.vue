@@ -1,50 +1,79 @@
 <template>
-    <v-form
-      ref="form"
-      v-model="valid"
-      lazy-validation
+    <v-row
+        align="center"
+        justify="center"
+        class="my-5"
     >
-      <v-text-field
-        v-model="dataForm.title"
-        :counter="20"
-        :rules="titleRules"
-        label="Titre"
-        required
-      />
+        <v-col>
+            <v-card
+                class="elevation-12 pa-4">
+                <v-toolbar
+                    flat
+                >
+                    <v-toolbar-title>
+                        <CustomFont>
+                            Nouvelle présentation
+                        </CustomFont>
+                    </v-toolbar-title>
+                </v-toolbar>
+                <v-card-text>
+                    <v-form
+                        ref="form"
+                        v-model="valid"
+                        lazy-validation
+                    >
+                        <v-text-field
+                            v-model="dataForm.title"
+                            :counter="20"
+                            :rules="titleRules"
+                            label="Titre"
+                            required
+                        />
 
-      <v-datetime-picker
-        label="Date et Heure"
-        v-model="dataForm.date"
-        :rules="dateRules"
-        clearText="annuler"
-      >
-        <template slot="dateIcon">
-          <v-icon>mdi-calendar</v-icon>
-        </template>
-        <template slot="timeIcon">
-          <v-icon>mdi-clock</v-icon>
-        </template>
-      </v-datetime-picker>
-
-      <v-btn
-        :disabled="!valid"
-        color="success"
-        class="mr-4"
-        @click="createPresentation()"
-      >
-        Créer la présentation
-      </v-btn>
-
-    </v-form>
+                        <v-datetime-picker
+                            label="Date et Heure"
+                            v-model="dataForm.date"
+                            :rules="dateRules"
+                            clearText="annuler"
+                        >
+                            <template slot="dateIcon">
+                                <v-icon>mdi-calendar</v-icon>
+                            </template>
+                            <template slot="timeIcon">
+                                <v-icon>mdi-clock</v-icon>
+                            </template>
+                        </v-datetime-picker>
+                    </v-form>
+                </v-card-text>
+                <v-card-actions>
+                    <v-btn
+                        text
+                        small
+                        color="error"
+                        href="/presentations"
+                    >
+                        Annuler
+                    </v-btn>
+                    <v-spacer></v-spacer>
+                    <v-btn
+                        color="success"
+                        @click="createPresentation()"
+                    >
+                        Créer
+                    </v-btn>
+                </v-card-actions>
+            </v-card>
+        </v-col>
+    </v-row>
 </template>
 
 <script>
 import dateFormat from 'dateformat';
-
-let alert = {};
+import { mapGetters } from 'vuex';
+import CustomFont from './layout/CustomFont';
 
 export default {
-  props: ['parentRefs'],
+  components: { CustomFont },
   data() {
     return {
       valid: true,
@@ -61,13 +90,14 @@ export default {
       },
     };
   },
-  beforeMount() {
-    this.setLoggedUser();
-    alert = this.parentRefs.alert;
+  computed: {
+    ...mapGetters({
+      user: 'auth/user',
+    }),
   },
   methods: {
     createPresentation() {
-      const apiUrl = `/users/${this.loggedUser.id}/presentations`;
+      const apiUrl = `/users/${this.user.id}/presentations`;
 
       // force date validation
       if (!this.$refs.form.validate()) {
@@ -80,11 +110,15 @@ export default {
         date: dateFormat(this.dataForm.date, 'yyyy-mm-dd HH:MM'),
       })
         .then((response) => {
-          alert.showMessage('success', `La présentation ${response.data.title} a été correctement créée`);
+          this.$emit('success', `La présentation ${response.data.title} a été correctement créée`);
           this.$refs.form.reset();
+          this.$router.push({
+            name: 'Présentation',
+            params: { idPresentation: response.data.id },
+          });
         })
-        .catch((errorResponse) => {
-          alert.showMessage('error', `erreur lors de l'envoie des données ${errorResponse}`);
+        .catch(() => {
+          this.$emit('error', 'erreur lors de l\'envoie des données');
         });
     },
   },
