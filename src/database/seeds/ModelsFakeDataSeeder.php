@@ -13,20 +13,20 @@ class ModelsFakeDataSeeder extends Seeder
      */
     public function run()
     {
-        
+
 	DB::table('users')->insert([
 		'id' => 1,
 		'fname' => 'Pierre',
 		'lname' => 'Martin',
-		'email' => 'pierre.martin@gmail.com',
-		'password' => Hash::make('pro2020'),
+		'email' => 'pierre.martin@gmail.com.fake',
+		'password' => Hash::make('Pass1234'),
 		]);
 
 	DB::table('users')->insert([
 		'id' => 2,
 		'fname' => 'Maria',
 		'lname' => 'Costa',
-		'email' => 'maria.costa@heig-vd.ch',
+		'email' => 'maria.costa@heig-vd.ch.fake',
 		'password' => Hash::make('heig2020'),
 		]);
 
@@ -34,7 +34,7 @@ class ModelsFakeDataSeeder extends Seeder
 		'id' => 3,
 		'fname' => 'Jacque',
 		'lname' => 'Favre',
-		'email' => 'jacque.favre@outlook.com',
+		'email' => 'jacque.favre@outlook.com.fake',
 		'password' => Hash::make('P@$$w0rd'),
 		]);
 
@@ -42,42 +42,40 @@ class ModelsFakeDataSeeder extends Seeder
 		'id' => 4,
 		'fname' => 'Ana',
 		'lname' => 'Smith',
-		'email' => 'ana.smith@hes-so.ch',
+		'email' => 'ana.smith@hes-so.ch.fake',
 		'password' => Hash::make('hesso2020'),
 		]);
 
-	DB::table('conferences')->insert([
-		'id' => 1,
-		'name' => "Bases de l'informatique",
-		'date' => '2020-07-02 08:30',
+		DB::table('users')->insert([
+		'id' => 5,
+		'fname' => 'Jean-Marc',
+		'lname' => 'Bobst',
+		'email' => 'jean-marc.bost@heig-vd.ch',
+		'password' => Hash::make('PRO2020'),
 		]);
 
 	DB::table('presentations')->insert([
 		'id' => 1,
 		'title' => "Introduction à l'informatique",
 		'date' => '2020-07-02 8:30',
-		'conference_id' => '1',
 		]);
 
 	DB::table('presentations')->insert([
 		'id' => 2,
 		'title' => 'Les langages de programmation',
 		'date' => '2020-07-02 10:25',
-		'conference_id' => '1',
 		]);
 
 	DB::table('presentations')->insert([
 		'id' => 3,
 		'title' => 'La Sécurité informatique',
 		'date' => '2020-07-02 13:30',
-		'conference_id' => '1',
 		]);
 
 	DB::table('presentations')->insert([
 		'id' => 4,
 		'title' => "Les Système d'exploitation",
 		'date' => '2020-07-02 15:00',
-		'conference_id' => '1',
 		]);
 
 	DB::table('presentation_user')->insert([
