@@ -6,8 +6,9 @@
             expand-on-hover
             color="primary"
             dark
-            @transitionend="updateAppName"
+            mini-variant-width="80"
             class="elevation-10"
+            @transitionend="updateAppName"
             v-if="authenticated"
         >
             <v-list-item>
