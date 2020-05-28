@@ -1,5 +1,5 @@
 <template>
-    <v-card class="pa-4">
+    <v-card class="pb-4">
         <v-card-title v-if="user_role !== 'presenter'">{{poll.subject}}</v-card-title>
         <v-card-title v-else>
             <v-list-item-content>
