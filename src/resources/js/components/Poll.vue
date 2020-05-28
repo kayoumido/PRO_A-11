@@ -1,6 +1,10 @@
 <template>
     <v-card class="pb-4">
-        <v-card-title v-if="user_role !== 'presenter'">{{poll.subject}}</v-card-title>
+        <v-card-title v-if="user_role !== 'presenter'">
+            <CustomFont>
+                {{poll.subject}}
+            </CustomFont>
+        </v-card-title>
         <v-card-title v-else>
             <v-list-item-content>
                 <v-list-item-title
@@ -41,10 +45,11 @@
 <script>
 import Choices from './Choices';
 import PollResult from './PollResult';
+import CustomFont from './layout/CustomFont';
 
 export default {
   name: 'Poll',
-  components: { PollResult, Choices },
+  components: { CustomFont, PollResult, Choices },
   props: [
     'poll',
     'user_id',

@@ -1,72 +1,75 @@
 <template>
-    <v-container
-        fluid>
-        <v-row
-            align="center"
-            justify="center"
-            class="my-5"
-        >
-            <v-col>
-                <v-card
-                    class="elevation-12 pa-4">
-                    <v-toolbar
-                        flat
+    <v-row
+        align="center"
+        justify="center"
+        class="my-5"
+    >
+        <v-col>
+            <v-card
+                class="elevation-12 pa-4">
+                <v-toolbar
+                    flat
+                >
+                    <v-toolbar-title>
+                        <CustomFont>
+                           Modifier la présentation
+                        </CustomFont>
+                    </v-toolbar-title>
+                </v-toolbar>
+                <v-card-text>
+                    <v-form
+                        ref="form"
+                        v-model="valid"
+                        lazy-validation
                     >
-                        <v-toolbar-title>Modifier la présentation</v-toolbar-title>
-                    </v-toolbar>
-                    <v-card-text>
-                        <v-form
-                            ref="form"
-                            v-model="valid"
-                            lazy-validation
-                        >
-                            <v-text-field
-                                v-model="form.title"
-                                :rules="titleRules"
-                                label="Titre"
-                            />
+                        <v-text-field
+                            v-model="form.title"
+                            :rules="titleRules"
+                            label="Titre"
+                        />
 
-                            <v-datetime-picker
-                                label="Date et Heure"
-                                v-model="form.date"
-                                clearText="annuler"
-                            >
-                                <template slot="dateIcon">
-                                    <v-icon>mdi-calendar</v-icon>
-                                </template>
-                                <template slot="timeIcon">
-                                    <v-icon>mdi-clock</v-icon>
-                                </template>
-                            </v-datetime-picker>
-                        </v-form>
-                    </v-card-text>
-                    <v-card-actions>
-                        <v-btn
-                            text
-                            small
-                            color="error"
-                            @click="$router.back()"
+                        <v-datetime-picker
+                            label="Date et Heure"
+                            v-model="form.date"
+                            clearText="annuler"
                         >
-                            Annuler
-                        </v-btn>
-                        <v-spacer></v-spacer>
-                        <v-btn
-                            color="success"
-                            @click="submitChange"
-                        >
-                            Modifier
-                        </v-btn>
-                    </v-card-actions>
-                </v-card>
-            </v-col>
-        </v-row>
-    </v-container>
+                            <template slot="dateIcon">
+                                <v-icon>mdi-calendar</v-icon>
+                            </template>
+                            <template slot="timeIcon">
+                                <v-icon>mdi-clock</v-icon>
+                            </template>
+                        </v-datetime-picker>
+                    </v-form>
+                </v-card-text>
+                <v-card-actions>
+                    <v-btn
+                        text
+                        small
+                        color="error"
+                        @click="$router.back()"
+                    >
+                        Annuler
+                    </v-btn>
+                    <v-spacer></v-spacer>
+                    <v-btn
+                        color="success"
+                        @click="submitChange"
+                    >
+                        Modifier
+                    </v-btn>
+                </v-card-actions>
+            </v-card>
+        </v-col>
+    </v-row>
 </template>
 
 <script>
 import dateFormat from 'dateformat';
+import CustomFont from './layout/CustomFont';
 
 export default {
+  components: { CustomFont },
   data() {
     return {
       valid: true,

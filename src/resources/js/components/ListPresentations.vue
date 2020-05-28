@@ -1,6 +1,5 @@
 <template>
-    <v-container
-        fluid>
+    <div>
         <v-row>
             <v-col col="10">
                 <SearchBar></SearchBar>
@@ -29,7 +28,9 @@
                         <v-list-item-content>
                             <v-list-item-title
                                 class="title">
-                                {{presentation.title}}
+                                <CustomFont>
+                                    {{presentation.title}}
+                                </CustomFont>
                             </v-list-item-title>
                             <v-list-item-subtitle>{{presentation.date}}</v-list-item-subtitle>
                         </v-list-item-content>
@@ -51,15 +52,16 @@
                 </v-card>
             </v-col>
         </v-row>
-    </v-container>
+    </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex';
 import SearchBar from './layout/SearchBar';
+import CustomFont from './layout/CustomFont';
 
 export default {
-  components: { SearchBar },
+  components: { CustomFont, SearchBar },
   data() {
     return {
       presentations: [],

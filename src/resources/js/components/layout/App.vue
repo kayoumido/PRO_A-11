@@ -13,8 +13,10 @@
         >
             <v-list-item>
                 <v-list-item-content>
-                    <v-list-item-title class="title text-center font-weight-bold">
-                        {{appName}}
+                    <v-list-item-title class="title text-center">
+                        <CustomFont class="display-2">
+                            {{appName}}
+                        </CustomFont>
                     </v-list-item-title>
                 </v-list-item-content>
             </v-list-item>
@@ -36,6 +38,7 @@
         </v-navigation-drawer>
 
         <v-content>
+            <v-container>
                 <router-view
                     v-on:error="handleAlert('error', $event)"
                     v-on:success="handleAlert('success', $event)"></router-view>
@@ -52,14 +55,16 @@
                         <v-icon>mdi-close</v-icon>
                     </v-btn>
                 </v-snackbar>
+            </v-container>
         </v-content>
     </v-app>
 </template>
 <script>
 import { mapActions, mapGetters } from 'vuex';
 import SideBar from './SideBar';
+import CustomFont from './CustomFont';
 
-const appName = 'Paul';
+const appName = 'Paul.';
 const shortAppName = 'P.';
 export default {
   data() {
@@ -77,6 +82,7 @@ export default {
     }),
   },
   components: {
+    CustomFont,
     SideBar,
   },
   methods: {

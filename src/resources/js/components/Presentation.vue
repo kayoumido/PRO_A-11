@@ -1,6 +1,5 @@
 <template>
-      <v-container
-          fluid
+      <div
           v-if="isLoaded"
       >
       <v-row>
@@ -9,7 +8,9 @@
                   <v-list-item-content>
                       <v-list-item-title
                           class="title">
-                          {{presentation.title}}
+                          <CustomFont>
+                              {{presentation.title}}
+                          </CustomFont>
                       </v-list-item-title>
                       <v-list-item-subtitle>{{presentation.date}}</v-list-item-subtitle>
                   </v-list-item-content>
@@ -64,15 +65,16 @@
         :user_role="presentation.auth_user_role"
         :presentation_id="presentation.id"></Polls>
 
-    </v-container>
+    </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex';
 import Polls from './Polls';
+import CustomFont from './layout/CustomFont';
 
 export default {
-  components: { Polls },
+  components: { CustomFont, Polls },
   data() {
     return {
       isLoaded: false,

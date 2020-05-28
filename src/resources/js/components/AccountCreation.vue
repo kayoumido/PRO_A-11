@@ -1,11 +1,6 @@
 <template>
-    <v-container
-        fluid>
-        <v-row
-            align="center"
-            justify="center">
-            <span class="text-center display-4" style="color: #5BDC8E">Paul</span>
-        </v-row>
+    <div>
+        <AppTitle></AppTitle>
         <v-row
             align="center"
             justify="center"
@@ -20,7 +15,11 @@
                     <v-toolbar
                         flat
                     >
-                        <v-toolbar-title>Créer un compte</v-toolbar-title>
+                        <v-toolbar-title>
+                            <CustomFont>
+                                Créer un compte
+                            </CustomFont>
+                        </v-toolbar-title>
                     </v-toolbar>
                     <v-card-text>
                         <v-form
@@ -89,13 +88,16 @@
                 </v-card>
             </v-col>
         </v-row>
-    </v-container>
+    </div>
 </template>
 
 <script>
 import { mapActions } from 'vuex';
+import AppTitle from './layout/AppTitle';
+import CustomFont from './layout/CustomFont';
 
 export default {
+  components: { CustomFont, AppTitle },
   data() {
     return {
       // vuetify
@@ -143,3 +145,11 @@ export default {
   },
 };
 </script>
+<style scoped>
+    #appTitle {
+        color: #5BDC8E;
+    }
+    v-toolbar-title, v-row v-col h1.custom {
+        font-family: 'Fredoka One', cursive !important;
+    }
+</style>
