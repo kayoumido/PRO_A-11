@@ -1,5 +1,5 @@
 <p align="center">
-<img src="doc/paul.png" width="600">
+<img src="doc/paul.png" width="400">
 </p>
 <p align="center">
   <img src="https://forthebadge.com/images/badges/built-with-love.svg" alt="version">
@@ -7,6 +7,7 @@
   <img src="https://forthebadge.com/images/badges/makes-people-smile.svg" alt="platform">
   <img src="https://forthebadge.com/images/badges/winter-is-coming.svg" alt="platform">
 </p>
+
 
 ## Table of contents
 * [About Paul.](#about-paul)
