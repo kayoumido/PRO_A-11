@@ -18,40 +18,40 @@ class ModelsFakeDataSeeder extends Seeder
 		'id' => 1,
 		'fname' => 'Pierre',
 		'lname' => 'Martin',
-		'email' => 'pierre.martin@gmail.com.fake',
-		'password' => Hash::make('Pass1234'),
+		'email' => 'pierre.martin@paul.fake',
+		'password' => Hash::make('password'),
 		]);
 
 	DB::table('users')->insert([
 		'id' => 2,
 		'fname' => 'Maria',
 		'lname' => 'Costa',
-		'email' => 'maria.costa@heig-vd.ch.fake',
-		'password' => Hash::make('heig2020'),
+		'email' => 'maria.costa@paul.fake',
+		'password' => Hash::make('password'),
 		]);
 
 	DB::table('users')->insert([
 		'id' => 3,
 		'fname' => 'Jacque',
 		'lname' => 'Favre',
-		'email' => 'jacque.favre@outlook.com.fake',
-		'password' => Hash::make('P@$$w0rd'),
+		'email' => 'jacque.favre@paul.fake',
+		'password' => Hash::make('password'),
 		]);
 
 	DB::table('users')->insert([
 		'id' => 4,
 		'fname' => 'Ana',
 		'lname' => 'Smith',
-		'email' => 'ana.smith@hes-so.ch.fake',
-		'password' => Hash::make('hesso2020'),
+		'email' => 'ana.smith@paul.fake',
+		'password' => Hash::make('password'),
 		]);
 
 		DB::table('users')->insert([
 		'id' => 5,
 		'fname' => 'Jean-Marc',
 		'lname' => 'Bobst',
-		'email' => 'jean-marc.bost@heig-vd.ch',
-		'password' => Hash::make('PRO2020'),
+		'email' => 'jean-marc.bost@paul.ch',
+		'password' => Hash::make('password'),
 		]);
 
 	DB::table('presentations')->insert([
