@@ -9,7 +9,7 @@
         :error="error">
       </v-text-field>
       <v-btn @click="createPoll" text color="success">
-        <v-icon>mdi-file-plus-outline</v-icon>
+        Nouveau Sondage
       </v-btn>
     </v-card-title>
   </v-card>

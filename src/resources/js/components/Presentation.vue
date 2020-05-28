@@ -1,54 +1,80 @@
 <template>
-      <v-container
-      v-if="isLoaded"
+      <div
+          v-if="isLoaded"
       >
       <v-row>
           <v-col>
-              <h2>{{presentation.title}}</h2>
+              <v-list-item two-line>
+                  <v-list-item-content>
+                      <v-list-item-title
+                          class="title">
+                          <CustomFont>
+                              {{presentation.title}}
+                          </CustomFont>
+                      </v-list-item-title>
+                      <v-list-item-subtitle>{{presentation.date}}</v-list-item-subtitle>
+                  </v-list-item-content>
+                  <template v-if="isPresenter()">
+                      <v-list-item-action>
+                          <v-btn
+                              text
+                              small
+                              color="warning"
+                              @click="goToEdit">
+                              Modifier
+                          </v-btn>
+                      </v-list-item-action>
+                      <v-list-item-action>
+                          <v-btn
+                              text
+                              small
+                              color="error"
+                              @click.prevent="delPresentation(presentation.id)">
+                              Supprimer
+                          </v-btn>
+                      </v-list-item-action>
+                  </template>
+                  <template v-else>
+                      <v-list-item-action>
+                          <v-btn
+                              v-if="!isSubscribed"
+                              @click="subscribe"
+                              color="primary"
+                              text
+                              small
+                          >
+                              S'inscrire
+                          </v-btn>
+                          <v-btn
+                              v-else
+                              @click="unsubscribe"
+                              color="error"
+                              text
+                              small>
+                              Se désincrire
+                          </v-btn>
+                      </v-list-item-action>
+                  </template>
+              </v-list-item>
           </v-col>
       </v-row>
-      <v-row>
-          <v-col>
-              <p>{{presentation.date}}</p>
-          </v-col>
-      </v-row>
-      <v-row>
-          <v-col>
-            <v-btn
-            v-if="isPresenter()"
-            color="error"
-            @click.prevent="delPresentation(presentation.id)">
-              Supprimer
-            </v-btn>
-            <v-btn
-                v-else-if="!isSubscribed"
-                @click="subscribe"
-                color="primary"
-                >
-                S'inscrire
-            </v-btn>
-            <v-btn
-                v-else
-                @click="unsubscribe"
-                color="error">
-                Se désincrire
-            </v-btn>
-          </v-col>
-      </v-row>
+      <v-divider></v-divider>
       <Polls
         v-on:error="$emit('error', $event)"
-        :user_id="loggedUser.id"
+        :user_id="user.id"
         :user_role="presentation.auth_user_role"
         :presentation_id="presentation.id"></Polls>
 
-    </v-container>
+    </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import Polls from './Polls';
+import CustomFont from './layout/CustomFont';
 
 export default {
-  components: { Polls },
+  components: { CustomFont, Polls },
   data() {
     return {
       isLoaded: false,
@@ -65,26 +91,22 @@ export default {
       this.getPresentation(this.$route.params.idPresentation);
     },
   },
+  computed: {
+    ...mapGetters({
+      user: 'auth/user',
+    }),
+  },
   beforeMount() {
-    this.getPresentation(this.$route.params.idPresentation);
-    this.setLoggedUser()
+    this.getPresentation(this.$route.params.idPresentation)
       .then(() => {
-        window.axios
-          .get(`/users/${this.loggedUser.id}/presentations`)
-          .then((subResponse) => {
-            subResponse.data.forEach((pres) => {
-              if (pres.id === this.presentation.id) {
-                this.isSubscribed = true;
-              }
-            });
-            this.isLoaded = true;
-          });
+        this.isSubscribed = this.presentation.auth_user_role !== 'none';
+        this.isLoaded = true;
       });
   },
   methods: {
     subscribe() {
       window.axios
-        .post(`/presentations/${this.presentation.id}/users/${this.loggedUser.id}`)
+        .post(`/presentations/${this.presentation.id}/users/${this.user.id}`)
         .then(() => {
           this.$emit('success', 'Félicitations vous êtes maintenant inscrit à la présentation');
           this.isSubscribed = true;
@@ -95,7 +117,7 @@ export default {
     },
     unsubscribe() {
       window.axios
-        .delete(`/presentations/${this.presentation.id}/users/${this.loggedUser.id}`)
+        .delete(`/presentations/${this.presentation.id}/users/${this.user.id}`)
         .then(() => {
           this.$emit('warning', 'Vous n\'êtes plus inscrit a cette présentation');
           this.isSubscribed = false;
@@ -106,7 +128,7 @@ export default {
     },
     getPresentation(id) {
       const apiUrl = `/presentations/${id}`;
-      window.axios
+      return window.axios
         .get(apiUrl)
         .then((presResponse) => {
           this.presentation = presResponse.data;
@@ -129,6 +151,12 @@ export default {
         .catch(() => {
           this.$emit('error', 'La tentative de suppression a échoué');
         });
+    },
+    goToEdit() {
+      this.$router.push({
+        name: 'Edition de présentation',
+        params: { idPresentation: this.presentation.id },
+      });
     },
   },
 

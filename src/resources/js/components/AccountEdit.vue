@@ -1,124 +1,125 @@
 <template>
-
-  <v-form
-    ref="form"
-    v-model="valid"
-    lazy-validation
-  >
-    <v-text-field
-      v-model="updateUserInfo.fname"
-      :counter="10"
-      :rules="nameRules"
-      label="Prenom"
-    />
-
-    <v-text-field
-      v-model="updateUserInfo.lname"
-      :counter="10"
-      :rules="nameRules"
-      label="Nom"
-    />
-
-    <v-text-field
-      v-model="updateUserInfo.email"
-      :rules="emailRules"
-      label="E-mail"
-    />
-
-    <v-btn
-      :disabled="!valid"
-      color="success"
-      class="mr-4"
-      @click="submitChange"
+    <v-row
+        align="center"
+        justify="center"
+        class="my-5"
     >
-      Appliquer
-    </v-btn>
+        <v-col>
+            <v-card
+                class="elevation-12 pa-4">
+                <v-toolbar
+                    flat
+                >
+                    <v-toolbar-title>
+                        <CustomFont>
+                            Mon compte
+                        </CustomFont>
+                    </v-toolbar-title>
+                </v-toolbar>
+                <v-card-text>
+                    <v-form
+                        ref="form"
+                        lazy-validation
+                    >
+                        <v-text-field
+                            v-model="form.fname"
+                            :counter="10"
+                            :rules="nameRules"
+                            label="Prenom"
+                        />
 
-  </v-form>
+                        <v-text-field
+                            v-model="form.lname"
+                            :counter="10"
+                            :rules="nameRules"
+                            label="Nom"
+                        />
+
+                        <v-text-field
+                            v-model="form.email"
+                            :rules="emailRules"
+                            label="E-mail"
+                        />
+                    </v-form>
+                </v-card-text>
+                <v-card-actions>
+                    <v-btn
+                        text
+                        small
+                        color="error"
+                        @click="$router.back()"
+                    >
+                        Annuler
+                    </v-btn>
+                    <v-spacer></v-spacer>
+                    <v-btn
+                        color="success"
+                        @click="submitChange"
+                    >
+                        Modifier
+                    </v-btn>
+                </v-card-actions>
+            </v-card>
+        </v-col>
+    </v-row>
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex';
+import CustomFont from './layout/CustomFont';
+
 export default {
+  components: { CustomFont },
   data() {
     return {
-      valid: true, // if a rules is not fully satisfied this will disable the submit button
       nameRules: [
         (v) => v === '' || v.length <= 10 || 'Le nom doit contenir moins de 10 caractères',
       ],
       emailRules: [
         (v) => v === '' || /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,})+$/.test(v) || 'l\'E-mail doit être valide',
       ],
-      // Object for form field binding
-      updateUserInfo: {
+      form: {
         fname: '',
         lname: '',
         email: '',
       },
+      changed: {},
     };
   },
-  beforeMount() {
-    this.setLoggedUser();
+  computed: {
+    ...mapGetters({
+      user: 'auth/user',
+    }),
+  },
+  mounted() {
+    this.form = JSON.parse(JSON.stringify(this.user));
   },
   methods: {
+    ...mapActions({
+      updateUser: 'auth/updateUser',
+    }),
     submitChange() {
-      // API Url use mirageJS for testing data ,
-      // const apiUrl = `/api/user/${this.loggedUser.id}`;
-
-      // real backend URL
-      const apiUrl = `/users/${this.loggedUser.id}`;
-
-      // prepare the data to send
-      const data = this.getDataToSend();
-
-      // Check if the object is Empty
-
-      if (Object.keys(data).length === 0) {
-        this.$emit('error', 'Vous devez remplir au moins un champs');
-        return;
-      }
-
-      // send http request with axios and catch response or error
-      window.axios.put(apiUrl, data)
-        .then((response) => {
-          // real backend response
-          this.loggedUser = response.data;
-
-          // mirage response
-          // this.loggedUser = response.data.user;
+      // eslint-disable-next-line no-console
+      console.log('before: ', this.form, this.changed);
+      this.prepareData();
+      // eslint-disable-next-line no-console
+      console.log('after: ', this.form, this.changed);
+      this.updateUser(this.changed)
+        .then(() => {
           this.$emit('success', 'Changement appliqué');
-
-          this.cleanForm();
         })
-        .catch((errorResponse) => {
-          this.$emit('error', `Erreur lors de l'envoie des donnée ${errorResponse}`);
+        .catch(() => {
+          this.$emit('error', 'Une erreur c\'est produite lors de l\'envois des données');
+        })
+        .then(() => {
+          this.form = JSON.parse(JSON.stringify(this.user));
+          this.changed = {};
         });
     },
-    /**
-     * Prepare the data object for sending to the backend
-     * add a key only if the field is not empty
-     */
-    getDataToSend() {
-      const data = {};
-      // we add the key and value if user has change the field
-      if (!this.isEmpty(this.updateUserInfo.fname)) {
-        data.fname = this.updateUserInfo.fname;
-      }
-      if (!this.isEmpty(this.updateUserInfo.lname)) {
-        data.lname = this.updateUserInfo.lname;
-      }
-      if (!this.isEmpty(this.updateUserInfo.email)) {
-        data.email = this.updateUserInfo.email;
-      }
-
-      return data;
-    },
-    cleanForm() {
-      this.updateUserInfo.fname = '';
-      this.updateUserInfo.lname = '';
-      this.updateUserInfo.email = '';
-    },
-    isEmpty(textInput) {
-      return (textInput === '');
+    prepareData() {
+      if (this.form.lname !== this.user.lname) this.changed.lname = this.form.lname;
+      if (this.form.fname !== this.user.fname) this.changed.fname = this.form.fname;
+      if (this.form.email !== this.user.email) this.changed.email = this.form.email;
     },
   },
 };
