@@ -10,6 +10,7 @@
         <v-row>
             <v-col>
                 <v-btn
+                    class="float-right"
                     text
                     color="success"
                     small
