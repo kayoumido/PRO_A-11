@@ -251,7 +251,7 @@ Any other documentation can be found on the [Google drive](https://drive.google.
 | -------------------------------------------- | ------------------------------- | ---------- |
 | Doran Kayoumi (project lead)                 | doran.kayoumi@heig-vd.ch        | kayoumido  |
 | Fabio da Silva Marques (deputy project lead) | fabio.dasilvamarques@heig-vd.ch | fabio10000 |
-| Moïn Danai                                   | guido.vanrossum@heig-vd.ch      | Serphentas |
+| Moïn Danai                                   | moin.danai@heig-vd.ch           | Serphentas |
 | Sacha Perdrizat                              | sacha.perdrizat@heig-vd.ch      | Sinyks     |
 | Rui Lopes Gouveia                            | rui.lopesgouveia@heig-vd.ch     | Lindwing   |
 | Alban Favre                                  | alban.favre@heig-vd.ch          | alfavre    |
